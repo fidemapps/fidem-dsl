@@ -10,10 +10,11 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:fidem-team/fidem-dsl.git"
+    "url": "git://github.com/fidemapps/fidem-dsl.git"
   },
   "bugs": {
-    "email": "sebastieng@sympatico.ca"
+    "email": "sebastieng@sympatico.ca",
+    "url": "https://github.com/fidemapps/fidem-dsl/issues"
   },
   "scripts": {
     "test": "mocha"
