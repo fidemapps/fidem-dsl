@@ -9,13 +9,11 @@ env:
 
 before_install:
   - npm install -g grunt-cli
+  - npm install -g pegjs
 
 before_script:
   - mkdir -p shippable/testresults
 
 script:
+  - grunt pegjs
   - npm test
-
-after_success:
-  - npm pack
-  - curl -F package=@fidem-dsl-0.1.0.tgz https://qwBMRrLz-eTUab3Us25g@push.fury.io/sguimont/
