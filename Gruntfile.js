@@ -5,6 +5,15 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     assets: {},
+    mochaTest: {
+      single: {
+        options: {
+          grep: grunt.option('test'),
+          reporter: 'spec'
+        },
+        src: ['test/*.js']
+      }
+    },
     shell: {
       'pegjs-challenge-rules': {
         command: 'pegjs ./dsl/challenge-rules-parser.pegjs ./lib/challenge-rules-parser.js'
@@ -48,6 +57,7 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.registerTask('default', ['browserify', 'uglify']);
+  grunt.registerTask('single-test', ['mochaTest:single']);
   grunt.registerTask('pegjs', ['shell:pegjs-challenge-rules', 'shell:pegjs-challenge-availability-rules', 'shell:pegjs-reaction-actions', 'shell:pegjs-reaction-trigger-conditions', 'shell:pegjs-smartlist-member-conditions']);
 
 };

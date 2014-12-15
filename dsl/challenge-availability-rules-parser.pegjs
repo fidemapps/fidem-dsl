@@ -3,13 +3,14 @@
   ==================
 
     level LEVELCODE >= 1
-    tag TAG >= 10
-    challenge CODE
+    tag TAGCODE >= 10
+    segment SEGMENTCODE >= 1
+    challenge CHALLENGECODE
 
     // NOT IMPLEMENTED YET
-    segment SEGMENT >= 1
-    geolocation within rectange / around circle
-
+    zone enter ZONECODE
+    zone exit ZONECODE
+    geolocation in x1,y1 and x2,y2 | at x meter from x,y
  */
 {
     function extractOptional(optional, index) {
@@ -48,29 +49,38 @@ rules
     }
 
 simple_rule
-    = scope:"level" S* code:code S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    = scope:"level" S* levelCode:levelCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
     {
         return {
             scope: scope,
-            code: code,
+            code: levelCode,
             operator: operator,
             value: value
         };
     }
-    / scope:"tag" S* code:code S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    / scope:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
     {
         return {
             scope: scope,
-            code: code,
+            code: tagCode,
             operator: operator,
             value: value
         };
     }
-    / scope:"challenge" S* code:code
+    / scope:"segment" S* segmentCode:segmentCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
     {
         return {
             scope: scope,
-            code: code
+            code: segmentCode,
+            operator: operator,
+            value: value
+        };
+    }
+    / scope:"challenge" S* challengeCode:challengeCode
+    {
+        return {
+            scope: scope,
+            code: challengeCode
         };
     }
 
@@ -89,29 +99,26 @@ string2
 string
     = string1 / string2
 
-path_start
-    = [_a-z]i
-
-path_char
+code_char
     = [_a-z0-9-\.]i
 
-path
-    = start:path_start chars:path_char*
-    {
-        return start + chars.join("");
-    }
-
-name
-    = chars:path_char+
-    {
-        return chars.join("");
-    }
-
 code
-    = chars:path_char+
+    = chars:code_char+
     {
         return chars.join("");
     }
+
+challengeCode "challengeCode"
+    = code
+
+levelCode "levelCode"
+    = code
+
+segmentCode "segmentCode"
+    = code
+
+tagCode "tagCode"
+    = code
 
 NUMBER "number"
     = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)
@@ -128,56 +135,8 @@ s
 S "whitespace"
     = s
 
-NULL_VALUE "<null>"
- = 'n' 'u' 'l' 'l'
- {
-    return null;
- }
-
 STRING "string"
     = string:string
     {
         return string;
-    }
-
-PATH "path"
-    = path:path
-    {
-        return path;
-    }
-
-HASH "hash"
-    = "#" name:name
-    {
-        return name;
-    }
-
-date_full_year
-    = $(DIGIT DIGIT DIGIT DIGIT)
-
-date_month
-    = $(DIGIT DIGIT)
-
-date_day
-    = $(DIGIT DIGIT)
-
-time_hour
-    = $(DIGIT DIGIT)
-
-time_minute
-    = $(DIGIT DIGIT)
-
-time_second
-    = $(DIGIT DIGIT)
-
-DATE "date"
-    = year:date_full_year "-" month:date_month "-" day:date_day
-    {
-        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-    }
-
-DATE_TIME "datetime"
-    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour ":" minute:time_minute ":" second:time_second
-    {
-        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
     }

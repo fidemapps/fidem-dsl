@@ -46,7 +46,12 @@
  member "new level" 'LEVEL_LIST' x times   with TAG 'TAG_NAME'
  member "new level" 'LEVEL_LIST' x times   within x time_period   with TAG 'TAG_NAME'
 
- */
+// NOT IMPLEMENTED YET
+ zone enter CODE
+ zone exit CODE
+ geolocation in x1,y1 and x2,y2 | at x meter from x,y
+*/
+
 {
     function extractOptional(optional, index) {
         return optional ? optional[index] : null;
@@ -90,25 +95,25 @@ rules
     }
 
 simple_rule
-    = scope:"action" S* code:code conditions:(S* condition)* filters:(S* filter)*
+    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)*
     {
         return {
             scope: scope,
-            code: code,
+            code: actionCode,
             conditions: buildList(null, conditions, 1),
             filters: buildList(null, filters, 1)
         };
     }
-    / scope:"challenge" S* code:code conditions:(S* condition)* filters:(S* filter)*
+    / scope:"challenge" S* challengeCode:challengeCode conditions:(S* condition)* filters:(S* filter)*
     {
         return {
             scope: scope,
-            code: code,
+            code: challengeCode,
             conditions: buildList(null, conditions, 1),
             filters: buildList(null, filters, 1)
         };
     }
-    / scope:"member" S* type:("level" / "point" / "tag") S* levelCode:code S* value:NUMBER S* filter:withTag?
+    / scope:"member" S* type:("level" / "point" / "tag") S* levelCode:levelCode S* value:NUMBER S* filter:withTag?
     {
         var theRule = {
             scope: scope,
@@ -120,7 +125,7 @@ simple_rule
 
         return theRule;
     }
-    / scope:"member" S* type:"level up" S* levelCode:code conditions:(S* condition)* S* filter:withTag?
+    / scope:"member" S* type:"level up" S* levelCode:levelCode conditions:(S* condition)* S* filter:withTag?
     {
         return {
             scope: scope,
@@ -138,11 +143,11 @@ filter
     = withTag
 
 withTag
-    = "with tag" S* tag:code S* value:("=" S* qty:NUMBER)?
+    = "with tag" S* tagCode:tagCode S* value:("=" S* qty:NUMBER)?
     {
         return {
             type: 'tag',
-            tag: tag,
+            tag: tagCode,
             value: value ? value[2] : null
         };
     }
@@ -220,6 +225,22 @@ code
     {
         return chars.join("");
     }
+
+actionCode "actionCode"
+    = code
+
+challengeCode "challengeCode"
+    = code
+
+levelCode "levelCode"
+    = code
+
+segmentCode "segmentCode"
+    = code
+
+tagCode "tagCode"
+    = code
+
 
 NUMBER "number"
     = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)
