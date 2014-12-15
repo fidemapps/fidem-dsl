@@ -1,0 +1,21 @@
+language: node_js
+
+node_js:
+  - 0.10.30
+
+env:
+  global:
+    - XUNIT_FILE=shippable/testresults/result.xml
+
+before_install:
+  - npm install -g grunt-cli
+
+before_script:
+  - mkdir -p shippable/testresults
+
+script:
+  - npm test
+
+after_success:
+  - npm pack
+  - curl -F package=@fidem-dsl-0.1.0.tgz https://qwBMRrLz-eTUab3Us25g@push.fury.io/sguimont/
