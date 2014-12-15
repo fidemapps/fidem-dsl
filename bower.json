@@ -1,7 +1,7 @@
 {
   "name": "fidem-dsl",
   "main": "fidem-dsl.js",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://bitbucket.org/fidem-team/fidem-dsl/",
   "authors": [
     "Sébastien Guimont"
