@@ -1,0 +1,26 @@
+{
+  "name": "fidem-dsl",
+  "main": "fidem-dsl.js",
+  "version": "0.0.0",
+  "homepage": "https://bitbucket.org/fidem-team/fidem-dsl/",
+  "authors": [
+    "Sébastien Guimont"
+  ],
+  "description": "Fidem DSL",
+  "keywords": [
+    "dsl",
+    "fidem"
+  ],
+  "license": "Commercial",
+  "ignore": [
+    "**/.*",
+    "package.json",
+    "node_modules",
+    "bower_components",
+    "Gruntfile.js",
+    "TODO.md",
+    "test.js"
+  ],
+  "dependencies": {},
+  "devDependencies": {}
+}
