@@ -23,7 +23,7 @@ describe('<Unit Test>', function () {
 
         var rule = parser.parse("3 days before sales of EVENT1");
         should(rule).eql({
-          eventId: 'EVENT1',
+          eventCode: 'EVENT1',
           conditions: [
             {
               type: 'time',
@@ -41,7 +41,7 @@ describe('<Unit Test>', function () {
 
         var rule = parser.parse("10 minutes after curtain of EVENT2");
         should(rule).eql({
-          eventId: 'EVENT2',
+          eventCode: 'EVENT2',
           conditions: [
             {
               type: 'time',
@@ -59,7 +59,7 @@ describe('<Unit Test>', function () {
 
         var rule = parser.parse("tier TIER1 ticket sales < 50 of EVENT1");
         should(rule).eql({
-          eventId: 'EVENT1',
+          eventCode: 'EVENT1',
           conditions: [
             {
               type: 'tierSales',
@@ -77,7 +77,7 @@ describe('<Unit Test>', function () {
 
         var rule = parser.parse("tier TIER1 ticket sales > 50% of EVENT1");
         should(rule).eql({
-          eventId: 'EVENT1',
+          eventCode: 'EVENT1',
           conditions: [
             {
               type: 'tierSales',
@@ -95,7 +95,7 @@ describe('<Unit Test>', function () {
 
         var rule = parser.parse("ticket sales < 100 of EVENT2");
         should(rule).eql({
-          eventId: 'EVENT2',
+          eventCode: 'EVENT2',
           conditions: [
             {
               type: 'eventSales',
@@ -113,7 +113,7 @@ describe('<Unit Test>', function () {
 
         var rule = parser.parse("ticket sales <= 30% of EVENT2");
         should(rule).eql({
-          eventId: 'EVENT2',
+          eventCode: 'EVENT2',
           conditions: [
             {
               type: 'eventSales',
@@ -131,7 +131,7 @@ describe('<Unit Test>', function () {
 
         var rule = parser.parse("1 hour before curtain and tier TIER1 ticket sales < 75% of EVENT2");
         should(rule).eql({
-          eventId: 'EVENT2',
+          eventCode: 'EVENT2',
           conditions: [
             {
               type: 'time',

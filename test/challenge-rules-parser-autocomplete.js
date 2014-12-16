@@ -20,6 +20,20 @@ describe('<Unit Test>', function () {
     });
 
     describe('Should get exception for auto-complete', function () {
+      it('Empty string', function (done) {
+
+        try {
+          parser.parse("");
+        }
+        catch (err) {
+          var literalChoices = helper.extractLiterals(err);
+          should(err.expected.length).equal(3);
+          should(literalChoices).eql(['action', 'challenge', 'member']);
+        }
+
+        done();
+      });
+
       it('Missing challenge code', function (done) {
 
         try {

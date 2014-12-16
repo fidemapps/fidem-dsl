@@ -2,10 +2,10 @@
   Trigger Conditions Rules
   ========================
 
-    X (days/hours/minutes) (before|after) (sales|curtain|start) of EVENT_ID
+    X (days/hours/minutes) (before|after) (sales|curtain|start|end) of EVENT_CODE
 
-    Tier TIER_CODE ticket sales < 50% of EVENT_ID
-    Ticket sales < 50% of EVENT_ID
+    Tier TIER_CODE ticket sales < 50% of EVENT_CODE
+    Ticket sales < 50% of EVENT_CODE
 
  */
 {
@@ -34,10 +34,10 @@ start
     = conditions;
 
 conditions
-    = first:simple_condition reminders:(S* "and" S* simple_condition)* S* "of" S* eventId:code
+    = first:simple_condition reminders:(S* "and" S* simple_condition)* S* "of" S* eventCode:eventCode
     {
         return {
-            eventId: eventId,
+            eventCode: eventCode,
             conditions: buildList(first, reminders, 3)
         }
     }
@@ -53,7 +53,7 @@ simple_condition
             eventQualifier: eventQualifier
         };
     }
-    / "tier" S* tierCode:code S* "ticket sales" S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER percent:"%"?
+    / "tier" S* tierCode:tierCode S* "ticket sales" S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER percent:"%"?
     {
         return {
             type: "tierSales",
@@ -117,6 +117,12 @@ code
     {
         return chars.join("");
     }
+
+eventCode "eventCode"
+   = code
+
+tierCode "tierCode"
+   = code
 
 NUMBER "number"
     = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)

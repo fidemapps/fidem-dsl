@@ -20,6 +20,20 @@ describe('<Unit Test>', function () {
     });
 
     describe('Should get exception for auto-complete', function () {
+      it('Empty string', function (done) {
+
+        try {
+          parser.parse("");
+        }
+        catch (err) {
+          var literalChoices = helper.extractLiterals(err);
+          should(err.expected.length).equal(4);
+          should(literalChoices).eql(['challenge', 'level', 'segment', 'tag']);
+        }
+
+        done();
+      });
+
       it('Missing level code', function (done) {
 
         try {

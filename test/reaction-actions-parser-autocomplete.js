@@ -20,6 +20,20 @@ describe('<Unit Test>', function () {
     });
 
     describe('Should get exception for auto-complete of give reward', function () {
+      it('Empty string', function (done) {
+
+        try {
+          parser.parse("");
+        }
+        catch (err) {
+          var literalChoices = helper.extractLiterals(err);
+          should(err.expected.length).equal(3);
+          should(literalChoices).eql(['give reward', 'send message template', 'send message text']);
+        }
+
+        done();
+      });
+
       it('Missing reward quantity', function (done) {
 
         try {
