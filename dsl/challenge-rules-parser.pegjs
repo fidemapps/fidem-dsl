@@ -113,12 +113,24 @@ simple_rule
             filters: buildList(null, filters, 1)
         };
     }
-    / scope:"member" S* type:("level" / "point" / "tag") S* levelCode:levelCode S* value:NUMBER S* filter:withTag?
+    / scope:"member" S* type:("level" / "point") S* levelCode:levelCode S* value:NUMBER S* filter:withTag?
     {
         var theRule = {
             scope: scope,
             type: type,
             levelCode: levelCode,
+            conditions: [ {type: type, value: value} ],
+            filters: filter ? [ filter ] : []
+        };
+
+        return theRule;
+    }
+    / scope:"member" S* type:"tag" S* tagCode:tagCode S* value:NUMBER S* filter:withTag?
+    {
+        var theRule = {
+            scope: scope,
+            type: type,
+            levelCode: tagCode,
             conditions: [ {type: type, value: value} ],
             filters: filter ? [ filter ] : []
         };
@@ -179,11 +191,11 @@ timeframe
     }
 
 simple_reward
-    = "give" S* qty:NUMBER S* code:code
+    = "give" S* qty:NUMBER S* rewardCode:rewardCode
     {
         return {
             quantity: qty,
-            code: code
+            code: rewardCode
         };
     }
 
@@ -225,6 +237,9 @@ code
     {
         return chars.join("");
     }
+
+rewardCode "rewardCode"
+    = code
 
 actionCode "actionCode"
     = code
