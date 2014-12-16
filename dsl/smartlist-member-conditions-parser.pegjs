@@ -10,6 +10,7 @@
     // Member related
     member tag CODE NUMBER_CRITERIA
     member level CODE NUMBER_CRITERIA
+    member point CODE NUMBER_CRITERIA
     member segment CODE NUMBER_CRITERIA
 
     member city STRING_CRITERIA
@@ -19,6 +20,8 @@
 
     member created DATE_CRITERIA
 
+    // Challenge related
+    * challenge CODE
 
     // Action related
     action CODE
@@ -53,10 +56,16 @@
 }
 
 start
-    = conditions;
+    = conditions / filter:filter
+    {
+      return  {
+          conditions: [],
+          filter: filter
+      };
+    }
 
 conditions
-    = first:simple_condition? reminders:(S* "and" S* simple_condition)* S* filter:filter?
+    = first:simple_condition reminders:(S* "and" S* simple_condition)* S* filter:filter?
     {
       return  {
           conditions: buildList(first, reminders, 3),
@@ -65,17 +74,37 @@ conditions
     }
 
 simple_condition
-    = scope:"member" S* sub:("tag" / "level" / "points" / "segment") S* code:code S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    = scope:"member" S* sub:"segment" S* segmentCode:segmentCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
     {
         return {
             scope: "member",
             sub_scope: sub,
-            code: code,
+            code: segmentCode,
             operator: operator,
             value: value
         };
     }
-    / scope:"member created" S* condition:"last" S* qty:NUMBER S* timeframe:timeframe
+    / scope:"member" S* sub:("level" / "points") S* levelCode:levelCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    {
+        return {
+            scope: "member",
+            sub_scope: sub,
+            code: levelCode,
+            operator: operator,
+            value: value
+        };
+    }
+    / scope:"member" S* sub:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    {
+        return {
+            scope: "member",
+            sub_scope: sub,
+            code: tagCode,
+            operator: operator,
+            value: value
+        };
+    }
+    / scope:"member" S* "created" S* condition:"last" S* qty:NUMBER S* timeframe:timeframe
     {
         return {
             scope: "member",
@@ -85,7 +114,7 @@ simple_condition
             timeframe: timeframe
         };
     }
-    / scope:"member created" S* condition:"between" S* date1:string S* date2:string
+    / scope:"member" S* "created" S* condition:"between" S* date1:DATE_TIME S* date2:DATE_TIME
     {
         return {
             scope: "member",
@@ -104,17 +133,25 @@ simple_condition
             value: value
         };
     }
-    / scope:"action" S* code:code S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)*
+    / scope:"challenge" S* challengeCode:challengeCode S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)*
+    {
+        return {
+            scope: "challenge",
+            code: challengeCode,
+            conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
+        };
+    }
+    / scope:"action" S* actionCode:actionCode S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)*
     {
         return {
             scope: "action",
-            code: code,
+            code: actionCode,
             conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
         };
     }
 
 filter
-    = "only top" S* quantity:NUMBER S* "by member" S* type:("points" / "level") S* levelCode:code
+    = "only top" S* quantity:NUMBER S* "by member" S* type:("points" / "level") S* levelCode:levelCode
     {
         return {
             quantity: quantity,
@@ -124,10 +161,10 @@ filter
     }
 
 condition
-    = name:code S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:stringOrNumber
+    = attributeName:attributeName S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:stringOrNumber
     {
       return {
-          name: name,
+          name: attributeName,
           operator: operator,
           value: value
       }
@@ -139,14 +176,17 @@ timeframe
         return value.replace(/s/g,'');
     }
 
+textChars "text"
+    = [^\n\r\f\\"] / "\\"
+
 string1
-    = '"' chars:([^\n\r\f\\"] / "\\" )* '"'
+    = '"' chars:textChars* '"'
     {
         return chars.join("");
     }
 
 string2
-    = "'" chars:([^\n\r\f\\'] / "\\" )* "'"
+    = "'" chars:textChars* "'"
     {
         return chars.join("");
     }
@@ -181,6 +221,24 @@ code
         return chars.join("");
     }
 
+segmentCode "segmentCode"
+    = code
+
+challengeCode "challengeCode"
+    = code
+
+actionCode "actionCode"
+    = code
+
+levelCode "levelCode"
+    = code
+
+tagCode "tagCode"
+    = code
+
+attributeName "attributeName"
+    = code
+
 NUMBER "number"
     = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)
     {
@@ -200,4 +258,43 @@ STRING "string"
     = string:string
     {
         return string;
+    }
+
+date_full_year "year"
+    = $(DIGIT DIGIT DIGIT DIGIT)
+
+date_month "month"
+    = $(DIGIT DIGIT)
+
+date_day "day"
+    = $(DIGIT DIGIT)
+
+time_hour "hour"
+    = $(DIGIT DIGIT)
+
+time_minute "minute"
+    = $(DIGIT DIGIT)
+
+time_second "second"
+    = $(DIGIT DIGIT)
+
+TIME "time"
+    = hour:time_hour ":" minute:time_minute second:(":" time_second)?
+    {
+        return {
+            hour: hour,
+            minute: minute,
+            second: second
+        }
+    }
+
+DATE_TIME "datetime"
+    = year:date_full_year "-" month:date_month "-" day:date_day S* time:TIME?
+    {
+        if(time){
+            return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(time.hour), parseInt(time.minute), parseInt(time.second), 0);
+        }
+        else{
+            return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+        }
     }

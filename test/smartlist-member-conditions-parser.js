@@ -144,15 +144,15 @@ describe('<Unit Test>', function () {
       });
 
       it('member created between "2014-01-01" "2015-01-01"', function (done) {
-        var condition = parser.parse('member created between "2014-01-01" "2015-01-01"');
+        var condition = parser.parse('member created between 2014-01-01 2015-01-01');
         should(condition).eql({
           conditions: [
             {
               scope: 'member',
               sub_scope: 'created',
               condition: 'between',
-              date1: '2014-01-01',
-              date2: '2015-01-01'
+              date1: new Date(2014, 0, 1),
+              date2: new Date(2015, 0, 1)
             }
           ], filter: null
         });
@@ -160,15 +160,15 @@ describe('<Unit Test>', function () {
       });
 
       it('member created between "2014-01-01" "2015-01-01" only top 10 by member level TestLevel1', function (done) {
-        var condition = parser.parse('member created between "2014-01-01" "2015-01-01" only top 10 by member level TestLevel1');
+        var condition = parser.parse('member created between 2014-01-01 2015-01-01 only top 10 by member level TestLevel1');
         should(condition).eql({
           conditions: [
             {
               scope: 'member',
               sub_scope: 'created',
               condition: 'between',
-              date1: '2014-01-01',
-              date2: '2015-01-01'
+              date1: new Date(2014, 0, 1),
+              date2: new Date(2015, 0, 1)
             }
           ],
           filter: {
@@ -282,7 +282,7 @@ describe('<Unit Test>', function () {
       });
 
       it('action ACTION_CODE with test = "value"', function (done) {
-        var condition = parser.parse("action ACTION_CODE with test = 'value'");
+        var condition = parser.parse('action ACTION_CODE with test = "value"');
         should(condition).eql({
           conditions: [{
             scope: 'action',
@@ -301,7 +301,7 @@ describe('<Unit Test>', function () {
       });
 
       it('action ACTION_CODE with test = "value" and test2 < 3', function (done) {
-        var condition = parser.parse("action ACTION_CODE with test = 'value' and test2 < 3");
+        var condition = parser.parse('action ACTION_CODE with test = "value" and test2 < 3');
         should(condition).eql({
           conditions: [
             {
@@ -326,7 +326,7 @@ describe('<Unit Test>', function () {
       });
 
       it('action ACTION_CODE with test = "value" and test2 < 3 only top 10 by member level TestLevel1', function (done) {
-        var condition = parser.parse("action ACTION_CODE with test = 'value' and test2 < 3 only top 10 by member level TestLevel1");
+        var condition = parser.parse('action ACTION_CODE with test = "value" and test2 < 3 only top 10 by member level TestLevel1');
         should(condition).eql({
           conditions: [
             {
