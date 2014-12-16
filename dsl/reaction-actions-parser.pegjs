@@ -88,17 +88,14 @@ email "email"
         return user + "@" + domain;
     }
 
-textChars "text"
-    = [^\n\r\f\\"] / "\\"
-
 string1
-    = '"' chars:textChars* '"'
+    = '"' chars:([^\n\r\f\\"] / "\\" )* '"'
     {
         return chars.join("");
     }
 
 string2
-    = "'" chars:textChars* "'"
+    = "'" chars:([^\n\r\f\\'] / "\\" )* "'"
     {
         return chars.join("");
     }

@@ -136,9 +136,9 @@ describe('<Unit Test>', function () {
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
-          should(err.expected.length).equal(2);
-          should(literalChoices).eql(['\'']);
-          should(otherChoices).eql(['text']);
+          should(err.expected.length).equal(3);
+          should(literalChoices).eql(['\'', '\\']);
+          should(otherChoices).eql([]);
         }
 
         done();
@@ -152,9 +152,9 @@ describe('<Unit Test>', function () {
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
-          should(err.expected.length).equal(2);
-          should(literalChoices).eql(['\'']);
-          should(otherChoices).eql(['text']);
+          should(err.expected.length).equal(3);
+          should(literalChoices).eql(['\'', '\\']);
+          should(otherChoices).eql([]);
         }
 
         done();
@@ -195,9 +195,9 @@ describe('<Unit Test>', function () {
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
-          should(err.expected.length).equal(2);
-          should(literalChoices).eql(['"']);
-          should(otherChoices).eql(['text']);
+          should(err.expected.length).equal(3);
+          should(literalChoices).eql(['"', '\\']);
+          should(otherChoices).eql([]);
         }
 
         done();
@@ -211,9 +211,9 @@ describe('<Unit Test>', function () {
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
-          should(err.expected.length).equal(2);
-          should(literalChoices).eql(['"']);
-          should(otherChoices).eql(['text']);
+          should(err.expected.length).equal(3);
+          should(literalChoices).eql(['"', '\\']);
+          should(otherChoices).eql([]);
         }
 
         done();

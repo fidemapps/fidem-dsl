@@ -176,20 +176,20 @@ timeframe
         return value.replace(/s/g,'');
     }
 
-textChars "text"
-    = [^\n\r\f\\"] / "\\"
-
 string1
-    = '"' chars:textChars* '"'
+    = '"' chars:([^\n\r\f\\"] / "\\" )* '"'
     {
         return chars.join("");
     }
 
 string2
-    = "'" chars:textChars* "'"
+    = "'" chars:([^\n\r\f\\'] / "\\" )* "'"
     {
         return chars.join("");
     }
+
+string
+    = string1 / string2
 
 stringOrNumber
   = string / NUMBER
@@ -284,7 +284,7 @@ TIME "time"
         return {
             hour: hour,
             minute: minute,
-            second: second
+            second: second | "00"
         }
     }
 
@@ -292,9 +292,11 @@ DATE_TIME "datetime"
     = year:date_full_year "-" month:date_month "-" day:date_day S* time:TIME?
     {
         if(time){
-            return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(time.hour), parseInt(time.minute), parseInt(time.second), 0);
+            //return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(time.hour), parseInt(time.minute), parseInt(time.second), 0);
+            return year + "-" + month + "-" + day + "T" + time.hour + ":" + time.minute + ":" + time.second;
         }
         else{
-            return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+            //return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+            return year + "-" + month + "-" + day;
         }
     }

@@ -151,8 +151,8 @@ describe('<Unit Test>', function () {
               scope: 'member',
               sub_scope: 'created',
               condition: 'between',
-              date1: new Date(2014, 0, 1),
-              date2: new Date(2015, 0, 1)
+              date1: "2014-01-01",
+              date2: "2015-01-01"
             }
           ], filter: null
         });
@@ -167,8 +167,8 @@ describe('<Unit Test>', function () {
               scope: 'member',
               sub_scope: 'created',
               condition: 'between',
-              date1: new Date(2014, 0, 1),
-              date2: new Date(2015, 0, 1)
+              date1: "2014-01-01",
+              date2: "2015-01-01"
             }
           ],
           filter: {
@@ -283,6 +283,32 @@ describe('<Unit Test>', function () {
 
       it('action ACTION_CODE with test = "value"', function (done) {
         var condition = parser.parse('action ACTION_CODE with test = "value"');
+        should(condition).eql({
+          conditions: [{
+            scope: 'action',
+            code: 'ACTION_CODE',
+            conditions: [
+              {
+                name: 'test',
+                operator: '=',
+                value: 'value'
+              }
+            ]
+          }
+          ], filter: null
+        });
+        done();
+      });
+
+      it("action ACTION_CODE with test = 'value'", function (done) {
+        var condition = "";
+        try {
+          condition = parser.parse("action ACTION_CODE with test = 'value' ");
+        }
+        catch (err) {
+          console.log(err);
+        }
+
         should(condition).eql({
           conditions: [{
             scope: 'action',
