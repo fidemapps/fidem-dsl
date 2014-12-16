@@ -2,6 +2,7 @@
 
 var should = require('should'),
   fs = require('fs'),
+  helper = require('./helper'),
   PEG = require('pegjs');
 
 var parser;
@@ -78,13 +79,8 @@ describe('<Unit Test>', function () {
         }
         catch (err) {
           should(err.expected.length).equal(6);
-          var choices = err.expected.filter(function (choice) {
-            return choice.type === 'literal';
-          }).map(function (choice) {
-            return choice.value;
-          });
-
-          should(choices).eql(['<', '<=', '=', '>', '>=']);
+          var literalChoices = helper.extractLiterals(err);
+          should(literalChoices).eql(['<', '<=', '=', '>', '>=']);
         }
 
         done();

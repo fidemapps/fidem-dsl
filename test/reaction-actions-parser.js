@@ -26,40 +26,43 @@ describe('<Unit Test>', function () {
           action: 'giveReward',
           rewardCode: 'POINTS',
           quantity: 100,
-          programId: 'PRG1',
-          listId: 'LIST2'
+          programCode: 'PRG1',
+          listCode: 'LIST2'
         });
         done();
       });
 
-      it('send message text "A MESSAGE TEXT" to list LIST2', function (done) {
+      it('send message text "A MESSAGE TEXT" with subject "A MESSAGE SUBJECT" to list LIST2', function (done) {
 
-        var rule = parser.parse('send message text "A MESSAGE TEXT" to list LIST2');
+        var rule = parser.parse('send message text "A MESSAGE TEXT" with subject "A MESSAGE SUBJECT" to list LIST2');
         should(rule).eql({
           action: 'sendTextMessage',
           messageText: 'A MESSAGE TEXT',
-          listId: 'LIST2'
+          messageSubject: 'A MESSAGE SUBJECT',
+          listCode: 'LIST2'
         });
         done();
       });
 
-      it('send message text "A MESSAGE TEXT" to emails email1@host.com', function (done) {
+      it('send message text "A MESSAGE TEXT" with subject "A MESSAGE SUBJECT" to emails email1@host.com', function (done) {
 
-        var rule = parser.parse('send message text "A MESSAGE TEXT" to emails email1@host.com');
+        var rule = parser.parse('send message text "A MESSAGE TEXT" with subject "A MESSAGE SUBJECT" to emails email1@host.com');
         should(rule).eql({
           action: 'sendTextMessage',
           messageText: 'A MESSAGE TEXT',
+          messageSubject: 'A MESSAGE SUBJECT',
           emails: ['email1@host.com']
         });
         done();
       });
 
-      it('send message text "A MESSAGE TEXT" to emails email1@host.com,email2@host.com, email3@host.com', function (done) {
+      it('send message text "A MESSAGE TEXT" with subject "A MESSAGE SUBJECT" to emails email1@host.com,email2@host.com, email3@host.com', function (done) {
 
-        var rule = parser.parse('send message text "A MESSAGE TEXT" to emails email1@host.com,email2@host.com, email3@host.com');
+        var rule = parser.parse('send message text "A MESSAGE TEXT" with subject "A MESSAGE SUBJECT" to emails email1@host.com,email2@host.com, email3@host.com');
         should(rule).eql({
           action: 'sendTextMessage',
           messageText: 'A MESSAGE TEXT',
+          messageSubject: 'A MESSAGE SUBJECT',
           emails: ['email1@host.com', 'email2@host.com', 'email3@host.com']
         });
         done();
@@ -70,8 +73,8 @@ describe('<Unit Test>', function () {
         var rule = parser.parse('send message template TMPL_A to list LIST2');
         should(rule).eql({
           action: 'sendTemplateMessage',
-          messageTemplateId: 'TMPL_A',
-          listId: 'LIST2'
+          templateMessageCode: 'TMPL_A',
+          listCode: 'LIST2'
         });
         done();
       });
@@ -81,7 +84,7 @@ describe('<Unit Test>', function () {
         var rule = parser.parse('send message template TMPL_A to emails email1@host.com');
         should(rule).eql({
           action: 'sendTemplateMessage',
-          messageTemplateId: 'TMPL_A',
+          templateMessageCode: 'TMPL_A',
           emails: ['email1@host.com']
         });
         done();
@@ -92,7 +95,7 @@ describe('<Unit Test>', function () {
         var rule = parser.parse('send message template TMPL_A to emails email1@host.com,email2@host.com, email3@host.com');
         should(rule).eql({
           action: 'sendTemplateMessage',
-          messageTemplateId: 'TMPL_A',
+          templateMessageCode: 'TMPL_A',
           emails: ['email1@host.com', 'email2@host.com', 'email3@host.com']
         });
         done();

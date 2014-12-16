@@ -2,6 +2,7 @@
 
 var should = require('should'),
   fs = require('fs'),
+  helper = require('./helper'),
   PEG = require('pegjs');
 
 var parser;
@@ -77,16 +78,8 @@ describe('<Unit Test>', function () {
           parser.parse("challenge CODE x");
         }
         catch (err) {
-          var literalChoices = err.expected.filter(function (choice) {
-            return choice.type === 'literal';
-          }).map(function (choice) {
-            return choice.value;
-          });
-          var otherChoices = err.expected.filter(function (choice) {
-            return choice.type === 'other';
-          }).map(function (choice) {
-            return choice.description;
-          });
+          var literalChoices = helper.extractLiterals(err);
+          var otherChoices = helper.extractOthers(err);
 
           should(err.expected.length).equal(5);
           should(literalChoices).eql(['and', 'give', 'with tag']);
@@ -115,11 +108,7 @@ describe('<Unit Test>', function () {
           parser.parse("challenge CODE 3 times within 3");
         }
         catch (err) {
-          var literalChoices = err.expected.filter(function (choice) {
-            return choice.type === 'literal';
-          }).map(function (choice) {
-            return choice.value;
-          });
+          var literalChoices = helper.extractLiterals(err);
           should(err.expected.length).equal(13);
           should(literalChoices).eql([
             'day',
@@ -185,11 +174,7 @@ describe('<Unit Test>', function () {
           parser.parse("challenge TEST ");
         }
         catch (err) {
-          var literalChoices = err.expected.filter(function (choice) {
-            return choice.type === 'literal';
-          }).map(function (choice) {
-            return choice.value;
-          });
+          var literalChoices = helper.extractLiterals(err);
           should(err.found).equal(null);
           should(err.expected.length).equal(5);
           should(literalChoices).eql(['and', 'give', 'with tag']);

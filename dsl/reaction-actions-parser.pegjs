@@ -2,13 +2,13 @@
   Reaction Actions Rules
   ======================
 
-    Give reward QUANTITY REWARD_CODE from PROGRAM_ID to LIST_ID
+    Give reward QUANTITY REWARD_CODE from PROGRAM_CODE to LIST_CODE
 
-    Send message text 'TEXT' to list LIST_ID
-    Send message template TEMPLATE_ID to list LIST_ID
+    Send message text 'TEXT' with subject 'SUBJECT' to list LIST_CODE
+    Send message template TEMPLATE_CODE to list LIST_CODE
 
-    Send message text 'TEXT' to emails EMAIL,EMAIL,EMAIL
-    Send message template TEMPLATE_ID to emails EMAIL,EMAIL,EMAIL
+    Send message text 'TEXT' with subject 'SUBJECT' to emails EMAIL,EMAIL,EMAIL
+    Send message template TEMPLATE_CODE to emails EMAIL,EMAIL,EMAIL
 
  */
 {
@@ -37,63 +37,68 @@ start
     = simple_action;
 
 simple_action
-    = "give reward" S* quantity:NUMBER S* rewardCode:code S* "from program" S* programId:code S* "to list" S* listId:code
+    = "give reward" S* quantity:NUMBER S* rewardCode:rewardCode S* "from program" S* programCode:programCode S* "to list" S* listCode:listCode
     {
         return {
             action: "giveReward",
             rewardCode: rewardCode,
             quantity: quantity,
-            programId: programId,
-            listId: listId
+            programCode: programCode,
+            listCode: listCode
         };
     }
-    / "send message text" S* text:string S* "to list" S* listId:code
+    / "send message text" S* text:string S* "with subject" S* subject:string S* "to list" S* listCode:listCode
     {
         return {
             action: "sendTextMessage",
             messageText: text,
-            listId: listId
+            messageSubject: subject,
+            listCode: listCode
         };
     }
-    / "send message text" S* text:string S* "to emails" S* emailFirst:email emailReminders:(S* "," S* email)*
+    / "send message text" S* text:string S* "with subject" S* subject:string S* "to emails" S* emailFirst:email emailReminders:(S* "," S* email)*
     {
         return {
             action: "sendTextMessage",
             messageText: text,
+            messageSubject: subject,
             emails: buildList(emailFirst, emailReminders, 3)
         };
     }
-    / "send message template" S* templateId:code S* "to list" S* listId:code
+    / "send message template" S* templateMessageCode:templateMessageCode S* "to list" S* listCode:listCode
     {
         return {
             action: "sendTemplateMessage",
-            messageTemplateId: templateId,
-            listId: listId
+            templateMessageCode: templateMessageCode,
+            listCode: listCode
         };
     }
-    / "send message template" S* templateId:code S* "to emails" S* emailFirst:email emailReminders:(S* "," S* email)*
+    / "send message template" S* templateMessageCode:templateMessageCode S* "to emails" S* emailFirst:email emailReminders:(S* "," S* email)*
     {
         return {
             action: "sendTemplateMessage",
-            messageTemplateId: templateId,
+            templateMessageCode: templateMessageCode,
             emails: buildList(emailFirst, emailReminders, 3)
         };
     }
 
-email
+email "email"
     = user:code "@" domain:code
     {
         return user + "@" + domain;
     }
 
+textChars "text"
+    = [^\n\r\f\\"] / "\\"
+
 string1
-    = '"' chars:([^\n\r\f\\"] / "\\" )* '"'
+    = '"' chars:textChars* '"'
     {
         return chars.join("");
     }
 
 string2
-    = "'" chars:([^\n\r\f\\'] / "\\" )* "'"
+    = "'" chars:textChars* "'"
     {
         return chars.join("");
     }
@@ -124,6 +129,18 @@ code
     {
         return chars.join("");
     }
+
+templateMessageCode "templateMessageCode"
+    = code
+
+listCode "listCode"
+    = code
+
+rewardCode "rewardCode"
+    = code
+
+programCode "programCode"
+    = code
 
 NUMBER "number"
     = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)
