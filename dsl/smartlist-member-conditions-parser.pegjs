@@ -20,6 +20,8 @@
 
     member created DATE_CRITERIA
 
+    member in zone ZONE_CODE,ZONE_CODE
+
     // Challenge related
     * challenge CODE
 
@@ -133,6 +135,14 @@ simple_condition
             value: value
         };
     }
+    / scope:"member" S* "in zone" S* zoneCode:zoneCode S*
+    {
+        return {
+            scope: "member",
+            sub_scope: "zone",
+            code: zoneCode
+        };
+    }
     / scope:"challenge" S* challengeCode:challengeCode S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)*
     {
         return {
@@ -234,6 +244,9 @@ levelCode "levelCode"
     = code
 
 tagCode "tagCode"
+    = code
+
+zoneCode "zoneCode"
     = code
 
 attributeName "attributeName"

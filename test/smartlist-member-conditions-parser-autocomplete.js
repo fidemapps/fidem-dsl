@@ -236,8 +236,8 @@ describe('<Unit Test>', function () {
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
-          should(err.expected.length).equal(10);
-          should(literalChoices).eql(['city', 'country', 'created', 'level', 'points', 'segment', 'state', 'tag', 'zip']);
+          should(err.expected.length).equal(11);
+          should(literalChoices).eql(['city', 'country', 'created', 'in zone', 'level', 'points', 'segment', 'state', 'tag', 'zip']);
           should(otherChoices).eql(['whitespace']);
         }
 
@@ -320,6 +320,19 @@ describe('<Unit Test>', function () {
         catch (err) {
           should(err.expected.length).equal(2);
           should(err.expected[0].description).equal('number');
+        }
+
+        done();
+      });
+
+      it('Missing zoneCode', function (done) {
+
+        try {
+          parser.parse("member in zone");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[1].description).equal('zoneCode');
         }
 
         done();

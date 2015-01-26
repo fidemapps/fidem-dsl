@@ -125,6 +125,24 @@ describe('<Unit Test>', function () {
 
     });
 
+    describe('Should parse member in zone conditions', function () {
+
+      it('member in zone TEST', function (done) {
+        var condition = parser.parse("member in zone TEST");
+        should(condition).eql({
+          conditions: [
+            {
+              scope: 'member',
+              sub_scope: 'zone',
+              code: 'TEST'
+            }
+          ],
+          filter: null
+        });
+        done();
+      });
+    });
+
     describe('Should parse member created conditions', function () {
 
       it('member created last 1 week', function (done) {

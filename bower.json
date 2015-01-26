@@ -1,6 +1,6 @@
 {
   "name": "fidem-dsl",
-  "main": "fidem-dsl.js",
+  "main": "dist/fidem-dsl.js",
   "version": "0.2.3",
   "homepage": "https://github.org/fidemapps/fidem-dsl/",
   "authors": [

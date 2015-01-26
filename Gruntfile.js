@@ -35,20 +35,22 @@ module.exports = function (grunt) {
       default: {
         options: {
           preserveComments: 'some',
-          sourceMap: 'fidem-dsl.min.map',
-          sourceMappingURL: 'fidem-dsl.min.map'
+          sourceMap: 'dist/fidem-dsl.min.map',
+          sourceMappingURL: 'dist/fidem-dsl.min.map'
         },
         files: {
-          'fidem-dsl.min.js': 'fidem-dsl.js'
+          'dist/fidem-dsl.min.js': 'dist/fidem-dsl.js'
         }
       }
     },
     browserify: {
       main: {
         src: 'index.js',
-        dest: 'fidem-dsl.js',
+        dest: 'dist/fidem-dsl.js',
         options: {
-          standalone: 'fidemdsl'
+          browserifyOptions: {
+            standalone: 'fidemdsl'
+          }
         }
       }
     }
@@ -56,7 +58,7 @@ module.exports = function (grunt) {
 
   require('load-grunt-tasks')(grunt);
 
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['browserify', 'uglify']);
   grunt.registerTask('single-test', ['mochaTest:single']);
   grunt.registerTask('pegjs', ['shell:pegjs-challenge-rules', 'shell:pegjs-challenge-availability-rules', 'shell:pegjs-reaction-actions', 'shell:pegjs-reaction-trigger-conditions', 'shell:pegjs-smartlist-member-conditions']);
 
