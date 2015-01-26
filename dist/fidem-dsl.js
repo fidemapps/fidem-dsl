@@ -7325,8 +7325,7 @@ module.exports = (function() {
                 return {
                     scope: "member",
                     sub_scope: "zone",
-                    code: zoneCode,
-                    value: value
+                    code: zoneCode
                 };
             },
         peg$c52 = "challenge",
@@ -10260,7 +10259,9 @@ module.exports.literals =
     'month',
     'months',
     'year',
-    'years'
+    'years',
+    'in',
+    'zone'
   ];
 
 },{}]},{},[1])(1)
