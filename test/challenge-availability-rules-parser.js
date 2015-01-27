@@ -60,6 +60,61 @@ describe('<Unit Test>', function () {
       });
     });
 
+    describe('Should parse zone rules', function () {
+      it('in zone CODE1', function (done) {
+
+        var rule = parser.parse("in zone CODE1");
+        should(rule).eql([{
+          scope: 'zone',
+          codes: ['CODE1'],
+          duration: null,
+          timeframe: null
+        }]);
+
+        done();
+      });
+
+      it('in zone CODE1,CODE2', function (done) {
+
+        var rule = parser.parse("in zone CODE1,CODE2");
+        should(rule).eql([{
+          scope: 'zone',
+          codes: ['CODE1', 'CODE2'],
+          duration: null,
+          timeframe: null
+        }]);
+
+        done();
+      });
+
+      it('in zone CODE1 for 3 hours', function (done) {
+
+        var rule = parser.parse("in zone CODE1 for 3 hours");
+        should(rule).eql([{
+          scope: 'zone',
+          codes: ['CODE1'],
+          duration: 3,
+          timeframe: 'hour'
+        }]);
+
+        done();
+      });
+
+      it('in zone CODE1,CODE2 for 5 minutes', function (done) {
+
+        var rule = parser.parse("in zone CODE1,CODE2 for 5 minutes");
+        should(rule).eql([{
+          scope: 'zone',
+          codes: ['CODE1', 'CODE2'],
+          duration: 5,
+          timeframe: 'minute'
+        }]);
+
+        done();
+      });
+
+    });
+
     describe('Should parse complex rules', function () {
       it('challenge CODE1 and tag PATATE > 5 and level LEVELCODE >= 10', function (done) {
         var rule = parser.parse("challenge CODE1 and tag PATATE > 5 and level LEVELCODE >= 10");

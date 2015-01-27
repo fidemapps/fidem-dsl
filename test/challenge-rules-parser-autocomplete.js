@@ -27,8 +27,8 @@ describe('<Unit Test>', function () {
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(3);
-          should(literalChoices).eql(['action', 'challenge', 'member']);
+          should(err.expected.length).equal(4);
+          should(literalChoices).eql(['action', 'challenge', 'in zone', 'member']);
         }
 
         done();
@@ -81,6 +81,85 @@ describe('<Unit Test>', function () {
         catch (err) {
           should(err.expected.length).equal(2);
           should(err.expected[0].description).equal('tagCode');
+        }
+
+        done();
+      });
+
+      it('zone Missing zone code', function (done) {
+
+        try {
+          parser.parse("in zone ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[1].description).equal('zoneCode');
+        }
+
+        done();
+      });
+
+      it('zone Missing zone code after first one', function (done) {
+
+        try {
+          parser.parse("in zone CODE1,");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[1].description).equal('zoneCode');
+        }
+
+        done();
+      });
+
+      it('zone Missing number after for', function (done) {
+
+        try {
+          parser.parse("in zone CODE1 for ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('number');
+        }
+
+        done();
+      });
+
+      it('zone Invalid number after for', function (done) {
+
+        try {
+          parser.parse("in zone CODE1 for x");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('number');
+        }
+
+        done();
+      });
+
+      it('zone Missing timeframe after for', function (done) {
+
+        try {
+          parser.parse("in zone CODE1 for 3 ");
+        }
+        catch (err) {
+          var literalChoices = helper.extractLiterals(err);
+          should(err.expected.length).equal(13);
+          should(literalChoices).eql([
+            'day',
+            'days',
+            'hour',
+            'hours',
+            'minute',
+            'minutes',
+            'month',
+            'months',
+            'week',
+            'weeks',
+            'year',
+            'years'
+          ]);
         }
 
         done();

@@ -104,6 +104,15 @@ simple_rule
             filters: buildList(null, filters, 1)
         };
     }
+    / "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
+    {
+        return {
+            scope: "zone",
+            codes: buildList(first, reminders, 3),
+            duration: (durationOption) ? durationOption[3] : null,
+            timeframe: (durationOption) ? durationOption[5] : null
+        };
+    }
     / scope:"challenge" S* challengeCode:challengeCode conditions:(S* condition)* filters:(S* filter)*
     {
         return {
@@ -256,6 +265,8 @@ segmentCode "segmentCode"
 tagCode "tagCode"
     = code
 
+zoneCode "zoneCode"
+    = code
 
 NUMBER "number"
     = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)

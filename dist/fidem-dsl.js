@@ -103,51 +103,93 @@ module.exports = (function() {
                     value: value
                 };
             },
-        peg$c25 = "challenge",
-        peg$c26 = { type: "literal", value: "challenge", description: "\"challenge\"" },
-        peg$c27 = function(scope, challengeCode) {
+        peg$c25 = "in zone",
+        peg$c26 = { type: "literal", value: "in zone", description: "\"in zone\"" },
+        peg$c27 = ",",
+        peg$c28 = { type: "literal", value: ",", description: "\",\"" },
+        peg$c29 = null,
+        peg$c30 = "for",
+        peg$c31 = { type: "literal", value: "for", description: "\"for\"" },
+        peg$c32 = function(first, reminders, durationOption) {
+                return {
+                    scope: "zone",
+                    codes: buildList(first, reminders, 3),
+                    duration: (durationOption) ? durationOption[3] : null,
+                    timeframe: (durationOption) ? durationOption[5] : null
+                };
+            },
+        peg$c33 = "challenge",
+        peg$c34 = { type: "literal", value: "challenge", description: "\"challenge\"" },
+        peg$c35 = function(scope, challengeCode) {
                 return {
                     scope: scope,
                     code: challengeCode
                 };
             },
-        peg$c28 = "\"",
-        peg$c29 = { type: "literal", value: "\"", description: "\"\\\"\"" },
-        peg$c30 = /^[^\n\r\f\\"]/,
-        peg$c31 = { type: "class", value: "[^\\n\\r\\f\\\\\"]", description: "[^\\n\\r\\f\\\\\"]" },
-        peg$c32 = "\\",
-        peg$c33 = { type: "literal", value: "\\", description: "\"\\\\\"" },
-        peg$c34 = function(chars) {
+        peg$c36 = "\"",
+        peg$c37 = { type: "literal", value: "\"", description: "\"\\\"\"" },
+        peg$c38 = /^[^\n\r\f\\"]/,
+        peg$c39 = { type: "class", value: "[^\\n\\r\\f\\\\\"]", description: "[^\\n\\r\\f\\\\\"]" },
+        peg$c40 = "\\",
+        peg$c41 = { type: "literal", value: "\\", description: "\"\\\\\"" },
+        peg$c42 = function(chars) {
                 return chars.join("");
             },
-        peg$c35 = "'",
-        peg$c36 = { type: "literal", value: "'", description: "\"'\"" },
-        peg$c37 = /^[^\n\r\f\\']/,
-        peg$c38 = { type: "class", value: "[^\\n\\r\\f\\\\']", description: "[^\\n\\r\\f\\\\']" },
-        peg$c39 = /^[_a-z0-9\-.]/i,
-        peg$c40 = { type: "class", value: "[_a-z0-9\\-.]i", description: "[_a-z0-9\\-.]i" },
-        peg$c41 = { type: "other", description: "challengeCode" },
-        peg$c42 = { type: "other", description: "levelCode" },
-        peg$c43 = { type: "other", description: "segmentCode" },
-        peg$c44 = { type: "other", description: "tagCode" },
-        peg$c45 = { type: "other", description: "number" },
-        peg$c46 = null,
-        peg$c47 = /^[+\-]/,
-        peg$c48 = { type: "class", value: "[+\\-]", description: "[+\\-]" },
-        peg$c49 = ".",
-        peg$c50 = { type: "literal", value: ".", description: "\".\"" },
-        peg$c51 = function() {
+        peg$c43 = "'",
+        peg$c44 = { type: "literal", value: "'", description: "\"'\"" },
+        peg$c45 = /^[^\n\r\f\\']/,
+        peg$c46 = { type: "class", value: "[^\\n\\r\\f\\\\']", description: "[^\\n\\r\\f\\\\']" },
+        peg$c47 = /^[_a-z0-9\-.]/i,
+        peg$c48 = { type: "class", value: "[_a-z0-9\\-.]i", description: "[_a-z0-9\\-.]i" },
+        peg$c49 = { type: "other", description: "challengeCode" },
+        peg$c50 = { type: "other", description: "levelCode" },
+        peg$c51 = { type: "other", description: "segmentCode" },
+        peg$c52 = { type: "other", description: "tagCode" },
+        peg$c53 = { type: "other", description: "zoneCode" },
+        peg$c54 = { type: "other", description: "number" },
+        peg$c55 = /^[+\-]/,
+        peg$c56 = { type: "class", value: "[+\\-]", description: "[+\\-]" },
+        peg$c57 = ".",
+        peg$c58 = { type: "literal", value: ".", description: "\".\"" },
+        peg$c59 = function() {
                 return parseFloat(text());
             },
-        peg$c52 = { type: "other", description: "digit" },
-        peg$c53 = /^[0-9]/,
-        peg$c54 = { type: "class", value: "[0-9]", description: "[0-9]" },
-        peg$c55 = /^[ \t\r\n\f]/,
-        peg$c56 = { type: "class", value: "[ \\t\\r\\n\\f]", description: "[ \\t\\r\\n\\f]" },
-        peg$c57 = { type: "other", description: "whitespace" },
-        peg$c58 = { type: "other", description: "string" },
-        peg$c59 = function(string) {
+        peg$c60 = { type: "other", description: "digit" },
+        peg$c61 = /^[0-9]/,
+        peg$c62 = { type: "class", value: "[0-9]", description: "[0-9]" },
+        peg$c63 = /^[ \t\r\n\f]/,
+        peg$c64 = { type: "class", value: "[ \\t\\r\\n\\f]", description: "[ \\t\\r\\n\\f]" },
+        peg$c65 = { type: "other", description: "whitespace" },
+        peg$c66 = { type: "other", description: "string" },
+        peg$c67 = function(string) {
                 return string;
+            },
+        peg$c68 = "minutes",
+        peg$c69 = { type: "literal", value: "minutes", description: "\"minutes\"" },
+        peg$c70 = "minute",
+        peg$c71 = { type: "literal", value: "minute", description: "\"minute\"" },
+        peg$c72 = "hours",
+        peg$c73 = { type: "literal", value: "hours", description: "\"hours\"" },
+        peg$c74 = "hour",
+        peg$c75 = { type: "literal", value: "hour", description: "\"hour\"" },
+        peg$c76 = "days",
+        peg$c77 = { type: "literal", value: "days", description: "\"days\"" },
+        peg$c78 = "day",
+        peg$c79 = { type: "literal", value: "day", description: "\"day\"" },
+        peg$c80 = "weeks",
+        peg$c81 = { type: "literal", value: "weeks", description: "\"weeks\"" },
+        peg$c82 = "week",
+        peg$c83 = { type: "literal", value: "week", description: "\"week\"" },
+        peg$c84 = "months",
+        peg$c85 = { type: "literal", value: "months", description: "\"months\"" },
+        peg$c86 = "month",
+        peg$c87 = { type: "literal", value: "month", description: "\"month\"" },
+        peg$c88 = "years",
+        peg$c89 = { type: "literal", value: "years", description: "\"years\"" },
+        peg$c90 = "year",
+        peg$c91 = { type: "literal", value: "year", description: "\"year\"" },
+        peg$c92 = function(value) {
+                return value.replace(/s/g,'');
             },
 
         peg$currPos          = 0,
@@ -450,7 +492,7 @@ module.exports = (function() {
     }
 
     function peg$parsesimple_rule() {
-      var s0, s1, s2, s3, s4, s5, s6, s7;
+      var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11;
 
       s0 = peg$currPos;
       if (input.substr(peg$currPos, 5) === peg$c6) {
@@ -783,9 +825,9 @@ module.exports = (function() {
           }
           if (s0 === peg$FAILED) {
             s0 = peg$currPos;
-            if (input.substr(peg$currPos, 9) === peg$c25) {
+            if (input.substr(peg$currPos, 7) === peg$c25) {
               s1 = peg$c25;
-              peg$currPos += 9;
+              peg$currPos += 7;
             } else {
               s1 = peg$FAILED;
               if (peg$silentFails === 0) { peg$fail(peg$c26); }
@@ -798,11 +840,174 @@ module.exports = (function() {
                 s3 = peg$parseS();
               }
               if (s2 !== peg$FAILED) {
-                s3 = peg$parsechallengeCode();
+                s3 = peg$parsezoneCode();
                 if (s3 !== peg$FAILED) {
-                  peg$reportedPos = s0;
-                  s1 = peg$c27(s1, s3);
-                  s0 = s1;
+                  s4 = [];
+                  s5 = peg$currPos;
+                  s6 = [];
+                  s7 = peg$parseS();
+                  while (s7 !== peg$FAILED) {
+                    s6.push(s7);
+                    s7 = peg$parseS();
+                  }
+                  if (s6 !== peg$FAILED) {
+                    if (input.charCodeAt(peg$currPos) === 44) {
+                      s7 = peg$c27;
+                      peg$currPos++;
+                    } else {
+                      s7 = peg$FAILED;
+                      if (peg$silentFails === 0) { peg$fail(peg$c28); }
+                    }
+                    if (s7 !== peg$FAILED) {
+                      s8 = [];
+                      s9 = peg$parseS();
+                      while (s9 !== peg$FAILED) {
+                        s8.push(s9);
+                        s9 = peg$parseS();
+                      }
+                      if (s8 !== peg$FAILED) {
+                        s9 = peg$parsezoneCode();
+                        if (s9 !== peg$FAILED) {
+                          s6 = [s6, s7, s8, s9];
+                          s5 = s6;
+                        } else {
+                          peg$currPos = s5;
+                          s5 = peg$c0;
+                        }
+                      } else {
+                        peg$currPos = s5;
+                        s5 = peg$c0;
+                      }
+                    } else {
+                      peg$currPos = s5;
+                      s5 = peg$c0;
+                    }
+                  } else {
+                    peg$currPos = s5;
+                    s5 = peg$c0;
+                  }
+                  while (s5 !== peg$FAILED) {
+                    s4.push(s5);
+                    s5 = peg$currPos;
+                    s6 = [];
+                    s7 = peg$parseS();
+                    while (s7 !== peg$FAILED) {
+                      s6.push(s7);
+                      s7 = peg$parseS();
+                    }
+                    if (s6 !== peg$FAILED) {
+                      if (input.charCodeAt(peg$currPos) === 44) {
+                        s7 = peg$c27;
+                        peg$currPos++;
+                      } else {
+                        s7 = peg$FAILED;
+                        if (peg$silentFails === 0) { peg$fail(peg$c28); }
+                      }
+                      if (s7 !== peg$FAILED) {
+                        s8 = [];
+                        s9 = peg$parseS();
+                        while (s9 !== peg$FAILED) {
+                          s8.push(s9);
+                          s9 = peg$parseS();
+                        }
+                        if (s8 !== peg$FAILED) {
+                          s9 = peg$parsezoneCode();
+                          if (s9 !== peg$FAILED) {
+                            s6 = [s6, s7, s8, s9];
+                            s5 = s6;
+                          } else {
+                            peg$currPos = s5;
+                            s5 = peg$c0;
+                          }
+                        } else {
+                          peg$currPos = s5;
+                          s5 = peg$c0;
+                        }
+                      } else {
+                        peg$currPos = s5;
+                        s5 = peg$c0;
+                      }
+                    } else {
+                      peg$currPos = s5;
+                      s5 = peg$c0;
+                    }
+                  }
+                  if (s4 !== peg$FAILED) {
+                    s5 = peg$currPos;
+                    s6 = [];
+                    s7 = peg$parseS();
+                    while (s7 !== peg$FAILED) {
+                      s6.push(s7);
+                      s7 = peg$parseS();
+                    }
+                    if (s6 !== peg$FAILED) {
+                      if (input.substr(peg$currPos, 3) === peg$c30) {
+                        s7 = peg$c30;
+                        peg$currPos += 3;
+                      } else {
+                        s7 = peg$FAILED;
+                        if (peg$silentFails === 0) { peg$fail(peg$c31); }
+                      }
+                      if (s7 !== peg$FAILED) {
+                        s8 = [];
+                        s9 = peg$parseS();
+                        while (s9 !== peg$FAILED) {
+                          s8.push(s9);
+                          s9 = peg$parseS();
+                        }
+                        if (s8 !== peg$FAILED) {
+                          s9 = peg$parseNUMBER();
+                          if (s9 !== peg$FAILED) {
+                            s10 = [];
+                            s11 = peg$parseS();
+                            while (s11 !== peg$FAILED) {
+                              s10.push(s11);
+                              s11 = peg$parseS();
+                            }
+                            if (s10 !== peg$FAILED) {
+                              s11 = peg$parsetimeframe();
+                              if (s11 !== peg$FAILED) {
+                                s6 = [s6, s7, s8, s9, s10, s11];
+                                s5 = s6;
+                              } else {
+                                peg$currPos = s5;
+                                s5 = peg$c0;
+                              }
+                            } else {
+                              peg$currPos = s5;
+                              s5 = peg$c0;
+                            }
+                          } else {
+                            peg$currPos = s5;
+                            s5 = peg$c0;
+                          }
+                        } else {
+                          peg$currPos = s5;
+                          s5 = peg$c0;
+                        }
+                      } else {
+                        peg$currPos = s5;
+                        s5 = peg$c0;
+                      }
+                    } else {
+                      peg$currPos = s5;
+                      s5 = peg$c0;
+                    }
+                    if (s5 === peg$FAILED) {
+                      s5 = peg$c29;
+                    }
+                    if (s5 !== peg$FAILED) {
+                      peg$reportedPos = s0;
+                      s1 = peg$c32(s3, s4, s5);
+                      s0 = s1;
+                    } else {
+                      peg$currPos = s0;
+                      s0 = peg$c0;
+                    }
+                  } else {
+                    peg$currPos = s0;
+                    s0 = peg$c0;
+                  }
                 } else {
                   peg$currPos = s0;
                   s0 = peg$c0;
@@ -814,6 +1019,41 @@ module.exports = (function() {
             } else {
               peg$currPos = s0;
               s0 = peg$c0;
+            }
+            if (s0 === peg$FAILED) {
+              s0 = peg$currPos;
+              if (input.substr(peg$currPos, 9) === peg$c33) {
+                s1 = peg$c33;
+                peg$currPos += 9;
+              } else {
+                s1 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c34); }
+              }
+              if (s1 !== peg$FAILED) {
+                s2 = [];
+                s3 = peg$parseS();
+                while (s3 !== peg$FAILED) {
+                  s2.push(s3);
+                  s3 = peg$parseS();
+                }
+                if (s2 !== peg$FAILED) {
+                  s3 = peg$parsechallengeCode();
+                  if (s3 !== peg$FAILED) {
+                    peg$reportedPos = s0;
+                    s1 = peg$c35(s1, s3);
+                    s0 = s1;
+                  } else {
+                    peg$currPos = s0;
+                    s0 = peg$c0;
+                  }
+                } else {
+                  peg$currPos = s0;
+                  s0 = peg$c0;
+                }
+              } else {
+                peg$currPos = s0;
+                s0 = peg$c0;
+              }
             }
           }
         }
@@ -827,60 +1067,60 @@ module.exports = (function() {
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 34) {
-        s1 = peg$c28;
+        s1 = peg$c36;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c29); }
+        if (peg$silentFails === 0) { peg$fail(peg$c37); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
-        if (peg$c30.test(input.charAt(peg$currPos))) {
+        if (peg$c38.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c31); }
+          if (peg$silentFails === 0) { peg$fail(peg$c39); }
         }
         if (s3 === peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 92) {
-            s3 = peg$c32;
+            s3 = peg$c40;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c33); }
+            if (peg$silentFails === 0) { peg$fail(peg$c41); }
           }
         }
         while (s3 !== peg$FAILED) {
           s2.push(s3);
-          if (peg$c30.test(input.charAt(peg$currPos))) {
+          if (peg$c38.test(input.charAt(peg$currPos))) {
             s3 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c31); }
+            if (peg$silentFails === 0) { peg$fail(peg$c39); }
           }
           if (s3 === peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 92) {
-              s3 = peg$c32;
+              s3 = peg$c40;
               peg$currPos++;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c33); }
+              if (peg$silentFails === 0) { peg$fail(peg$c41); }
             }
           }
         }
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 34) {
-            s3 = peg$c28;
+            s3 = peg$c36;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c29); }
+            if (peg$silentFails === 0) { peg$fail(peg$c37); }
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c34(s2);
+            s1 = peg$c42(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -903,60 +1143,60 @@ module.exports = (function() {
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 39) {
-        s1 = peg$c35;
+        s1 = peg$c43;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c36); }
+        if (peg$silentFails === 0) { peg$fail(peg$c44); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
-        if (peg$c37.test(input.charAt(peg$currPos))) {
+        if (peg$c45.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c38); }
+          if (peg$silentFails === 0) { peg$fail(peg$c46); }
         }
         if (s3 === peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 92) {
-            s3 = peg$c32;
+            s3 = peg$c40;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c33); }
+            if (peg$silentFails === 0) { peg$fail(peg$c41); }
           }
         }
         while (s3 !== peg$FAILED) {
           s2.push(s3);
-          if (peg$c37.test(input.charAt(peg$currPos))) {
+          if (peg$c45.test(input.charAt(peg$currPos))) {
             s3 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c38); }
+            if (peg$silentFails === 0) { peg$fail(peg$c46); }
           }
           if (s3 === peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 92) {
-              s3 = peg$c32;
+              s3 = peg$c40;
               peg$currPos++;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c33); }
+              if (peg$silentFails === 0) { peg$fail(peg$c41); }
             }
           }
         }
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 39) {
-            s3 = peg$c35;
+            s3 = peg$c43;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c36); }
+            if (peg$silentFails === 0) { peg$fail(peg$c44); }
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c34(s2);
+            s1 = peg$c42(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -988,12 +1228,12 @@ module.exports = (function() {
     function peg$parsecode_char() {
       var s0;
 
-      if (peg$c39.test(input.charAt(peg$currPos))) {
+      if (peg$c47.test(input.charAt(peg$currPos))) {
         s0 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c40); }
+        if (peg$silentFails === 0) { peg$fail(peg$c48); }
       }
 
       return s0;
@@ -1015,7 +1255,7 @@ module.exports = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c34(s1);
+        s1 = peg$c42(s1);
       }
       s0 = s1;
 
@@ -1030,7 +1270,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c41); }
+        if (peg$silentFails === 0) { peg$fail(peg$c49); }
       }
 
       return s0;
@@ -1044,7 +1284,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c42); }
+        if (peg$silentFails === 0) { peg$fail(peg$c50); }
       }
 
       return s0;
@@ -1058,7 +1298,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c43); }
+        if (peg$silentFails === 0) { peg$fail(peg$c51); }
       }
 
       return s0;
@@ -1072,7 +1312,21 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c44); }
+        if (peg$silentFails === 0) { peg$fail(peg$c52); }
+      }
+
+      return s0;
+    }
+
+    function peg$parsezoneCode() {
+      var s0, s1;
+
+      peg$silentFails++;
+      s0 = peg$parsecode();
+      peg$silentFails--;
+      if (s0 === peg$FAILED) {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c53); }
       }
 
       return s0;
@@ -1083,15 +1337,15 @@ module.exports = (function() {
 
       peg$silentFails++;
       s0 = peg$currPos;
-      if (peg$c47.test(input.charAt(peg$currPos))) {
+      if (peg$c55.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c48); }
+        if (peg$silentFails === 0) { peg$fail(peg$c56); }
       }
       if (s1 === peg$FAILED) {
-        s1 = peg$c46;
+        s1 = peg$c29;
       }
       if (s1 !== peg$FAILED) {
         s2 = peg$currPos;
@@ -1103,11 +1357,11 @@ module.exports = (function() {
         }
         if (s3 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 46) {
-            s4 = peg$c49;
+            s4 = peg$c57;
             peg$currPos++;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c50); }
+            if (peg$silentFails === 0) { peg$fail(peg$c58); }
           }
           if (s4 !== peg$FAILED) {
             s5 = [];
@@ -1149,7 +1403,7 @@ module.exports = (function() {
         }
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c51();
+          s1 = peg$c59();
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -1162,7 +1416,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c45); }
+        if (peg$silentFails === 0) { peg$fail(peg$c54); }
       }
 
       return s0;
@@ -1172,17 +1426,17 @@ module.exports = (function() {
       var s0, s1;
 
       peg$silentFails++;
-      if (peg$c53.test(input.charAt(peg$currPos))) {
+      if (peg$c61.test(input.charAt(peg$currPos))) {
         s0 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c54); }
+        if (peg$silentFails === 0) { peg$fail(peg$c62); }
       }
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c52); }
+        if (peg$silentFails === 0) { peg$fail(peg$c60); }
       }
 
       return s0;
@@ -1192,22 +1446,22 @@ module.exports = (function() {
       var s0, s1;
 
       s0 = [];
-      if (peg$c55.test(input.charAt(peg$currPos))) {
+      if (peg$c63.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c56); }
+        if (peg$silentFails === 0) { peg$fail(peg$c64); }
       }
       if (s1 !== peg$FAILED) {
         while (s1 !== peg$FAILED) {
           s0.push(s1);
-          if (peg$c55.test(input.charAt(peg$currPos))) {
+          if (peg$c63.test(input.charAt(peg$currPos))) {
             s1 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s1 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c56); }
+            if (peg$silentFails === 0) { peg$fail(peg$c64); }
           }
         }
       } else {
@@ -1225,7 +1479,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c57); }
+        if (peg$silentFails === 0) { peg$fail(peg$c65); }
       }
 
       return s0;
@@ -1239,14 +1493,133 @@ module.exports = (function() {
       s1 = peg$parsestring();
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c59(s1);
+        s1 = peg$c67(s1);
       }
       s0 = s1;
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c58); }
+        if (peg$silentFails === 0) { peg$fail(peg$c66); }
       }
+
+      return s0;
+    }
+
+    function peg$parsetimeframe() {
+      var s0, s1;
+
+      s0 = peg$currPos;
+      if (input.substr(peg$currPos, 7) === peg$c68) {
+        s1 = peg$c68;
+        peg$currPos += 7;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c69); }
+      }
+      if (s1 === peg$FAILED) {
+        if (input.substr(peg$currPos, 6) === peg$c70) {
+          s1 = peg$c70;
+          peg$currPos += 6;
+        } else {
+          s1 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c71); }
+        }
+        if (s1 === peg$FAILED) {
+          if (input.substr(peg$currPos, 5) === peg$c72) {
+            s1 = peg$c72;
+            peg$currPos += 5;
+          } else {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c73); }
+          }
+          if (s1 === peg$FAILED) {
+            if (input.substr(peg$currPos, 4) === peg$c74) {
+              s1 = peg$c74;
+              peg$currPos += 4;
+            } else {
+              s1 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c75); }
+            }
+            if (s1 === peg$FAILED) {
+              if (input.substr(peg$currPos, 4) === peg$c76) {
+                s1 = peg$c76;
+                peg$currPos += 4;
+              } else {
+                s1 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c77); }
+              }
+              if (s1 === peg$FAILED) {
+                if (input.substr(peg$currPos, 3) === peg$c78) {
+                  s1 = peg$c78;
+                  peg$currPos += 3;
+                } else {
+                  s1 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c79); }
+                }
+                if (s1 === peg$FAILED) {
+                  if (input.substr(peg$currPos, 5) === peg$c80) {
+                    s1 = peg$c80;
+                    peg$currPos += 5;
+                  } else {
+                    s1 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c81); }
+                  }
+                  if (s1 === peg$FAILED) {
+                    if (input.substr(peg$currPos, 4) === peg$c82) {
+                      s1 = peg$c82;
+                      peg$currPos += 4;
+                    } else {
+                      s1 = peg$FAILED;
+                      if (peg$silentFails === 0) { peg$fail(peg$c83); }
+                    }
+                    if (s1 === peg$FAILED) {
+                      if (input.substr(peg$currPos, 6) === peg$c84) {
+                        s1 = peg$c84;
+                        peg$currPos += 6;
+                      } else {
+                        s1 = peg$FAILED;
+                        if (peg$silentFails === 0) { peg$fail(peg$c85); }
+                      }
+                      if (s1 === peg$FAILED) {
+                        if (input.substr(peg$currPos, 5) === peg$c86) {
+                          s1 = peg$c86;
+                          peg$currPos += 5;
+                        } else {
+                          s1 = peg$FAILED;
+                          if (peg$silentFails === 0) { peg$fail(peg$c87); }
+                        }
+                        if (s1 === peg$FAILED) {
+                          if (input.substr(peg$currPos, 5) === peg$c88) {
+                            s1 = peg$c88;
+                            peg$currPos += 5;
+                          } else {
+                            s1 = peg$FAILED;
+                            if (peg$silentFails === 0) { peg$fail(peg$c89); }
+                          }
+                          if (s1 === peg$FAILED) {
+                            if (input.substr(peg$currPos, 4) === peg$c90) {
+                              s1 = peg$c90;
+                              peg$currPos += 4;
+                            } else {
+                              s1 = peg$FAILED;
+                              if (peg$silentFails === 0) { peg$fail(peg$c91); }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      if (s1 !== peg$FAILED) {
+        peg$reportedPos = s0;
+        s1 = peg$c92(s1);
+      }
+      s0 = s1;
 
       return s0;
     }
@@ -1301,7 +1674,21 @@ module.exports.literals =
     'level',
     'tag',
     'segment',
-    'challenge'
+    'challenge',
+    'in zone',
+    'for',
+    'minute',
+    'minutes',
+    'hour',
+    'hours',
+    'day',
+    'days',
+    'week',
+    'weeks',
+    'month',
+    'months',
+    'year',
+    'years'
   ];
 
 },{}],4:[function(require,module,exports){
@@ -1365,9 +1752,24 @@ module.exports = (function() {
                     filters: buildList(null, filters, 1)
                 };
             },
-        peg$c9 = "challenge",
-        peg$c10 = { type: "literal", value: "challenge", description: "\"challenge\"" },
-        peg$c11 = function(scope, challengeCode, conditions, filters) {
+        peg$c9 = "in zone",
+        peg$c10 = { type: "literal", value: "in zone", description: "\"in zone\"" },
+        peg$c11 = ",",
+        peg$c12 = { type: "literal", value: ",", description: "\",\"" },
+        peg$c13 = null,
+        peg$c14 = "for",
+        peg$c15 = { type: "literal", value: "for", description: "\"for\"" },
+        peg$c16 = function(first, reminders, durationOption) {
+                return {
+                    scope: "zone",
+                    codes: buildList(first, reminders, 3),
+                    duration: (durationOption) ? durationOption[3] : null,
+                    timeframe: (durationOption) ? durationOption[5] : null
+                };
+            },
+        peg$c17 = "challenge",
+        peg$c18 = { type: "literal", value: "challenge", description: "\"challenge\"" },
+        peg$c19 = function(scope, challengeCode, conditions, filters) {
                 return {
                     scope: scope,
                     code: challengeCode,
@@ -1375,14 +1777,13 @@ module.exports = (function() {
                     filters: buildList(null, filters, 1)
                 };
             },
-        peg$c12 = "member",
-        peg$c13 = { type: "literal", value: "member", description: "\"member\"" },
-        peg$c14 = "level",
-        peg$c15 = { type: "literal", value: "level", description: "\"level\"" },
-        peg$c16 = "point",
-        peg$c17 = { type: "literal", value: "point", description: "\"point\"" },
-        peg$c18 = null,
-        peg$c19 = function(scope, type, levelCode, value, filter) {
+        peg$c20 = "member",
+        peg$c21 = { type: "literal", value: "member", description: "\"member\"" },
+        peg$c22 = "level",
+        peg$c23 = { type: "literal", value: "level", description: "\"level\"" },
+        peg$c24 = "point",
+        peg$c25 = { type: "literal", value: "point", description: "\"point\"" },
+        peg$c26 = function(scope, type, levelCode, value, filter) {
                 var theRule = {
                     scope: scope,
                     type: type,
@@ -1393,9 +1794,9 @@ module.exports = (function() {
 
                 return theRule;
             },
-        peg$c20 = "tag",
-        peg$c21 = { type: "literal", value: "tag", description: "\"tag\"" },
-        peg$c22 = function(scope, type, tagCode, value, filter) {
+        peg$c27 = "tag",
+        peg$c28 = { type: "literal", value: "tag", description: "\"tag\"" },
+        peg$c29 = function(scope, type, tagCode, value, filter) {
                 var theRule = {
                     scope: scope,
                     type: type,
@@ -1406,9 +1807,9 @@ module.exports = (function() {
 
                 return theRule;
             },
-        peg$c23 = "level up",
-        peg$c24 = { type: "literal", value: "level up", description: "\"level up\"" },
-        peg$c25 = function(scope, type, levelCode, conditions, filter) {
+        peg$c30 = "level up",
+        peg$c31 = { type: "literal", value: "level up", description: "\"level up\"" },
+        peg$c32 = function(scope, type, levelCode, conditions, filter) {
                 return {
                     scope: scope,
                     type: type,
@@ -1417,28 +1818,28 @@ module.exports = (function() {
                     filters: filter ? [ filter ] : []
                 };
             },
-        peg$c26 = "with tag",
-        peg$c27 = { type: "literal", value: "with tag", description: "\"with tag\"" },
-        peg$c28 = "=",
-        peg$c29 = { type: "literal", value: "=", description: "\"=\"" },
-        peg$c30 = function(tagCode, value) {
+        peg$c33 = "with tag",
+        peg$c34 = { type: "literal", value: "with tag", description: "\"with tag\"" },
+        peg$c35 = "=",
+        peg$c36 = { type: "literal", value: "=", description: "\"=\"" },
+        peg$c37 = function(tagCode, value) {
                 return {
                     type: 'tag',
                     tag: tagCode,
                     value: value ? value[2] : null
                 };
             },
-        peg$c31 = "times",
-        peg$c32 = { type: "literal", value: "times", description: "\"times\"" },
-        peg$c33 = function(value) {
+        peg$c38 = "times",
+        peg$c39 = { type: "literal", value: "times", description: "\"times\"" },
+        peg$c40 = function(value) {
                 return {
                   type: 'times',
                   value: value
                 }
             },
-        peg$c34 = "within",
-        peg$c35 = { type: "literal", value: "within", description: "\"within\"" },
-        peg$c36 = function(value, duration, durationScope) {
+        peg$c41 = "within",
+        peg$c42 = { type: "literal", value: "within", description: "\"within\"" },
+        peg$c43 = function(value, duration, durationScope) {
                 return {
                   type: 'times_within_timeframe',
                   value: value,
@@ -1446,117 +1847,118 @@ module.exports = (function() {
                   durationScope: durationScope
                 }
             },
-        peg$c37 = "minutes",
-        peg$c38 = { type: "literal", value: "minutes", description: "\"minutes\"" },
-        peg$c39 = "minute",
-        peg$c40 = { type: "literal", value: "minute", description: "\"minute\"" },
-        peg$c41 = "hours",
-        peg$c42 = { type: "literal", value: "hours", description: "\"hours\"" },
-        peg$c43 = "hour",
-        peg$c44 = { type: "literal", value: "hour", description: "\"hour\"" },
-        peg$c45 = "days",
-        peg$c46 = { type: "literal", value: "days", description: "\"days\"" },
-        peg$c47 = "day",
-        peg$c48 = { type: "literal", value: "day", description: "\"day\"" },
-        peg$c49 = "weeks",
-        peg$c50 = { type: "literal", value: "weeks", description: "\"weeks\"" },
-        peg$c51 = "week",
-        peg$c52 = { type: "literal", value: "week", description: "\"week\"" },
-        peg$c53 = "months",
-        peg$c54 = { type: "literal", value: "months", description: "\"months\"" },
-        peg$c55 = "month",
-        peg$c56 = { type: "literal", value: "month", description: "\"month\"" },
-        peg$c57 = "years",
-        peg$c58 = { type: "literal", value: "years", description: "\"years\"" },
-        peg$c59 = "year",
-        peg$c60 = { type: "literal", value: "year", description: "\"year\"" },
-        peg$c61 = function(value) {
+        peg$c44 = "minutes",
+        peg$c45 = { type: "literal", value: "minutes", description: "\"minutes\"" },
+        peg$c46 = "minute",
+        peg$c47 = { type: "literal", value: "minute", description: "\"minute\"" },
+        peg$c48 = "hours",
+        peg$c49 = { type: "literal", value: "hours", description: "\"hours\"" },
+        peg$c50 = "hour",
+        peg$c51 = { type: "literal", value: "hour", description: "\"hour\"" },
+        peg$c52 = "days",
+        peg$c53 = { type: "literal", value: "days", description: "\"days\"" },
+        peg$c54 = "day",
+        peg$c55 = { type: "literal", value: "day", description: "\"day\"" },
+        peg$c56 = "weeks",
+        peg$c57 = { type: "literal", value: "weeks", description: "\"weeks\"" },
+        peg$c58 = "week",
+        peg$c59 = { type: "literal", value: "week", description: "\"week\"" },
+        peg$c60 = "months",
+        peg$c61 = { type: "literal", value: "months", description: "\"months\"" },
+        peg$c62 = "month",
+        peg$c63 = { type: "literal", value: "month", description: "\"month\"" },
+        peg$c64 = "years",
+        peg$c65 = { type: "literal", value: "years", description: "\"years\"" },
+        peg$c66 = "year",
+        peg$c67 = { type: "literal", value: "year", description: "\"year\"" },
+        peg$c68 = function(value) {
                 return value.replace(/s/g,'');
             },
-        peg$c62 = "give",
-        peg$c63 = { type: "literal", value: "give", description: "\"give\"" },
-        peg$c64 = function(qty, rewardCode) {
+        peg$c69 = "give",
+        peg$c70 = { type: "literal", value: "give", description: "\"give\"" },
+        peg$c71 = function(qty, rewardCode) {
                 return {
                     quantity: qty,
                     code: rewardCode
                 };
             },
-        peg$c65 = "\"",
-        peg$c66 = { type: "literal", value: "\"", description: "\"\\\"\"" },
-        peg$c67 = /^[^\n\r\f\\"]/,
-        peg$c68 = { type: "class", value: "[^\\n\\r\\f\\\\\"]", description: "[^\\n\\r\\f\\\\\"]" },
-        peg$c69 = "\\",
-        peg$c70 = { type: "literal", value: "\\", description: "\"\\\\\"" },
-        peg$c71 = function(chars) {
+        peg$c72 = "\"",
+        peg$c73 = { type: "literal", value: "\"", description: "\"\\\"\"" },
+        peg$c74 = /^[^\n\r\f\\"]/,
+        peg$c75 = { type: "class", value: "[^\\n\\r\\f\\\\\"]", description: "[^\\n\\r\\f\\\\\"]" },
+        peg$c76 = "\\",
+        peg$c77 = { type: "literal", value: "\\", description: "\"\\\\\"" },
+        peg$c78 = function(chars) {
                 return chars.join("");
             },
-        peg$c72 = "'",
-        peg$c73 = { type: "literal", value: "'", description: "\"'\"" },
-        peg$c74 = /^[^\n\r\f\\']/,
-        peg$c75 = { type: "class", value: "[^\\n\\r\\f\\\\']", description: "[^\\n\\r\\f\\\\']" },
-        peg$c76 = /^[_a-z]/i,
-        peg$c77 = { type: "class", value: "[_a-z]i", description: "[_a-z]i" },
-        peg$c78 = /^[_a-z0-9\-.]/i,
-        peg$c79 = { type: "class", value: "[_a-z0-9\\-.]i", description: "[_a-z0-9\\-.]i" },
-        peg$c80 = function(start, chars) {
+        peg$c79 = "'",
+        peg$c80 = { type: "literal", value: "'", description: "\"'\"" },
+        peg$c81 = /^[^\n\r\f\\']/,
+        peg$c82 = { type: "class", value: "[^\\n\\r\\f\\\\']", description: "[^\\n\\r\\f\\\\']" },
+        peg$c83 = /^[_a-z]/i,
+        peg$c84 = { type: "class", value: "[_a-z]i", description: "[_a-z]i" },
+        peg$c85 = /^[_a-z0-9\-.]/i,
+        peg$c86 = { type: "class", value: "[_a-z0-9\\-.]i", description: "[_a-z0-9\\-.]i" },
+        peg$c87 = function(start, chars) {
                 return start + chars.join("");
             },
-        peg$c81 = { type: "other", description: "rewardCode" },
-        peg$c82 = { type: "other", description: "actionCode" },
-        peg$c83 = { type: "other", description: "challengeCode" },
-        peg$c84 = { type: "other", description: "levelCode" },
-        peg$c85 = { type: "other", description: "segmentCode" },
-        peg$c86 = { type: "other", description: "tagCode" },
-        peg$c87 = { type: "other", description: "number" },
-        peg$c88 = /^[+\-]/,
-        peg$c89 = { type: "class", value: "[+\\-]", description: "[+\\-]" },
-        peg$c90 = ".",
-        peg$c91 = { type: "literal", value: ".", description: "\".\"" },
-        peg$c92 = function() {
+        peg$c88 = { type: "other", description: "rewardCode" },
+        peg$c89 = { type: "other", description: "actionCode" },
+        peg$c90 = { type: "other", description: "challengeCode" },
+        peg$c91 = { type: "other", description: "levelCode" },
+        peg$c92 = { type: "other", description: "segmentCode" },
+        peg$c93 = { type: "other", description: "tagCode" },
+        peg$c94 = { type: "other", description: "zoneCode" },
+        peg$c95 = { type: "other", description: "number" },
+        peg$c96 = /^[+\-]/,
+        peg$c97 = { type: "class", value: "[+\\-]", description: "[+\\-]" },
+        peg$c98 = ".",
+        peg$c99 = { type: "literal", value: ".", description: "\".\"" },
+        peg$c100 = function() {
                 return parseFloat(text());
             },
-        peg$c93 = { type: "other", description: "digit" },
-        peg$c94 = /^[0-9]/,
-        peg$c95 = { type: "class", value: "[0-9]", description: "[0-9]" },
-        peg$c96 = /^[ \t\r\n\f]/,
-        peg$c97 = { type: "class", value: "[ \\t\\r\\n\\f]", description: "[ \\t\\r\\n\\f]" },
-        peg$c98 = { type: "other", description: "whitespace" },
-        peg$c99 = { type: "other", description: "<null>" },
-        peg$c100 = "n",
-        peg$c101 = { type: "literal", value: "n", description: "\"n\"" },
-        peg$c102 = "u",
-        peg$c103 = { type: "literal", value: "u", description: "\"u\"" },
-        peg$c104 = "l",
-        peg$c105 = { type: "literal", value: "l", description: "\"l\"" },
-        peg$c106 = function() {
+        peg$c101 = { type: "other", description: "digit" },
+        peg$c102 = /^[0-9]/,
+        peg$c103 = { type: "class", value: "[0-9]", description: "[0-9]" },
+        peg$c104 = /^[ \t\r\n\f]/,
+        peg$c105 = { type: "class", value: "[ \\t\\r\\n\\f]", description: "[ \\t\\r\\n\\f]" },
+        peg$c106 = { type: "other", description: "whitespace" },
+        peg$c107 = { type: "other", description: "<null>" },
+        peg$c108 = "n",
+        peg$c109 = { type: "literal", value: "n", description: "\"n\"" },
+        peg$c110 = "u",
+        peg$c111 = { type: "literal", value: "u", description: "\"u\"" },
+        peg$c112 = "l",
+        peg$c113 = { type: "literal", value: "l", description: "\"l\"" },
+        peg$c114 = function() {
             return null;
          },
-        peg$c107 = { type: "other", description: "string" },
-        peg$c108 = function(string) {
+        peg$c115 = { type: "other", description: "string" },
+        peg$c116 = function(string) {
                 return string;
             },
-        peg$c109 = { type: "other", description: "path" },
-        peg$c110 = function(path) {
+        peg$c117 = { type: "other", description: "path" },
+        peg$c118 = function(path) {
                 return path;
             },
-        peg$c111 = { type: "other", description: "hash" },
-        peg$c112 = "#",
-        peg$c113 = { type: "literal", value: "#", description: "\"#\"" },
-        peg$c114 = function(name) {
+        peg$c119 = { type: "other", description: "hash" },
+        peg$c120 = "#",
+        peg$c121 = { type: "literal", value: "#", description: "\"#\"" },
+        peg$c122 = function(name) {
                 return name;
             },
-        peg$c115 = { type: "other", description: "date" },
-        peg$c116 = "-",
-        peg$c117 = { type: "literal", value: "-", description: "\"-\"" },
-        peg$c118 = function(year, month, day) {
+        peg$c123 = { type: "other", description: "date" },
+        peg$c124 = "-",
+        peg$c125 = { type: "literal", value: "-", description: "\"-\"" },
+        peg$c126 = function(year, month, day) {
                 return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
             },
-        peg$c119 = { type: "other", description: "datetime" },
-        peg$c120 = "T",
-        peg$c121 = { type: "literal", value: "T", description: "\"T\"" },
-        peg$c122 = ":",
-        peg$c123 = { type: "literal", value: ":", description: "\":\"" },
-        peg$c124 = function(year, month, day, hour, minute, second) {
+        peg$c127 = { type: "other", description: "datetime" },
+        peg$c128 = "T",
+        peg$c129 = { type: "literal", value: "T", description: "\"T\"" },
+        peg$c130 = ":",
+        peg$c131 = { type: "literal", value: ":", description: "\":\"" },
+        peg$c132 = function(year, month, day, hour, minute, second) {
                 return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
             },
 
@@ -1969,7 +2371,7 @@ module.exports = (function() {
     }
 
     function peg$parsesimple_rule() {
-      var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9;
+      var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11;
 
       s0 = peg$currPos;
       if (input.substr(peg$currPos, 6) === peg$c6) {
@@ -2104,9 +2506,9 @@ module.exports = (function() {
       }
       if (s0 === peg$FAILED) {
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 9) === peg$c9) {
+        if (input.substr(peg$currPos, 7) === peg$c9) {
           s1 = peg$c9;
-          peg$currPos += 9;
+          peg$currPos += 7;
         } else {
           s1 = peg$FAILED;
           if (peg$silentFails === 0) { peg$fail(peg$c10); }
@@ -2119,7 +2521,7 @@ module.exports = (function() {
             s3 = peg$parseS();
           }
           if (s2 !== peg$FAILED) {
-            s3 = peg$parsechallengeCode();
+            s3 = peg$parsezoneCode();
             if (s3 !== peg$FAILED) {
               s4 = [];
               s5 = peg$currPos;
@@ -2130,10 +2532,33 @@ module.exports = (function() {
                 s7 = peg$parseS();
               }
               if (s6 !== peg$FAILED) {
-                s7 = peg$parsecondition();
+                if (input.charCodeAt(peg$currPos) === 44) {
+                  s7 = peg$c11;
+                  peg$currPos++;
+                } else {
+                  s7 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c12); }
+                }
                 if (s7 !== peg$FAILED) {
-                  s6 = [s6, s7];
-                  s5 = s6;
+                  s8 = [];
+                  s9 = peg$parseS();
+                  while (s9 !== peg$FAILED) {
+                    s8.push(s9);
+                    s9 = peg$parseS();
+                  }
+                  if (s8 !== peg$FAILED) {
+                    s9 = peg$parsezoneCode();
+                    if (s9 !== peg$FAILED) {
+                      s6 = [s6, s7, s8, s9];
+                      s5 = s6;
+                    } else {
+                      peg$currPos = s5;
+                      s5 = peg$c0;
+                    }
+                  } else {
+                    peg$currPos = s5;
+                    s5 = peg$c0;
+                  }
                 } else {
                   peg$currPos = s5;
                   s5 = peg$c0;
@@ -2152,10 +2577,33 @@ module.exports = (function() {
                   s7 = peg$parseS();
                 }
                 if (s6 !== peg$FAILED) {
-                  s7 = peg$parsecondition();
+                  if (input.charCodeAt(peg$currPos) === 44) {
+                    s7 = peg$c11;
+                    peg$currPos++;
+                  } else {
+                    s7 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c12); }
+                  }
                   if (s7 !== peg$FAILED) {
-                    s6 = [s6, s7];
-                    s5 = s6;
+                    s8 = [];
+                    s9 = peg$parseS();
+                    while (s9 !== peg$FAILED) {
+                      s8.push(s9);
+                      s9 = peg$parseS();
+                    }
+                    if (s8 !== peg$FAILED) {
+                      s9 = peg$parsezoneCode();
+                      if (s9 !== peg$FAILED) {
+                        s6 = [s6, s7, s8, s9];
+                        s5 = s6;
+                      } else {
+                        peg$currPos = s5;
+                        s5 = peg$c0;
+                      }
+                    } else {
+                      peg$currPos = s5;
+                      s5 = peg$c0;
+                    }
                   } else {
                     peg$currPos = s5;
                     s5 = peg$c0;
@@ -2166,53 +2614,72 @@ module.exports = (function() {
                 }
               }
               if (s4 !== peg$FAILED) {
-                s5 = [];
-                s6 = peg$currPos;
-                s7 = [];
-                s8 = peg$parseS();
-                while (s8 !== peg$FAILED) {
-                  s7.push(s8);
-                  s8 = peg$parseS();
+                s5 = peg$currPos;
+                s6 = [];
+                s7 = peg$parseS();
+                while (s7 !== peg$FAILED) {
+                  s6.push(s7);
+                  s7 = peg$parseS();
                 }
-                if (s7 !== peg$FAILED) {
-                  s8 = peg$parsewithTag();
-                  if (s8 !== peg$FAILED) {
-                    s7 = [s7, s8];
-                    s6 = s7;
+                if (s6 !== peg$FAILED) {
+                  if (input.substr(peg$currPos, 3) === peg$c14) {
+                    s7 = peg$c14;
+                    peg$currPos += 3;
                   } else {
-                    peg$currPos = s6;
-                    s6 = peg$c0;
-                  }
-                } else {
-                  peg$currPos = s6;
-                  s6 = peg$c0;
-                }
-                while (s6 !== peg$FAILED) {
-                  s5.push(s6);
-                  s6 = peg$currPos;
-                  s7 = [];
-                  s8 = peg$parseS();
-                  while (s8 !== peg$FAILED) {
-                    s7.push(s8);
-                    s8 = peg$parseS();
+                    s7 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c15); }
                   }
                   if (s7 !== peg$FAILED) {
-                    s8 = peg$parsewithTag();
+                    s8 = [];
+                    s9 = peg$parseS();
+                    while (s9 !== peg$FAILED) {
+                      s8.push(s9);
+                      s9 = peg$parseS();
+                    }
                     if (s8 !== peg$FAILED) {
-                      s7 = [s7, s8];
-                      s6 = s7;
+                      s9 = peg$parseNUMBER();
+                      if (s9 !== peg$FAILED) {
+                        s10 = [];
+                        s11 = peg$parseS();
+                        while (s11 !== peg$FAILED) {
+                          s10.push(s11);
+                          s11 = peg$parseS();
+                        }
+                        if (s10 !== peg$FAILED) {
+                          s11 = peg$parsetimeframe();
+                          if (s11 !== peg$FAILED) {
+                            s6 = [s6, s7, s8, s9, s10, s11];
+                            s5 = s6;
+                          } else {
+                            peg$currPos = s5;
+                            s5 = peg$c0;
+                          }
+                        } else {
+                          peg$currPos = s5;
+                          s5 = peg$c0;
+                        }
+                      } else {
+                        peg$currPos = s5;
+                        s5 = peg$c0;
+                      }
                     } else {
-                      peg$currPos = s6;
-                      s6 = peg$c0;
+                      peg$currPos = s5;
+                      s5 = peg$c0;
                     }
                   } else {
-                    peg$currPos = s6;
-                    s6 = peg$c0;
+                    peg$currPos = s5;
+                    s5 = peg$c0;
                   }
+                } else {
+                  peg$currPos = s5;
+                  s5 = peg$c0;
+                }
+                if (s5 === peg$FAILED) {
+                  s5 = peg$c13;
                 }
                 if (s5 !== peg$FAILED) {
                   peg$reportedPos = s0;
-                  s1 = peg$c11(s1, s3, s4, s5);
+                  s1 = peg$c16(s3, s4, s5);
                   s0 = s1;
                 } else {
                   peg$currPos = s0;
@@ -2236,12 +2703,12 @@ module.exports = (function() {
         }
         if (s0 === peg$FAILED) {
           s0 = peg$currPos;
-          if (input.substr(peg$currPos, 6) === peg$c12) {
-            s1 = peg$c12;
-            peg$currPos += 6;
+          if (input.substr(peg$currPos, 9) === peg$c17) {
+            s1 = peg$c17;
+            peg$currPos += 9;
           } else {
             s1 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c13); }
+            if (peg$silentFails === 0) { peg$fail(peg$c18); }
           }
           if (s1 !== peg$FAILED) {
             s2 = [];
@@ -2251,72 +2718,101 @@ module.exports = (function() {
               s3 = peg$parseS();
             }
             if (s2 !== peg$FAILED) {
-              if (input.substr(peg$currPos, 5) === peg$c14) {
-                s3 = peg$c14;
-                peg$currPos += 5;
-              } else {
-                s3 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c15); }
-              }
-              if (s3 === peg$FAILED) {
-                if (input.substr(peg$currPos, 5) === peg$c16) {
-                  s3 = peg$c16;
-                  peg$currPos += 5;
-                } else {
-                  s3 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c17); }
-                }
-              }
+              s3 = peg$parsechallengeCode();
               if (s3 !== peg$FAILED) {
                 s4 = [];
-                s5 = peg$parseS();
+                s5 = peg$currPos;
+                s6 = [];
+                s7 = peg$parseS();
+                while (s7 !== peg$FAILED) {
+                  s6.push(s7);
+                  s7 = peg$parseS();
+                }
+                if (s6 !== peg$FAILED) {
+                  s7 = peg$parsecondition();
+                  if (s7 !== peg$FAILED) {
+                    s6 = [s6, s7];
+                    s5 = s6;
+                  } else {
+                    peg$currPos = s5;
+                    s5 = peg$c0;
+                  }
+                } else {
+                  peg$currPos = s5;
+                  s5 = peg$c0;
+                }
                 while (s5 !== peg$FAILED) {
                   s4.push(s5);
-                  s5 = peg$parseS();
+                  s5 = peg$currPos;
+                  s6 = [];
+                  s7 = peg$parseS();
+                  while (s7 !== peg$FAILED) {
+                    s6.push(s7);
+                    s7 = peg$parseS();
+                  }
+                  if (s6 !== peg$FAILED) {
+                    s7 = peg$parsecondition();
+                    if (s7 !== peg$FAILED) {
+                      s6 = [s6, s7];
+                      s5 = s6;
+                    } else {
+                      peg$currPos = s5;
+                      s5 = peg$c0;
+                    }
+                  } else {
+                    peg$currPos = s5;
+                    s5 = peg$c0;
+                  }
                 }
                 if (s4 !== peg$FAILED) {
-                  s5 = peg$parselevelCode();
-                  if (s5 !== peg$FAILED) {
-                    s6 = [];
-                    s7 = peg$parseS();
-                    while (s7 !== peg$FAILED) {
-                      s6.push(s7);
-                      s7 = peg$parseS();
+                  s5 = [];
+                  s6 = peg$currPos;
+                  s7 = [];
+                  s8 = peg$parseS();
+                  while (s8 !== peg$FAILED) {
+                    s7.push(s8);
+                    s8 = peg$parseS();
+                  }
+                  if (s7 !== peg$FAILED) {
+                    s8 = peg$parsewithTag();
+                    if (s8 !== peg$FAILED) {
+                      s7 = [s7, s8];
+                      s6 = s7;
+                    } else {
+                      peg$currPos = s6;
+                      s6 = peg$c0;
                     }
-                    if (s6 !== peg$FAILED) {
-                      s7 = peg$parseNUMBER();
-                      if (s7 !== peg$FAILED) {
-                        s8 = [];
-                        s9 = peg$parseS();
-                        while (s9 !== peg$FAILED) {
-                          s8.push(s9);
-                          s9 = peg$parseS();
-                        }
-                        if (s8 !== peg$FAILED) {
-                          s9 = peg$parsewithTag();
-                          if (s9 === peg$FAILED) {
-                            s9 = peg$c18;
-                          }
-                          if (s9 !== peg$FAILED) {
-                            peg$reportedPos = s0;
-                            s1 = peg$c19(s1, s3, s5, s7, s9);
-                            s0 = s1;
-                          } else {
-                            peg$currPos = s0;
-                            s0 = peg$c0;
-                          }
-                        } else {
-                          peg$currPos = s0;
-                          s0 = peg$c0;
-                        }
+                  } else {
+                    peg$currPos = s6;
+                    s6 = peg$c0;
+                  }
+                  while (s6 !== peg$FAILED) {
+                    s5.push(s6);
+                    s6 = peg$currPos;
+                    s7 = [];
+                    s8 = peg$parseS();
+                    while (s8 !== peg$FAILED) {
+                      s7.push(s8);
+                      s8 = peg$parseS();
+                    }
+                    if (s7 !== peg$FAILED) {
+                      s8 = peg$parsewithTag();
+                      if (s8 !== peg$FAILED) {
+                        s7 = [s7, s8];
+                        s6 = s7;
                       } else {
-                        peg$currPos = s0;
-                        s0 = peg$c0;
+                        peg$currPos = s6;
+                        s6 = peg$c0;
                       }
                     } else {
-                      peg$currPos = s0;
-                      s0 = peg$c0;
+                      peg$currPos = s6;
+                      s6 = peg$c0;
                     }
+                  }
+                  if (s5 !== peg$FAILED) {
+                    peg$reportedPos = s0;
+                    s1 = peg$c19(s1, s3, s4, s5);
+                    s0 = s1;
                   } else {
                     peg$currPos = s0;
                     s0 = peg$c0;
@@ -2339,12 +2835,12 @@ module.exports = (function() {
           }
           if (s0 === peg$FAILED) {
             s0 = peg$currPos;
-            if (input.substr(peg$currPos, 6) === peg$c12) {
-              s1 = peg$c12;
+            if (input.substr(peg$currPos, 6) === peg$c20) {
+              s1 = peg$c20;
               peg$currPos += 6;
             } else {
               s1 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c13); }
+              if (peg$silentFails === 0) { peg$fail(peg$c21); }
             }
             if (s1 !== peg$FAILED) {
               s2 = [];
@@ -2354,12 +2850,21 @@ module.exports = (function() {
                 s3 = peg$parseS();
               }
               if (s2 !== peg$FAILED) {
-                if (input.substr(peg$currPos, 3) === peg$c20) {
-                  s3 = peg$c20;
-                  peg$currPos += 3;
+                if (input.substr(peg$currPos, 5) === peg$c22) {
+                  s3 = peg$c22;
+                  peg$currPos += 5;
                 } else {
                   s3 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c21); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c23); }
+                }
+                if (s3 === peg$FAILED) {
+                  if (input.substr(peg$currPos, 5) === peg$c24) {
+                    s3 = peg$c24;
+                    peg$currPos += 5;
+                  } else {
+                    s3 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c25); }
+                  }
                 }
                 if (s3 !== peg$FAILED) {
                   s4 = [];
@@ -2369,7 +2874,7 @@ module.exports = (function() {
                     s5 = peg$parseS();
                   }
                   if (s4 !== peg$FAILED) {
-                    s5 = peg$parsetagCode();
+                    s5 = peg$parselevelCode();
                     if (s5 !== peg$FAILED) {
                       s6 = [];
                       s7 = peg$parseS();
@@ -2389,11 +2894,11 @@ module.exports = (function() {
                           if (s8 !== peg$FAILED) {
                             s9 = peg$parsewithTag();
                             if (s9 === peg$FAILED) {
-                              s9 = peg$c18;
+                              s9 = peg$c13;
                             }
                             if (s9 !== peg$FAILED) {
                               peg$reportedPos = s0;
-                              s1 = peg$c22(s1, s3, s5, s7, s9);
+                              s1 = peg$c26(s1, s3, s5, s7, s9);
                               s0 = s1;
                             } else {
                               peg$currPos = s0;
@@ -2433,12 +2938,12 @@ module.exports = (function() {
             }
             if (s0 === peg$FAILED) {
               s0 = peg$currPos;
-              if (input.substr(peg$currPos, 6) === peg$c12) {
-                s1 = peg$c12;
+              if (input.substr(peg$currPos, 6) === peg$c20) {
+                s1 = peg$c20;
                 peg$currPos += 6;
               } else {
                 s1 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c13); }
+                if (peg$silentFails === 0) { peg$fail(peg$c21); }
               }
               if (s1 !== peg$FAILED) {
                 s2 = [];
@@ -2448,12 +2953,12 @@ module.exports = (function() {
                   s3 = peg$parseS();
                 }
                 if (s2 !== peg$FAILED) {
-                  if (input.substr(peg$currPos, 8) === peg$c23) {
-                    s3 = peg$c23;
-                    peg$currPos += 8;
+                  if (input.substr(peg$currPos, 3) === peg$c27) {
+                    s3 = peg$c27;
+                    peg$currPos += 3;
                   } else {
                     s3 = peg$FAILED;
-                    if (peg$silentFails === 0) { peg$fail(peg$c24); }
+                    if (peg$silentFails === 0) { peg$fail(peg$c28); }
                   }
                   if (s3 !== peg$FAILED) {
                     s4 = [];
@@ -2463,68 +2968,36 @@ module.exports = (function() {
                       s5 = peg$parseS();
                     }
                     if (s4 !== peg$FAILED) {
-                      s5 = peg$parselevelCode();
+                      s5 = peg$parsetagCode();
                       if (s5 !== peg$FAILED) {
                         s6 = [];
-                        s7 = peg$currPos;
-                        s8 = [];
-                        s9 = peg$parseS();
-                        while (s9 !== peg$FAILED) {
-                          s8.push(s9);
-                          s9 = peg$parseS();
-                        }
-                        if (s8 !== peg$FAILED) {
-                          s9 = peg$parsecondition();
-                          if (s9 !== peg$FAILED) {
-                            s8 = [s8, s9];
-                            s7 = s8;
-                          } else {
-                            peg$currPos = s7;
-                            s7 = peg$c0;
-                          }
-                        } else {
-                          peg$currPos = s7;
-                          s7 = peg$c0;
-                        }
+                        s7 = peg$parseS();
                         while (s7 !== peg$FAILED) {
                           s6.push(s7);
-                          s7 = peg$currPos;
-                          s8 = [];
-                          s9 = peg$parseS();
-                          while (s9 !== peg$FAILED) {
-                            s8.push(s9);
-                            s9 = peg$parseS();
-                          }
-                          if (s8 !== peg$FAILED) {
-                            s9 = peg$parsecondition();
-                            if (s9 !== peg$FAILED) {
-                              s8 = [s8, s9];
-                              s7 = s8;
-                            } else {
-                              peg$currPos = s7;
-                              s7 = peg$c0;
-                            }
-                          } else {
-                            peg$currPos = s7;
-                            s7 = peg$c0;
-                          }
+                          s7 = peg$parseS();
                         }
                         if (s6 !== peg$FAILED) {
-                          s7 = [];
-                          s8 = peg$parseS();
-                          while (s8 !== peg$FAILED) {
-                            s7.push(s8);
-                            s8 = peg$parseS();
-                          }
+                          s7 = peg$parseNUMBER();
                           if (s7 !== peg$FAILED) {
-                            s8 = peg$parsewithTag();
-                            if (s8 === peg$FAILED) {
-                              s8 = peg$c18;
+                            s8 = [];
+                            s9 = peg$parseS();
+                            while (s9 !== peg$FAILED) {
+                              s8.push(s9);
+                              s9 = peg$parseS();
                             }
                             if (s8 !== peg$FAILED) {
-                              peg$reportedPos = s0;
-                              s1 = peg$c25(s1, s3, s5, s6, s8);
-                              s0 = s1;
+                              s9 = peg$parsewithTag();
+                              if (s9 === peg$FAILED) {
+                                s9 = peg$c13;
+                              }
+                              if (s9 !== peg$FAILED) {
+                                peg$reportedPos = s0;
+                                s1 = peg$c29(s1, s3, s5, s7, s9);
+                                s0 = s1;
+                              } else {
+                                peg$currPos = s0;
+                                s0 = peg$c0;
+                              }
                             } else {
                               peg$currPos = s0;
                               s0 = peg$c0;
@@ -2557,6 +3030,133 @@ module.exports = (function() {
                 peg$currPos = s0;
                 s0 = peg$c0;
               }
+              if (s0 === peg$FAILED) {
+                s0 = peg$currPos;
+                if (input.substr(peg$currPos, 6) === peg$c20) {
+                  s1 = peg$c20;
+                  peg$currPos += 6;
+                } else {
+                  s1 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c21); }
+                }
+                if (s1 !== peg$FAILED) {
+                  s2 = [];
+                  s3 = peg$parseS();
+                  while (s3 !== peg$FAILED) {
+                    s2.push(s3);
+                    s3 = peg$parseS();
+                  }
+                  if (s2 !== peg$FAILED) {
+                    if (input.substr(peg$currPos, 8) === peg$c30) {
+                      s3 = peg$c30;
+                      peg$currPos += 8;
+                    } else {
+                      s3 = peg$FAILED;
+                      if (peg$silentFails === 0) { peg$fail(peg$c31); }
+                    }
+                    if (s3 !== peg$FAILED) {
+                      s4 = [];
+                      s5 = peg$parseS();
+                      while (s5 !== peg$FAILED) {
+                        s4.push(s5);
+                        s5 = peg$parseS();
+                      }
+                      if (s4 !== peg$FAILED) {
+                        s5 = peg$parselevelCode();
+                        if (s5 !== peg$FAILED) {
+                          s6 = [];
+                          s7 = peg$currPos;
+                          s8 = [];
+                          s9 = peg$parseS();
+                          while (s9 !== peg$FAILED) {
+                            s8.push(s9);
+                            s9 = peg$parseS();
+                          }
+                          if (s8 !== peg$FAILED) {
+                            s9 = peg$parsecondition();
+                            if (s9 !== peg$FAILED) {
+                              s8 = [s8, s9];
+                              s7 = s8;
+                            } else {
+                              peg$currPos = s7;
+                              s7 = peg$c0;
+                            }
+                          } else {
+                            peg$currPos = s7;
+                            s7 = peg$c0;
+                          }
+                          while (s7 !== peg$FAILED) {
+                            s6.push(s7);
+                            s7 = peg$currPos;
+                            s8 = [];
+                            s9 = peg$parseS();
+                            while (s9 !== peg$FAILED) {
+                              s8.push(s9);
+                              s9 = peg$parseS();
+                            }
+                            if (s8 !== peg$FAILED) {
+                              s9 = peg$parsecondition();
+                              if (s9 !== peg$FAILED) {
+                                s8 = [s8, s9];
+                                s7 = s8;
+                              } else {
+                                peg$currPos = s7;
+                                s7 = peg$c0;
+                              }
+                            } else {
+                              peg$currPos = s7;
+                              s7 = peg$c0;
+                            }
+                          }
+                          if (s6 !== peg$FAILED) {
+                            s7 = [];
+                            s8 = peg$parseS();
+                            while (s8 !== peg$FAILED) {
+                              s7.push(s8);
+                              s8 = peg$parseS();
+                            }
+                            if (s7 !== peg$FAILED) {
+                              s8 = peg$parsewithTag();
+                              if (s8 === peg$FAILED) {
+                                s8 = peg$c13;
+                              }
+                              if (s8 !== peg$FAILED) {
+                                peg$reportedPos = s0;
+                                s1 = peg$c32(s1, s3, s5, s6, s8);
+                                s0 = s1;
+                              } else {
+                                peg$currPos = s0;
+                                s0 = peg$c0;
+                              }
+                            } else {
+                              peg$currPos = s0;
+                              s0 = peg$c0;
+                            }
+                          } else {
+                            peg$currPos = s0;
+                            s0 = peg$c0;
+                          }
+                        } else {
+                          peg$currPos = s0;
+                          s0 = peg$c0;
+                        }
+                      } else {
+                        peg$currPos = s0;
+                        s0 = peg$c0;
+                      }
+                    } else {
+                      peg$currPos = s0;
+                      s0 = peg$c0;
+                    }
+                  } else {
+                    peg$currPos = s0;
+                    s0 = peg$c0;
+                  }
+                } else {
+                  peg$currPos = s0;
+                  s0 = peg$c0;
+                }
+              }
             }
           }
         }
@@ -2580,12 +3180,12 @@ module.exports = (function() {
       var s0, s1, s2, s3, s4, s5, s6, s7, s8;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 8) === peg$c26) {
-        s1 = peg$c26;
+      if (input.substr(peg$currPos, 8) === peg$c33) {
+        s1 = peg$c33;
         peg$currPos += 8;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c27); }
+        if (peg$silentFails === 0) { peg$fail(peg$c34); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
@@ -2606,11 +3206,11 @@ module.exports = (function() {
             if (s4 !== peg$FAILED) {
               s5 = peg$currPos;
               if (input.charCodeAt(peg$currPos) === 61) {
-                s6 = peg$c28;
+                s6 = peg$c35;
                 peg$currPos++;
               } else {
                 s6 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c29); }
+                if (peg$silentFails === 0) { peg$fail(peg$c36); }
               }
               if (s6 !== peg$FAILED) {
                 s7 = [];
@@ -2637,11 +3237,11 @@ module.exports = (function() {
                 s5 = peg$c0;
               }
               if (s5 === peg$FAILED) {
-                s5 = peg$c18;
+                s5 = peg$c13;
               }
               if (s5 !== peg$FAILED) {
                 peg$reportedPos = s0;
-                s1 = peg$c30(s3, s5);
+                s1 = peg$c37(s3, s5);
                 s0 = s1;
               } else {
                 peg$currPos = s0;
@@ -2680,16 +3280,16 @@ module.exports = (function() {
           s3 = peg$parseS();
         }
         if (s2 !== peg$FAILED) {
-          if (input.substr(peg$currPos, 5) === peg$c31) {
-            s3 = peg$c31;
+          if (input.substr(peg$currPos, 5) === peg$c38) {
+            s3 = peg$c38;
             peg$currPos += 5;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c32); }
+            if (peg$silentFails === 0) { peg$fail(peg$c39); }
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c33(s1);
+            s1 = peg$c40(s1);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -2720,12 +3320,12 @@ module.exports = (function() {
           s3 = peg$parseS();
         }
         if (s2 !== peg$FAILED) {
-          if (input.substr(peg$currPos, 5) === peg$c31) {
-            s3 = peg$c31;
+          if (input.substr(peg$currPos, 5) === peg$c38) {
+            s3 = peg$c38;
             peg$currPos += 5;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c32); }
+            if (peg$silentFails === 0) { peg$fail(peg$c39); }
           }
           if (s3 !== peg$FAILED) {
             s4 = [];
@@ -2735,12 +3335,12 @@ module.exports = (function() {
               s5 = peg$parseS();
             }
             if (s4 !== peg$FAILED) {
-              if (input.substr(peg$currPos, 6) === peg$c34) {
-                s5 = peg$c34;
+              if (input.substr(peg$currPos, 6) === peg$c41) {
+                s5 = peg$c41;
                 peg$currPos += 6;
               } else {
                 s5 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c35); }
+                if (peg$silentFails === 0) { peg$fail(peg$c42); }
               }
               if (s5 !== peg$FAILED) {
                 s6 = [];
@@ -2762,7 +3362,7 @@ module.exports = (function() {
                       s9 = peg$parsetimeframe();
                       if (s9 !== peg$FAILED) {
                         peg$reportedPos = s0;
-                        s1 = peg$c36(s1, s7, s9);
+                        s1 = peg$c43(s1, s7, s9);
                         s0 = s1;
                       } else {
                         peg$currPos = s0;
@@ -2808,100 +3408,100 @@ module.exports = (function() {
       var s0, s1;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 7) === peg$c37) {
-        s1 = peg$c37;
+      if (input.substr(peg$currPos, 7) === peg$c44) {
+        s1 = peg$c44;
         peg$currPos += 7;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c38); }
+        if (peg$silentFails === 0) { peg$fail(peg$c45); }
       }
       if (s1 === peg$FAILED) {
-        if (input.substr(peg$currPos, 6) === peg$c39) {
-          s1 = peg$c39;
+        if (input.substr(peg$currPos, 6) === peg$c46) {
+          s1 = peg$c46;
           peg$currPos += 6;
         } else {
           s1 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c40); }
+          if (peg$silentFails === 0) { peg$fail(peg$c47); }
         }
         if (s1 === peg$FAILED) {
-          if (input.substr(peg$currPos, 5) === peg$c41) {
-            s1 = peg$c41;
+          if (input.substr(peg$currPos, 5) === peg$c48) {
+            s1 = peg$c48;
             peg$currPos += 5;
           } else {
             s1 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c42); }
+            if (peg$silentFails === 0) { peg$fail(peg$c49); }
           }
           if (s1 === peg$FAILED) {
-            if (input.substr(peg$currPos, 4) === peg$c43) {
-              s1 = peg$c43;
+            if (input.substr(peg$currPos, 4) === peg$c50) {
+              s1 = peg$c50;
               peg$currPos += 4;
             } else {
               s1 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c44); }
+              if (peg$silentFails === 0) { peg$fail(peg$c51); }
             }
             if (s1 === peg$FAILED) {
-              if (input.substr(peg$currPos, 4) === peg$c45) {
-                s1 = peg$c45;
+              if (input.substr(peg$currPos, 4) === peg$c52) {
+                s1 = peg$c52;
                 peg$currPos += 4;
               } else {
                 s1 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c46); }
+                if (peg$silentFails === 0) { peg$fail(peg$c53); }
               }
               if (s1 === peg$FAILED) {
-                if (input.substr(peg$currPos, 3) === peg$c47) {
-                  s1 = peg$c47;
+                if (input.substr(peg$currPos, 3) === peg$c54) {
+                  s1 = peg$c54;
                   peg$currPos += 3;
                 } else {
                   s1 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c48); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c55); }
                 }
                 if (s1 === peg$FAILED) {
-                  if (input.substr(peg$currPos, 5) === peg$c49) {
-                    s1 = peg$c49;
+                  if (input.substr(peg$currPos, 5) === peg$c56) {
+                    s1 = peg$c56;
                     peg$currPos += 5;
                   } else {
                     s1 = peg$FAILED;
-                    if (peg$silentFails === 0) { peg$fail(peg$c50); }
+                    if (peg$silentFails === 0) { peg$fail(peg$c57); }
                   }
                   if (s1 === peg$FAILED) {
-                    if (input.substr(peg$currPos, 4) === peg$c51) {
-                      s1 = peg$c51;
+                    if (input.substr(peg$currPos, 4) === peg$c58) {
+                      s1 = peg$c58;
                       peg$currPos += 4;
                     } else {
                       s1 = peg$FAILED;
-                      if (peg$silentFails === 0) { peg$fail(peg$c52); }
+                      if (peg$silentFails === 0) { peg$fail(peg$c59); }
                     }
                     if (s1 === peg$FAILED) {
-                      if (input.substr(peg$currPos, 6) === peg$c53) {
-                        s1 = peg$c53;
+                      if (input.substr(peg$currPos, 6) === peg$c60) {
+                        s1 = peg$c60;
                         peg$currPos += 6;
                       } else {
                         s1 = peg$FAILED;
-                        if (peg$silentFails === 0) { peg$fail(peg$c54); }
+                        if (peg$silentFails === 0) { peg$fail(peg$c61); }
                       }
                       if (s1 === peg$FAILED) {
-                        if (input.substr(peg$currPos, 5) === peg$c55) {
-                          s1 = peg$c55;
+                        if (input.substr(peg$currPos, 5) === peg$c62) {
+                          s1 = peg$c62;
                           peg$currPos += 5;
                         } else {
                           s1 = peg$FAILED;
-                          if (peg$silentFails === 0) { peg$fail(peg$c56); }
+                          if (peg$silentFails === 0) { peg$fail(peg$c63); }
                         }
                         if (s1 === peg$FAILED) {
-                          if (input.substr(peg$currPos, 5) === peg$c57) {
-                            s1 = peg$c57;
+                          if (input.substr(peg$currPos, 5) === peg$c64) {
+                            s1 = peg$c64;
                             peg$currPos += 5;
                           } else {
                             s1 = peg$FAILED;
-                            if (peg$silentFails === 0) { peg$fail(peg$c58); }
+                            if (peg$silentFails === 0) { peg$fail(peg$c65); }
                           }
                           if (s1 === peg$FAILED) {
-                            if (input.substr(peg$currPos, 4) === peg$c59) {
-                              s1 = peg$c59;
+                            if (input.substr(peg$currPos, 4) === peg$c66) {
+                              s1 = peg$c66;
                               peg$currPos += 4;
                             } else {
                               s1 = peg$FAILED;
-                              if (peg$silentFails === 0) { peg$fail(peg$c60); }
+                              if (peg$silentFails === 0) { peg$fail(peg$c67); }
                             }
                           }
                         }
@@ -2916,7 +3516,7 @@ module.exports = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c61(s1);
+        s1 = peg$c68(s1);
       }
       s0 = s1;
 
@@ -2927,12 +3527,12 @@ module.exports = (function() {
       var s0, s1, s2, s3, s4, s5;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 4) === peg$c62) {
-        s1 = peg$c62;
+      if (input.substr(peg$currPos, 4) === peg$c69) {
+        s1 = peg$c69;
         peg$currPos += 4;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c63); }
+        if (peg$silentFails === 0) { peg$fail(peg$c70); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
@@ -2954,7 +3554,7 @@ module.exports = (function() {
               s5 = peg$parserewardCode();
               if (s5 !== peg$FAILED) {
                 peg$reportedPos = s0;
-                s1 = peg$c64(s3, s5);
+                s1 = peg$c71(s3, s5);
                 s0 = s1;
               } else {
                 peg$currPos = s0;
@@ -2985,60 +3585,60 @@ module.exports = (function() {
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 34) {
-        s1 = peg$c65;
+        s1 = peg$c72;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c66); }
+        if (peg$silentFails === 0) { peg$fail(peg$c73); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
-        if (peg$c67.test(input.charAt(peg$currPos))) {
+        if (peg$c74.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c68); }
+          if (peg$silentFails === 0) { peg$fail(peg$c75); }
         }
         if (s3 === peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 92) {
-            s3 = peg$c69;
+            s3 = peg$c76;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c70); }
+            if (peg$silentFails === 0) { peg$fail(peg$c77); }
           }
         }
         while (s3 !== peg$FAILED) {
           s2.push(s3);
-          if (peg$c67.test(input.charAt(peg$currPos))) {
+          if (peg$c74.test(input.charAt(peg$currPos))) {
             s3 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c68); }
+            if (peg$silentFails === 0) { peg$fail(peg$c75); }
           }
           if (s3 === peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 92) {
-              s3 = peg$c69;
+              s3 = peg$c76;
               peg$currPos++;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c70); }
+              if (peg$silentFails === 0) { peg$fail(peg$c77); }
             }
           }
         }
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 34) {
-            s3 = peg$c65;
+            s3 = peg$c72;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c66); }
+            if (peg$silentFails === 0) { peg$fail(peg$c73); }
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c71(s2);
+            s1 = peg$c78(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -3061,60 +3661,60 @@ module.exports = (function() {
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 39) {
-        s1 = peg$c72;
+        s1 = peg$c79;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c73); }
+        if (peg$silentFails === 0) { peg$fail(peg$c80); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
-        if (peg$c74.test(input.charAt(peg$currPos))) {
+        if (peg$c81.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c75); }
+          if (peg$silentFails === 0) { peg$fail(peg$c82); }
         }
         if (s3 === peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 92) {
-            s3 = peg$c69;
+            s3 = peg$c76;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c70); }
+            if (peg$silentFails === 0) { peg$fail(peg$c77); }
           }
         }
         while (s3 !== peg$FAILED) {
           s2.push(s3);
-          if (peg$c74.test(input.charAt(peg$currPos))) {
+          if (peg$c81.test(input.charAt(peg$currPos))) {
             s3 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c75); }
+            if (peg$silentFails === 0) { peg$fail(peg$c82); }
           }
           if (s3 === peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 92) {
-              s3 = peg$c69;
+              s3 = peg$c76;
               peg$currPos++;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c70); }
+              if (peg$silentFails === 0) { peg$fail(peg$c77); }
             }
           }
         }
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 39) {
-            s3 = peg$c72;
+            s3 = peg$c79;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c73); }
+            if (peg$silentFails === 0) { peg$fail(peg$c80); }
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c71(s2);
+            s1 = peg$c78(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -3146,12 +3746,12 @@ module.exports = (function() {
     function peg$parsepath_start() {
       var s0;
 
-      if (peg$c76.test(input.charAt(peg$currPos))) {
+      if (peg$c83.test(input.charAt(peg$currPos))) {
         s0 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c77); }
+        if (peg$silentFails === 0) { peg$fail(peg$c84); }
       }
 
       return s0;
@@ -3160,12 +3760,12 @@ module.exports = (function() {
     function peg$parsepath_char() {
       var s0;
 
-      if (peg$c78.test(input.charAt(peg$currPos))) {
+      if (peg$c85.test(input.charAt(peg$currPos))) {
         s0 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c79); }
+        if (peg$silentFails === 0) { peg$fail(peg$c86); }
       }
 
       return s0;
@@ -3185,7 +3785,7 @@ module.exports = (function() {
         }
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c80(s1, s2);
+          s1 = peg$c87(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -3215,7 +3815,7 @@ module.exports = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c71(s1);
+        s1 = peg$c78(s1);
       }
       s0 = s1;
 
@@ -3238,7 +3838,7 @@ module.exports = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c71(s1);
+        s1 = peg$c78(s1);
       }
       s0 = s1;
 
@@ -3253,7 +3853,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c81); }
+        if (peg$silentFails === 0) { peg$fail(peg$c88); }
       }
 
       return s0;
@@ -3267,7 +3867,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c82); }
+        if (peg$silentFails === 0) { peg$fail(peg$c89); }
       }
 
       return s0;
@@ -3281,7 +3881,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c83); }
+        if (peg$silentFails === 0) { peg$fail(peg$c90); }
       }
 
       return s0;
@@ -3295,7 +3895,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c84); }
+        if (peg$silentFails === 0) { peg$fail(peg$c91); }
       }
 
       return s0;
@@ -3309,7 +3909,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c85); }
+        if (peg$silentFails === 0) { peg$fail(peg$c92); }
       }
 
       return s0;
@@ -3323,7 +3923,21 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c86); }
+        if (peg$silentFails === 0) { peg$fail(peg$c93); }
+      }
+
+      return s0;
+    }
+
+    function peg$parsezoneCode() {
+      var s0, s1;
+
+      peg$silentFails++;
+      s0 = peg$parsecode();
+      peg$silentFails--;
+      if (s0 === peg$FAILED) {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c94); }
       }
 
       return s0;
@@ -3334,15 +3948,15 @@ module.exports = (function() {
 
       peg$silentFails++;
       s0 = peg$currPos;
-      if (peg$c88.test(input.charAt(peg$currPos))) {
+      if (peg$c96.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c89); }
+        if (peg$silentFails === 0) { peg$fail(peg$c97); }
       }
       if (s1 === peg$FAILED) {
-        s1 = peg$c18;
+        s1 = peg$c13;
       }
       if (s1 !== peg$FAILED) {
         s2 = peg$currPos;
@@ -3354,11 +3968,11 @@ module.exports = (function() {
         }
         if (s3 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 46) {
-            s4 = peg$c90;
+            s4 = peg$c98;
             peg$currPos++;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c91); }
+            if (peg$silentFails === 0) { peg$fail(peg$c99); }
           }
           if (s4 !== peg$FAILED) {
             s5 = [];
@@ -3400,7 +4014,7 @@ module.exports = (function() {
         }
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c92();
+          s1 = peg$c100();
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -3413,7 +4027,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c87); }
+        if (peg$silentFails === 0) { peg$fail(peg$c95); }
       }
 
       return s0;
@@ -3423,17 +4037,17 @@ module.exports = (function() {
       var s0, s1;
 
       peg$silentFails++;
-      if (peg$c94.test(input.charAt(peg$currPos))) {
+      if (peg$c102.test(input.charAt(peg$currPos))) {
         s0 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c95); }
+        if (peg$silentFails === 0) { peg$fail(peg$c103); }
       }
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c93); }
+        if (peg$silentFails === 0) { peg$fail(peg$c101); }
       }
 
       return s0;
@@ -3443,22 +4057,22 @@ module.exports = (function() {
       var s0, s1;
 
       s0 = [];
-      if (peg$c96.test(input.charAt(peg$currPos))) {
+      if (peg$c104.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c97); }
+        if (peg$silentFails === 0) { peg$fail(peg$c105); }
       }
       if (s1 !== peg$FAILED) {
         while (s1 !== peg$FAILED) {
           s0.push(s1);
-          if (peg$c96.test(input.charAt(peg$currPos))) {
+          if (peg$c104.test(input.charAt(peg$currPos))) {
             s1 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s1 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c97); }
+            if (peg$silentFails === 0) { peg$fail(peg$c105); }
           }
         }
       } else {
@@ -3476,7 +4090,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c98); }
+        if (peg$silentFails === 0) { peg$fail(peg$c106); }
       }
 
       return s0;
@@ -3488,39 +4102,39 @@ module.exports = (function() {
       peg$silentFails++;
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 110) {
-        s1 = peg$c100;
+        s1 = peg$c108;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c101); }
+        if (peg$silentFails === 0) { peg$fail(peg$c109); }
       }
       if (s1 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 117) {
-          s2 = peg$c102;
+          s2 = peg$c110;
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c103); }
+          if (peg$silentFails === 0) { peg$fail(peg$c111); }
         }
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 108) {
-            s3 = peg$c104;
+            s3 = peg$c112;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c105); }
+            if (peg$silentFails === 0) { peg$fail(peg$c113); }
           }
           if (s3 !== peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 108) {
-              s4 = peg$c104;
+              s4 = peg$c112;
               peg$currPos++;
             } else {
               s4 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c105); }
+              if (peg$silentFails === 0) { peg$fail(peg$c113); }
             }
             if (s4 !== peg$FAILED) {
               peg$reportedPos = s0;
-              s1 = peg$c106();
+              s1 = peg$c114();
               s0 = s1;
             } else {
               peg$currPos = s0;
@@ -3541,7 +4155,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c99); }
+        if (peg$silentFails === 0) { peg$fail(peg$c107); }
       }
 
       return s0;
@@ -3555,13 +4169,13 @@ module.exports = (function() {
       s1 = peg$parsestring();
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c108(s1);
+        s1 = peg$c116(s1);
       }
       s0 = s1;
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c107); }
+        if (peg$silentFails === 0) { peg$fail(peg$c115); }
       }
 
       return s0;
@@ -3575,13 +4189,13 @@ module.exports = (function() {
       s1 = peg$parsepath();
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c110(s1);
+        s1 = peg$c118(s1);
       }
       s0 = s1;
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c109); }
+        if (peg$silentFails === 0) { peg$fail(peg$c117); }
       }
 
       return s0;
@@ -3593,17 +4207,17 @@ module.exports = (function() {
       peg$silentFails++;
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 35) {
-        s1 = peg$c112;
+        s1 = peg$c120;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c113); }
+        if (peg$silentFails === 0) { peg$fail(peg$c121); }
       }
       if (s1 !== peg$FAILED) {
         s2 = peg$parsename();
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c114(s2);
+          s1 = peg$c122(s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -3616,7 +4230,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c111); }
+        if (peg$silentFails === 0) { peg$fail(peg$c119); }
       }
 
       return s0;
@@ -3804,27 +4418,27 @@ module.exports = (function() {
       s1 = peg$parsedate_full_year();
       if (s1 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 45) {
-          s2 = peg$c116;
+          s2 = peg$c124;
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c117); }
+          if (peg$silentFails === 0) { peg$fail(peg$c125); }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$parsedate_month();
           if (s3 !== peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 45) {
-              s4 = peg$c116;
+              s4 = peg$c124;
               peg$currPos++;
             } else {
               s4 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c117); }
+              if (peg$silentFails === 0) { peg$fail(peg$c125); }
             }
             if (s4 !== peg$FAILED) {
               s5 = peg$parsedate_day();
               if (s5 !== peg$FAILED) {
                 peg$reportedPos = s0;
-                s1 = peg$c118(s1, s3, s5);
+                s1 = peg$c126(s1, s3, s5);
                 s0 = s1;
               } else {
                 peg$currPos = s0;
@@ -3849,7 +4463,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c115); }
+        if (peg$silentFails === 0) { peg$fail(peg$c123); }
       }
 
       return s0;
@@ -3863,57 +4477,57 @@ module.exports = (function() {
       s1 = peg$parsedate_full_year();
       if (s1 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 45) {
-          s2 = peg$c116;
+          s2 = peg$c124;
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c117); }
+          if (peg$silentFails === 0) { peg$fail(peg$c125); }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$parsedate_month();
           if (s3 !== peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 45) {
-              s4 = peg$c116;
+              s4 = peg$c124;
               peg$currPos++;
             } else {
               s4 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c117); }
+              if (peg$silentFails === 0) { peg$fail(peg$c125); }
             }
             if (s4 !== peg$FAILED) {
               s5 = peg$parsedate_day();
               if (s5 !== peg$FAILED) {
                 if (input.charCodeAt(peg$currPos) === 84) {
-                  s6 = peg$c120;
+                  s6 = peg$c128;
                   peg$currPos++;
                 } else {
                   s6 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c121); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c129); }
                 }
                 if (s6 !== peg$FAILED) {
                   s7 = peg$parsetime_hour();
                   if (s7 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 58) {
-                      s8 = peg$c122;
+                      s8 = peg$c130;
                       peg$currPos++;
                     } else {
                       s8 = peg$FAILED;
-                      if (peg$silentFails === 0) { peg$fail(peg$c123); }
+                      if (peg$silentFails === 0) { peg$fail(peg$c131); }
                     }
                     if (s8 !== peg$FAILED) {
                       s9 = peg$parsetime_minute();
                       if (s9 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 58) {
-                          s10 = peg$c122;
+                          s10 = peg$c130;
                           peg$currPos++;
                         } else {
                           s10 = peg$FAILED;
-                          if (peg$silentFails === 0) { peg$fail(peg$c123); }
+                          if (peg$silentFails === 0) { peg$fail(peg$c131); }
                         }
                         if (s10 !== peg$FAILED) {
                           s11 = peg$parsetime_second();
                           if (s11 !== peg$FAILED) {
                             peg$reportedPos = s0;
-                            s1 = peg$c124(s1, s3, s5, s7, s9, s11);
+                            s1 = peg$c132(s1, s3, s5, s7, s9, s11);
                             s0 = s1;
                           } else {
                             peg$currPos = s0;
@@ -3962,7 +4576,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c119); }
+        if (peg$silentFails === 0) { peg$fail(peg$c127); }
       }
 
       return s0;
@@ -4025,6 +4639,8 @@ module.exports.literals =
     'with tag',
     'times',
     'within',
+    'in zone',
+    'for',
     'minute',
     'minutes',
     'hour',
@@ -7321,143 +7937,149 @@ module.exports = (function() {
             },
         peg$c49 = "in zone",
         peg$c50 = { type: "literal", value: "in zone", description: "\"in zone\"" },
-        peg$c51 = function(scope, zoneCode) {
+        peg$c51 = ",",
+        peg$c52 = { type: "literal", value: ",", description: "\",\"" },
+        peg$c53 = "for",
+        peg$c54 = { type: "literal", value: "for", description: "\"for\"" },
+        peg$c55 = function(scope, first, reminders, durationOption) {
                 return {
                     scope: "member",
                     sub_scope: "zone",
-                    code: zoneCode
+                    codes: buildList(first, reminders, 3),
+                    duration: (durationOption) ? durationOption[3] : null,
+                    timeframe: (durationOption) ? durationOption[5] : null
                 };
             },
-        peg$c52 = "challenge",
-        peg$c53 = { type: "literal", value: "challenge", description: "\"challenge\"" },
-        peg$c54 = "with",
-        peg$c55 = { type: "literal", value: "with", description: "\"with\"" },
-        peg$c56 = function(scope, challengeCode, firstCondition, conditions) {
+        peg$c56 = "challenge",
+        peg$c57 = { type: "literal", value: "challenge", description: "\"challenge\"" },
+        peg$c58 = "with",
+        peg$c59 = { type: "literal", value: "with", description: "\"with\"" },
+        peg$c60 = function(scope, challengeCode, firstCondition, conditions) {
                 return {
                     scope: "challenge",
                     code: challengeCode,
                     conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
                 };
             },
-        peg$c57 = "action",
-        peg$c58 = { type: "literal", value: "action", description: "\"action\"" },
-        peg$c59 = function(scope, actionCode, firstCondition, conditions) {
+        peg$c61 = "action",
+        peg$c62 = { type: "literal", value: "action", description: "\"action\"" },
+        peg$c63 = function(scope, actionCode, firstCondition, conditions) {
                 return {
                     scope: "action",
                     code: actionCode,
                     conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
                 };
             },
-        peg$c60 = "only top",
-        peg$c61 = { type: "literal", value: "only top", description: "\"only top\"" },
-        peg$c62 = "by member",
-        peg$c63 = { type: "literal", value: "by member", description: "\"by member\"" },
-        peg$c64 = function(quantity, type, levelCode) {
+        peg$c64 = "only top",
+        peg$c65 = { type: "literal", value: "only top", description: "\"only top\"" },
+        peg$c66 = "by member",
+        peg$c67 = { type: "literal", value: "by member", description: "\"by member\"" },
+        peg$c68 = function(quantity, type, levelCode) {
                 return {
                     quantity: quantity,
                     type: type,
                     levelCode: levelCode
                 };
             },
-        peg$c65 = function(attributeName, operator, value) {
+        peg$c69 = function(attributeName, operator, value) {
               return {
                   name: attributeName,
                   operator: operator,
                   value: value
               }
             },
-        peg$c66 = "minutes",
-        peg$c67 = { type: "literal", value: "minutes", description: "\"minutes\"" },
-        peg$c68 = "minute",
-        peg$c69 = { type: "literal", value: "minute", description: "\"minute\"" },
-        peg$c70 = "hours",
-        peg$c71 = { type: "literal", value: "hours", description: "\"hours\"" },
-        peg$c72 = "hour",
-        peg$c73 = { type: "literal", value: "hour", description: "\"hour\"" },
-        peg$c74 = "days",
-        peg$c75 = { type: "literal", value: "days", description: "\"days\"" },
-        peg$c76 = "day",
-        peg$c77 = { type: "literal", value: "day", description: "\"day\"" },
-        peg$c78 = "weeks",
-        peg$c79 = { type: "literal", value: "weeks", description: "\"weeks\"" },
-        peg$c80 = "week",
-        peg$c81 = { type: "literal", value: "week", description: "\"week\"" },
-        peg$c82 = "months",
-        peg$c83 = { type: "literal", value: "months", description: "\"months\"" },
-        peg$c84 = "month",
-        peg$c85 = { type: "literal", value: "month", description: "\"month\"" },
-        peg$c86 = "years",
-        peg$c87 = { type: "literal", value: "years", description: "\"years\"" },
-        peg$c88 = "year",
-        peg$c89 = { type: "literal", value: "year", description: "\"year\"" },
-        peg$c90 = function(value) {
+        peg$c70 = "minutes",
+        peg$c71 = { type: "literal", value: "minutes", description: "\"minutes\"" },
+        peg$c72 = "minute",
+        peg$c73 = { type: "literal", value: "minute", description: "\"minute\"" },
+        peg$c74 = "hours",
+        peg$c75 = { type: "literal", value: "hours", description: "\"hours\"" },
+        peg$c76 = "hour",
+        peg$c77 = { type: "literal", value: "hour", description: "\"hour\"" },
+        peg$c78 = "days",
+        peg$c79 = { type: "literal", value: "days", description: "\"days\"" },
+        peg$c80 = "day",
+        peg$c81 = { type: "literal", value: "day", description: "\"day\"" },
+        peg$c82 = "weeks",
+        peg$c83 = { type: "literal", value: "weeks", description: "\"weeks\"" },
+        peg$c84 = "week",
+        peg$c85 = { type: "literal", value: "week", description: "\"week\"" },
+        peg$c86 = "months",
+        peg$c87 = { type: "literal", value: "months", description: "\"months\"" },
+        peg$c88 = "month",
+        peg$c89 = { type: "literal", value: "month", description: "\"month\"" },
+        peg$c90 = "years",
+        peg$c91 = { type: "literal", value: "years", description: "\"years\"" },
+        peg$c92 = "year",
+        peg$c93 = { type: "literal", value: "year", description: "\"year\"" },
+        peg$c94 = function(value) {
                 return value.replace(/s/g,'');
             },
-        peg$c91 = "\"",
-        peg$c92 = { type: "literal", value: "\"", description: "\"\\\"\"" },
-        peg$c93 = /^[^\n\r\f\\"]/,
-        peg$c94 = { type: "class", value: "[^\\n\\r\\f\\\\\"]", description: "[^\\n\\r\\f\\\\\"]" },
-        peg$c95 = "\\",
-        peg$c96 = { type: "literal", value: "\\", description: "\"\\\\\"" },
-        peg$c97 = function(chars) {
+        peg$c95 = "\"",
+        peg$c96 = { type: "literal", value: "\"", description: "\"\\\"\"" },
+        peg$c97 = /^[^\n\r\f\\"]/,
+        peg$c98 = { type: "class", value: "[^\\n\\r\\f\\\\\"]", description: "[^\\n\\r\\f\\\\\"]" },
+        peg$c99 = "\\",
+        peg$c100 = { type: "literal", value: "\\", description: "\"\\\\\"" },
+        peg$c101 = function(chars) {
                 return chars.join("");
             },
-        peg$c98 = "'",
-        peg$c99 = { type: "literal", value: "'", description: "\"'\"" },
-        peg$c100 = /^[^\n\r\f\\']/,
-        peg$c101 = { type: "class", value: "[^\\n\\r\\f\\\\']", description: "[^\\n\\r\\f\\\\']" },
-        peg$c102 = /^[_a-z]/i,
-        peg$c103 = { type: "class", value: "[_a-z]i", description: "[_a-z]i" },
-        peg$c104 = /^[_a-z0-9\-.]/i,
-        peg$c105 = { type: "class", value: "[_a-z0-9\\-.]i", description: "[_a-z0-9\\-.]i" },
-        peg$c106 = function(start, chars) {
+        peg$c102 = "'",
+        peg$c103 = { type: "literal", value: "'", description: "\"'\"" },
+        peg$c104 = /^[^\n\r\f\\']/,
+        peg$c105 = { type: "class", value: "[^\\n\\r\\f\\\\']", description: "[^\\n\\r\\f\\\\']" },
+        peg$c106 = /^[_a-z]/i,
+        peg$c107 = { type: "class", value: "[_a-z]i", description: "[_a-z]i" },
+        peg$c108 = /^[_a-z0-9\-.]/i,
+        peg$c109 = { type: "class", value: "[_a-z0-9\\-.]i", description: "[_a-z0-9\\-.]i" },
+        peg$c110 = function(start, chars) {
                 return start + chars.join("");
             },
-        peg$c107 = { type: "other", description: "segmentCode" },
-        peg$c108 = { type: "other", description: "challengeCode" },
-        peg$c109 = { type: "other", description: "actionCode" },
-        peg$c110 = { type: "other", description: "levelCode" },
-        peg$c111 = { type: "other", description: "tagCode" },
-        peg$c112 = { type: "other", description: "zoneCode" },
-        peg$c113 = { type: "other", description: "attributeName" },
-        peg$c114 = { type: "other", description: "number" },
-        peg$c115 = /^[+\-]/,
-        peg$c116 = { type: "class", value: "[+\\-]", description: "[+\\-]" },
-        peg$c117 = ".",
-        peg$c118 = { type: "literal", value: ".", description: "\".\"" },
-        peg$c119 = function() {
+        peg$c111 = { type: "other", description: "segmentCode" },
+        peg$c112 = { type: "other", description: "challengeCode" },
+        peg$c113 = { type: "other", description: "actionCode" },
+        peg$c114 = { type: "other", description: "levelCode" },
+        peg$c115 = { type: "other", description: "tagCode" },
+        peg$c116 = { type: "other", description: "zoneCode" },
+        peg$c117 = { type: "other", description: "attributeName" },
+        peg$c118 = { type: "other", description: "number" },
+        peg$c119 = /^[+\-]/,
+        peg$c120 = { type: "class", value: "[+\\-]", description: "[+\\-]" },
+        peg$c121 = ".",
+        peg$c122 = { type: "literal", value: ".", description: "\".\"" },
+        peg$c123 = function() {
                 return parseFloat(text());
             },
-        peg$c120 = { type: "other", description: "digit" },
-        peg$c121 = /^[0-9]/,
-        peg$c122 = { type: "class", value: "[0-9]", description: "[0-9]" },
-        peg$c123 = /^[ \t\r\n\f]/,
-        peg$c124 = { type: "class", value: "[ \\t\\r\\n\\f]", description: "[ \\t\\r\\n\\f]" },
-        peg$c125 = { type: "other", description: "whitespace" },
-        peg$c126 = { type: "other", description: "string" },
-        peg$c127 = function(string) {
+        peg$c124 = { type: "other", description: "digit" },
+        peg$c125 = /^[0-9]/,
+        peg$c126 = { type: "class", value: "[0-9]", description: "[0-9]" },
+        peg$c127 = /^[ \t\r\n\f]/,
+        peg$c128 = { type: "class", value: "[ \\t\\r\\n\\f]", description: "[ \\t\\r\\n\\f]" },
+        peg$c129 = { type: "other", description: "whitespace" },
+        peg$c130 = { type: "other", description: "string" },
+        peg$c131 = function(string) {
                 return string;
             },
-        peg$c128 = { type: "other", description: "year" },
-        peg$c129 = { type: "other", description: "month" },
-        peg$c130 = { type: "other", description: "day" },
-        peg$c131 = { type: "other", description: "hour" },
-        peg$c132 = { type: "other", description: "minute" },
-        peg$c133 = { type: "other", description: "second" },
-        peg$c134 = { type: "other", description: "time" },
-        peg$c135 = ":",
-        peg$c136 = { type: "literal", value: ":", description: "\":\"" },
-        peg$c137 = function(hour, minute, second) {
+        peg$c132 = { type: "other", description: "year" },
+        peg$c133 = { type: "other", description: "month" },
+        peg$c134 = { type: "other", description: "day" },
+        peg$c135 = { type: "other", description: "hour" },
+        peg$c136 = { type: "other", description: "minute" },
+        peg$c137 = { type: "other", description: "second" },
+        peg$c138 = { type: "other", description: "time" },
+        peg$c139 = ":",
+        peg$c140 = { type: "literal", value: ":", description: "\":\"" },
+        peg$c141 = function(hour, minute, second) {
                 return {
                     hour: hour,
                     minute: minute,
                     second: second | "00"
                 }
             },
-        peg$c138 = { type: "other", description: "datetime" },
-        peg$c139 = "-",
-        peg$c140 = { type: "literal", value: "-", description: "\"-\"" },
-        peg$c141 = function(year, month, day, time) {
+        peg$c142 = { type: "other", description: "datetime" },
+        peg$c143 = "-",
+        peg$c144 = { type: "literal", value: "-", description: "\"-\"" },
+        peg$c145 = function(year, month, day, time) {
                 if(time){
                     //return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(time.hour), parseInt(time.minute), parseInt(time.second), 0);
                     return year + "-" + month + "-" + day + "T" + time.hour + ":" + time.minute + ":" + time.second;
@@ -7784,7 +8406,7 @@ module.exports = (function() {
     }
 
     function peg$parsesimple_condition() {
-      var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11;
+      var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13;
 
       s0 = peg$currPos;
       if (input.substr(peg$currPos, 6) === peg$c7) {
@@ -8538,15 +9160,167 @@ module.exports = (function() {
                           s5 = peg$parsezoneCode();
                           if (s5 !== peg$FAILED) {
                             s6 = [];
-                            s7 = peg$parseS();
+                            s7 = peg$currPos;
+                            s8 = [];
+                            s9 = peg$parseS();
+                            while (s9 !== peg$FAILED) {
+                              s8.push(s9);
+                              s9 = peg$parseS();
+                            }
+                            if (s8 !== peg$FAILED) {
+                              if (input.charCodeAt(peg$currPos) === 44) {
+                                s9 = peg$c51;
+                                peg$currPos++;
+                              } else {
+                                s9 = peg$FAILED;
+                                if (peg$silentFails === 0) { peg$fail(peg$c52); }
+                              }
+                              if (s9 !== peg$FAILED) {
+                                s10 = [];
+                                s11 = peg$parseS();
+                                while (s11 !== peg$FAILED) {
+                                  s10.push(s11);
+                                  s11 = peg$parseS();
+                                }
+                                if (s10 !== peg$FAILED) {
+                                  s11 = peg$parsezoneCode();
+                                  if (s11 !== peg$FAILED) {
+                                    s8 = [s8, s9, s10, s11];
+                                    s7 = s8;
+                                  } else {
+                                    peg$currPos = s7;
+                                    s7 = peg$c1;
+                                  }
+                                } else {
+                                  peg$currPos = s7;
+                                  s7 = peg$c1;
+                                }
+                              } else {
+                                peg$currPos = s7;
+                                s7 = peg$c1;
+                              }
+                            } else {
+                              peg$currPos = s7;
+                              s7 = peg$c1;
+                            }
                             while (s7 !== peg$FAILED) {
                               s6.push(s7);
-                              s7 = peg$parseS();
+                              s7 = peg$currPos;
+                              s8 = [];
+                              s9 = peg$parseS();
+                              while (s9 !== peg$FAILED) {
+                                s8.push(s9);
+                                s9 = peg$parseS();
+                              }
+                              if (s8 !== peg$FAILED) {
+                                if (input.charCodeAt(peg$currPos) === 44) {
+                                  s9 = peg$c51;
+                                  peg$currPos++;
+                                } else {
+                                  s9 = peg$FAILED;
+                                  if (peg$silentFails === 0) { peg$fail(peg$c52); }
+                                }
+                                if (s9 !== peg$FAILED) {
+                                  s10 = [];
+                                  s11 = peg$parseS();
+                                  while (s11 !== peg$FAILED) {
+                                    s10.push(s11);
+                                    s11 = peg$parseS();
+                                  }
+                                  if (s10 !== peg$FAILED) {
+                                    s11 = peg$parsezoneCode();
+                                    if (s11 !== peg$FAILED) {
+                                      s8 = [s8, s9, s10, s11];
+                                      s7 = s8;
+                                    } else {
+                                      peg$currPos = s7;
+                                      s7 = peg$c1;
+                                    }
+                                  } else {
+                                    peg$currPos = s7;
+                                    s7 = peg$c1;
+                                  }
+                                } else {
+                                  peg$currPos = s7;
+                                  s7 = peg$c1;
+                                }
+                              } else {
+                                peg$currPos = s7;
+                                s7 = peg$c1;
+                              }
                             }
                             if (s6 !== peg$FAILED) {
-                              peg$reportedPos = s0;
-                              s1 = peg$c51(s1, s5);
-                              s0 = s1;
+                              s7 = peg$currPos;
+                              s8 = [];
+                              s9 = peg$parseS();
+                              while (s9 !== peg$FAILED) {
+                                s8.push(s9);
+                                s9 = peg$parseS();
+                              }
+                              if (s8 !== peg$FAILED) {
+                                if (input.substr(peg$currPos, 3) === peg$c53) {
+                                  s9 = peg$c53;
+                                  peg$currPos += 3;
+                                } else {
+                                  s9 = peg$FAILED;
+                                  if (peg$silentFails === 0) { peg$fail(peg$c54); }
+                                }
+                                if (s9 !== peg$FAILED) {
+                                  s10 = [];
+                                  s11 = peg$parseS();
+                                  while (s11 !== peg$FAILED) {
+                                    s10.push(s11);
+                                    s11 = peg$parseS();
+                                  }
+                                  if (s10 !== peg$FAILED) {
+                                    s11 = peg$parseNUMBER();
+                                    if (s11 !== peg$FAILED) {
+                                      s12 = [];
+                                      s13 = peg$parseS();
+                                      while (s13 !== peg$FAILED) {
+                                        s12.push(s13);
+                                        s13 = peg$parseS();
+                                      }
+                                      if (s12 !== peg$FAILED) {
+                                        s13 = peg$parsetimeframe();
+                                        if (s13 !== peg$FAILED) {
+                                          s8 = [s8, s9, s10, s11, s12, s13];
+                                          s7 = s8;
+                                        } else {
+                                          peg$currPos = s7;
+                                          s7 = peg$c1;
+                                        }
+                                      } else {
+                                        peg$currPos = s7;
+                                        s7 = peg$c1;
+                                      }
+                                    } else {
+                                      peg$currPos = s7;
+                                      s7 = peg$c1;
+                                    }
+                                  } else {
+                                    peg$currPos = s7;
+                                    s7 = peg$c1;
+                                  }
+                                } else {
+                                  peg$currPos = s7;
+                                  s7 = peg$c1;
+                                }
+                              } else {
+                                peg$currPos = s7;
+                                s7 = peg$c1;
+                              }
+                              if (s7 === peg$FAILED) {
+                                s7 = peg$c5;
+                              }
+                              if (s7 !== peg$FAILED) {
+                                peg$reportedPos = s0;
+                                s1 = peg$c55(s1, s5, s6, s7);
+                                s0 = s1;
+                              } else {
+                                peg$currPos = s0;
+                                s0 = peg$c1;
+                              }
                             } else {
                               peg$currPos = s0;
                               s0 = peg$c1;
@@ -8573,12 +9347,12 @@ module.exports = (function() {
                   }
                   if (s0 === peg$FAILED) {
                     s0 = peg$currPos;
-                    if (input.substr(peg$currPos, 9) === peg$c52) {
-                      s1 = peg$c52;
+                    if (input.substr(peg$currPos, 9) === peg$c56) {
+                      s1 = peg$c56;
                       peg$currPos += 9;
                     } else {
                       s1 = peg$FAILED;
-                      if (peg$silentFails === 0) { peg$fail(peg$c53); }
+                      if (peg$silentFails === 0) { peg$fail(peg$c57); }
                     }
                     if (s1 !== peg$FAILED) {
                       s2 = [];
@@ -8598,12 +9372,12 @@ module.exports = (function() {
                           }
                           if (s4 !== peg$FAILED) {
                             s5 = peg$currPos;
-                            if (input.substr(peg$currPos, 4) === peg$c54) {
-                              s6 = peg$c54;
+                            if (input.substr(peg$currPos, 4) === peg$c58) {
+                              s6 = peg$c58;
                               peg$currPos += 4;
                             } else {
                               s6 = peg$FAILED;
-                              if (peg$silentFails === 0) { peg$fail(peg$c55); }
+                              if (peg$silentFails === 0) { peg$fail(peg$c59); }
                             }
                             if (s6 !== peg$FAILED) {
                               s7 = [];
@@ -8725,7 +9499,7 @@ module.exports = (function() {
                               }
                               if (s6 !== peg$FAILED) {
                                 peg$reportedPos = s0;
-                                s1 = peg$c56(s1, s3, s5, s6);
+                                s1 = peg$c60(s1, s3, s5, s6);
                                 s0 = s1;
                               } else {
                                 peg$currPos = s0;
@@ -8753,12 +9527,12 @@ module.exports = (function() {
                     }
                     if (s0 === peg$FAILED) {
                       s0 = peg$currPos;
-                      if (input.substr(peg$currPos, 6) === peg$c57) {
-                        s1 = peg$c57;
+                      if (input.substr(peg$currPos, 6) === peg$c61) {
+                        s1 = peg$c61;
                         peg$currPos += 6;
                       } else {
                         s1 = peg$FAILED;
-                        if (peg$silentFails === 0) { peg$fail(peg$c58); }
+                        if (peg$silentFails === 0) { peg$fail(peg$c62); }
                       }
                       if (s1 !== peg$FAILED) {
                         s2 = [];
@@ -8778,12 +9552,12 @@ module.exports = (function() {
                             }
                             if (s4 !== peg$FAILED) {
                               s5 = peg$currPos;
-                              if (input.substr(peg$currPos, 4) === peg$c54) {
-                                s6 = peg$c54;
+                              if (input.substr(peg$currPos, 4) === peg$c58) {
+                                s6 = peg$c58;
                                 peg$currPos += 4;
                               } else {
                                 s6 = peg$FAILED;
-                                if (peg$silentFails === 0) { peg$fail(peg$c55); }
+                                if (peg$silentFails === 0) { peg$fail(peg$c59); }
                               }
                               if (s6 !== peg$FAILED) {
                                 s7 = [];
@@ -8905,7 +9679,7 @@ module.exports = (function() {
                                 }
                                 if (s6 !== peg$FAILED) {
                                   peg$reportedPos = s0;
-                                  s1 = peg$c59(s1, s3, s5, s6);
+                                  s1 = peg$c63(s1, s3, s5, s6);
                                   s0 = s1;
                                 } else {
                                   peg$currPos = s0;
@@ -8947,12 +9721,12 @@ module.exports = (function() {
       var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 8) === peg$c60) {
-        s1 = peg$c60;
+      if (input.substr(peg$currPos, 8) === peg$c64) {
+        s1 = peg$c64;
         peg$currPos += 8;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c61); }
+        if (peg$silentFails === 0) { peg$fail(peg$c65); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
@@ -8971,12 +9745,12 @@ module.exports = (function() {
               s5 = peg$parseS();
             }
             if (s4 !== peg$FAILED) {
-              if (input.substr(peg$currPos, 9) === peg$c62) {
-                s5 = peg$c62;
+              if (input.substr(peg$currPos, 9) === peg$c66) {
+                s5 = peg$c66;
                 peg$currPos += 9;
               } else {
                 s5 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c63); }
+                if (peg$silentFails === 0) { peg$fail(peg$c67); }
               }
               if (s5 !== peg$FAILED) {
                 s6 = [];
@@ -9013,7 +9787,7 @@ module.exports = (function() {
                       s9 = peg$parselevelCode();
                       if (s9 !== peg$FAILED) {
                         peg$reportedPos = s0;
-                        s1 = peg$c64(s3, s7, s9);
+                        s1 = peg$c68(s3, s7, s9);
                         s0 = s1;
                       } else {
                         peg$currPos = s0;
@@ -9122,7 +9896,7 @@ module.exports = (function() {
               s5 = peg$parsestringOrNumber();
               if (s5 !== peg$FAILED) {
                 peg$reportedPos = s0;
-                s1 = peg$c65(s1, s3, s5);
+                s1 = peg$c69(s1, s3, s5);
                 s0 = s1;
               } else {
                 peg$currPos = s0;
@@ -9152,100 +9926,100 @@ module.exports = (function() {
       var s0, s1;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 7) === peg$c66) {
-        s1 = peg$c66;
+      if (input.substr(peg$currPos, 7) === peg$c70) {
+        s1 = peg$c70;
         peg$currPos += 7;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c67); }
+        if (peg$silentFails === 0) { peg$fail(peg$c71); }
       }
       if (s1 === peg$FAILED) {
-        if (input.substr(peg$currPos, 6) === peg$c68) {
-          s1 = peg$c68;
+        if (input.substr(peg$currPos, 6) === peg$c72) {
+          s1 = peg$c72;
           peg$currPos += 6;
         } else {
           s1 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c69); }
+          if (peg$silentFails === 0) { peg$fail(peg$c73); }
         }
         if (s1 === peg$FAILED) {
-          if (input.substr(peg$currPos, 5) === peg$c70) {
-            s1 = peg$c70;
+          if (input.substr(peg$currPos, 5) === peg$c74) {
+            s1 = peg$c74;
             peg$currPos += 5;
           } else {
             s1 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c71); }
+            if (peg$silentFails === 0) { peg$fail(peg$c75); }
           }
           if (s1 === peg$FAILED) {
-            if (input.substr(peg$currPos, 4) === peg$c72) {
-              s1 = peg$c72;
+            if (input.substr(peg$currPos, 4) === peg$c76) {
+              s1 = peg$c76;
               peg$currPos += 4;
             } else {
               s1 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c73); }
+              if (peg$silentFails === 0) { peg$fail(peg$c77); }
             }
             if (s1 === peg$FAILED) {
-              if (input.substr(peg$currPos, 4) === peg$c74) {
-                s1 = peg$c74;
+              if (input.substr(peg$currPos, 4) === peg$c78) {
+                s1 = peg$c78;
                 peg$currPos += 4;
               } else {
                 s1 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c75); }
+                if (peg$silentFails === 0) { peg$fail(peg$c79); }
               }
               if (s1 === peg$FAILED) {
-                if (input.substr(peg$currPos, 3) === peg$c76) {
-                  s1 = peg$c76;
+                if (input.substr(peg$currPos, 3) === peg$c80) {
+                  s1 = peg$c80;
                   peg$currPos += 3;
                 } else {
                   s1 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c77); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c81); }
                 }
                 if (s1 === peg$FAILED) {
-                  if (input.substr(peg$currPos, 5) === peg$c78) {
-                    s1 = peg$c78;
+                  if (input.substr(peg$currPos, 5) === peg$c82) {
+                    s1 = peg$c82;
                     peg$currPos += 5;
                   } else {
                     s1 = peg$FAILED;
-                    if (peg$silentFails === 0) { peg$fail(peg$c79); }
+                    if (peg$silentFails === 0) { peg$fail(peg$c83); }
                   }
                   if (s1 === peg$FAILED) {
-                    if (input.substr(peg$currPos, 4) === peg$c80) {
-                      s1 = peg$c80;
+                    if (input.substr(peg$currPos, 4) === peg$c84) {
+                      s1 = peg$c84;
                       peg$currPos += 4;
                     } else {
                       s1 = peg$FAILED;
-                      if (peg$silentFails === 0) { peg$fail(peg$c81); }
+                      if (peg$silentFails === 0) { peg$fail(peg$c85); }
                     }
                     if (s1 === peg$FAILED) {
-                      if (input.substr(peg$currPos, 6) === peg$c82) {
-                        s1 = peg$c82;
+                      if (input.substr(peg$currPos, 6) === peg$c86) {
+                        s1 = peg$c86;
                         peg$currPos += 6;
                       } else {
                         s1 = peg$FAILED;
-                        if (peg$silentFails === 0) { peg$fail(peg$c83); }
+                        if (peg$silentFails === 0) { peg$fail(peg$c87); }
                       }
                       if (s1 === peg$FAILED) {
-                        if (input.substr(peg$currPos, 5) === peg$c84) {
-                          s1 = peg$c84;
+                        if (input.substr(peg$currPos, 5) === peg$c88) {
+                          s1 = peg$c88;
                           peg$currPos += 5;
                         } else {
                           s1 = peg$FAILED;
-                          if (peg$silentFails === 0) { peg$fail(peg$c85); }
+                          if (peg$silentFails === 0) { peg$fail(peg$c89); }
                         }
                         if (s1 === peg$FAILED) {
-                          if (input.substr(peg$currPos, 5) === peg$c86) {
-                            s1 = peg$c86;
+                          if (input.substr(peg$currPos, 5) === peg$c90) {
+                            s1 = peg$c90;
                             peg$currPos += 5;
                           } else {
                             s1 = peg$FAILED;
-                            if (peg$silentFails === 0) { peg$fail(peg$c87); }
+                            if (peg$silentFails === 0) { peg$fail(peg$c91); }
                           }
                           if (s1 === peg$FAILED) {
-                            if (input.substr(peg$currPos, 4) === peg$c88) {
-                              s1 = peg$c88;
+                            if (input.substr(peg$currPos, 4) === peg$c92) {
+                              s1 = peg$c92;
                               peg$currPos += 4;
                             } else {
                               s1 = peg$FAILED;
-                              if (peg$silentFails === 0) { peg$fail(peg$c89); }
+                              if (peg$silentFails === 0) { peg$fail(peg$c93); }
                             }
                           }
                         }
@@ -9260,7 +10034,7 @@ module.exports = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c90(s1);
+        s1 = peg$c94(s1);
       }
       s0 = s1;
 
@@ -9272,60 +10046,60 @@ module.exports = (function() {
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 34) {
-        s1 = peg$c91;
+        s1 = peg$c95;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c92); }
+        if (peg$silentFails === 0) { peg$fail(peg$c96); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
-        if (peg$c93.test(input.charAt(peg$currPos))) {
+        if (peg$c97.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c94); }
+          if (peg$silentFails === 0) { peg$fail(peg$c98); }
         }
         if (s3 === peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 92) {
+            s3 = peg$c99;
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c100); }
+          }
+        }
+        while (s3 !== peg$FAILED) {
+          s2.push(s3);
+          if (peg$c97.test(input.charAt(peg$currPos))) {
+            s3 = input.charAt(peg$currPos);
+            peg$currPos++;
+          } else {
+            s3 = peg$FAILED;
+            if (peg$silentFails === 0) { peg$fail(peg$c98); }
+          }
+          if (s3 === peg$FAILED) {
+            if (input.charCodeAt(peg$currPos) === 92) {
+              s3 = peg$c99;
+              peg$currPos++;
+            } else {
+              s3 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c100); }
+            }
+          }
+        }
+        if (s2 !== peg$FAILED) {
+          if (input.charCodeAt(peg$currPos) === 34) {
             s3 = peg$c95;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
             if (peg$silentFails === 0) { peg$fail(peg$c96); }
           }
-        }
-        while (s3 !== peg$FAILED) {
-          s2.push(s3);
-          if (peg$c93.test(input.charAt(peg$currPos))) {
-            s3 = input.charAt(peg$currPos);
-            peg$currPos++;
-          } else {
-            s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c94); }
-          }
-          if (s3 === peg$FAILED) {
-            if (input.charCodeAt(peg$currPos) === 92) {
-              s3 = peg$c95;
-              peg$currPos++;
-            } else {
-              s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c96); }
-            }
-          }
-        }
-        if (s2 !== peg$FAILED) {
-          if (input.charCodeAt(peg$currPos) === 34) {
-            s3 = peg$c91;
-            peg$currPos++;
-          } else {
-            s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c92); }
-          }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c97(s2);
+            s1 = peg$c101(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -9348,60 +10122,60 @@ module.exports = (function() {
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 39) {
-        s1 = peg$c98;
+        s1 = peg$c102;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c99); }
+        if (peg$silentFails === 0) { peg$fail(peg$c103); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
-        if (peg$c100.test(input.charAt(peg$currPos))) {
+        if (peg$c104.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c101); }
+          if (peg$silentFails === 0) { peg$fail(peg$c105); }
         }
         if (s3 === peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 92) {
-            s3 = peg$c95;
+            s3 = peg$c99;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c96); }
+            if (peg$silentFails === 0) { peg$fail(peg$c100); }
           }
         }
         while (s3 !== peg$FAILED) {
           s2.push(s3);
-          if (peg$c100.test(input.charAt(peg$currPos))) {
+          if (peg$c104.test(input.charAt(peg$currPos))) {
             s3 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c101); }
+            if (peg$silentFails === 0) { peg$fail(peg$c105); }
           }
           if (s3 === peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 92) {
-              s3 = peg$c95;
+              s3 = peg$c99;
               peg$currPos++;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c96); }
+              if (peg$silentFails === 0) { peg$fail(peg$c100); }
             }
           }
         }
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 39) {
-            s3 = peg$c98;
+            s3 = peg$c102;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c99); }
+            if (peg$silentFails === 0) { peg$fail(peg$c103); }
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c97(s2);
+            s1 = peg$c101(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -9455,12 +10229,12 @@ module.exports = (function() {
     function peg$parsepath_start() {
       var s0;
 
-      if (peg$c102.test(input.charAt(peg$currPos))) {
+      if (peg$c106.test(input.charAt(peg$currPos))) {
         s0 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c103); }
+        if (peg$silentFails === 0) { peg$fail(peg$c107); }
       }
 
       return s0;
@@ -9469,12 +10243,12 @@ module.exports = (function() {
     function peg$parsepath_char() {
       var s0;
 
-      if (peg$c104.test(input.charAt(peg$currPos))) {
+      if (peg$c108.test(input.charAt(peg$currPos))) {
         s0 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c105); }
+        if (peg$silentFails === 0) { peg$fail(peg$c109); }
       }
 
       return s0;
@@ -9494,7 +10268,7 @@ module.exports = (function() {
         }
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c106(s1, s2);
+          s1 = peg$c110(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -9524,7 +10298,7 @@ module.exports = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c97(s1);
+        s1 = peg$c101(s1);
       }
       s0 = s1;
 
@@ -9547,7 +10321,7 @@ module.exports = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c97(s1);
+        s1 = peg$c101(s1);
       }
       s0 = s1;
 
@@ -9562,7 +10336,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c107); }
+        if (peg$silentFails === 0) { peg$fail(peg$c111); }
       }
 
       return s0;
@@ -9576,7 +10350,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c108); }
+        if (peg$silentFails === 0) { peg$fail(peg$c112); }
       }
 
       return s0;
@@ -9590,7 +10364,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c109); }
+        if (peg$silentFails === 0) { peg$fail(peg$c113); }
       }
 
       return s0;
@@ -9604,7 +10378,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c110); }
+        if (peg$silentFails === 0) { peg$fail(peg$c114); }
       }
 
       return s0;
@@ -9618,7 +10392,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c111); }
+        if (peg$silentFails === 0) { peg$fail(peg$c115); }
       }
 
       return s0;
@@ -9632,7 +10406,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c112); }
+        if (peg$silentFails === 0) { peg$fail(peg$c116); }
       }
 
       return s0;
@@ -9646,7 +10420,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c113); }
+        if (peg$silentFails === 0) { peg$fail(peg$c117); }
       }
 
       return s0;
@@ -9657,12 +10431,12 @@ module.exports = (function() {
 
       peg$silentFails++;
       s0 = peg$currPos;
-      if (peg$c115.test(input.charAt(peg$currPos))) {
+      if (peg$c119.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c116); }
+        if (peg$silentFails === 0) { peg$fail(peg$c120); }
       }
       if (s1 === peg$FAILED) {
         s1 = peg$c5;
@@ -9677,11 +10451,11 @@ module.exports = (function() {
         }
         if (s3 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 46) {
-            s4 = peg$c117;
+            s4 = peg$c121;
             peg$currPos++;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c118); }
+            if (peg$silentFails === 0) { peg$fail(peg$c122); }
           }
           if (s4 !== peg$FAILED) {
             s5 = [];
@@ -9723,7 +10497,7 @@ module.exports = (function() {
         }
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c119();
+          s1 = peg$c123();
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -9736,7 +10510,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c114); }
+        if (peg$silentFails === 0) { peg$fail(peg$c118); }
       }
 
       return s0;
@@ -9746,17 +10520,17 @@ module.exports = (function() {
       var s0, s1;
 
       peg$silentFails++;
-      if (peg$c121.test(input.charAt(peg$currPos))) {
+      if (peg$c125.test(input.charAt(peg$currPos))) {
         s0 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c122); }
+        if (peg$silentFails === 0) { peg$fail(peg$c126); }
       }
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c120); }
+        if (peg$silentFails === 0) { peg$fail(peg$c124); }
       }
 
       return s0;
@@ -9766,22 +10540,22 @@ module.exports = (function() {
       var s0, s1;
 
       s0 = [];
-      if (peg$c123.test(input.charAt(peg$currPos))) {
+      if (peg$c127.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c124); }
+        if (peg$silentFails === 0) { peg$fail(peg$c128); }
       }
       if (s1 !== peg$FAILED) {
         while (s1 !== peg$FAILED) {
           s0.push(s1);
-          if (peg$c123.test(input.charAt(peg$currPos))) {
+          if (peg$c127.test(input.charAt(peg$currPos))) {
             s1 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s1 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c124); }
+            if (peg$silentFails === 0) { peg$fail(peg$c128); }
           }
         }
       } else {
@@ -9799,7 +10573,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c125); }
+        if (peg$silentFails === 0) { peg$fail(peg$c129); }
       }
 
       return s0;
@@ -9813,13 +10587,13 @@ module.exports = (function() {
       s1 = peg$parsestring();
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c127(s1);
+        s1 = peg$c131(s1);
       }
       s0 = s1;
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c126); }
+        if (peg$silentFails === 0) { peg$fail(peg$c130); }
       }
 
       return s0;
@@ -9864,7 +10638,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c128); }
+        if (peg$silentFails === 0) { peg$fail(peg$c132); }
       }
 
       return s0;
@@ -9897,7 +10671,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c129); }
+        if (peg$silentFails === 0) { peg$fail(peg$c133); }
       }
 
       return s0;
@@ -9930,7 +10704,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c130); }
+        if (peg$silentFails === 0) { peg$fail(peg$c134); }
       }
 
       return s0;
@@ -9963,7 +10737,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c131); }
+        if (peg$silentFails === 0) { peg$fail(peg$c135); }
       }
 
       return s0;
@@ -9996,7 +10770,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c132); }
+        if (peg$silentFails === 0) { peg$fail(peg$c136); }
       }
 
       return s0;
@@ -10029,7 +10803,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c133); }
+        if (peg$silentFails === 0) { peg$fail(peg$c137); }
       }
 
       return s0;
@@ -10043,22 +10817,22 @@ module.exports = (function() {
       s1 = peg$parsetime_hour();
       if (s1 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 58) {
-          s2 = peg$c135;
+          s2 = peg$c139;
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c136); }
+          if (peg$silentFails === 0) { peg$fail(peg$c140); }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$parsetime_minute();
           if (s3 !== peg$FAILED) {
             s4 = peg$currPos;
             if (input.charCodeAt(peg$currPos) === 58) {
-              s5 = peg$c135;
+              s5 = peg$c139;
               peg$currPos++;
             } else {
               s5 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c136); }
+              if (peg$silentFails === 0) { peg$fail(peg$c140); }
             }
             if (s5 !== peg$FAILED) {
               s6 = peg$parsetime_second();
@@ -10078,7 +10852,7 @@ module.exports = (function() {
             }
             if (s4 !== peg$FAILED) {
               peg$reportedPos = s0;
-              s1 = peg$c137(s1, s3, s4);
+              s1 = peg$c141(s1, s3, s4);
               s0 = s1;
             } else {
               peg$currPos = s0;
@@ -10099,7 +10873,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c134); }
+        if (peg$silentFails === 0) { peg$fail(peg$c138); }
       }
 
       return s0;
@@ -10113,21 +10887,21 @@ module.exports = (function() {
       s1 = peg$parsedate_full_year();
       if (s1 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 45) {
-          s2 = peg$c139;
+          s2 = peg$c143;
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c140); }
+          if (peg$silentFails === 0) { peg$fail(peg$c144); }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$parsedate_month();
           if (s3 !== peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 45) {
-              s4 = peg$c139;
+              s4 = peg$c143;
               peg$currPos++;
             } else {
               s4 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c140); }
+              if (peg$silentFails === 0) { peg$fail(peg$c144); }
             }
             if (s4 !== peg$FAILED) {
               s5 = peg$parsedate_day();
@@ -10145,7 +10919,7 @@ module.exports = (function() {
                   }
                   if (s7 !== peg$FAILED) {
                     peg$reportedPos = s0;
-                    s1 = peg$c141(s1, s3, s5, s7);
+                    s1 = peg$c145(s1, s3, s5, s7);
                     s0 = s1;
                   } else {
                     peg$currPos = s0;
@@ -10178,7 +10952,7 @@ module.exports = (function() {
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c138); }
+        if (peg$silentFails === 0) { peg$fail(peg$c142); }
       }
 
       return s0;
@@ -10260,8 +11034,8 @@ module.exports.literals =
     'months',
     'year',
     'years',
-    'in',
-    'zone'
+    'in zone',
+    'for'
   ];
 
 },{}]},{},[1])(1)

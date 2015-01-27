@@ -27,8 +27,8 @@ describe('<Unit Test>', function () {
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(4);
-          should(literalChoices).eql(['challenge', 'level', 'segment', 'tag']);
+          should(err.expected.length).equal(5);
+          should(literalChoices).eql(['challenge', 'in zone', 'level', 'segment', 'tag']);
         }
 
         done();
@@ -81,6 +81,85 @@ describe('<Unit Test>', function () {
         catch (err) {
           should(err.expected.length).equal(2);
           should(err.expected[0].description).equal('segmentCode');
+        }
+
+        done();
+      });
+
+      it('Missing zone code', function (done) {
+
+        try {
+          parser.parse("in zone ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[1].description).equal('zoneCode');
+        }
+
+        done();
+      });
+
+      it('Missing zone code, after first code', function (done) {
+
+        try {
+          parser.parse("in zone CODE1,");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[1].description).equal('zoneCode');
+        }
+
+        done();
+      });
+
+      it('Missing number after in zone X for', function (done) {
+
+        try {
+          parser.parse("in zone CODE1 for ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('number');
+        }
+
+        done();
+      });
+
+      it('Invalid number after in zone X for', function (done) {
+
+        try {
+          parser.parse("in zone CODE1 for X");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('number');
+        }
+
+        done();
+      });
+
+      it('Missing timeframe after in zone X for', function (done) {
+
+        try {
+          parser.parse("in zone CODE1 for 3 ");
+        }
+        catch (err) {
+          var literalChoices = helper.extractLiterals(err);
+          should(err.expected.length).equal(13);
+          should(literalChoices).eql([
+            'day',
+            'days',
+            'hour',
+            'hours',
+            'minute',
+            'minutes',
+            'month',
+            'months',
+            'week',
+            'weeks',
+            'year',
+            'years'
+          ]);
         }
 
         done();

@@ -127,14 +127,67 @@ describe('<Unit Test>', function () {
 
     describe('Should parse member in zone conditions', function () {
 
-      it('member in zone TEST', function (done) {
-        var condition = parser.parse("member in zone TEST");
+      it('member in zone CODE1', function (done) {
+        var condition = parser.parse("member in zone CODE1");
         should(condition).eql({
           conditions: [
             {
               scope: 'member',
               sub_scope: 'zone',
-              code: 'TEST'
+              codes: ['CODE1'],
+              duration: null,
+              timeframe: null
+            }
+          ],
+          filter: null
+        });
+        done();
+      });
+
+      it('member in zone CODE1,CODE2', function (done) {
+        var condition = parser.parse("member in zone CODE1,CODE2");
+        should(condition).eql({
+          conditions: [
+            {
+              scope: 'member',
+              sub_scope: 'zone',
+              codes: ['CODE1', 'CODE2'],
+              duration: null,
+              timeframe: null
+            }
+          ],
+          filter: null
+        });
+        done();
+      });
+
+      it('member in zone CODE1 for 3 hours', function (done) {
+        var condition = parser.parse("member in zone CODE1 for 3 hours");
+        should(condition).eql({
+          conditions: [
+            {
+              scope: 'member',
+              sub_scope: 'zone',
+              codes: ['CODE1'],
+              duration: 3,
+              timeframe: 'hour'
+            }
+          ],
+          filter: null
+        });
+        done();
+      });
+
+      it('member in zone CODE1,CODE2 for 5 minutes', function (done) {
+        var condition = parser.parse("member in zone CODE1,CODE2 for 5 minutes");
+        should(condition).eql({
+          conditions: [
+            {
+              scope: 'member',
+              sub_scope: 'zone',
+              codes: ['CODE1', 'CODE2'],
+              duration: 5,
+              timeframe: 'minute'
             }
           ],
           filter: null

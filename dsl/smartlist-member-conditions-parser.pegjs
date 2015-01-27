@@ -135,12 +135,14 @@ simple_condition
             value: value
         };
     }
-    / scope:"member" S* "in zone" S* zoneCode:zoneCode S*
+    / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
     {
         return {
             scope: "member",
             sub_scope: "zone",
-            code: zoneCode
+            codes: buildList(first, reminders, 3),
+            duration: (durationOption) ? durationOption[3] : null,
+            timeframe: (durationOption) ? durationOption[5] : null
         };
     }
     / scope:"challenge" S* challengeCode:challengeCode S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)*

@@ -6,11 +6,11 @@
     tag TAGCODE >= 10
     segment SEGMENTCODE >= 1
     challenge CHALLENGECODE
+    in zone ZONECODE1[,ZONECODE2][for x TIMEFRAME]
 
     // NOT IMPLEMENTED YET
     zone enter ZONECODE
     zone exit ZONECODE
-    geolocation in x1,y1 and x2,y2 | at x meter from x,y
  */
 {
     function extractOptional(optional, index) {
@@ -76,6 +76,15 @@ simple_rule
             value: value
         };
     }
+    / "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
+    {
+        return {
+            scope: "zone",
+            codes: buildList(first, reminders, 3),
+            duration: (durationOption) ? durationOption[3] : null,
+            timeframe: (durationOption) ? durationOption[5] : null
+        };
+    }
     / scope:"challenge" S* challengeCode:challengeCode
     {
         return {
@@ -120,6 +129,9 @@ segmentCode "segmentCode"
 tagCode "tagCode"
     = code
 
+zoneCode "zoneCode"
+    = code
+
 NUMBER "number"
     = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)
     {
@@ -139,4 +151,10 @@ STRING "string"
     = string:string
     {
         return string;
+    }
+
+timeframe
+    = value:("minutes" / "minute" / "hours" / "hour" / "days" / "day" / "weeks" / "week" / "months" / "month" / "years" / "year" )
+    {
+        return value.replace(/s/g,'');
     }

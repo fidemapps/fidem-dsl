@@ -18,6 +18,64 @@ describe('<Unit Test>', function () {
       });
     });
 
+    describe('Should parse zone rules', function () {
+      it('in zone CODE1 give 1 points', function (done) {
+
+        var rule = parser.parse("in zone CODE1 give 1 points");
+        should(rule).eql({
+          rules: [
+            {scope: 'zone', codes: ['CODE1'], duration: null, timeframe: null}
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+        done();
+      });
+
+      it('in zone CODE1,CODE2 give 1 points', function (done) {
+
+        var rule = parser.parse("in zone CODE1,CODE2 give 1 points");
+        should(rule).eql({
+          rules: [
+            {scope: 'zone', codes: ['CODE1', 'CODE2'], duration: null, timeframe: null}
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+        done();
+      });
+
+      it('in zone CODE1 for 3 hours give 1 points', function (done) {
+
+        var rule = parser.parse("in zone CODE1 for 3 hours give 1 points");
+        should(rule).eql({
+          rules: [
+            {scope: 'zone', codes: ['CODE1'], duration: 3, timeframe: 'hour'}
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+        done();
+      });
+
+      it('in zone CODE1,CODE2 for 5 minutes give 1 points', function (done) {
+
+        var rule = parser.parse("in zone CODE1,CODE2 for 5 minutes give 1 points");
+        should(rule).eql({
+          rules: [
+            {scope: 'zone', codes: ['CODE1', 'CODE2'], duration: 5, timeframe: 'minute'}
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+        done();
+      });
+    });
+
     describe('Should parse action rules', function () {
       it('action BrowseTicket give 1 points', function (done) {
 

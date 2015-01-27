@@ -338,6 +338,59 @@ describe('<Unit Test>', function () {
         done();
       });
 
+      it('Missing zoneCode after the first', function (done) {
+
+        try {
+          parser.parse("member in zone CODE1,");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[1].description).equal('zoneCode');
+        }
+
+        done();
+      });
+
+      it('Missing number after for', function (done) {
+
+        try {
+          parser.parse("member in zone CODE1 for ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('number');
+        }
+
+        done();
+      });
+
+      it('Invalid number after for', function (done) {
+
+        try {
+          parser.parse("member in zone CODE1 for X");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('number');
+        }
+
+        done();
+      });
+
+      it('Missing timeframe', function (done) {
+
+        try {
+          parser.parse("member in zone CODE1 for 3 ");
+        }
+        catch (err) {
+          var literalChoices = helper.extractLiterals(err);
+          should(err.expected.length).equal(13);
+          should(literalChoices).eql(['day', 'days', 'hour', 'hours', 'minute', 'minutes', 'month', 'months', 'week', 'weeks', 'year', 'years']);
+        }
+
+        done();
+      });
+
       it('Missing zip operators', function (done) {
 
         try {
