@@ -2,15 +2,17 @@
   Availability Rules
   ==================
 
-    level LEVELCODE >= 1
-    tag TAGCODE >= 10
-    segment SEGMENTCODE >= 1
-    challenge CHALLENGECODE
-    in zone ZONECODE1[,ZONECODE2][for x TIMEFRAME]
+  time_period (minute, hour, day, week, month, year)
 
-    // NOT IMPLEMENTED YET
-    zone enter ZONECODE
-    zone exit ZONECODE
+  level LEVELCODE >= 1
+  tag TAGCODE >= 10
+  segment SEGMENTCODE >= 1
+  challenge CHALLENGECODE
+  in zone ZONECODE[,ZONECODE][for x time_period]
+
+  // NOT IMPLEMENTED YET
+  zone enter ZONECODE
+  zone exit ZONECODE
  */
 {
     function extractOptional(optional, index) {

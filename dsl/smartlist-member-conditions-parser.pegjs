@@ -2,10 +2,11 @@
   List Member Conditions Rules
   ============================
 
+    time_period (minute, hour, day, week, month, year)
+
     DATE_CRITERIA : last X time, between start_date end_date
     NUMBER_CRITERIA : >, <, =, <=, >=, *IN()
     STRING_CRITERIA : =, !=, *IN()
-    COORDINATE_CRITERIA: = *lat,long, *around circle, *within square
 
     // Member related
     member tag CODE NUMBER_CRITERIA
@@ -20,7 +21,7 @@
 
     member created DATE_CRITERIA
 
-    member in zone ZONE_CODE,ZONE_CODE
+    member in zone ZONE_CODE[,ZONE_CODE][for x time_period]
 
     // Challenge related
     * challenge CODE

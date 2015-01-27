@@ -2,14 +2,13 @@
   Reaction Actions Rules
   ======================
 
-    Give reward QUANTITY REWARD_CODE from PROGRAM_CODE to LIST_CODE
+  give reward QUANTITY REWARD_CODE from PROGRAM_CODE to LIST_CODE
 
-    Send message text 'TEXT' with subject 'SUBJECT' to list LIST_CODE
-    Send message template TEMPLATE_CODE to list LIST_CODE
+  send message text 'TEXT' with subject 'SUBJECT' to list LIST_CODE
+  send message template TEMPLATE_CODE to list LIST_CODE
 
-    Send message text 'TEXT' with subject 'SUBJECT' to emails EMAIL,EMAIL,EMAIL
-    Send message template TEMPLATE_CODE to emails EMAIL,EMAIL,EMAIL
-
+  send message text 'TEXT' with subject 'SUBJECT' to emails EMAIL[,EMAIL]
+  send message template TEMPLATE_CODE to emails EMAIL[,EMAIL]
  */
 {
     function extractOptional(optional, index) {

@@ -8,7 +8,7 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-  describe.only('Auto-Complete Challenge Rules:', function () {
+  describe('Auto-Complete Challenge Rules:', function () {
     beforeEach(function (done) {
       fs.readFile(__dirname + '/../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
         if (err) {
@@ -232,6 +232,85 @@ describe('<Unit Test>', function () {
           should(err.found).equal(null);
           should(err.expected.length).equal(2);
           should(err.expected[0].value).equal('give');
+        }
+
+        done();
+      });
+
+      it('zone Missing zone code', function (done) {
+
+        try {
+          parser.parse("action TEST in zone ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[1].description).equal('zoneCode');
+        }
+
+        done();
+      });
+
+      it('member in zone Missing zone code', function (done) {
+
+        try {
+          parser.parse("member in zone ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[1].description).equal('zoneCode');
+        }
+
+        done();
+      });
+
+      it('member in zone Missing zone code after first one', function (done) {
+
+        try {
+          parser.parse("member in zone CODE1,");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[1].description).equal('zoneCode');
+        }
+
+        done();
+      });
+
+      it('member in zone Missing number after for', function (done) {
+
+        try {
+          parser.parse("member in zone CODE1 for ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('number');
+        }
+
+        done();
+      });
+
+      it('member in zone Missing time period after for', function (done) {
+
+        try {
+          parser.parse("member in zone CODE1 for 3 ");
+        }
+        catch (err) {
+          var literalChoices = helper.extractLiterals(err);
+          should(err.expected.length).equal(13);
+          should(literalChoices).eql([
+            'day',
+            'days',
+            'hour',
+            'hours',
+            'minute',
+            'minutes',
+            'month',
+            'months',
+            'week',
+            'weeks',
+            'year',
+            'years'
+          ]);
         }
 
         done();

@@ -350,6 +350,65 @@ describe('<Unit Test>', function () {
 
     });
 
+    describe('Should parse member zone rules', function () {
+      it('member in zone CODE1 give 1 point', function (done) {
+
+        var rule = parser.parse("member in zone CODE1 give 1 points");
+        should(rule).eql({
+          rules: [{
+            scope: 'member',
+            type: 'zone',
+            codes: ['CODE1'],
+            duration: null,
+            timeframe: null
+          }],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
+      it('member in zone CODE1,CODE2 give 1 point', function (done) {
+
+        var rule = parser.parse("member in zone CODE1,CODE2 give 1 points");
+        should(rule).eql({
+          rules: [{
+            scope: 'member',
+            type: 'zone',
+            codes: ['CODE1', 'CODE2'],
+            duration: null,
+            timeframe: null
+          }],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
+      it('member in zone CODE1 for 10 minutes give 1 point', function (done) {
+
+        var rule = parser.parse("member in zone CODE1 for 10 minutes give 1 points");
+        should(rule).eql({
+          rules: [{
+            scope: 'member',
+            type: 'zone',
+            codes: ['CODE1'],
+            duration: 10,
+            timeframe: 'minute'
+          }],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+    });
+
     describe('Should parse member rules', function () {
       it('member level LevelListCode 2 give 1 point', function (done) {
 

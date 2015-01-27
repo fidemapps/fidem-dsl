@@ -3,10 +3,11 @@
   ========================
 
     X (days/hours/minutes) (before|after) (sales|curtain|start|end) of EVENT_CODE
+    tier TIER_CODE ticket sales < 50% of EVENT_CODE
+    ticket sales < 50% of EVENT_CODE
 
-    Tier TIER_CODE ticket sales < 50% of EVENT_CODE
-    Ticket sales < 50% of EVENT_CODE
-
+    // NOT IMPLEMENTED
+    at date_time
  */
 {
     function extractOptional(optional, index) {

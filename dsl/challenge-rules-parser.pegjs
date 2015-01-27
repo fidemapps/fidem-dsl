@@ -2,58 +2,28 @@
   Gamification Rules
   ==================
 
- time_period (minute, hour, day, week, month, year)
+  time_period (minute, hour, day, week, month, year)
 
- Rewards Scripts Parameters:
-  member -> Member object
-  value -> number
-  reward_code -> string (Reward Object)
-  Call the RewardObject implementation to affect the Member
+  give x POINTS_LEVEL_LIST
+  give x BADGE_1
+  give x 10_PERCENT_REBATE
+  give x MEMBER_TAG
 
- give x 'POINTS_LEVEL_LIST'
- give x 'BADGE_1'
- give x '10_PERCENT_REBATE'
- give x 'MEMBER_TAG'
+  challenge CHALLENGE_CODE [x times][within x time_period]
 
- Activation "NEVER CHANGE STATUS" Scripts Parameters:
-  member -> Member object
-  triggerObjectType -> 'actionEvent', 'memberEvent' (new level)
-  triggerObject -> ActionJson, Member object
+  action ACTION_CODE [x times][within x time_period]  [with TAG 'TAG_NAME' [= x]][in zone ZONE_CODE[,ZONE_CODE]]
 
-  returns TRUE if must give the rewards
+  member level LEVEL_LIST x [with TAG 'TAG_NAME' [= x]]
+  member points LEVEL_LIST x [with TAG 'TAG_NAME' [= x]]
+  member tag TAG_NAME x [with TAG 'TAG_NAME' [= x]]
+  member in zone ZONE_CODE[,ZONE_CODE] [for x time_period]
 
- challenge 'CHALLENGE_CODE'
- challenge 'CHALLENGE_CODE' x times
- challenge 'CHALLENGE_CODE' x times   within x time_period
+  member new level LEVEL_CODE [x times][within x time_period]  [with TAG TAG_NAME [= x]]
 
- action 'ACTION_CODE'
- action 'ACTION_CODE' x times
- action 'ACTION_CODE' x times   within x time_period
- action 'ACTION_CODE' with TAG 'TAG_NAME'
- action 'ACTION_CODE' x times   with TAG 'TAG_NAME'
- action 'ACTION_CODE' x times   within x time_period   with TAG 'TAG_NAME'
- action 'ACTION_CODE' in zone 'ZONE_CODE'
-
- member "level" 'LEVEL_LIST' x
- member "level" 'LEVEL_LIST' x with TAG 'TAG_NAME'
- member "points" 'LEVEL_LIST' x
- member "points" 'LEVEL_LIST' x with TAG 'TAG_NAME'
- member "tag" 'TAG_NAME' x
- member "tag" 'TAG_NAME' x with TAG 'TAG_NAME'
- member "in zone" 'ZONE_CODE' for x time_period
-
- member "new level" 'LEVEL_LIST'
- member "new level" 'LEVEL_LIST' x times    within x time_period
- member "new level" 'LEVEL_LIST' with TAG 'TAG_NAME'
- member "new level" 'LEVEL_LIST' x times   with TAG 'TAG_NAME'
- member "new level" 'LEVEL_LIST' x times   within x time_period   with TAG 'TAG_NAME'
-
-// NOT IMPLEMENTED YET
- zone enter CODE
- zone exit CODE
- geolocation in x1,y1 and x2,y2 | at x meter from x,y
+  // NOT IMPLEMENTED YET
+  zone enter CODE
+  zone exit CODE
 */
-
 {
     function extractOptional(optional, index) {
         return optional ? optional[index] : null;
@@ -139,6 +109,18 @@ simple_rule
 
         return theRule;
     }
+    / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
+    {
+        var theRule = {
+            scope: scope,
+            type: "zone",
+            codes: buildList(first, reminders, 3),
+            duration: (durationOption) ? durationOption[3] : null,
+            timeframe: (durationOption) ? durationOption[5] : null
+        };
+
+        return theRule;
+    }
     / scope:"member" S* type:"level up" S* levelCode:levelCode conditions:(S* condition)* S* filter:withTag?
     {
         return {
@@ -162,17 +144,6 @@ inZoneAction
         return {
             type: 'zone',
             zones: buildList(first, reminders, 3)
-        };
-    }
-
-inZoneMember
-    = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
-    {
-        return {
-            scope: "zone",
-            codes: buildList(first, reminders, 3),
-            duration: (durationOption) ? durationOption[3] : null,
-            timeframe: (durationOption) ? durationOption[5] : null
         };
     }
 
