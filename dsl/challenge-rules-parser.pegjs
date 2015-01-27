@@ -32,6 +32,7 @@
  action 'ACTION_CODE' with TAG 'TAG_NAME'
  action 'ACTION_CODE' x times   with TAG 'TAG_NAME'
  action 'ACTION_CODE' x times   within x time_period   with TAG 'TAG_NAME'
+ action 'ACTION_CODE' in zone 'ZONE_CODE'
 
  member "level" 'LEVEL_LIST' x
  member "level" 'LEVEL_LIST' x with TAG 'TAG_NAME'
@@ -39,6 +40,7 @@
  member "points" 'LEVEL_LIST' x with TAG 'TAG_NAME'
  member "tag" 'TAG_NAME' x
  member "tag" 'TAG_NAME' x with TAG 'TAG_NAME'
+ member "in zone" 'ZONE_CODE' for x time_period
 
  member "new level" 'LEVEL_LIST'
  member "new level" 'LEVEL_LIST' x times    within x time_period
@@ -104,15 +106,6 @@ simple_rule
             filters: buildList(null, filters, 1)
         };
     }
-    / "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
-    {
-        return {
-            scope: "zone",
-            codes: buildList(first, reminders, 3),
-            duration: (durationOption) ? durationOption[3] : null,
-            timeframe: (durationOption) ? durationOption[5] : null
-        };
-    }
     / scope:"challenge" S* challengeCode:challengeCode conditions:(S* condition)* filters:(S* filter)*
     {
         return {
@@ -161,7 +154,27 @@ condition
     = (withinTimeframe / numberOfTimes)
 
 filter
-    = withTag
+    = (withTag / inZoneAction)
+
+inZoneAction
+    = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
+    {
+        return {
+            type: 'zone',
+            zones: buildList(first, reminders, 3)
+        };
+    }
+
+inZoneMember
+    = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
+    {
+        return {
+            scope: "zone",
+            codes: buildList(first, reminders, 3),
+            duration: (durationOption) ? durationOption[3] : null,
+            timeframe: (durationOption) ? durationOption[5] : null
+        };
+    }
 
 withTag
     = "with tag" S* tagCode:tagCode S* value:("=" S* qty:NUMBER)?

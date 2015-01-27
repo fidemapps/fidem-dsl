@@ -8,7 +8,7 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-  describe('Auto-Complete Challenge Rules:', function () {
+  describe.only('Auto-Complete Challenge Rules:', function () {
     beforeEach(function (done) {
       fs.readFile(__dirname + '/../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
         if (err) {
@@ -27,8 +27,8 @@ describe('<Unit Test>', function () {
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(4);
-          should(literalChoices).eql(['action', 'challenge', 'in zone', 'member']);
+          should(err.expected.length).equal(3);
+          should(literalChoices).eql(['action', 'challenge', 'member']);
         }
 
         done();
@@ -89,7 +89,7 @@ describe('<Unit Test>', function () {
       it('zone Missing zone code', function (done) {
 
         try {
-          parser.parse("in zone ");
+          parser.parse("action TEST in zone ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -102,64 +102,11 @@ describe('<Unit Test>', function () {
       it('zone Missing zone code after first one', function (done) {
 
         try {
-          parser.parse("in zone CODE1,");
+          parser.parse("action TEST in zone CODE1,");
         }
         catch (err) {
           should(err.expected.length).equal(2);
           should(err.expected[1].description).equal('zoneCode');
-        }
-
-        done();
-      });
-
-      it('zone Missing number after for', function (done) {
-
-        try {
-          parser.parse("in zone CODE1 for ");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('number');
-        }
-
-        done();
-      });
-
-      it('zone Invalid number after for', function (done) {
-
-        try {
-          parser.parse("in zone CODE1 for x");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('number');
-        }
-
-        done();
-      });
-
-      it('zone Missing timeframe after for', function (done) {
-
-        try {
-          parser.parse("in zone CODE1 for 3 ");
-        }
-        catch (err) {
-          var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(13);
-          should(literalChoices).eql([
-            'day',
-            'days',
-            'hour',
-            'hours',
-            'minute',
-            'minutes',
-            'month',
-            'months',
-            'week',
-            'weeks',
-            'year',
-            'years'
-          ]);
         }
 
         done();
@@ -174,8 +121,8 @@ describe('<Unit Test>', function () {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
 
-          should(err.expected.length).equal(5);
-          should(literalChoices).eql(['and', 'give', 'with tag']);
+          should(err.expected.length).equal(6);
+          should(literalChoices).eql(['and', 'give', 'in zone', 'with tag']);
           should(otherChoices).eql(['number', 'whitespace']);
         }
 
@@ -269,8 +216,8 @@ describe('<Unit Test>', function () {
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
           should(err.found).equal(null);
-          should(err.expected.length).equal(5);
-          should(literalChoices).eql(['and', 'give', 'with tag']);
+          should(err.expected.length).equal(6);
+          should(literalChoices).eql(['and', 'give', 'in zone', 'with tag']);
         }
 
         done();
