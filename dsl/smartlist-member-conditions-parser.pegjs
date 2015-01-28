@@ -154,12 +154,22 @@ simple_condition
             conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
         };
     }
-    / scope:"action" S* actionCode:actionCode S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)*
+    / scope:"action" S* actionCode:actionCode S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)* filters:(S* inZoneAction)*
     {
         return {
             scope: "action",
             code: actionCode,
-            conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
+            conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3),
+            filters: buildList(null, filters, 1)
+        };
+    }
+
+inZoneAction
+    = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
+    {
+        return {
+            type: 'zone',
+            zones: buildList(first, reminders, 3)
         };
     }
 

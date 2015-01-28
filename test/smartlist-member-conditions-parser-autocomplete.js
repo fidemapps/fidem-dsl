@@ -104,15 +104,15 @@ describe('<Unit Test>', function () {
 
       // FIXME(SG) : Need to verify how to get the the literals when adding spaces, to have an hint to continue
       // Need to be able to have the same test but with onlu one space
-      it('Missing "with","and" or "only top"', function (done) {
+      it('Missing "with", "in zone", "and" or "only top"', function (done) {
 
         try {
           parser.parse("action CODE w");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(5);
-          should(literalChoices).eql(['and', 'only top', 'with']);
+          should(err.expected.length).equal(6);
+          should(literalChoices).eql(['and', 'in zone', 'only top', 'with']);
         }
 
         done();
@@ -203,8 +203,8 @@ describe('<Unit Test>', function () {
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
-          should(err.expected.length).equal(4);
-          should(literalChoices).eql(['and', 'only top']);
+          should(err.expected.length).equal(5);
+          should(literalChoices).eql(['and', 'in zone', 'only top']);
           should(otherChoices).eql(['whitespace']);
         }
 

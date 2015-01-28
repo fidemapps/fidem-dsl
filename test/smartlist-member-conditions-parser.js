@@ -345,7 +345,44 @@ describe('<Unit Test>', function () {
             {
               scope: 'action',
               code: 'ACTION_CODE',
-              conditions: []
+              conditions: [],
+              filters: []
+            }
+          ], filter: null
+        });
+        done();
+      });
+
+      it('action ACTION_CODE in zone CODE1', function (done) {
+        var condition = parser.parse("action ACTION_CODE in zone CODE1");
+        should(condition).eql({
+          conditions: [
+            {
+              scope: 'action',
+              code: 'ACTION_CODE',
+              conditions: [],
+              filters: [{
+                "type": "zone",
+                "zones": ["CODE1"]
+              }]
+            }
+          ], filter: null
+        });
+        done();
+      });
+
+      it('action ACTION_CODE in zone CODE1,CODE2', function (done) {
+        var condition = parser.parse("action ACTION_CODE in zone CODE1,CODE2");
+        should(condition).eql({
+          conditions: [
+            {
+              scope: 'action',
+              code: 'ACTION_CODE',
+              conditions: [],
+              filters: [{
+                "type": "zone",
+                "zones": ["CODE1", "CODE2"]
+              }]
             }
           ], filter: null
         });
@@ -364,7 +401,8 @@ describe('<Unit Test>', function () {
                 operator: '=',
                 value: 'value'
               }
-            ]
+            ],
+            filters: []
           }
           ], filter: null
         });
@@ -390,7 +428,8 @@ describe('<Unit Test>', function () {
                 operator: '=',
                 value: 'value'
               }
-            ]
+            ],
+            filters: []
           }
           ], filter: null
         });
@@ -415,7 +454,8 @@ describe('<Unit Test>', function () {
                   operator: '<',
                   value: 3
                 }
-              ]
+              ],
+              filters: []
             }
           ], filter: null
         });
@@ -440,7 +480,8 @@ describe('<Unit Test>', function () {
                   operator: '<',
                   value: 3
                 }
-              ]
+              ],
+              filters: []
             }
           ],
           filter: {
