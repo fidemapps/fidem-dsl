@@ -8,7 +8,7 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-  describe('Auto-Complete Challenge Rules:', function () {
+  describe.only('Auto-Complete Challenge Rules:', function () {
     beforeEach(function (done) {
       fs.readFile(__dirname + '/../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
         if (err) {
@@ -121,8 +121,8 @@ describe('<Unit Test>', function () {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
 
-          should(err.expected.length).equal(6);
-          should(literalChoices).eql(['and', 'give', 'in zone', 'with tag']);
+          should(err.expected.length).equal(7);
+          should(literalChoices).eql(['and', 'give', 'in zone', 'near', 'with tag']);
           should(otherChoices).eql(['number', 'whitespace']);
         }
 
@@ -216,8 +216,8 @@ describe('<Unit Test>', function () {
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
           should(err.found).equal(null);
-          should(err.expected.length).equal(6);
-          should(literalChoices).eql(['and', 'give', 'in zone', 'with tag']);
+          should(err.expected.length).equal(7);
+          should(literalChoices).eql(['and', 'give', 'in zone', 'near', 'with tag']);
         }
 
         done();
@@ -311,6 +311,46 @@ describe('<Unit Test>', function () {
             'year',
             'years'
           ]);
+        }
+
+        done();
+      });
+
+      it('beaon Missing distance', function (done) {
+
+        try {
+          parser.parse("action TEST near ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('number');
+        }
+
+        done();
+      });
+
+      it('beaon Missing of beacon', function (done) {
+
+        try {
+          parser.parse("action TEST near 1");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          var literalChoices = helper.extractLiterals(err);
+          should(literalChoices).eql(['of beacon']);
+        }
+
+        done();
+      });
+
+      it('beaon Missing beacon code', function (done) {
+
+        try {
+          parser.parse("action TEST near 1 of beacon");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('beaconCode');
         }
 
         done();

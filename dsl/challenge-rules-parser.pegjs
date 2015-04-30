@@ -11,7 +11,7 @@
 
   challenge CHALLENGE_CODE [x times][within x time_period]
 
-  action ACTION_CODE [x times][within x time_period]  [with TAG 'TAG_NAME' [= x]][in zone ZONE_CODE[,ZONE_CODE]]
+  action ACTION_CODE [x times][within x time_period]  [with TAG 'TAG_NAME' [= x]][in zone ZONE_CODE[,ZONE_CODE]][near X of beacon BEACON_CODE[,BEACON_CODE]]
 
   member level LEVEL_LIST x [with TAG 'TAG_NAME' [= x]]
   member points LEVEL_LIST x [with TAG 'TAG_NAME' [= x]]
@@ -136,7 +136,7 @@ condition
     = (withinTimeframe / numberOfTimes)
 
 filter
-    = (withTag / inZoneAction)
+    = (withTag / inZoneAction / nearBeaconAction)
 
 inZoneAction
     = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
@@ -144,6 +144,16 @@ inZoneAction
         return {
             type: 'zone',
             zones: buildList(first, reminders, 3)
+        };
+    }
+
+nearBeaconAction
+    = "near" S* distance:NUMBER S* "of beacon" S* first:beaconCode reminders:(S* "," S* beaconCode:beaconCode)*
+    {
+        return {
+            type: 'beacon',
+            distance: distance,
+            beacons: buildList(first, reminders, 3)
         };
     }
 
@@ -250,6 +260,9 @@ tagCode "tagCode"
     = code
 
 zoneCode "zoneCode"
+    = code
+
+beaconCode "beaconCode"
     = code
 
 NUMBER "number"

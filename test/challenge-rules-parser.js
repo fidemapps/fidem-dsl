@@ -56,6 +56,44 @@ describe('<Unit Test>', function () {
       });
     });
 
+    describe('Should parse beacon rules', function () {
+      it('action TEST near 50 of beacon CODE1 give 1 points', function (done) {
+
+        var rule = parser.parse("action TEST near 50 of beacon CODE1 give 1 points");
+        should(rule).eql({
+          rules: [{
+            scope: 'action', code: 'TEST',
+            conditions: [],
+            filters: [
+              {distance: 50, type: 'beacon', beacons: ['CODE1']}
+            ]
+          }],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+        done();
+      });
+
+      it('action TEST near 50 of beacon CODE1,CODE2 give 1 points', function (done) {
+
+        var rule = parser.parse("action TEST near 50 of beacon CODE1,CODE2 give 1 points");
+        should(rule).eql({
+          rules: [{
+            scope: 'action', code: 'TEST',
+            conditions: [],
+            filters: [
+              {distance: 50, type: 'beacon', beacons: ['CODE1', 'CODE2']}
+            ]
+          }],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+        done();
+      });
+    });
+
     describe('Should parse action rules', function () {
       it('action BrowseTicket give 1 points', function (done) {
 
