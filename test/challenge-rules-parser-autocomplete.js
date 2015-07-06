@@ -182,6 +182,19 @@ describe('<Unit Test>', function () {
         done();
       });
 
+      it('Missing attribute name', function (done) {
+
+        try {
+          parser.parse("action CODE with data ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('attributeName');
+        }
+
+        done();
+      });
+
       it('Missing reward quantity', function (done) {
 
         try {

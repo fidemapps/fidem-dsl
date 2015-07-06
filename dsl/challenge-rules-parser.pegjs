@@ -168,7 +168,7 @@ withTag
     }
 
 withData
-    = "with data" S* attributeName:code S* "=" S* value:string
+    = "with data" S* attributeName:attributeName S* "=" S* value:string
     {
         return {
             type: 'data',
@@ -250,6 +250,9 @@ code
     {
         return chars.join("");
     }
+
+attributeName "attributeName"
+    = code
 
 rewardCode "rewardCode"
     = code
