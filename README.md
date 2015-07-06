@@ -1,5 +1,7 @@
 # fidem-dsl
 
+[ ![Codeship Status for fidemapps/fidem-dsl](https://codeship.com/projects/a18adc90-061b-0133-c43a-12a4c431c178/status?branch=master)](https://codeship.com/projects/89623)
+
 Library for Fidem DSL
 
 ## Usage
