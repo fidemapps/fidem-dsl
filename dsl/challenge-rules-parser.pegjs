@@ -136,7 +136,7 @@ condition
     = (withinTimeframe / numberOfTimes)
 
 filter
-    = (withTag / inZoneAction / nearBeaconAction)
+    = (withTag / withData / inZoneAction / nearBeaconAction)
 
 inZoneAction
     = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
@@ -164,6 +164,16 @@ withTag
             type: 'tag',
             tag: tagCode,
             value: value ? value[2] : null
+        };
+    }
+
+withData
+    = "with data" S* attributeName:code S* "=" S* value:string
+    {
+        return {
+            type: 'data',
+            attribute: attributeName,
+            value: value
         };
     }
 

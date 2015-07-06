@@ -205,6 +205,27 @@ describe('<Unit Test>', function () {
         done();
       });
 
+      it('action BrowseTicket with data test = "test value" give 1 points', function (done) {
+
+        var rule = parser.parse("action BrowseTicket with data test = 'test value' give 1 points");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'action', code: 'BrowseTicket',
+              conditions: [],
+              filters: [
+                {type: 'data', attribute: 'test', value: 'test value'}
+              ]
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
       it('action BrowseTicket with tag Patate = 30 give 1 points', function (done) {
 
         var rule = parser.parse("action BrowseTicket with tag Patate = 30 give 1 points");
@@ -637,6 +658,7 @@ describe('<Unit Test>', function () {
         done();
       });
     });
+
     describe('Should parse complexe action rules', function () {
       it('action BrowseTicket and action CoolThing give 1 points', function (done) {
 
