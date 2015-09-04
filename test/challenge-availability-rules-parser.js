@@ -127,5 +127,27 @@ describe('<Unit Test>', function () {
         done();
       });
     });
+
+    describe('Should parse belongs to smartlist rules', function(){
+      it('Single smartlist: belongs to smartlist X', function(done){
+        var rule = parser.parse("belongs to smartlist 123");
+        should(rule).eql([{
+          scope: 'smartlist',
+          codes: ['123']
+        }]);
+
+        done();
+      });
+
+      it('Multiple smartlists: belongs to smartlist X,Y,Z', function(done){
+        var rule = parser.parse("belongs to smartlist 123,456,789");
+        should(rule).eql([{
+          scope: 'smartlist',
+          codes: ['123','456','789']
+        }]);
+
+        done();
+      });
+    });
   });
 });

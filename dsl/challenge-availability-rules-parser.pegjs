@@ -94,6 +94,13 @@ simple_rule
             code: challengeCode
         };
     }
+    / "belongs to smartlist" S firstCode:code S* codes:("," S* code:code)*
+    {
+        return {
+           scope: "smartlist",
+           codes: buildList(firstCode, codes, 2)
+       };
+    }
 
 string1
     = '"' chars:([^\n\r\f\\"] / "\\" )* '"'

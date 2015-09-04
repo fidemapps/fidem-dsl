@@ -27,8 +27,8 @@ describe('<Unit Test>', function () {
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(5);
-          should(literalChoices).eql(['challenge', 'in zone', 'level', 'segment', 'tag']);
+          should(err.expected.length).equal(6);
+          should(literalChoices).eql(['belongs to smartlist', 'challenge', 'in zone', 'level', 'segment', 'tag']);
         }
 
         done();
