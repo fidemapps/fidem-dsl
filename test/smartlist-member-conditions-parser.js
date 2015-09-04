@@ -336,6 +336,38 @@ describe('<Unit Test>', function () {
       });
     });
 
+    describe('Should parse member belongs to smartlist conditions', function(){
+      it('Single smartlist: member belongs to smartlist X', function(done){
+        var rule = parser.parse("member belongs to smartlist 123");
+        should(rule).eql({
+          conditions: [
+            {
+              scope: 'member',
+              sub_scope: 'smartlist',
+              codes: ['123']
+            }
+          ], filter: null
+        });
+
+        done();
+      });
+
+      it('Multiple smartlists: member belongs to smartlist X,Y,Z', function(done){
+        var rule = parser.parse("member belongs to smartlist 123,456,789");
+        should(rule).eql({
+          conditions: [
+            {
+              scope: 'member',
+              sub_scope: 'smartlist',
+              codes: ['123', '456', '789']
+            }
+          ], filter: null
+        });
+
+        done();
+      });
+    });
+
     describe('Should parse action code conditions', function () {
 
       it('action ACTION_CODE', function (done) {

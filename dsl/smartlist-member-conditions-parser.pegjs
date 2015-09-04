@@ -146,6 +146,14 @@ simple_condition
             timeframe: (durationOption) ? durationOption[5] : null
         };
     }
+    / scope: "member" S "belongs to smartlist" S firstCode:code S* codes:("," S* code:code)*
+    {
+        return {
+           scope: scope,
+           sub_scope: "smartlist",
+           codes: buildList(firstCode, codes, 2)
+       };
+    }
     / scope:"challenge" S* challengeCode:challengeCode S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)*
     {
         return {
