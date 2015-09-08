@@ -6,7 +6,7 @@
 
   level LEVELCODE >= 1
   tag TAGCODE >= 10
-  segment SEGMENTCODE >= 1
+  //segment SEGMENTCODE >= 1 --> Not supported right now
   challenge CHALLENGECODE
   in zone ZONECODE[,ZONECODE][for x time_period]
 
@@ -69,15 +69,6 @@ simple_rule
             value: value
         };
     }
-    / scope:"segment" S* segmentCode:segmentCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
-    {
-        return {
-            scope: scope,
-            code: segmentCode,
-            operator: operator,
-            value: value
-        };
-    }
     / "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
     {
         return {
@@ -93,6 +84,13 @@ simple_rule
             scope: scope,
             code: challengeCode
         };
+    }
+    / "belongs to smartlist" S firstCode:code S* codes:("," S* code:code)*
+    {
+        return {
+           scope: "smartlist",
+           codes: buildList(firstCode, codes, 2)
+       };
     }
 
 string1

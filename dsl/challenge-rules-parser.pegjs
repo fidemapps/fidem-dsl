@@ -266,9 +266,6 @@ challengeCode "challengeCode"
 levelCode "levelCode"
     = code
 
-segmentCode "segmentCode"
-    = code
-
 tagCode "tagCode"
     = code
 
