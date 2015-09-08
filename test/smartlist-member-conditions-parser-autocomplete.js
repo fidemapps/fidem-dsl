@@ -237,7 +237,7 @@ describe('<Unit Test>', function () {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
           should(err.expected.length).equal(11);
-          should(literalChoices).eql(['city', 'country', 'created', 'in zone', 'level', 'points', 'segment', 'state', 'tag', 'zip']);
+          should(literalChoices).eql(['belongs to smartlist', 'city', 'country', 'created', 'in zone', 'level', 'points', 'state', 'tag', 'zip']);
           should(otherChoices).eql(['whitespace']);
         }
 
@@ -283,48 +283,6 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing segmentCode', function (done) {
-
-        try {
-          parser.parse("member segment");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('segmentCode');
-        }
-
-        done();
-      });
-
-      it('Missing segment operators', function (done) {
-
-        try {
-          parser.parse("member segment CODE");
-        }
-        catch (err) {
-          var literalChoices = helper.extractLiterals(err);
-          var otherChoices = helper.extractOthers(err);
-          should(err.expected.length).equal(6);
-          should(literalChoices).eql(['<', '<=', '=', '>', '>=']);
-          should(otherChoices).eql(['whitespace']);
-        }
-
-        done();
-      });
-
-      it('Missing segment number', function (done) {
-
-        try {
-          parser.parse("member segment CODE >");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('number');
-        }
-
-        done();
-      });
-
       it('Missing zoneCode', function (done) {
 
         try {
@@ -346,46 +304,6 @@ describe('<Unit Test>', function () {
         catch (err) {
           should(err.expected.length).equal(2);
           should(err.expected[1].description).equal('zoneCode');
-        }
-
-        done();
-      });
-
-      it('Missing number after for', function (done) {
-
-        try {
-          parser.parse("member in zone CODE1 for ");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('number');
-        }
-
-        done();
-      });
-
-      it('Invalid number after for', function (done) {
-
-        try {
-          parser.parse("member in zone CODE1 for X");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('number');
-        }
-
-        done();
-      });
-
-      it('Missing timeframe', function (done) {
-
-        try {
-          parser.parse("member in zone CODE1 for 3 ");
-        }
-        catch (err) {
-          var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(13);
-          should(literalChoices).eql(['day', 'days', 'hour', 'hours', 'minute', 'minutes', 'month', 'months', 'week', 'weeks', 'year', 'years']);
         }
 
         done();

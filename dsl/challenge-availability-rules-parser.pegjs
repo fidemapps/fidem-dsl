@@ -6,7 +6,7 @@
 
   level LEVELCODE >= 1
   tag TAGCODE >= 10
-  segment SEGMENTCODE >= 1
+  //segment SEGMENTCODE >= 1 --> Not supported right now
   challenge CHALLENGECODE
   in zone ZONECODE[,ZONECODE][for x time_period]
 
@@ -65,15 +65,6 @@ simple_rule
         return {
             scope: scope,
             code: tagCode,
-            operator: operator,
-            value: value
-        };
-    }
-    / scope:"segment" S* segmentCode:segmentCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
-    {
-        return {
-            scope: scope,
-            code: segmentCode,
             operator: operator,
             value: value
         };

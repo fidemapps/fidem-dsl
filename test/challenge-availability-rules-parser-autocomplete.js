@@ -27,8 +27,8 @@ describe('<Unit Test>', function () {
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(6);
-          should(literalChoices).eql(['belongs to smartlist', 'challenge', 'in zone', 'level', 'segment', 'tag']);
+          should(err.expected.length).equal(5);
+          should(literalChoices).eql(['belongs to smartlist', 'challenge', 'in zone', 'level', 'tag']);
         }
 
         done();
@@ -68,19 +68,6 @@ describe('<Unit Test>', function () {
         catch (err) {
           should(err.expected.length).equal(2);
           should(err.expected[0].description).equal('tagCode');
-        }
-
-        done();
-      });
-
-      it('Missing segment code', function (done) {
-
-        try {
-          parser.parse("segment ");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('segmentCode');
         }
 
         done();

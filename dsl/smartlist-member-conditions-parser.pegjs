@@ -12,7 +12,7 @@
     member tag CODE NUMBER_CRITERIA
     member level CODE NUMBER_CRITERIA
     member point CODE NUMBER_CRITERIA
-    member segment CODE NUMBER_CRITERIA
+    // member segment CODE NUMBER_CRITERIA  --> Not supported right now
 
     member city STRING_CRITERIA
     member state STRING_CRITERIA
@@ -21,7 +21,7 @@
 
     member created DATE_CRITERIA
 
-    member in zone ZONE_CODE[,ZONE_CODE][for x time_period]
+    member in zone ZONE_CODE[,ZONE_CODE][for x time_period] // durationOption:(S* "for" S* NUMBER S* timeframe)?
 
     // Challenge related
     * challenge CODE
@@ -77,17 +77,7 @@ conditions
     }
 
 simple_condition
-    = scope:"member" S* sub:"segment" S* segmentCode:segmentCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
-    {
-        return {
-            scope: "member",
-            sub_scope: sub,
-            code: segmentCode,
-            operator: operator,
-            value: value
-        };
-    }
-    / scope:"member" S* sub:("level" / "points") S* levelCode:levelCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    = scope:"member" S* sub:("level" / "points") S* levelCode:levelCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
     {
         return {
             scope: "member",
@@ -136,21 +126,21 @@ simple_condition
             value: value
         };
     }
-    / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
+    / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
     {
+        // duration: (durationOption) ? durationOption[3] : null,
+        // timeframe: (durationOption) ? durationOption[5] : null
+
         return {
             scope: "member",
             sub_scope: "zone",
-            codes: buildList(first, reminders, 3),
-            duration: (durationOption) ? durationOption[3] : null,
-            timeframe: (durationOption) ? durationOption[5] : null
+            codes: buildList(first, reminders, 3)
         };
     }
-    / scope: "member" S "belongs to smartlist" S firstCode:code S* codes:("," S* code:code)*
+    / scope: "member" S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
     {
         return {
-           scope: scope,
-           sub_scope: "smartlist",
+           scope: "smartlist",
            codes: buildList(firstCode, codes, 2)
        };
     }
@@ -252,9 +242,6 @@ code
         return chars.join("");
     }
 
-segmentCode "segmentCode"
-    = code
-
 challengeCode "challengeCode"
     = code
 
@@ -268,6 +255,9 @@ tagCode "tagCode"
     = code
 
 zoneCode "zoneCode"
+    = code
+
+smartlistCode "smartListCode"
     = code
 
 attributeName "attributeName"
