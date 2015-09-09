@@ -257,7 +257,7 @@ tagCode "tagCode"
 zoneCode "zoneCode"
     = code
 
-smartlistCode "smartListCode"
+smartlistCode "smartlistCode"
     = code
 
 attributeName "attributeName"
