@@ -99,6 +99,19 @@ describe('<Unit Test>', function () {
         done();
       });
 
+      it('Missing smartlist code', function (done) {
+
+        try {
+          parser.parse("belongs to smartlist ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('smartlistCode');
+        }
+
+        done();
+      });
+
       it('Missing number after in zone X for', function (done) {
 
         try {
