@@ -85,7 +85,7 @@ simple_rule
             code: challengeCode
         };
     }
-    / "belongs to smartlist" S firstCode:code S* codes:("," S* code:code)*
+    / "belongs to smartlist" S firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
     {
         return {
            scope: "smartlist",
@@ -124,6 +124,9 @@ levelCode "levelCode"
     = code
 
 segmentCode "segmentCode"
+    = code
+
+smartlistCode "smartlistCode"
     = code
 
 tagCode "tagCode"
