@@ -283,6 +283,19 @@ describe('<Unit Test>', function () {
         done();
       });
 
+      it('Missing smartCode', function (done) {
+
+        try {
+          parser.parse("member belongs to smartlist ");
+        }
+        catch (err) {
+          should(err.expected.length).equal(2);
+          should(err.expected[0].description).equal('smartListCode');
+        }
+
+        done();
+      });
+
       it('Missing zoneCode', function (done) {
 
         try {
