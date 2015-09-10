@@ -953,7 +953,12 @@ module.exports = (function() {
                 if (peg$silentFails === 0) { peg$fail(peg$c34); }
               }
               if (s1 !== peg$FAILED) {
-                s2 = peg$parseS();
+                s2 = [];
+                s3 = peg$parseS();
+                while (s3 !== peg$FAILED) {
+                  s2.push(s3);
+                  s3 = peg$parseS();
+                }
                 if (s2 !== peg$FAILED) {
                   s3 = peg$parsesmartlistCode();
                   if (s3 !== peg$FAILED) {
