@@ -290,7 +290,7 @@ describe('<Unit Test>', function () {
         }
         catch (err) {
           should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('smartListCode');
+          should(err.expected[0].description).equal('smartlistCode');
         }
 
         done();
