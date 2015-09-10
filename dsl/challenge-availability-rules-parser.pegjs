@@ -85,7 +85,7 @@ simple_rule
             code: challengeCode
         };
     }
-    / "belongs to smartlist" S firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
+    / "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
     {
         return {
            scope: "smartlist",

@@ -105,7 +105,7 @@ describe('<Unit Test>', function () {
           parser.parse("belongs to smartlist ");
         }
         catch (err) {
-          should(err.expected.length).equal(1);
+          should(err.expected.length).equal(2);
           should(err.expected[0].description).equal('smartlistCode');
         }
 
