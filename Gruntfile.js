@@ -29,6 +29,9 @@ module.exports = function (grunt) {
       },
       'pegjs-smartlist-member-conditions': {
         command: 'pegjs ./dsl/smartlist-member-conditions-parser.pegjs ./lib/smartlist-member-conditions-parser.js'
+      },
+      'pegjs-smartlist-limit': {
+        command: 'pegjs ./dsl/smartlist-limit-parser.pegjs ./lib/smartlist-limit-parser.js'
       }
     },
     uglify: {
@@ -60,6 +63,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['pegjs', 'browserify', 'uglify']);
   grunt.registerTask('single-test', ['mochaTest:single']);
-  grunt.registerTask('pegjs', ['shell:pegjs-challenge-rules', 'shell:pegjs-challenge-availability-rules', 'shell:pegjs-reaction-actions', 'shell:pegjs-reaction-trigger-conditions', 'shell:pegjs-smartlist-member-conditions']);
+  grunt.registerTask('pegjs', ['shell:pegjs-challenge-rules', 'shell:pegjs-challenge-availability-rules', 'shell:pegjs-reaction-actions', 'shell:pegjs-reaction-trigger-conditions', 'shell:pegjs-smartlist-member-conditions', 'shell:pegjs-smartlist-limit']);
 
 };

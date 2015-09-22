@@ -19,75 +19,6 @@ describe('<Unit Test>', function () {
       });
     });
 
-    describe('Should get exception for auto-complete : only top', function () {
-      it('Empty string', function (done) {
-
-        try {
-          parser.parse("");
-        }
-        catch (err) {
-          var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(4);
-          should(literalChoices).eql(['action', 'challenge', 'member', 'only top']);
-        }
-
-        done();
-      });
-
-      it('Missing number for only top', function (done) {
-
-        try {
-          parser.parse("only top");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('number');
-        }
-
-        done();
-      });
-
-      it('Missing only top "by member"', function (done) {
-
-        try {
-          parser.parse("only top 3");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].value).equal('by member');
-        }
-
-        done();
-      });
-
-      it('Missing only top "level" or "points"', function (done) {
-
-        try {
-          parser.parse("only top 3 by member");
-        }
-        catch (err) {
-          var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(3);
-          should(literalChoices).eql(['level', 'points']);
-        }
-
-        done();
-      });
-
-      it('Missing only top level code', function (done) {
-
-        try {
-          parser.parse("only top 3 by member level");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('levelCode');
-        }
-
-        done();
-      });
-    });
-
     describe('Should get exception for auto-complete : action', function () {
       it('Missing actionCode', function (done) {
 
@@ -104,15 +35,15 @@ describe('<Unit Test>', function () {
 
       // FIXME(SG) : Need to verify how to get the the literals when adding spaces, to have an hint to continue
       // Need to be able to have the same test but with onlu one space
-      it('Missing "with", "in zone", "and" or "only top"', function (done) {
+      it('Missing "with", "in zone", "and"', function (done) {
 
         try {
           parser.parse("action CODE w");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(6);
-          should(literalChoices).eql(['and', 'in zone', 'only top', 'with']);
+          should(err.expected.length).equal(5);
+          should(literalChoices).eql(['and', 'in zone', 'with']);
         }
 
         done();
@@ -203,8 +134,8 @@ describe('<Unit Test>', function () {
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
           var otherChoices = helper.extractOthers(err);
-          should(err.expected.length).equal(5);
-          should(literalChoices).eql(['and', 'in zone', 'only top']);
+          should(err.expected.length).equal(3);
+          should(literalChoices).eql(['and', 'in zone']);
           should(otherChoices).eql(['whitespace']);
         }
 
