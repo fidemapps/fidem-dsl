@@ -18,23 +18,6 @@ describe('<Unit Test>', function () {
             });
         });
 
-        describe('Only filter condition', function () {
-            it('only top 100 by member points TestLevel1', function (done) {
-                var condition = parser.parse("only top 100 by member points TestLevel1");
-                should(condition).eql({
-                        conditions: [],
-                        filter: {
-                            quantity: 100,
-                            type: 'points',
-                            levelCode: 'TestLevel1'
-                        }
-                    }
-                );
-                done();
-            });
-
-        });
-
         describe('Should parse member tag/level/points conditions', function () {
 
             it('member tag TAG_CODE >= 10', function (done) {
@@ -48,8 +31,7 @@ describe('<Unit Test>', function () {
                             operator: '>=',
                             value: 10
                         }
-                    ],
-                    filter: null
+                    ]
                 });
                 done();
             });
@@ -65,7 +47,7 @@ describe('<Unit Test>', function () {
                             operator: '>',
                             value: 4
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -81,7 +63,7 @@ describe('<Unit Test>', function () {
                             operator: '<',
                             value: 100
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -98,8 +80,7 @@ describe('<Unit Test>', function () {
                             sub_scope: 'zone',
                             codes: ['CODE1']
                         }
-                    ],
-                    filter: null
+                    ]
                 });
                 done();
             });
@@ -113,8 +94,7 @@ describe('<Unit Test>', function () {
                             sub_scope: 'zone',
                             codes: ['CODE1', 'CODE2']
                         }
-                    ],
-                    filter: null
+                    ]
                 });
                 done();
             });
@@ -169,7 +149,7 @@ describe('<Unit Test>', function () {
                             quantity: 1,
                             timeframe: 'week'
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -185,32 +165,10 @@ describe('<Unit Test>', function () {
                             date1: "2014-01-01",
                             date2: "2015-01-01"
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
-
-            it('member created between "2014-01-01" "2015-01-01" only top 10 by member level TestLevel1', function (done) {
-                var condition = parser.parse('member created between 2014-01-01 2015-01-01 only top 10 by member level TestLevel1');
-                should(condition).eql({
-                    conditions: [
-                        {
-                            scope: 'member',
-                            sub_scope: 'created',
-                            condition: 'between',
-                            date1: "2014-01-01",
-                            date2: "2015-01-01"
-                        }
-                    ],
-                    filter: {
-                        quantity: 10,
-                        type: 'level',
-                        levelCode: 'TestLevel1'
-                    }
-                });
-                done();
-            });
-
         });
 
         describe('Should parse member city/state/country/zip conditions', function () {
@@ -225,7 +183,7 @@ describe('<Unit Test>', function () {
                             operator: '=',
                             value: 'test'
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -240,7 +198,7 @@ describe('<Unit Test>', function () {
                             operator: '=',
                             value: 'test'
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -255,7 +213,7 @@ describe('<Unit Test>', function () {
                             operator: '=',
                             value: 'test'
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -270,27 +228,7 @@ describe('<Unit Test>', function () {
                             operator: '=',
                             value: 'test'
                         }
-                    ], filter: null
-                });
-                done();
-            });
-
-            it('member zip = "test" only 10 top by member level TestLevel1', function (done) {
-                var condition = parser.parse('member zip = "test" only top 10 by member level TestLevel1');
-                should(condition).eql({
-                    conditions: [
-                        {
-                            scope: 'member',
-                            sub_scope: 'zip',
-                            operator: '=',
-                            value: 'test'
-                        }
-                    ],
-                    filter: {
-                        quantity: 10,
-                        type: 'level',
-                        levelCode: 'TestLevel1'
-                    }
+                    ]
                 });
                 done();
             });
@@ -305,7 +243,7 @@ describe('<Unit Test>', function () {
                             scope: 'smartlist',
                             codes: ['123']
                         }
-                    ], filter: null
+                    ]
                 });
 
                 done();
@@ -319,7 +257,7 @@ describe('<Unit Test>', function () {
                             scope: 'smartlist',
                             codes: ['123', '456', '789']
                         }
-                    ], filter: null
+                    ]
                 });
 
                 done();
@@ -338,7 +276,7 @@ describe('<Unit Test>', function () {
                             conditions: [],
                             filters: []
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -356,7 +294,7 @@ describe('<Unit Test>', function () {
                                 "zones": ["CODE1"]
                             }]
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -374,7 +312,7 @@ describe('<Unit Test>', function () {
                                 "zones": ["CODE1", "CODE2"]
                             }]
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -394,7 +332,7 @@ describe('<Unit Test>', function () {
                         ],
                         filters: []
                     }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -402,7 +340,7 @@ describe('<Unit Test>', function () {
             it("action ACTION_CODE with test = 'value'", function (done) {
                 var condition = "";
                 try {
-                    condition = parser.parse("action ACTION_CODE with test = 'value' ");
+                    condition = parser.parse("action ACTION_CODE with test = 'value'");
                 }
                 catch (err) {
                     console.log(err);
@@ -421,7 +359,7 @@ describe('<Unit Test>', function () {
                         ],
                         filters: []
                     }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
@@ -447,42 +385,10 @@ describe('<Unit Test>', function () {
                             ],
                             filters: []
                         }
-                    ], filter: null
+                    ]
                 });
                 done();
             });
-
-            it('action ACTION_CODE with test = "value" and test2 < 3 only top 10 by member level TestLevel1', function (done) {
-                var condition = parser.parse('action ACTION_CODE with test = "value" and test2 < 3 only top 10 by member level TestLevel1');
-                should(condition).eql({
-                    conditions: [
-                        {
-                            scope: 'action',
-                            code: 'ACTION_CODE',
-                            conditions: [
-                                {
-                                    name: 'test',
-                                    operator: '=',
-                                    value: 'value'
-                                },
-                                {
-                                    name: 'test2',
-                                    operator: '<',
-                                    value: 3
-                                }
-                            ],
-                            filters: []
-                        }
-                    ],
-                    filter: {
-                        quantity: 10,
-                        type: 'level',
-                        levelCode: 'TestLevel1'
-                    }
-                });
-                done();
-            });
-
         });
     });
 });
