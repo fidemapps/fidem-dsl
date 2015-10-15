@@ -193,7 +193,7 @@ describe('<Unit Test>', function () {
               scope: 'action', code: 'BrowseTicket',
               conditions: [],
               filters: [
-                {type: 'tag', tag: 'Patate', value: null}
+                {operator: null, type: 'tag', tag: 'Patate', value: null}
               ]
             }
           ],
@@ -214,7 +214,7 @@ describe('<Unit Test>', function () {
               scope: 'action', code: 'BrowseTicket',
               conditions: [],
               filters: [
-                {type: 'data', attribute: 'test', value: 'test value'}
+                {operator: '=', type: 'data', attribute: 'test', value: 'test value'}
               ]
             }
           ],
@@ -235,7 +235,7 @@ describe('<Unit Test>', function () {
               scope: 'action', code: 'BrowseTicket',
               conditions: [],
               filters: [
-                {type: 'tag', tag: 'Patate', value: 30}
+                {operator: '=', type: 'tag', tag: 'Patate', value: 30}
               ]
             }
           ],
@@ -258,7 +258,7 @@ describe('<Unit Test>', function () {
                 {type: 'times', value: 3}
               ],
               filters: [
-                {type: 'tag', tag: 'Patate', value: null}
+                {operator: null, type: 'tag', tag: 'Patate', value: null}
               ]
             }
           ],
@@ -281,7 +281,7 @@ describe('<Unit Test>', function () {
                 {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'month'}
               ],
               filters: [
-                {type: 'tag', tag: 'Patate', value: null}
+                {operator: null, type: 'tag', tag: 'Patate', value: null}
               ]
             }
           ],
@@ -395,7 +395,7 @@ describe('<Unit Test>', function () {
               scope: 'challenge', code: 'ChallengeCode',
               conditions: [],
               filters: [
-                {type: 'tag', tag: 'Patate', value: null}
+                {operator: null, type: 'tag', tag: 'Patate', value: null}
               ]
             }
           ],
@@ -477,7 +477,7 @@ describe('<Unit Test>', function () {
             {
               scope: 'member', type: 'level', levelCode: 'LevelListCode',
               conditions: [
-                {type: 'level', value: 2}
+                {operator: '>=', type: 'level', value: 2}
               ],
               filters: []
             }
@@ -498,10 +498,10 @@ describe('<Unit Test>', function () {
             {
               scope: 'member', type: 'level', levelCode: 'LevelListCode',
               conditions: [
-                {type: 'level', value: 2}
+                {operator: '>=', type: 'level', value: 2}
               ],
               filters: [
-                {type: 'tag', tag: 'Patate', value: null}
+                {operator: null, type: 'tag', tag: 'Patate', value: null}
               ]
             }
           ],
@@ -521,10 +521,10 @@ describe('<Unit Test>', function () {
             {
               scope: 'member', type: 'level', levelCode: 'LevelListCode',
               conditions: [
-                {type: 'level', value: 2}
+                {operator: '>=', type: 'level', value: 2}
               ],
               filters: [
-                {type: 'tag', tag: 'Patate', value: 20}
+                {operator: '=', type: 'tag', tag: 'Patate', value: 20}
               ]
             }
           ],
@@ -544,7 +544,7 @@ describe('<Unit Test>', function () {
             {
               scope: 'member', type: 'point', levelCode: 'LevelListCode',
               conditions: [
-                {type: 'point', value: 100}
+                {operator: '>=', type: 'point', value: 100}
               ],
               filters: []
             }
@@ -565,7 +565,7 @@ describe('<Unit Test>', function () {
             {
               scope: 'member', type: 'tag', levelCode: 'TagCode',
               conditions: [
-                {type: 'tag', value: 20}
+                {operator: '>=', type: 'tag', value: 20}
               ],
               filters: []
             }
@@ -578,6 +578,7 @@ describe('<Unit Test>', function () {
         done();
       });
 
+      /** NOT IMPLEMENTED YET IN ENGINE
       it('member level up LevelListCode give 1 points', function (done) {
 
         var rule = parser.parse("member level up LevelListCode give 1 points");
@@ -657,6 +658,7 @@ describe('<Unit Test>', function () {
 
         done();
       });
+      */
     });
 
     describe('Should parse complexe action rules', function () {
@@ -689,7 +691,7 @@ describe('<Unit Test>', function () {
             },
             {
               scope: 'action', code: 'CoolThing', conditions: [], filters: [
-              {type: 'tag', tag: 'Patate', value: 50}
+              {operator: '=', type: 'tag', tag: 'Patate', value: 50}
             ]
             },
             {
@@ -699,9 +701,9 @@ describe('<Unit Test>', function () {
             },
             {
               scope: 'member', type: 'level', levelCode: 'LevelCode', conditions: [
-              {type: 'level', value: 5}
+              {operator: '>=', type: 'level', value: 5}
             ], filters: [
-              {type: 'tag', tag: 'Cool', value: null}
+              {operator: null, type: 'tag', tag: 'Cool', value: null}
             ]
             }
           ],
@@ -715,5 +717,4 @@ describe('<Unit Test>', function () {
       });
     });
   });
-})
-;
+});

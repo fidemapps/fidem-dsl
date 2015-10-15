@@ -30,6 +30,11 @@
     action CODE
     * action CODE with data attributes GENERIC_CRITERIA
     * action CODE with data attributes GENERIC_CRITERIA with coordinates COORDINATE_CRITERIA
+
+    // FILTER
+    only top X by member points LEVEL_CODE
+    * only top X by member level LEVEL_CODE
+    * only top X by member tag TAG
  */
 {
     function extractOptional(optional, index) {
@@ -54,10 +59,20 @@
 }
 
 start
-    = first:simple_condition reminders:(S* "and" S* simple_condition)*
+    = conditions / filter:filter
     {
       return  {
-          conditions: buildList(first, reminders, 3)
+          conditions: [],
+          filter: filter
+      };
+    }
+
+conditions
+    = first:simple_condition reminders:(S* "and" S* simple_condition)* S* filter:filter?
+    {
+      return  {
+          conditions: buildList(first, reminders, 3),
+          filter: filter
       };
     }
 
@@ -153,6 +168,16 @@ inZoneAction
         return {
             type: 'zone',
             zones: buildList(first, reminders, 3)
+        };
+    }
+
+filter
+    = "only top" S* quantity:NUMBER S* "by member" S* type:("points" / "level") S* levelCode:levelCode
+    {
+        return {
+            quantity: quantity,
+            type: type,
+            levelCode: levelCode
         };
     }
 

@@ -2,6 +2,7 @@
   Gamification Rules
   ==================
 
+  operator (>=, <=, =, >, <)
   time_period (minute, hour, day, week, month, year)
 
   give x POINTS_LEVEL_LIST
@@ -13,14 +14,13 @@
 
   action ACTION_CODE [x times][within x time_period]  [with TAG 'TAG_NAME' [= x]][in zone ZONE_CODE[,ZONE_CODE]][near X of beacon BEACON_CODE[,BEACON_CODE]]
 
-  member level LEVEL_LIST x [with TAG 'TAG_NAME' [= x]]
-  member points LEVEL_LIST x [with TAG 'TAG_NAME' [= x]]
-  member tag TAG_NAME x [with TAG 'TAG_NAME' [= x]]
+  member level LEVEL_LIST [operator] x [with TAG 'TAG_NAME' [= x]]
+  member points LEVEL_LIST [operator] x [with TAG 'TAG_NAME' [= x]]
+  member tag TAG_NAME  [operator] x [with TAG 'TAG_NAME' [= x]]
   member in zone ZONE_CODE[,ZONE_CODE] [for x time_period]
 
-  member new level LEVEL_CODE [x times][within x time_period]  [with TAG TAG_NAME [= x]]
-
   // NOT IMPLEMENTED YET
+  member new level LEVEL_CODE [x times][within x time_period]  [with TAG TAG_NAME [= x]]
   zone enter CODE
   zone exit CODE
 */
@@ -85,25 +85,25 @@ simple_rule
             filters: buildList(null, filters, 1)
         };
     }
-    / scope:"member" S* type:("level" / "point") S* levelCode:levelCode S* value:NUMBER S* filter:withTag?
+    / scope:"member" S* type:("level" / "point") S* levelCode:levelCode S* operator:(">=" / "<=" / "=" / ">" / "<")? S* value:NUMBER S* filter:withTag?
     {
         var theRule = {
             scope: scope,
             type: type,
             levelCode: levelCode,
-            conditions: [ {type: type, value: value} ],
+            conditions: [ {operator: operator ? operator : '>=', type: type, value: value} ],
             filters: filter ? [ filter ] : []
         };
 
         return theRule;
     }
-    / scope:"member" S* type:"tag" S* tagCode:tagCode S* value:NUMBER S* filter:withTag?
+    / scope:"member" S* type:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<")? S* value:NUMBER S* filter:withTag?
     {
         var theRule = {
             scope: scope,
             type: type,
             levelCode: tagCode,
-            conditions: [ {type: type, value: value} ],
+            conditions: [ {operator: operator ? operator : '>=', type: type, value: value} ],
             filters: filter ? [ filter ] : []
         };
 
@@ -121,6 +121,7 @@ simple_rule
 
         return theRule;
     }
+/* (SG): NOT SUPPORTED YET
     / scope:"member" S* type:"level up" S* levelCode:levelCode conditions:(S* condition)* S* filter:withTag?
     {
         return {
@@ -131,6 +132,7 @@ simple_rule
             filters: filter ? [ filter ] : []
         };
     }
+*/
 
 condition
     = (withinTimeframe / numberOfTimes)
@@ -158,20 +160,22 @@ nearBeaconAction
     }
 
 withTag
-    = "with tag" S* tagCode:tagCode S* value:("=" S* qty:NUMBER)?
+    = "with tag" S* tagCode:tagCode S* value:(operator:(">=" / "<=" / "=" / ">" / "<") S* qty:NUMBER)?
     {
         return {
             type: 'tag',
             tag: tagCode,
+            operator: value ? value[0] : null,
             value: value ? value[2] : null
         };
     }
 
 withData
-    = "with data" S* attributeName:attributeName S* "=" S* value:string
+    = "with data" S* attributeName:attributeName S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:string
     {
         return {
             type: 'data',
+            operator: operator,
             attribute: attributeName,
             value: value
         };
