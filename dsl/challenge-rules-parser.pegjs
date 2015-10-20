@@ -160,13 +160,11 @@ nearBeaconAction
     }
 
 withTag
-    = "with tag" S* tagCode:tagCode S* value:(operator:(">=" / "<=" / "=" / ">" / "<") S* qty:NUMBER)?
+    = "with tag" S* tagCode:tagCode
     {
         return {
             type: 'tag',
-            tag: tagCode,
-            operator: value ? value[0] : null,
-            value: value ? value[2] : null
+            tag: tagCode
         };
     }
 

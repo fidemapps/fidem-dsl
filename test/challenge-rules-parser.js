@@ -193,7 +193,7 @@ describe('<Unit Test>', function () {
               scope: 'action', code: 'BrowseTicket',
               conditions: [],
               filters: [
-                {operator: null, type: 'tag', tag: 'Patate', value: null}
+                {type: 'tag', tag: 'Patate'}
               ]
             }
           ],
@@ -226,27 +226,6 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('action BrowseTicket with tag Patate = 30 give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket with tag Patate = 30 give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [],
-              filters: [
-                {operator: '=', type: 'tag', tag: 'Patate', value: 30}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
       it('action BrowseTicket 3 times with tag Patate give 1 points', function (done) {
 
         var rule = parser.parse("action BrowseTicket 3 times with tag Patate give 1 points");
@@ -258,7 +237,7 @@ describe('<Unit Test>', function () {
                 {type: 'times', value: 3}
               ],
               filters: [
-                {operator: null, type: 'tag', tag: 'Patate', value: null}
+                {type: 'tag', tag: 'Patate'}
               ]
             }
           ],
@@ -281,7 +260,7 @@ describe('<Unit Test>', function () {
                 {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'month'}
               ],
               filters: [
-                {operator: null, type: 'tag', tag: 'Patate', value: null}
+                {type: 'tag', tag: 'Patate'}
               ]
             }
           ],
@@ -395,7 +374,7 @@ describe('<Unit Test>', function () {
               scope: 'challenge', code: 'ChallengeCode',
               conditions: [],
               filters: [
-                {operator: null, type: 'tag', tag: 'Patate', value: null}
+                {type: 'tag', tag: 'Patate'}
               ]
             }
           ],
@@ -501,30 +480,7 @@ describe('<Unit Test>', function () {
                 {operator: '>=', type: 'level', value: 2}
               ],
               filters: [
-                {operator: null, type: 'tag', tag: 'Patate', value: null}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member level LevelListCode 2 with tag Patate = 20 give 1 points', function (done) {
-
-        var rule = parser.parse("member level LevelListCode 2 with tag Patate = 20 give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'level', levelCode: 'LevelListCode',
-              conditions: [
-                {operator: '>=', type: 'level', value: 2}
-              ],
-              filters: [
-                {operator: '=', type: 'tag', tag: 'Patate', value: 20}
+                {type: 'tag', tag: 'Patate'}
               ]
             }
           ],
@@ -679,9 +635,9 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('action BrowseTicket 5 times and action CoolThing with tag Patate = 50 and challenge Boule 8 times and member level LevelCode 5 give 1 points', function (done) {
+      it('action BrowseTicket 5 times and action CoolThing with tag Patate and challenge Boule 8 times and member level LevelCode 5 give 1 points', function (done) {
 
-        var rule = parser.parse("action BrowseTicket 5 times and action CoolThing with tag Patate = 50 and challenge BouleCode 8 times within 6 years and member level LevelCode 5 with tag Cool give 1 points give 8 ballouns");
+        var rule = parser.parse("action BrowseTicket 5 times and action CoolThing with tag Patate and challenge BouleCode 8 times within 6 years and member level LevelCode 5 with tag Cool give 1 points give 8 ballouns");
         should(rule).eql({
           rules: [
             {
@@ -691,7 +647,7 @@ describe('<Unit Test>', function () {
             },
             {
               scope: 'action', code: 'CoolThing', conditions: [], filters: [
-              {operator: '=', type: 'tag', tag: 'Patate', value: 50}
+              {type: 'tag', tag: 'Patate'}
             ]
             },
             {
@@ -703,7 +659,7 @@ describe('<Unit Test>', function () {
               scope: 'member', type: 'level', levelCode: 'LevelCode', conditions: [
               {operator: '>=', type: 'level', value: 5}
             ], filters: [
-              {operator: null, type: 'tag', tag: 'Cool', value: null}
+              {type: 'tag', tag: 'Cool'}
             ]
             }
           ],
