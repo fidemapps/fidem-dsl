@@ -169,7 +169,7 @@ withTag
     }
 
 withData
-    = "with data" S* attributeName:attributeName S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:string
+    = "with data" S* attributeName:attributeName S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:(string / NUMBER)
     {
         return {
             type: 'data',

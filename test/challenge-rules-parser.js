@@ -226,6 +226,48 @@ describe('<Unit Test>', function () {
         done();
       });
 
+      it('action BrowseTicket with data number = 3 value" give 1 points', function (done) {
+
+        var rule = parser.parse("action BrowseTicket with data number = 3 give 1 points");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'action', code: 'BrowseTicket',
+              conditions: [],
+              filters: [
+                {operator: '=', type: 'data', attribute: 'number', value: 3}
+              ]
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
+      it('action BrowseTicket with data number < 3 value" give 1 points', function (done) {
+
+        var rule = parser.parse("action BrowseTicket with data number < 3 give 1 points");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'action', code: 'BrowseTicket',
+              conditions: [],
+              filters: [
+                {operator: '<', type: 'data', attribute: 'number', value: 3}
+              ]
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
       it('action BrowseTicket 3 times with tag Patate give 1 points', function (done) {
 
         var rule = parser.parse("action BrowseTicket 3 times with tag Patate give 1 points");
