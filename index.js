@@ -16,3 +16,6 @@ module.exports.reactionTriggerConditions.literals = require('./lib/reaction-trig
 
 module.exports.smartListMemberConditions = require('./lib/smartlist-member-conditions-parser');
 module.exports.smartListMemberConditions.literals = require('./lib/smartlist-member-conditions').literals;
+
+module.exports.smartListLimit = require('./lib/smartlist-limit-parser');
+module.exports.smartListLimit.literals = require('./lib/smartlist-limit').literals;
