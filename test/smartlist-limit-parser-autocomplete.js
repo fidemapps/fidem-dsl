@@ -67,8 +67,8 @@ describe('<Unit Test>', function () {
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(3);
-          should(literalChoices).eql(['level', 'points']);
+          should(err.expected.length).equal(4);
+          should(literalChoices).eql(['level', 'points', 'tag']);
         }
 
         done();

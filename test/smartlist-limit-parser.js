@@ -25,13 +25,25 @@ describe('<Unit Test>', function () {
                         filter: {
                             quantity: 100,
                             type: 'points',
-                            levelCode: 'TestLevel1'
+                            code: 'TestLevel1'
                         }
                     }
                 );
                 done();
             });
 
+            it('only top 100 by member points TestLevel1', function (done) {
+                var condition = parser.parse("only top 100 by member tag TEST");
+                should(condition).eql({
+                      filter: {
+                          quantity: 100,
+                          type: 'tag',
+                          code: 'TEST'
+                      }
+                  }
+                );
+                done();
+            });
         });
     });
 });

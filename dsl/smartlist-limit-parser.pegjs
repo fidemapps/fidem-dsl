@@ -38,12 +38,12 @@ start
     }
 
 filter
-    = "only top" S* quantity:NUMBER S* "by member" S* type:("points" / "level") S* levelCode:levelCode
+    = "only top" S* quantity:NUMBER S* "by member" S* rule:(("points" / "level" / "tag") S* levelCode / "tag" S* tagCode)
     {
         return {
             quantity: quantity,
-            type: type,
-            levelCode: levelCode
+            type: rule[0],
+            code: rule[2]
         };
     }
 string1
