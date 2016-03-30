@@ -38,7 +38,7 @@ start
     }
 
 filter
-    = "only top" S* quantity:NUMBER S* "by member" S* rule:("tag" S* tagClusterCode? tagCode / ("points" / "level" / "tag") S* levelCode)
+    = "only top" S* quantity:NUMBER S* "by member" S* rule:(("points" / "level") S* levelCode / "tag" S* tagClusterCode? tagCode)
     {
         return {
             quantity: quantity,
