@@ -79,8 +79,8 @@ describe('<Unit Test>', function () {
           parser.parse("member tag ");
         }
         catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('tagCode');
+          should(err.expected.length).equal(3);
+          should(err.expected[0].description).equal('tagClusterCode');
         }
 
         done();
@@ -175,8 +175,8 @@ describe('<Unit Test>', function () {
           parser.parse("challenge CODE with tag ");
         }
         catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('tagCode');
+          should(err.expected.length).equal(3);
+          should(err.expected[0].description).equal('tagClusterCode');
         }
 
         done();

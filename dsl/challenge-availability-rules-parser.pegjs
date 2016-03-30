@@ -60,11 +60,12 @@ simple_rule
             value: value
         };
     }
-    / scope:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    / scope:"tag" S* tagClusterCode:tagClusterCode? tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
     {
         return {
             scope: scope,
             code: tagCode,
+            tagClusterCode: tagClusterCode ? tagClusterCode : null,
             operator: operator,
             value: value
         };
@@ -131,6 +132,9 @@ smartlistCode "smartlistCode"
 
 tagCode "tagCode"
     = code
+
+tagClusterCode "tagClusterCode"
+    = code:code ":" { return code; }
 
 zoneCode "zoneCode"
     = code

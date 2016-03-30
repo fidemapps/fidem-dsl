@@ -25,6 +25,7 @@ describe('<Unit Test>', function () {
                         filter: {
                             quantity: 100,
                             type: 'points',
+                            tagClusterCode: null,
                             code: 'TestLevel1'
                         }
                     }
@@ -38,12 +39,28 @@ describe('<Unit Test>', function () {
                       filter: {
                           quantity: 100,
                           type: 'tag',
+                          tagClusterCode: null,
                           code: 'TEST'
                       }
                   }
                 );
                 done();
             });
+
+            it('only top 100 by member points TestLevel1 (with tag cluster)', function (done) {
+                var condition = parser.parse("only top 100 by member tag CLUSTER:TEST");
+                should(condition).eql({
+                      filter: {
+                          quantity: 100,
+                          type: 'tag',
+                          tagClusterCode: 'CLUSTER',
+                          code: 'TEST'
+                      }
+                  }
+                );
+                done();
+            });
+
         });
     });
 });

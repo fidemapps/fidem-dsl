@@ -38,12 +38,13 @@ start
     }
 
 filter
-    = "only top" S* quantity:NUMBER S* "by member" S* rule:(("points" / "level" / "tag") S* levelCode / "tag" S* tagCode)
+    = "only top" S* quantity:NUMBER S* "by member" S* rule:("tag" S* tagClusterCode? tagCode / ("points" / "level" / "tag") S* levelCode)
     {
         return {
             quantity: quantity,
             type: rule[0],
-            code: rule[2]
+            tagClusterCode: rule.length === 3 ? null : rule[2],
+            code: rule[rule.length - 1]
         };
     }
 string1
@@ -102,6 +103,9 @@ levelCode "levelCode"
 
 tagCode "tagCode"
     = code
+
+tagClusterCode "tagClusterCode"
+    = code:code ":" { return code; }
 
 zoneCode "zoneCode"
     = code

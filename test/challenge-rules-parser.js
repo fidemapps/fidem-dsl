@@ -193,7 +193,28 @@ describe('<Unit Test>', function () {
               scope: 'action', code: 'BrowseTicket',
               conditions: [],
               filters: [
-                {type: 'tag', tag: 'Patate'}
+                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
+              ]
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
+      it('action BrowseTicket with tag CLUSTER:Patate give 1 points', function (done) {
+
+        var rule = parser.parse("action BrowseTicket with tag CLUSTER:Patate give 1 points");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'action', code: 'BrowseTicket',
+              conditions: [],
+              filters: [
+                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
               ]
             }
           ],
@@ -279,7 +300,30 @@ describe('<Unit Test>', function () {
                 {type: 'times', value: 3}
               ],
               filters: [
-                {type: 'tag', tag: 'Patate'}
+                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
+              ]
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
+      it('action BrowseTicket 3 times with tag CLUSTER:Patate give 1 points', function (done) {
+
+        var rule = parser.parse("action BrowseTicket 3 times with tag CLUSTER:Patate give 1 points");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'action', code: 'BrowseTicket',
+              conditions: [
+                {type: 'times', value: 3}
+              ],
+              filters: [
+                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
               ]
             }
           ],
@@ -302,7 +346,7 @@ describe('<Unit Test>', function () {
                 {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'month'}
               ],
               filters: [
-                {type: 'tag', tag: 'Patate'}
+                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
               ]
             }
           ],
@@ -313,6 +357,30 @@ describe('<Unit Test>', function () {
 
         done();
       });
+
+      it('action BrowseTicket with tag CLUSTER:Patate 3 times within 2 months give 1 points', function (done) {
+
+        var rule = parser.parse("action BrowseTicket 3 times within 2 months with tag CLUSTER:Patate give 1 points");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'action', code: 'BrowseTicket',
+              conditions: [
+                {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'month'}
+              ],
+              filters: [
+                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
+              ]
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
     });
 
     describe('Should parse challenge rules', function () {
@@ -416,7 +484,28 @@ describe('<Unit Test>', function () {
               scope: 'challenge', code: 'ChallengeCode',
               conditions: [],
               filters: [
-                {type: 'tag', tag: 'Patate'}
+                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
+              ]
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
+      it('challenge ChallengeCode with tag CLUSTER:Patate give 1 points', function (done) {
+
+        var rule = parser.parse("challenge ChallengeCode with tag CLUSTER:Patate give 1 points");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'challenge', code: 'ChallengeCode',
+              conditions: [],
+              filters: [
+                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
               ]
             }
           ],
@@ -522,7 +611,30 @@ describe('<Unit Test>', function () {
                 {operator: '>=', type: 'level', value: 2}
               ],
               filters: [
-                {type: 'tag', tag: 'Patate'}
+                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
+              ]
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
+      it('member level LevelListCode 2 with tag CLUSTER:Patate give 1 points', function (done) {
+
+        var rule = parser.parse("member level LevelListCode 2 with tag CLUSTER:Patate give 1 points");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'member', type: 'level', levelCode: 'LevelListCode',
+              conditions: [
+                {operator: '>=', type: 'level', value: 2}
+              ],
+              filters: [
+                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
               ]
             }
           ],
@@ -561,7 +673,28 @@ describe('<Unit Test>', function () {
         should(rule).eql({
           rules: [
             {
-              scope: 'member', type: 'tag', levelCode: 'TagCode',
+              scope: 'member', type: 'tag', tagClusterCode: null, levelCode: 'TagCode',
+              conditions: [
+                {operator: '>=', type: 'tag', value: 20}
+              ],
+              filters: []
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'}
+          ]
+        });
+
+        done();
+      });
+
+      it('member tag CLUSTER:TagCode 20 give 1 points', function (done) {
+
+        var rule = parser.parse("member tag CLUSTER:TagCode 20 give 1 points");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'member', type: 'tag', tagClusterCode: 'CLUSTER', levelCode: 'TagCode',
               conditions: [
                 {operator: '>=', type: 'tag', value: 20}
               ],
@@ -689,7 +822,7 @@ describe('<Unit Test>', function () {
             },
             {
               scope: 'action', code: 'CoolThing', conditions: [], filters: [
-              {type: 'tag', tag: 'Patate'}
+              {type: 'tag', tagClusterCode: null, tag: 'Patate'}
             ]
             },
             {
@@ -701,7 +834,7 @@ describe('<Unit Test>', function () {
               scope: 'member', type: 'level', levelCode: 'LevelCode', conditions: [
               {operator: '>=', type: 'level', value: 5}
             ], filters: [
-              {type: 'tag', tag: 'Cool'}
+              {type: 'tag', tagClusterCode: null, tag: 'Cool'}
             ]
             }
           ],
@@ -713,6 +846,44 @@ describe('<Unit Test>', function () {
 
         done();
       });
+
+      it('action BrowseTicket 5 times and action CoolThing with tag CLUSTER1:Patate and challenge Boule 8 times and member level LevelCode 5 give 1 points', function (done) {
+
+        var rule = parser.parse("action BrowseTicket 5 times and action CoolThing with tag CLUSTER1:Patate and challenge BouleCode 8 times within 6 years and member level LevelCode 5 with tag CLUSTER2:Cool give 1 points give 8 ballouns");
+        should(rule).eql({
+          rules: [
+            {
+              scope: 'action', code: 'BrowseTicket', conditions: [
+              {type: 'times', value: 5}
+            ], filters: []
+            },
+            {
+              scope: 'action', code: 'CoolThing', conditions: [], filters: [
+              {type: 'tag', tagClusterCode: 'CLUSTER1', tag: 'Patate'}
+            ]
+            },
+            {
+              scope: 'challenge', code: 'BouleCode', conditions: [
+              {type: 'times_within_timeframe', value: 8, duration: 6, durationScope: 'year'}
+            ], filters: []
+            },
+            {
+              scope: 'member', type: 'level', levelCode: 'LevelCode', conditions: [
+              {operator: '>=', type: 'level', value: 5}
+            ], filters: [
+              {type: 'tag', tagClusterCode: 'CLUSTER2', tag: 'Cool'}
+            ]
+            }
+          ],
+          rewards: [
+            {quantity: 1, code: 'points'},
+            {quantity: 8, code: 'ballouns'}
+          ]
+        });
+
+        done();
+      });
+
     });
   });
 });

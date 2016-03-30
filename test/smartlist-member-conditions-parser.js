@@ -27,6 +27,24 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             sub_scope: 'tag',
+                            tagClusterCode: null,
+                            code: 'TAG_CODE',
+                            operator: '>=',
+                            value: 10
+                        }
+                    ]
+                });
+                done();
+            });
+
+            it('member tag CLUSTER:TAG_CODE >= 10', function (done) {
+                var condition = parser.parse("member tag CLUSTER:TAG_CODE >= 10");
+                should(condition).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            sub_scope: 'tag',
+                            tagClusterCode: 'CLUSTER',
                             code: 'TAG_CODE',
                             operator: '>=',
                             value: 10

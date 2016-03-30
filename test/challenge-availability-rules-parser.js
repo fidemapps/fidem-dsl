@@ -33,11 +33,13 @@ describe('<Unit Test>', function () {
     });
 
     describe('Should parse tag rules', function () {
+
       it('tag PATATE > 5', function (done) {
 
         var rule = parser.parse("tag PATATE > 5");
         should(rule).eql([{
           scope: 'tag',
+          tagClusterCode: null,
           code: 'PATATE',
           operator: '>',
           value: 5
@@ -45,6 +47,21 @@ describe('<Unit Test>', function () {
 
         done();
       });
+
+      it('tag CLUSTER:PATATE > 5', function (done) {
+
+        var rule = parser.parse("tag CLUSTER:PATATE > 5");
+        should(rule).eql([{
+          scope: 'tag',
+          tagClusterCode: 'CLUSTER',
+          code: 'PATATE',
+          operator: '>',
+          value: 5
+        }]);
+
+        done();
+      });
+
     });
 
     describe('Should parse challenge rules', function () {
@@ -120,7 +137,7 @@ describe('<Unit Test>', function () {
         var rule = parser.parse("challenge CODE1 and tag PATATE > 5 and level LEVELCODE >= 10");
         should(rule).eql([
           {scope: 'challenge', code: 'CODE1'},
-          {scope: 'tag', code: 'PATATE', operator: '>', value: 5},
+          {scope: 'tag', tagClusterCode: null, code: 'PATATE', operator: '>', value: 5},
           {scope: 'level', code: 'LEVELCODE', operator: '>=', value: 10}
         ]);
 
