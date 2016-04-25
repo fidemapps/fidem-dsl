@@ -72,13 +72,13 @@ simple_condition
             value: value
         };
     }
-    / scope:"member" S* sub:"tag" S* tagClusterCode:tagClusterCode? tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    / scope:"member" S* sub:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
     {
         return {
             scope: "member",
             sub_scope: sub,
-            tagClusterCode: tagClusterCode ? tagClusterCode : null,
-            code: tagCode,
+            tagClusterCode: tagCode.tagClusterCode,
+            code: tagCode.tagCode,
             operator: operator,
             value: value
         };
@@ -228,9 +228,15 @@ levelCode "levelCode"
     = code
 
 tagCode "tagCode"
-    = code
+    = tagClusterCode:tagClusterCode? code:code
+    {
+        return {
+            tagCode: code,
+            tagClusterCode: tagClusterCode ? tagClusterCode : null
+        }
+    }
 
-tagClusterCode "tagClusterCode"
+tagClusterCode
     = code:code ":" { return code; }
 
 zoneCode "zoneCode"

@@ -97,13 +97,13 @@ simple_rule
 
         return theRule;
     }
-    / scope:"member" S* type:"tag" S* tagClusterCode:tagClusterCode? tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<")? S* value:NUMBER S* filter:withTag?
+    / scope:"member" S* type:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<")? S* value:NUMBER S* filter:withTag?
     {
         var theRule = {
             scope: scope,
             type: type,
-            tagClusterCode: tagClusterCode ? tagClusterCode : null,
-            levelCode: tagCode,
+            tagClusterCode: tagCode.tagClusterCode,
+            levelCode: tagCode.tagCode,
             conditions: [ {operator: operator ? operator : '>=', type: type, value: value} ],
             filters: filter ? [ filter ] : []
         };
@@ -161,12 +161,12 @@ nearBeaconAction
     }
 
 withTag
-    = "with tag" S* tagClusterCode:tagClusterCode? tagCode:tagCode
+    = "with tag" S* tagCode:tagCode
     {
         return {
             type: 'tag',
-            tagClusterCode: tagClusterCode ? tagClusterCode : null,
-            tag: tagCode
+            tagClusterCode: tagCode.tagClusterCode,
+            tag: tagCode.tagCode
         };
     }
 
@@ -271,9 +271,15 @@ levelCode "levelCode"
     = code
 
 tagCode "tagCode"
-    = code
+    = tagClusterCode:tagClusterCode? code:code
+    {
+        return {
+            tagCode: code,
+            tagClusterCode: tagClusterCode ? tagClusterCode : null
+        }
+    }
 
-tagClusterCode "tagClusterCode"
+tagClusterCode
     = code:code ":" { return code; }
 
 zoneCode "zoneCode"

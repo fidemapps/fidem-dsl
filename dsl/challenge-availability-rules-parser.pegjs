@@ -60,12 +60,12 @@ simple_rule
             value: value
         };
     }
-    / scope:"tag" S* tagClusterCode:tagClusterCode? tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    / scope:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
     {
         return {
             scope: scope,
-            code: tagCode,
-            tagClusterCode: tagClusterCode ? tagClusterCode : null,
+            code: tagCode.tagCode,
+            tagClusterCode: tagCode.tagClusterCode,
             operator: operator,
             value: value
         };
@@ -131,9 +131,15 @@ smartlistCode "smartlistCode"
     = code
 
 tagCode "tagCode"
-    = code
+    = tagClusterCode:tagClusterCode? code:code
+    {
+        return {
+            tagCode: code,
+            tagClusterCode: tagClusterCode ? tagClusterCode : null
+        }
+    }
 
-tagClusterCode "tagClusterCode"
+tagClusterCode
     = code:code ":" { return code; }
 
 zoneCode "zoneCode"

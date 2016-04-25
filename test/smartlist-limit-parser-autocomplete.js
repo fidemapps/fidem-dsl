@@ -60,28 +60,15 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing only top "level" or "points"', function (done) {
+      it('Missing only top "tag" or "points"', function (done) {
 
         try {
           parser.parse("only top 3 by member");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
-          should(err.expected.length).equal(4);
-          should(literalChoices).eql(['level', 'points', 'tag']);
-        }
-
-        done();
-      });
-
-      it('Missing only top level code', function (done) {
-
-        try {
-          parser.parse("only top 3 by member level");
-        }
-        catch (err) {
-          should(err.expected.length).equal(2);
-          should(err.expected[0].description).equal('levelCode');
+          should(err.expected.length).equal(3);
+          should(literalChoices).eql(['points', 'tag']);
         }
 
         done();
