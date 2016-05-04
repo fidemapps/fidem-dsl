@@ -1,0 +1,6 @@
+challenge_reward_rules
+         ::= ('action'  '{action code}' (  'NUMBER' 'times' ( 'within' 'NUMBER' ('minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years') )? )* ( 'with tag' '{tag code}' | 'with data'  '{attribute name}'  ( '>=' | '<=' | '=' | '>' | '<' )  '{attrbitute value}' | 'in zone'  '{zone code}' (  ','  '{zone code}' )* | 'near'  'NUMBER'  'of beacon'  '{beacon code}' (  ','  '{beacon code}' )* )*
+           | 'challenge'  '{challenge code}' (  'NUMBER' 'times' ( 'within' 'NUMBER' ('minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years') )? )* ( 'in zone'  '{zone code}' (  ','  '{zone code}' )* | 'near'  'NUMBER'  'of beacon'  '{beacon code}' (  ','  '{beacon code}' )* )*
+           | 'member'  ( 'level' | 'point' )  '{level code}'  ( '>=' | '<=' | '=' | '>' | '<' )?  'NUMBER'
+           | 'member'  'tag'  '{tag code}'  ( '>=' | '<=' | '=' | '>' | '<' )?  'NUMBER'
+           | 'member'  'in zone'  '{zone code}' (  ','  '{zone code}' )* (  'for'  'NUMBER'  ('minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years') )?)+ ( 'give'  'NUMBER'  '{reward code}')+

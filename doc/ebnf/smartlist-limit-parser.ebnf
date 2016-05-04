@@ -1,0 +1,2 @@
+smartlist_limit
+        ::= 'only top'  'NUMBER'  'by member'  ( 'points'  '{level code}' | 'tag'  '{tag code}' )
