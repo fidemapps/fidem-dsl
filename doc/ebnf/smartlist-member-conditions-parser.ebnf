@@ -1,10 +1,10 @@
 smartlist_member_conditions
-         ::= 'member' ( 'level' | 'points' ) '{level code}' ( '>=' | '<=' | '=' | '>' | '<' ) 'NUMBER'
-           | 'member' 'tag' '{tag code}' ( '>=' | '<=' | '=' | '>' | '<' ) 'NUMBER'
-           | 'member' 'created' 'last' 'NUMBER' ('minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years')
+         ::= 'member' ( 'level' | 'points' ) '{level code}' ( '>=, <=, =, >, <' ) 'NUMBER'
+           | 'member' 'tag' '{tag code}' ( '>=, <=, =, >, <' ) 'NUMBER'
+           | 'member' 'created' 'last' 'NUMBER' ('minutes, hours, days, weeks, months, years')
            | 'member' 'created' 'between' 'YYYY-MM-DD hh:mm:ss' 'YYYY-MM-DD hh:mm:ss'
-           | 'member' ( 'city' | 'state' | 'zip' | 'country' ) ( '=' | '!=' ) 'STRING'
+           | 'member' ( 'city' | 'state' | 'zip' | 'country' ) ( '=, !=' ) 'STRING'
            | 'member' 'in zone' '{zone code}' ( ',' '{zone code}' )*
            | 'member' 'belongs to smartlist' '{smartlist code}' ( ',' '{smartlist code}' )*
            | 'challenge' '{challenge code}'
-           | 'action' '{action code}' (( 'with' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<' ) '{attribute value}' ) ( 'and' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<' ) '{attribute value}' )*)? ('in zone' '{zone code}' ( ',' '{zone code}' )*)*
+           | 'action' '{action code}' (( 'with' '{attribute name}' ( '>=, <=, =, >, <' ) '{attribute value}' ) ( 'and' '{attribute name}' ( '>=, <=, =, >, <' ) '{attribute value}' )*)? ('in zone' '{zone code}' ( ',' '{zone code}' )*)*

@@ -1,6 +1,6 @@
 challenge_availability_rules
-         ::= 'level'  '{level code}'  ( '>=' | '<=' | '=' | '>' | '<' )  'NUMBER'
-           | 'tag'  '{tag code}'  ( '>=' | '<=' | '=' | '>' | '<' )  'NUMBER'
-           | 'in zone'  '{zone code}' (  ','  '{zone code}' )* (  'for'  'NUMBER'  ('minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years') )?
+         ::= 'level'  '{level code}' '>=, <=, =, >, <'  'NUMBER'
+           | 'tag'  '{tag code}' '>=, <=, =, >, <' 'NUMBER'
+           | 'in zone'  '{zone code}' (  ','  '{zone code}' )* (  'for'  'NUMBER'  'minutes, hours, days, weeks, months, years' )?
            | 'challenge'  '{challenge code}'
            | 'belongs to smartlist'  '{smartlist code}'  ( ','  '{smartlist code}' )*
