@@ -67,13 +67,14 @@ rules
     }
 
 simple_rule
-    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)*
+    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* systems:((S* system)*)?
     {
         return {
             scope: scope,
             code: actionCode,
             conditions: buildList(null, conditions, 1),
-            filters: buildList(null, filters, 1)
+            filters: buildList(null, filters, 1),
+            systems: buildList(null, systems, 1)
         };
     }
     / scope:"challenge" S* challengeCode:challengeCode conditions:(S* condition)* filters:(S* filter)*
@@ -134,12 +135,60 @@ simple_rule
         };
     }
 */
+/*SYSTEM CONDITION*/
+system
+    = (every/onDate)
 
 condition
     = (withinTimeframe / numberOfTimes)
 
 filter
     = (withTag / withData / inZoneAction / nearBeaconAction)
+
+onDate
+    = "on" S* date:DATE
+    {
+        return {
+            type: 'on',
+            date:date
+        }
+    }
+every
+    ="every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear/fromYear)?
+    {
+        return {
+            type : 'every',
+            days:buildList(first,remainders,3),
+            months:months,
+            years:years
+        }
+    }/ "every" S* "day" S* months:ofMonth?
+    {
+        return {
+            type : 'every',
+            days:['day'],
+            months:months
+
+        }
+    }
+
+
+ofMonth
+    = "of" S* first:MONTHS remainders:(S* "," S* months:MONTHS)*
+    {
+        return buildList(first,remainders,3);
+    }
+
+inYear
+    = "in" S* first:date_full_year remainders:(S* "," S* years:date_full_year)*
+    {
+        return buildList(first,remainders,3);
+    }
+fromYear
+    ="from" S* start:DATE S* "to" S* end:DATE
+    {
+        return [start,end]
+    }
 
 inZoneAction
     = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
@@ -355,4 +404,16 @@ DATE_TIME "datetime"
     = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour ":" minute:time_minute ":" second:time_second
     {
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
+    }
+
+WEEK_DAY "weekDay"
+    = day:("sunday"/"monday"/"tuesday"/"wednesday"/"thursday"/"friday"/"saturday"/"weekday"/"weekend")
+    {
+        return day;
+    }
+
+MONTHS "months"
+    = months:("january"/"february"/"march"/"april"/"may"/"june"/"july"/"august"/"september"/"october"/"november"/"december")
+    {
+        return months;
     }
