@@ -69,13 +69,17 @@ rules
 simple_rule
     = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* systems:((S* system)*)?
     {
-        return {
+
+        var theRule = {
             scope: scope,
             code: actionCode,
             conditions: buildList(null, conditions, 1),
             filters: buildList(null, filters, 1),
-            systems: buildList(null, systems, 1)
         };
+        if(!systems.length ==0){
+                theRule.systems = buildList(null, systems, 1);
+        }
+        return theRule
     }
     / scope:"challenge" S* challengeCode:challengeCode conditions:(S* condition)* filters:(S* filter)*
     {
