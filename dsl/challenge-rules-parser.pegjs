@@ -159,7 +159,7 @@ onDate
         }
     }
 every
-    ="every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / fromYear)? S* time:timeRule?
+    ="every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
     {
         return {
             type : 'every',
@@ -168,7 +168,7 @@ every
             years:years,
             time:time
         }
-    }/ "every" S* "day" S* months:ofMonth? S* years:(inYear / fromYear)? S* time:timeRule?
+    }/ "every" S* "day" S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
     {
         return {
             type : 'every',
@@ -188,7 +188,7 @@ beforeTime
     {
         return {
             type:"before",
-            time:time
+            time:[time]
         }
     }
 
@@ -197,7 +197,7 @@ afterTime
     {
         return {
             type:"after",
-            time: time
+            time: [time]
         };
     }
 
@@ -227,12 +227,31 @@ inYear
             list:buildList(first,remainders,3)
         };
     }
-fromYear
+dateRules
+    = (fromDate/startingDate/untilDate)
+
+fromDate
     = "from" S* start:DATE S* "to" S* end:DATE
     {
         return {
             type:"from",
             list:[start,end]
+        };
+    }
+startingDate
+    = "starting at" S* year:DATE
+    {
+        return {
+            type:"starting",
+            list:[year]
+        };
+    }
+untilDate
+    ="until" S* year:DATE
+    {
+        return {
+            type:"until",
+            list:[year]
         };
     }
 
@@ -303,12 +322,17 @@ timeframe
     }
 
 simple_reward
-    = "give" S* qty:NUMBER S* rewardCode:rewardCode
+    = "give" S* qty:NUMBER S* rewardCode:rewardCode S* systems:((S* system)*)?
     {
-        return {
+        var theReward= {
             quantity: qty,
             code: rewardCode
         };
+
+        if(!systems.length ==0){
+            theReward.systems = buildList(null, systems, 1);
+        }
+        return theReward
     }
 
 string1
