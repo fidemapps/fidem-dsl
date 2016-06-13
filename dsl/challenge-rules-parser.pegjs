@@ -163,7 +163,7 @@ every
     {
         return {
             type : 'every',
-            days:buildList(first,remainders,3),
+            days:{type:"days",list:buildList(first,remainders,3)},
             months:months,
             years:years,
             time:time
@@ -172,7 +172,7 @@ every
     {
         return {
             type : 'every',
-            days:['day'],
+            days:{type:"day",list:["day"]},
             months:months,
             years:years,
             time:time
@@ -213,18 +213,27 @@ betweenTimes
 ofMonth
     = "of" S* first:MONTHS remainders:(S* "," S* months:MONTHS)*
     {
-        return buildList(first,remainders,3);
+        return {
+            type:"of",
+            list:buildList(first,remainders,3)
+        };
     }
 
 inYear
     = "in" S* first:date_full_year remainders:(S* "," S* years:date_full_year)*
     {
-        return buildList(first,remainders,3);
+        return {
+            type:"in",
+            list:buildList(first,remainders,3)
+        };
     }
 fromYear
     = "from" S* start:DATE S* "to" S* end:DATE
     {
-        return [start,end]
+        return {
+            type:"from",
+            list:[start,end]
+        };
     }
 
 inZoneAction
@@ -458,5 +467,8 @@ MONTHS "months"
 TIME
     = hour:time_hour ":" minute:time_minute S* time:("am"/"pm")
     {
-        return hour+":"+minute+" "+time;
+        if(time=="pm"){
+            hour=parseInt(hour)+12;
+        }
+        return hour+":"+minute;
     }

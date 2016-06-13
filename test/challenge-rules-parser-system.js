@@ -50,7 +50,7 @@ describe('<Unit Test>', function () {
                             {type: 'zone', zones: ['CODE1', 'CODE2']}
                         ],
                         systems: [
-                            {type:'every', days:['sunday','monday'],months:null,years:null, time:null}
+                            {type:'every', days:{type:"days",list:['sunday','monday']},months:null,years:null, time:null}
                         ]
                     }],
                     rewards: [
@@ -70,7 +70,7 @@ describe('<Unit Test>', function () {
                             {type: 'zone', zones: ['CODE1', 'CODE2']}
                         ],
                         systems: [
-                            {type:'every', days:['sunday','monday'],months:['march'],years:null,time:null}
+                            {type:'every', days:{type:"days",list:['sunday','monday']},months:{type:"of",list:['march']},years:null,time:null}
                         ]
                     }],
                     rewards: [
@@ -89,7 +89,7 @@ describe('<Unit Test>', function () {
                             {type: 'zone', zones: ['CODE1', 'CODE2']}
                         ],
                         systems: [
-                            {type:'every', days:['sunday'],months:['march','january'],years:['1959'],time:null}
+                            {type:'every', days:{type:"days",list:['sunday']},months:{type:"of",list:['march','january']},years:{type:"in",list:['1959']},time:null}
                         ]
                     }],
                     rewards: [
@@ -108,7 +108,7 @@ describe('<Unit Test>', function () {
                             {type: 'zone', zones: ['CODE1', 'CODE2']}
                         ],
                         systems: [
-                            {type:'every', days:['day'],months:['march','january'],years:[new Date(1959, 11, 10),new Date(1960, 2, 10)],time:null}
+                            {type:'every', days:{type:"day",list:['day']},months:{type:"of",list:['march','january']},years:{type:"from",list:[new Date(1959, 11, 10),new Date(1960, 2, 10)]},time:null}
                         ]
                     }],
                     rewards: [
@@ -127,7 +127,13 @@ describe('<Unit Test>', function () {
                             {type: 'zone', zones: ['CODE1', 'CODE2']}
                         ],
                         systems: [
-                            {type:'every', days:['day'],months:['march','january'],years:[new Date(1959, 11, 10),new Date(1960, 2, 10)],time:{type:"before",time:"04:00 am"}}
+                            {
+                                type:'every', 
+                                days:{type:"day",list:['day']},
+                                months:{type:"of",list:['march','january']},
+                                years:{type:"from",list:[new Date(1959, 11, 10),new Date(1960, 2, 10)]},
+                                time:{type:"before",time:"04:00"}
+                            }
                         ]
                     }],
                     rewards: [
@@ -147,7 +153,7 @@ describe('<Unit Test>', function () {
                             {type: 'zone', zones: ['CODE1', 'CODE2']}
                         ],
                         systems: [
-                            {type:'on', date: new Date(2016, 4-1, 4), time:{type:"between",time:["05:30 am","06:30 pm"]}}
+                            {type:'on', date: new Date(2016, 4-1, 4), time:{type:"between",time:["05:30","18:30"]}}
                         ]
                     }],
                     rewards: [
@@ -166,7 +172,13 @@ describe('<Unit Test>', function () {
                             {type: 'zone', zones: ['CODE1', 'CODE2']}
                         ],
                         systems: [
-                            {type:'every', days:['day'],months:['march','january'],years:[new Date(1959, 11, 10),new Date(1960, 2, 10)],time:{type:"after",time:"04:00 am"}}
+                            {
+                                type:'every',
+                                days:{type:"day",list:['day']},
+                                months:{type:"of",list:['march','january']},
+                                years:{type:"from",list:[new Date(1959, 11, 10),new Date(1960, 2, 10)]},
+                                time:{type:"after",time:"04:00"}
+                            }
                         ]
                     }],
                     rewards: [
