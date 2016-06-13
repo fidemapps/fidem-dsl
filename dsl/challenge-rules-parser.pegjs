@@ -150,32 +150,65 @@ filter
     = (withTag / withData / inZoneAction / nearBeaconAction)
 
 onDate
-    = "on" S* date:DATE
+    = "on" S* date:DATE S* time:timeRule?
     {
         return {
             type: 'on',
-            date:date
+            date:date,
+            time:time
         }
     }
 every
-    ="every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear/fromYear)?
+    ="every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / fromYear)? S* time:timeRule?
     {
         return {
             type : 'every',
             days:buildList(first,remainders,3),
             months:months,
-            years:years
+            years:years,
+            time:time
         }
-    }/ "every" S* "day" S* months:ofMonth?
+    }/ "every" S* "day" S* months:ofMonth? S* years:(inYear / fromYear)? S* time:timeRule?
     {
         return {
             type : 'every',
             days:['day'],
-            months:months
+            months:months,
+            years:years,
+            time:time
 
         }
     }
 
+timeRule
+    =(beforeTime/afterTime/betweenTimes)
+
+beforeTime
+    = "before" S* time:TIME
+    {
+        return {
+            type:"before",
+            time:time
+        }
+    }
+
+afterTime
+    = "after" S* time:TIME
+    {
+        return {
+            type:"after",
+            time: time
+        };
+    }
+
+betweenTimes
+    = "between" S* start:TIME S* "and" S* end:TIME
+    {
+        return {
+            type:"between",
+            time:[start,end]
+        };
+    }
 
 ofMonth
     = "of" S* first:MONTHS remainders:(S* "," S* months:MONTHS)*
@@ -189,7 +222,7 @@ inYear
         return buildList(first,remainders,3);
     }
 fromYear
-    ="from" S* start:DATE S* "to" S* end:DATE
+    = "from" S* start:DATE S* "to" S* end:DATE
     {
         return [start,end]
     }
@@ -420,4 +453,10 @@ MONTHS "months"
     = months:("january"/"february"/"march"/"april"/"may"/"june"/"july"/"august"/"september"/"october"/"november"/"december")
     {
         return months;
+    }
+
+TIME
+    = hour:time_hour ":" minute:time_minute S* time:("am"/"pm")
+    {
+        return hour+":"+minute+" "+time;
     }
