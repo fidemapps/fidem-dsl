@@ -188,7 +188,7 @@ beforeTime
     {
         return {
             type:"before",
-            time:[time]
+            list:[time]
         }
     }
 
@@ -197,7 +197,7 @@ afterTime
     {
         return {
             type:"after",
-            time: [time]
+            list: [time]
         };
     }
 
@@ -206,7 +206,7 @@ betweenTimes
     {
         return {
             type:"between",
-            time:[start,end]
+            list:[start,end]
         };
     }
 

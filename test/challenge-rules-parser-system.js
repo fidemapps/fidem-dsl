@@ -132,7 +132,7 @@ describe('<Unit Test>', function () {
                                 days:{type:"day",list:['day']},
                                 months:{type:"of",list:['march','january']},
                                 years:{type:"until",list:[new Date(1960, 2, 10)]},
-                                time:{type:"before",time:["04:00"]}
+                                time:{type:"before",list:["04:00"]}
                             }
                         ]
                     }],
@@ -153,7 +153,7 @@ describe('<Unit Test>', function () {
                             {type: 'zone', zones: ['CODE1', 'CODE2']}
                         ],
                         systems: [
-                            {type:'on', date: new Date(2016, 4-1, 4), time:{type:"between",time:["05:30","18:30"]}}
+                            {type:'on', date: new Date(2016, 4-1, 4), time:{type:"between",list:["05:30","18:30"]}}
                         ]
                     }],
                     rewards: [
@@ -177,7 +177,7 @@ describe('<Unit Test>', function () {
                                 days:{type:"day",list:['day']},
                                 months:{type:"of",list:['march','january']},
                                 years:{type:"starting",list:[new Date(1959, 11, 10)]},
-                                time:{type:"after",time:["04:00"]}
+                                time:{type:"after",list:["04:00"]}
                             }
                         ]
                     }],
@@ -251,7 +251,7 @@ describe('<Unit Test>', function () {
                         ]
                     }],
                     rewards: [
-                        {quantity: 1, code: 'points',systems:[{type:"every",days:{type:'days',list:["monday","weekend"]},months:null,years:{type:'starting',list:[new Date(1990,9,1)]},time:{type:"before",time:["15:00"]}}]}
+                        {quantity: 1, code: 'points',systems:[{type:"every",days:{type:'days',list:["monday","weekend"]},months:null,years:{type:'starting',list:[new Date(1990,9,1)]},time:{type:"before",list:["15:00"]}}]}
                     ]
                 });
                 done();
@@ -268,7 +268,7 @@ describe('<Unit Test>', function () {
                         ]
                     }],
                     rewards: [
-                        {quantity: 1, code: 'points',systems:[{type:"every",days:{type:'days',list:["monday","weekend"]},months:{type:"of", list:["march","may","april"]},years:{type:'starting',list:[new Date(1990,9,1)]},time:{type:"between",time:["15:00","16:00"]}}]}
+                        {quantity: 1, code: 'points',systems:[{type:"every",days:{type:'days',list:["monday","weekend"]},months:{type:"of", list:["march","may","april"]},years:{type:'starting',list:[new Date(1990,9,1)]},time:{type:"between",list:["15:00","16:00"]}}]}
                     ]
                 });
                 done();
