@@ -187,6 +187,29 @@ describe('<Unit Test>', function () {
                 });
                 done();
             });
+            it.only('action TEST every day of march,january starting at 1959-12-10 after 04:00 am give 1 points',function(done){
+                var rule = parser.parse("action TEST every day of march,january starting at 1959-12-10 after 04:00 am give 1 points");
+                should(rule).eql({
+                    rules: [{
+                        scope: 'action', code: 'TEST',
+                        conditions: [],
+                        filters:[],
+                        systems: [
+                            {
+                                type:'every',
+                                days:{type:"day",list:['day']},
+                                months:{type:"of",list:['march','january']},
+                                years:{type:"starting",list:[new Date(1959, 11, 10)]},
+                                time:{type:"after",list:["04:00"]}
+                            }
+                        ]
+                    }],
+                    rewards: [
+                        {quantity: 1, code: 'points'}
+                    ]
+                });
+                done();
+            })
         });
         describe("should parse reward with system condition",function(){
             it("action TEST in zone CODE1,CODE2 give 1 points every day",function(done){
