@@ -35,7 +35,7 @@ describe('<Unit Test>', function () {
             }
         });
 
-        describe.only('Every', function () {
+        describe('Every', function () {
 
             describe('Exception for auto-complete', function () {
                 
