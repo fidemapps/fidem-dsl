@@ -67,7 +67,7 @@ rules
     }
 
 simple_rule
-    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* systems:((S* system)*)?
+    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* systems:(S* system)*
     {
 
         var theRule = {
@@ -139,9 +139,11 @@ simple_rule
         };
     }
 */
+
 /*SYSTEM CONDITION*/
+
 system
-    = (every/onDate)
+    = (every / onDate)
 
 condition
     = (withinTimeframe / numberOfTimes)
@@ -158,6 +160,7 @@ onDate
             time:time
         }
     }
+
 every
     ="every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
     {
@@ -181,7 +184,7 @@ every
     }
 
 timeRule
-    =(beforeTime/afterTime/betweenTimes)
+    = (beforeTime / afterTime / betweenTimes)
 
 beforeTime
     = "before" S* time:TIME
@@ -220,15 +223,16 @@ ofMonth
     }
 
 inYear
-    = "in" S* first:date_full_year remainders:(S* "," S* years:date_full_year)*
+    = "in" S* first:YEARS remainders:(S* "," S* years:YEARS)*
     {
         return {
             type:"in",
             list:buildList(first,remainders,3)
         };
     }
+
 dateRules
-    = (fromDate/startingDate/untilDate)
+    = (fromDate / startingDate / untilDate)
 
 fromDate
     = "from" S* start:DATE S* "to" S* end:DATE
@@ -238,6 +242,7 @@ fromDate
             list:[start,end]
         };
     }
+
 startingDate
     = "starting at" S* year:DATE
     {
@@ -246,8 +251,9 @@ startingDate
             list:[year]
         };
     }
+
 untilDate
-    ="until" S* year:DATE
+    = "until" S* year:DATE
     {
         return {
             type:"until",
@@ -322,16 +328,13 @@ timeframe
     }
 
 simple_reward
-    = "give" S* qty:NUMBER S* rewardCode:rewardCode S* systems:((S* system)*)?
+    = "give" S* qty:NUMBER S* rewardCode:rewardCode
     {
         var theReward= {
             quantity: qty,
             code: rewardCode
         };
 
-        if(!systems.length ==0){
-            theReward.systems = buildList(null, systems, 1);
-        }
         return theReward
     }
 
@@ -476,20 +479,26 @@ DATE_TIME "datetime"
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
     }
 
-WEEK_DAY "weekDay"
-    = day:("sunday"/"monday"/"tuesday"/"wednesday"/"thursday"/"friday"/"saturday"/"weekday"/"weekend")
+WEEK_DAY
+    = day:("sunday" / "monday" / "tuesday" / "wednesday" / "thursday" / "friday" / "saturday" / "weekday" / "weekend")
     {
         return day;
     }
 
-MONTHS "months"
-    = months:("january"/"february"/"march"/"april"/"may"/"june"/"july"/"august"/"september"/"october"/"november"/"december")
+YEARS "year"
+    = years:date_full_year
+    {
+        return years;
+    }
+
+MONTHS
+    = months:("january" / "february" / "march" / "april" / "may" / "june" / "july" / "august" / "september" / "october" / "november" / "december")
     {
         return months;
     }
 
-TIME
-    = hour:time_hour ":" minute:time_minute S* time:("am"/"pm")
+TIME "time"
+    = hour:time_hour ":" minute:time_minute S* time:("am" / "pm")
     {
         if(time=="pm"){
             hour=parseInt(hour)+12;

@@ -187,7 +187,7 @@ describe('<Unit Test>', function () {
                 });
                 done();
             });
-            it.only('action TEST every day of march,january starting at 1959-12-10 after 04:00 am give 1 points',function(done){
+            it('action TEST every day of march,january starting at 1959-12-10 after 04:00 am give 1 points',function(done){
                 var rule = parser.parse("action TEST every day of march,january starting at 1959-12-10 after 04:00 am give 1 points");
                 should(rule).eql({
                     rules: [{
@@ -210,92 +210,6 @@ describe('<Unit Test>', function () {
                 });
                 done();
             })
-        });
-        describe("should parse reward with system condition",function(){
-            it("action TEST in zone CODE1,CODE2 give 1 points every day",function(done){
-                var rule = parser.parse("action TEST in zone CODE1,CODE2 give 1 points every day");
-                should(rule).eql({
-                    rules: [{
-                        scope: 'action', code: 'TEST',
-                        conditions: [],
-                        filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
-                        ]
-                    }],
-                    rewards: [
-                        {quantity: 1, code: 'points',systems:[{type:"every",days:{type:'day',list:["day"]},months:null,years:null,time:null}]}
-                    ]
-                });
-                done();
-            });
-
-            it("action TEST in zone CODE1,CODE2 give 1 points every monday of march",function(done){
-                var rule = parser.parse("action TEST in zone CODE1,CODE2 give 1 points every monday of march");
-                should(rule).eql({
-                    rules: [{
-                        scope: 'action', code: 'TEST',
-                        conditions: [],
-                        filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
-                        ]
-                    }],
-                    rewards: [
-                        {quantity: 1, code: 'points',systems:[{type:"every",days:{type:'days',list:["monday"]},months:{type:'of',list:['march']},years:null,time:null}]}
-                    ]
-                });
-                done();
-            });
-
-            it("action TEST in zone CODE1,CODE2 give 1 points every monday until 1990-10-01",function(done){
-                var rule = parser.parse("action TEST in zone CODE1,CODE2 give 1 points every monday until 1990-10-01");
-                should(rule).eql({
-                    rules: [{
-                        scope: 'action', code: 'TEST',
-                        conditions: [],
-                        filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
-                        ]
-                    }],
-                    rewards: [
-                        {quantity: 1, code: 'points',systems:[{type:"every",days:{type:'days',list:["monday"]},months:null,years:{type:'until',list:[new Date(1990,9,1)]},time:null}]}
-                    ]
-                });
-                done();
-            });
-
-            it("action TEST in zone CODE1,CODE2 give 1 points every monday,weekend starting at 1990-10-01 before 03:00 pm",function(done){
-                var rule = parser.parse("action TEST in zone CODE1,CODE2 give 1 points every monday,weekend starting at 1990-10-01 before 03:00 pm");
-                should(rule).eql({
-                    rules: [{
-                        scope: 'action', code: 'TEST',
-                        conditions: [],
-                        filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
-                        ]
-                    }],
-                    rewards: [
-                        {quantity: 1, code: 'points',systems:[{type:"every",days:{type:'days',list:["monday","weekend"]},months:null,years:{type:'starting',list:[new Date(1990,9,1)]},time:{type:"before",list:["15:00"]}}]}
-                    ]
-                });
-                done();
-            });
-
-            it("action TEST in zone CODE1,CODE2 give 1 points every monday,weekend of march,may,april starting at 1990-10-01 between 03:00 pm and 04:00 pm",function(done){
-                var rule = parser.parse("action TEST in zone CODE1,CODE2 give 1 points every monday,weekend of march,may,april starting at 1990-10-01 between 03:00 pm and 04:00 pm");
-                should(rule).eql({
-                    rules: [{
-                        scope: 'action', code: 'TEST',
-                        conditions: [],
-                        filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
-                        ]
-                    }],
-                    rewards: [
-                        {quantity: 1, code: 'points',systems:[{type:"every",days:{type:'days',list:["monday","weekend"]},months:{type:"of", list:["march","may","april"]},years:{type:'starting',list:[new Date(1990,9,1)]},time:{type:"between",list:["15:00","16:00"]}}]}
-                    ]
-                });
-                done();
-            });
         });
     });
 });
