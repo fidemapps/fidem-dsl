@@ -1,6 +1,6 @@
 {
   "name": "fidem-dsl",
-  "version": "0.2.26",
+  "version": "0.2.27",
   "description": "Fidem DSL and language parsers.",
   "keywords": [
     "fidem",
