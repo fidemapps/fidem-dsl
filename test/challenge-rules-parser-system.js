@@ -29,7 +29,7 @@ describe('<Unit Test>', function () {
                         filters: [
                             {type: 'zone', zones: ['CODE1', 'CODE2']}
                         ],
-                        system: {type: 'on', date: new Date(2016, 4 - 1, 4), time: null}
+                        system: {type: 'on', date: [new Date(2016, 4 - 1, 4)], time: null}
 
                     }],
                     rewards: [
@@ -88,7 +88,7 @@ describe('<Unit Test>', function () {
                 });
                 done();
             });
-            
+
             it('action TEST in zone CODE1,CODE2 every sunday of march,january in 1959 give 1 points', function (done) {
                 var rule = parser.parse("action TEST in zone CODE1,CODE2 every sunday of march,january in 1959 give 1 points");
                 should(rule).eql({
@@ -113,7 +113,7 @@ describe('<Unit Test>', function () {
                 });
                 done();
             });
-            
+
             it('action TEST in zone CODE1,CODE2 every day of march,january from 1959-12-10 to 1960-03-10 give 1 points', function (done) {
                 var rule = parser.parse("action TEST in zone CODE1,CODE2 every day of march,january from 1959-12-10 to 1960-03-10 give 1 points");
                 should(rule).eql({
@@ -138,7 +138,7 @@ describe('<Unit Test>', function () {
                 });
                 done();
             });
-            
+
             it('action TEST in zone CODE1,CODE2 every day of march,january from 1959-12-10 to 1960-03-10 before 04:00 am give 1 points', function (done) {
                 var rule = parser.parse("action TEST in zone CODE1,CODE2 every day of march,january until 1960-03-10 before 04:00 am give 1 points");
                 should(rule).eql({
@@ -163,10 +163,10 @@ describe('<Unit Test>', function () {
                 });
                 done();
             });
-            
-            it('action TEST in zone CODE1,CODE2 on 2016-04-04 between 05:30 am and 06:30 pm give 1 points', function (done) {
 
-                var rule = parser.parse("action TEST in zone CODE1,CODE2 on 2016-04-04 between 05:30 am and 06:30 pm give 1 points");
+            it('action TEST in zone CODE1,CODE2 on 2016-04-04,2015-03-03 between 05:30 am and 06:30 pm give 1 points', function (done) {
+
+                var rule = parser.parse("action TEST in zone CODE1,CODE2 on 2016-04-04,2015-03-03 between 05:30 am and 06:30 pm give 1 points");
                 should(rule).eql({
                     rules: [{
                         scope: 'action', code: 'TEST',
@@ -176,7 +176,7 @@ describe('<Unit Test>', function () {
                         ],
                         system: {
                             type: 'on',
-                            date: new Date(2016, 4 - 1, 4),
+                            date: [new Date(2016, 4 - 1, 4), new Date(2015, 3 - 1, 3)],
                             time: {type: "between", list: ["05:30", "18:30"]}
                         }
 
@@ -187,7 +187,7 @@ describe('<Unit Test>', function () {
                 });
                 done();
             });
-            
+
             it('action TEST in zone CODE1,CODE2 every day of march,january starting at 1959-12-10 after 04:00 am give 1 points', function (done) {
                 var rule = parser.parse("action TEST in zone CODE1,CODE2 every day of march,january starting at 1959-12-10 after 04:00 am give 1 points");
                 should(rule).eql({
@@ -212,7 +212,7 @@ describe('<Unit Test>', function () {
                 });
                 done();
             });
-            
+
             it('action TEST every day of march,january starting at 1959-12-10 after 04:00 am give 1 points', function (done) {
                 var rule = parser.parse("action TEST every day of march,january starting at 1959-12-10 after 04:00 am give 1 points");
                 should(rule).eql({
@@ -236,35 +236,35 @@ describe('<Unit Test>', function () {
                 done();
             })
         });
-        
-        describe('Should restrict some parameter in the system condition',function(){
-            
-            it('action TEST every day of may starting at 1995-13-10 give 1 points',function(done){
+
+        describe('Should restrict some parameter in the system condition', function () {
+
+            it('action TEST every day of may starting at 1995-13-10 give 1 points', function (done) {
 
                 try {
-                    var rule= parser.parse("action TEST every day of may starting at 1995-13-10 give 1 points");
-                } catch (err) {
-                    err.message.should.equal('Expected date or whitespace but "1" found.');
-                }
-                
-                done();
-            });
-            
-            it('action TEST every day of may starting at 1995-12-32 give 1 points',function(done){
-
-                try {
-                    var rule= parser.parse("action TEST every day of may starting at 1995-12-32 give 1 points");
+                    var rule = parser.parse("action TEST every day of may starting at 1995-13-10 give 1 points");
                 } catch (err) {
                     err.message.should.equal('Expected date or whitespace but "1" found.');
                 }
 
                 done();
             });
-            
-            it('action TEST every day of may starting at 1995-12-31 after 13:00 am give 1 points',function(done){
+
+            it('action TEST every day of may starting at 1995-12-32 give 1 points', function (done) {
 
                 try {
-                    var rule= parser.parse("action TEST every day of may starting at 1995-12-31 after 13:00 am give 1 points");
+                    var rule = parser.parse("action TEST every day of may starting at 1995-12-32 give 1 points");
+                } catch (err) {
+                    err.message.should.equal('Expected date or whitespace but "1" found.');
+                }
+
+                done();
+            });
+
+            it('action TEST every day of may starting at 1995-12-31 after 13:00 am give 1 points', function (done) {
+
+                try {
+                    var rule = parser.parse("action TEST every day of may starting at 1995-12-31 after 13:00 am give 1 points");
                 } catch (err) {
                     err.message.should.equal('Expected time or whitespace but "1" found.');
                 }
@@ -272,10 +272,10 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('action TEST every day of may starting at 1995-12-31 after 13:00 am give 1 points',function(done){
+            it('action TEST every day of may starting at 1995-12-31 after 13:00 am give 1 points', function (done) {
 
                 try {
-                    var rule= parser.parse("action TEST every day of may starting at 1995-12-31 after 02:60 am give 1 points");
+                    var rule = parser.parse("action TEST every day of may starting at 1995-12-31 after 02:60 am give 1 points");
                 } catch (err) {
                     err.message.should.equal('Expected time or whitespace but "0" found.');
                 }

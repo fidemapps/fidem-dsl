@@ -93,6 +93,35 @@ simple_rule
            codes: buildList(firstCode, codes, 2)
        };
     }
+    /"every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
+        {
+            return {
+                scope : 'every',
+                days:{type:"days",list:buildList(first,remainders,3)},
+                months:months,
+                years:years,
+                time:time
+            }
+        }
+    /"every" S* "day" S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
+        {
+            return {
+                scope : 'every',
+                days:{type:"day",list:["day"]},
+                months:months,
+                years:years,
+                time:time
+
+            }
+        }
+    /"on" S* first:DATE S* remainders:(S* "," S* DATE)* S* time:timeRule?
+         {
+             return {
+                 scope: 'on',
+                 date:buildList(first,remainders,3),
+                 time:time
+             }
+         }
 
 string1
     = '"' chars:([^\n\r\f\\"] / "\\" )* '"'
@@ -170,4 +199,136 @@ timeframe
     = value:("minutes" / "minute" / "hours" / "hour" / "days" / "day" / "weeks" / "week" / "months" / "month" / "years" / "year" )
     {
         return value.replace(/s/g,'');
+    }
+
+timeRule
+    = (beforeTime / afterTime / betweenTimes)
+
+beforeTime
+    = "before" S* time:TIME
+    {
+        return {
+            type:"before",
+            list:[time]
+        }
+    }
+
+afterTime
+    = "after" S* time:TIME
+    {
+        return {
+            type:"after",
+            list: [time]
+        };
+    }
+
+betweenTimes
+    = "between" S* start:TIME S* "and" S* end:TIME
+    {
+        return {
+            type:"between",
+            list:[start,end]
+        };
+    }
+
+ofMonth
+    = "of" S* first:MONTHS remainders:(S* "," S* months:MONTHS)*
+    {
+        return {
+            type:"of",
+            list:buildList(first,remainders,3)
+        };
+    }
+
+inYear
+    = "in" S* first:YEARS remainders:(S* "," S* years:YEARS)*
+    {
+        return {
+            type:"in",
+            list:buildList(first,remainders,3)
+        };
+    }
+
+dateRules
+    = (fromDate / startingDate / untilDate)
+
+fromDate
+    = "from" S* start:DATE S* "to" S* end:DATE
+    {
+        return {
+            type:"from",
+            list:[start,end]
+        };
+    }
+
+startingDate
+    = "starting at" S* year:DATE
+    {
+        return {
+            type:"starting",
+            list:[year]
+        };
+    }
+
+untilDate
+    = "until" S* year:DATE
+    {
+        return {
+            type:"until",
+            list:[year]
+        };
+    }
+
+DIGIT "digit"
+    = [0-9]
+
+date_full_year
+    = $(DIGIT DIGIT DIGIT DIGIT)
+
+date_month
+    = ($([0] DIGIT) / $([1] [0-2]))
+
+date_day
+    = ($([0-2] DIGIT) / $([3] [0-1]))
+
+time_hour
+    = $([0] DIGIT) / $([1] [0-2])
+
+time_minute
+    = $([0-5] DIGIT)
+
+time_second
+    = $([0-5] DIGIT)
+
+DATE "date"
+    = year:date_full_year "-" month:date_month "-" day:date_day
+    {
+        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    }
+
+TIME "time"
+    = hour:time_hour ":" minute:time_minute S* time:("am" / "pm")
+    {
+        if(time=="pm"){
+            hour=parseInt(hour)+12;
+        }
+        return hour+":"+minute;
+    }
+
+WEEK_DAY
+    = day:("sunday" / "monday" / "tuesday" / "wednesday" / "thursday" / "friday" / "saturday" / "weekday" / "weekend")
+    {
+        return day;
+    }
+
+YEARS "year"
+    = years:date_full_year
+    {
+        return years;
+    }
+
+MONTHS
+    = months:("january" / "february" / "march" / "april" / "may" / "june" / "july" / "august" / "september" / "october" / "november" / "december")
+    {
+        return months;
     }

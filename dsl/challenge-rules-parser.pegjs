@@ -152,11 +152,11 @@ filter
     = (withTag / withData / inZoneAction / nearBeaconAction)
 
 onDate
-    = "on" S* date:DATE S* time:timeRule?
+    = "on" S* first:DATE S* remainders:(S* "," S* DATE)* S* time:timeRule?
     {
         return {
             type: 'on',
-            date:date,
+            date:buildList(first,remainders,3),
             time:time
         }
     }

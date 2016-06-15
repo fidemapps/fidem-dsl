@@ -38,8 +38,8 @@ describe('<Unit Test>', function () {
         describe('Every', function () {
 
             describe('Exception for auto-complete', function () {
-                
-                describe('should auto-complete days',function(){
+
+                describe('should auto-complete days', function () {
 
                     it('should auto-complete the day correctly', function () {
                         try {
@@ -68,7 +68,7 @@ describe('<Unit Test>', function () {
 
                     });
 
-                    it('should auto-complete multiple days',function(){
+                    it('should auto-complete multiple days', function () {
                         try {
                             parser.parse('action TEST every monday,');
                         } catch (error) {
@@ -95,10 +95,10 @@ describe('<Unit Test>', function () {
                     });
 
                 });
-                
-                describe('should auto-complete months',function(){
-                    
-                    it('should auto-complete after the keyword of',function(){
+
+                describe('should auto-complete months', function () {
+
+                    it('should auto-complete after the keyword of', function () {
                         try {
                             parser.parse('action TEST every day of');
                         } catch (error) {
@@ -106,12 +106,12 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
                             should(error.expected.length).equal(13);
-                            should(literalChoices).eql(["april", "august", "december", "february", "january", "july", "june", "march", "may", "november", "october", "september"]);
+                            should(literalChoices).eql(['april', 'august', 'december', 'february', 'january', 'july', 'june', 'march', 'may', 'november', 'october', 'september']);
                             should(otherChoices).eql(['whitespace']);
                         }
                     });
-                    
-                    it('should auto-complete after the month',function(){
+
+                    it('should auto-complete after the month', function () {
                         try {
                             parser.parse('action TEST every day of december')
                         } catch (error) {
@@ -123,7 +123,7 @@ describe('<Unit Test>', function () {
                             should(otherChoices).eql(['whitespace']);
                         }
                     });
-                    
+
                     it('should auto-complete multiple months', function () {
 
                         try {
@@ -133,17 +133,17 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
                             should(error.expected.length).equal(13);
-                            should(literalChoices).eql(["april", "august", "december", "february", "january", "july", "june", "march", "may", "november", "october", "september"]);
+                            should(literalChoices).eql(['april', 'august', 'december', 'february', 'january', 'july', 'june', 'march', 'may', 'november', 'october', 'september']);
                             should(otherChoices).eql(['whitespace']);
                         }
                     });
-                    
+
                 });
-                
+
                 describe('should auto-complete years', function () {
 
                     describe('in', function () {
-                        it('before the year',function(){
+                        it('before the year', function () {
                             try {
                                 parser.parse('action TEST every day of december,march in');
 
@@ -155,8 +155,8 @@ describe('<Unit Test>', function () {
                             }
 
                         });
-                        
-                        it('after the year',function(){
+
+                        it('after the year', function () {
                             try {
                                 parser.parse('action TEST every day of december,march in 1990');
 
@@ -169,8 +169,8 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['whitespace']);
                             }
                         });
-                        
-                        it('multiple years',function(){
+
+                        it('multiple years', function () {
                             try {
                                 parser.parse('action TEST every day of december,march in 1990,');
 
@@ -181,12 +181,12 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['whitespace', 'year']);
                             }
                         });
-                        
+
                     });
 
                     describe('starting at', function () {
-                        
-                        it('before year',function(){
+
+                        it('before year', function () {
                             try {
                                 parser.parse('action TEST every day of december,march starting at');
 
@@ -197,8 +197,8 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['date', 'whitespace']);
                             }
                         });
-                        
-                        it('after year',function(){
+
+                        it('after year', function () {
                             try {
                                 parser.parse('action TEST every day of december,march starting at 1900-03-04');
 
@@ -211,12 +211,12 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['whitespace']);
                             }
                         });
-                        
+
                     });
 
                     describe('until', function () {
-                        
-                        it('before year',function(){
+
+                        it('before year', function () {
                             try {
                                 parser.parse('action TEST every day of december,march until');
 
@@ -227,8 +227,8 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['date', 'whitespace']);
                             }
                         });
-                        
-                        it('after year',function(){
+
+                        it('after year', function () {
                             try {
                                 parser.parse('action TEST every day of december,march until 2003-04-06');
 
@@ -241,12 +241,12 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['whitespace']);
                             }
                         });
-                        
+
                     });
 
                     describe('from', function () {
-                        
-                        it('before the first time',function(){
+
+                        it('before the first time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from');
 
@@ -257,8 +257,8 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['date', 'whitespace']);
                             }
                         });
-                        
-                        it('after the first time',function(){
+
+                        it('after the first time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06');
 
@@ -272,7 +272,7 @@ describe('<Unit Test>', function () {
                             }
                         });
 
-                        it('before the second time',function(){
+                        it('before the second time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to');
 
@@ -284,7 +284,7 @@ describe('<Unit Test>', function () {
                             }
                         });
 
-                        it('after the second time',function(){
+                        it('after the second time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04');
 
@@ -298,7 +298,7 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['whitespace']);
                             }
                         });
-                        
+
                     });
 
                 });
@@ -306,7 +306,7 @@ describe('<Unit Test>', function () {
                 describe('should auto-complete times', function () {
 
                     describe('before', function () {
-                        it('before time',function(){
+                        it('before time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 before');
 
@@ -318,8 +318,8 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['time', 'whitespace']);
                             }
                         });
-                        
-                        it('after time',function(){
+
+                        it('after time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 before 01:30 am');
 
@@ -333,11 +333,11 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['whitespace']);
                             }
                         });
-                        
+
                     });
 
                     describe('after', function () {
-                        it('before time',function(){
+                        it('before time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 after');
 
@@ -349,8 +349,8 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['time', 'whitespace']);
                             }
                         });
-                        
-                        it('after time',function(){
+
+                        it('after time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 after 01:30 am');
 
@@ -364,12 +364,12 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['whitespace']);
                             }
                         });
-                        
+
                     });
 
                     describe('between', function () {
-                        
-                        it('before first time',function(){
+
+                        it('before first time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between');
 
@@ -381,8 +381,8 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['time', 'whitespace']);
                             }
                         });
-                        
-                        it('after first time',function(){
+
+                        it('after first time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between 01:30 am');
 
@@ -396,8 +396,8 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['whitespace']);
                             }
                         });
-                        
-                        it('before second time',function(){
+
+                        it('before second time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between 01:30 am and');
 
@@ -410,7 +410,7 @@ describe('<Unit Test>', function () {
                             }
                         });
 
-                        it('after second time',function(){
+                        it('after second time', function () {
                             try {
                                 parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between 01:30 am and 02:00 pm');
 
@@ -424,7 +424,7 @@ describe('<Unit Test>', function () {
                                 should(otherChoices).eql(['whitespace']);
                             }
                         });
-                        
+
                     });
 
                 });
@@ -433,6 +433,181 @@ describe('<Unit Test>', function () {
 
 
         });
+
+        describe('On', function () {
+
+            describe('should auto-complete date', function () {
+
+                it('before first date', function () {
+                    try {
+                        parser.parse('action TEST on');
+
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['date', 'whitespace']);
+                    }
+                });
+
+                it('after first date', function () {
+                    try {
+                        parser.parse('action TEST on 2016-03-05');
+
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+                        literalChoices = helper.extractLiterals(error);
+
+
+                        should(error.expected.length).equal(7);
+                        should(literalChoices).eql([',', 'after', 'and', 'before', 'between', 'give']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('before second date', function () {
+                    try {
+                        parser.parse('action TEST on 2016-03-05,');
+
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['date', 'whitespace']);
+                    }
+                });
+
+            });
+
+            describe('should auto-complete times', function () {
+
+                describe('before', function () {
+                    it('before time', function () {
+                        try {
+                            parser.parse('action TEST on 2016-03-05 before');
+
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['time', 'whitespace']);
+                        }
+                    });
+
+                    it('after time', function () {
+                        try {
+                            parser.parse('action TEST on 2016-03-05 before 01:30 am');
+
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+                            literalChoices = helper.extractLiterals(error);
+
+
+                            should(error.expected.length).equal(3);
+                            should(literalChoices).eql(['and', 'give']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                });
+
+                describe('after', function () {
+                    it('before time', function () {
+                        try {
+                            parser.parse('action TEST on 2016-03-05 after');
+
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['time', 'whitespace']);
+                        }
+                    });
+
+                    it('after time', function () {
+                        try {
+                            parser.parse('action TEST on 2016-03-05 after 01:30 am');
+
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+                            literalChoices = helper.extractLiterals(error);
+
+
+                            should(error.expected.length).equal(3);
+                            should(literalChoices).eql(['and', 'give']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                });
+
+                describe('between', function () {
+
+                    it('before first time', function () {
+                        try {
+                            parser.parse('action TEST on 2016-03-05 between');
+
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['time', 'whitespace']);
+                        }
+                    });
+
+                    it('after first time', function () {
+                        try {
+                            parser.parse('action TEST on 2016-03-05 between 01:30 am');
+
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+                            literalChoices = helper.extractLiterals(error);
+
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql(['and']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('before second time', function () {
+                        try {
+                            parser.parse('action TEST on 2016-03-05 between 01:30 am and');
+
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['time', 'whitespace']);
+                        }
+                    });
+
+                    it('after second time', function () {
+                        try {
+                            parser.parse('action TEST on 2016-03-05 between 01:30 am and 02:00 pm');
+
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+                            literalChoices = helper.extractLiterals(error);
+
+
+                            should(error.expected.length).equal(3);
+                            should(literalChoices).eql(['and', 'give']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                });
+
+            });
+
+        })
 
     });
 });
