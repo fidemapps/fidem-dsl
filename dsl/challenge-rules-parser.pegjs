@@ -67,7 +67,7 @@ rules
     }
 
 simple_rule
-    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* systems:(S* system)*
+    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* S* system:system?
     {
 
         var theRule = {
@@ -76,8 +76,8 @@ simple_rule
             conditions: buildList(null, conditions, 1),
             filters: buildList(null, filters, 1),
         };
-        if(!systems.length ==0){
-                theRule.systems = buildList(null, systems, 1);
+        if(system){
+                theRule.system = system;
         }
         return theRule
     }
@@ -453,19 +453,19 @@ date_full_year
     = $(DIGIT DIGIT DIGIT DIGIT)
 
 date_month
-    = $(DIGIT DIGIT)
+    = ($([0] DIGIT) / $([1] [0-2]))
 
 date_day
-    = $(DIGIT DIGIT)
+    = ($([0-2] DIGIT) / $([3] [0-1]))
 
 time_hour
-    = $(DIGIT DIGIT)
+    = $([0] DIGIT) / $([1] [0-2])
 
 time_minute
-    = $(DIGIT DIGIT)
+    = $([0-5] DIGIT)
 
 time_second
-    = $(DIGIT DIGIT)
+    = $([0-5] DIGIT)
 
 DATE "date"
     = year:date_full_year "-" month:date_month "-" day:date_day
