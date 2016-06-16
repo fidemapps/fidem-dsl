@@ -143,7 +143,7 @@ simple_rule
 /*SYSTEM CONDITION*/
 
 system
-    = (every / onDate)
+    = (every / onRule)
 
 condition
     = (withinTimeframe / numberOfTimes)
@@ -151,14 +151,38 @@ condition
 filter
     = (withTag / withData / inZoneAction / nearBeaconAction)
 
+onRule
+    = "on" S* rule:( onDate / onThe )
+    {
+        return rule;
+    }
+
 onDate
-    = "on" S* first:DATE S* remainders:(S* "," S* DATE)* S* time:timeRule?
+    = first:DATE S* remainders:(S* "," S* DATE)* S* time:timeRule?
     {
         return {
             type: 'on',
             date:buildList(first,remainders,3),
             time:time
         }
+    }
+
+onThe
+    = "the" S* first:POSITION remainders:(S* "," S* position:POSITION)* S* "day" S* months:(ofMonth/ "of" S* "month") S* years:(inYear / dateRules)? S* time:timeRule?
+    {
+        var result={
+           type: 'onThe',
+           days: {type:"position",list:buildList(first,remainders,3)},
+           months:months,
+           years:years,
+           time:time
+        };
+
+        if(Array.isArray(months)){
+            result.months={type:'month', list:["month"]};
+        }
+
+        return result;
     }
 
 every
@@ -170,8 +194,9 @@ every
             months:months,
             years:years,
             time:time
-        }
-    }/ "every" S* "day" S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
+        };
+    }
+    / "every" S* "day" S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
     {
         return {
             type : 'every',
@@ -180,14 +205,20 @@ every
             years:years,
             time:time
 
-        }
+        };
     }
 
 timeRule
     = (beforeTime / afterTime / betweenTimes)
 
+POSITION
+    = position:("1st" / "2nd" / "3rd" / $([4-9] "th") / $(DIGIT DIGIT "th")/ "last")
+    {
+        return position;
+    }
+
 beforeTime
-    = "before" S* time:TIME
+    = "before" S* time:TIME_CHOICE
     {
         return {
             type:"before",
@@ -196,7 +227,7 @@ beforeTime
     }
 
 afterTime
-    = "after" S* time:TIME
+    = "after" S* time:TIME_CHOICE
     {
         return {
             type:"after",
@@ -205,7 +236,7 @@ afterTime
     }
 
 betweenTimes
-    = "between" S* start:TIME S* "and" S* end:TIME
+    = "between" S* start:TIME_CHOICE S* "and" S* end:TIME_CHOICE
     {
         return {
             type:"between",
@@ -459,7 +490,7 @@ date_day
     = ($([0-2] DIGIT) / $([3] [0-1]))
 
 time_hour
-    = $([0] DIGIT) / $([1] [0-2])
+    = $([0] DIGIT) / $([1] [0-2]) / $(DIGIT)
 
 time_minute
     = $([0-5] DIGIT)
@@ -497,11 +528,18 @@ MONTHS
         return months;
     }
 
-TIME "time"
-    = hour:time_hour ":" minute:time_minute S* time:("am" / "pm")
-    {
-        if(time=="pm"){
-            hour=parseInt(hour)+12;
+TIME_CHOICE
+    = time:TIME S* choice:("am"/"pm")
+     {
+        if(choice=="pm"){
+            time.hour=parseInt(time.hour)+12;
         }
-        return hour+":"+minute;
+        return time.hour+":"+time.minute;
+    }
+
+TIME "time"
+    = hour:time_hour ":" minute:time_minute
+    {
+
+        return {hour:hour,minute:minute};
     }
