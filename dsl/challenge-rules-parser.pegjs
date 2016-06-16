@@ -2,28 +2,52 @@
   Gamification Rules
   ==================
 
-  operator (>=, <=, =, >, <)
-  time_period (minute, hour, day, week, month, year)
+  OPERATOR (>=, <=, =, >, <)
+  timeframe (minute, hour, day, week, month, year)
+  WEEK_DAY (monday,tuesday,wednesday,thursday,friday,saturday,sunday,weekday,weekend)
 
   give x POINTS_LEVEL_LIST
   give x BADGE_1
   give x 10_PERCENT_REBATE
   give x MEMBER_TAG
 
-  challenge CHALLENGE_CODE [x times][within x time_period]
+  challenge CHALLENGE_CODE [x times][within x timeframe]
 
-  action ACTION_CODE [x times][within x time_period]  [with TAG 'TAG_NAME' [= x]][in zone ZONE_CODE[,ZONE_CODE]][near X of beacon BEACON_CODE[,BEACON_CODE]]
+  action ACTION_CODE [x times][within x timeframe]  [with TAG 'TAG_NAME' [= x]][in zone ZONE_CODE[,ZONE_CODE]][near X of beacon BEACON_CODE[,BEACON_CODE]] system_condition
 
   member level LEVEL_LIST [operator] x [with TAG 'TAG_NAME' [= x]]
   member points LEVEL_LIST [operator] x [with TAG 'TAG_NAME' [= x]]
   member tag TAG_NAME  [operator] x [with TAG 'TAG_NAME' [= x]]
-  member in zone ZONE_CODE[,ZONE_CODE] [for x time_period]
+  member in zone ZONE_CODE[,ZONE_CODE] [for x timeframe]
+
+  member did nothing [occurence_filter,period_filter]
+  member did something [occurence_filter,period_filter]
+  member did not ACTION_CODE [occurence_filter,period_filter]
+  member did not ACTION_CODE with [attribute_name OPERATOR value][occurence_filter,period_filter]
+  member has completed CHALLENGE_CODE [occurence_filter,period_filter]
+  member has not completed CHALLENGE_CODE [occurence_filter,period_filter]
+
+  occurece_filter
+    at least x time
+    at least x times
+    less than x time
+    less than x times
+    exactly x time
+    exactly x times
+
+  period_filter
+    before TIME_DATE
+    after TIME_DATE
+    between TIME_DATE and TIME_DATE
+    in last x timeframe
 
   // NOT IMPLEMENTED YET
-  member new level LEVEL_CODE [x times][within x time_period]  [with TAG TAG_NAME [= x]]
+  member new level LEVEL_CODE [x times][within x timeframe]  [with TAG TAG_NAME [= x]]
   zone enter CODE
   zone exit CODE
 */
+
+/*HELPER FUNCTIONS*/
 {
     function extractOptional(optional, index) {
         return optional ? optional[index] : null;
@@ -46,6 +70,7 @@
     }
 }
 
+
 start
     = rules;
 
@@ -67,7 +92,7 @@ rules
     }
 
 simple_rule
-    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* S* system:system?
+    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* S* system:system_condition?
     {
 
         var theRule = {
@@ -90,7 +115,7 @@ simple_rule
             filters: buildList(null, filters, 1)
         };
     }
-    / scope:"member" S* type:("level" / "point") S* levelCode:levelCode S* operator:(">=" / "<=" / "=" / ">" / "<")? S* value:NUMBER S* filter:withTag?
+    / scope:"member" S* type:("level" / "point") S* levelCode:levelCode S* operator:OPERATOR? S* value:NUMBER S* filter:withTag?
     {
         var theRule = {
             scope: scope,
@@ -102,7 +127,7 @@ simple_rule
 
         return theRule;
     }
-    / scope:"member" S* type:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<")? S* value:NUMBER S* filter:withTag?
+    / scope:"member" S* type:"tag" S* tagCode:tagCode S* operator:OPERATOR? S* value:NUMBER S* filter:withTag?
     {
         var theRule = {
             scope: scope,
@@ -126,7 +151,7 @@ simple_rule
         };
 
         return theRule;
-    }
+    }/ member_condition
 /* (SG): NOT SUPPORTED YET
     / scope:"member" S* type:"level up" S* levelCode:levelCode conditions:(S* condition)* S* filter:withTag?
     {
@@ -140,10 +165,166 @@ simple_rule
     }
 */
 
+
+simple_reward
+    = "give" S* qty:NUMBER S* rewardCode:rewardCode
+    {
+        var theReward= {
+            quantity: qty,
+            code: rewardCode
+        };
+
+        return theReward
+    }
+
+/*MEMBER CONDITION*/
+
+member_condition
+    = scope:"member" S* type:"did" S* conditions:did_rule S* filters: member_filter_condition
+    {
+        return {
+            scope:scope,
+            type:type,
+            conditions:conditions,
+            filters:filters
+        };
+    }
+    /scope:"member" S* type:"has" S* conditions:has_rule S* filters:member_filter_condition
+      {
+          return {
+              scope:scope,
+              type:type,
+              conditions:conditions,
+              filters:filters
+          };
+      }
+member_filter_condition
+    = filter1:occurence_filter? S* filter2:period_filter?
+    {
+        var filter =[];
+        if(filter1){
+            filter.push(filter1);
+        }
+        if(filter2){
+            filter.push(filter2);
+        }
+        return filter;
+    }
+
+
+member_action_condition
+    = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
+    {
+        return buildList(first,remainders,3);
+    }
+
+
+did_rule
+    =type:"not" S* actionCode:actionCode S* condition:member_action_condition?
+    {
+        return {
+            type:type,
+            code:actionCode,
+            condition:condition
+        }
+    }
+    /type:"nothing"
+    {
+        return {
+            type:type
+        }
+    }
+    /type:"something"
+    {
+        return {
+            type:type
+        }
+    }/ actionCode:actionCode S* condition:member_action_condition?
+    {
+    	return {
+        	type:null,
+            code:actionCode,
+            condition:condition
+        }
+    }
+
+has_rule
+    = type:"not" S* "completed" S* challengeCode:challengeCode
+    {
+        return {
+            type:type,
+            code:challengeCode
+        }
+    }/ "completed" S* challengeCode:challengeCode
+     {
+         return {
+             type:null,
+             code:challengeCode
+         }
+     }
+
+/*OCCURENCE FILTER*/
+
+occurence_filter
+    = "at" S* type:"least" S* number:NUMBER S* ("times" / "time")
+    {
+        return {
+            type:type,
+            number:number
+        }
+    }
+    /type:"less" S* "than" S* number:NUMBER S* ("times" / "time")
+    {
+        return {
+          type:type,
+          number:number
+        }
+    }
+    /type:"exactly" S* number:NUMBER S* ("times" / "time")
+    {
+        return {
+          type:type,
+          number:number
+        }
+    }
+
+/*PERIOD_FILTER*/
+
+period_filter
+    = type:"before" S* date:DATE_TIME
+    {
+        return {
+            type:type,
+            date:[date]
+        }
+    }
+    /type:"after" S* date:DATE_TIME
+    {
+        return {
+            type:type,
+            date:[date]
+        }
+    }
+    /type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
+    {
+        return {
+            type:type,
+            date:[start,end]
+        }
+    }
+    /"in" S* type:"last" S* duration:NUMBER S* durationScope:timeframe
+    {
+        return {
+            type:type,
+            duration: duration,
+            durationScope: durationScope
+        }
+    }
+
 /*SYSTEM CONDITION*/
 
-system
-    = (every / onRule)
+system_condition
+    = (every / on_rule)
 
 condition
     = (withinTimeframe / numberOfTimes)
@@ -151,13 +332,13 @@ condition
 filter
     = (withTag / withData / inZoneAction / nearBeaconAction)
 
-onRule
-    = "on" S* rule:( onDate / onThe )
+on_rule
+    = "on" S* rule:( on_date / on_the )
     {
         return rule;
     }
 
-onDate
+on_date
     = first:DATE S* remainders:(S* "," S* DATE)* S* time:timeRule?
     {
         return {
@@ -167,7 +348,7 @@ onDate
         }
     }
 
-onThe
+on_the
     = "the" S* first:POSITION remainders:(S* "," S* position:POSITION)* S* "day" S* months:(ofMonth/ "of" S* "month") S* years:(inYear / dateRules)? S* time:timeRule?
     {
         var result={
@@ -208,14 +389,10 @@ every
         };
     }
 
+/*SYSTEM CONDITION TIME RELATED*/
+
 timeRule
     = (beforeTime / afterTime / betweenTimes)
-
-POSITION
-    = position:("1st" / "2nd" / "3rd" / $([4-9] "th") / $(DIGIT DIGIT "th")/ "last")
-    {
-        return position;
-    }
 
 beforeTime
     = "before" S* time:TIME_CHOICE
@@ -244,6 +421,8 @@ betweenTimes
         };
     }
 
+/*SYSTEM CONDITION MONTH RELATED*/
+
 ofMonth
     = "of" S* first:MONTHS remainders:(S* "," S* months:MONTHS)*
     {
@@ -252,6 +431,8 @@ ofMonth
             list:buildList(first,remainders,3)
         };
     }
+
+/*SYSTEM CONDITION YEAR RELATED*/
 
 inYear
     = "in" S* first:YEARS remainders:(S* "," S* years:YEARS)*
@@ -292,6 +473,8 @@ untilDate
         };
     }
 
+/*MIX*/
+
 inZoneAction
     = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
     {
@@ -322,7 +505,7 @@ withTag
     }
 
 withData
-    = "with data" S* attributeName:attributeName S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:(string / NUMBER)
+    = "with data" S* attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
     {
         return {
             type: 'data',
@@ -352,22 +535,17 @@ withinTimeframe
         }
     }
 
-timeframe
-    = value:("minutes" / "minute" / "hours" / "hour" / "days" / "day" / "weeks" / "week" / "months" / "month" / "years" / "year" )
+attribute_operator_value
+    = attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
     {
-        return value.replace(/s/g,'');
+         return {
+             operator: operator,
+             attribute: attributeName,
+             value: value
+         };
     }
-
-simple_reward
-    = "give" S* qty:NUMBER S* rewardCode:rewardCode
-    {
-        var theReward= {
-            quantity: qty,
-            code: rewardCode
-        };
-
-        return theReward
-    }
+    
+/*PRIMARY*/
 
 string1
     = '"' chars:([^\n\r\f\\"] / "\\" )* '"'
@@ -542,4 +720,22 @@ TIME "time"
     {
 
         return {hour:hour,minute:minute};
+    }
+
+POSITION
+    = position:("1st" / "2nd" / "3rd" / $([4-9] "th") / $(DIGIT DIGIT "th")/ "last")
+    {
+        return position;
+    }
+
+OPERATOR
+    = op:(">=" / "<=" / "=" / ">" / "<")
+    {
+        return op;
+    }
+
+timeframe
+    = value:("minutes" / "minute" / "hours" / "hour" / "days" / "day" / "weeks" / "week" / "months" / "month" / "years" / "year" )
+    {
+        return value.replace(/s/g,'');
     }
