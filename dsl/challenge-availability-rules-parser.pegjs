@@ -553,9 +553,3 @@ OPERATOR
     {
         return op;
     }
-
-timeframe
-    = value:("minutes" / "minute" / "hours" / "hour" / "days" / "day" / "weeks" / "week" / "months" / "month" / "years" / "year" )
-    {
-        return value.replace(/s/g,'');
-    }

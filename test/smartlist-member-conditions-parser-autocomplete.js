@@ -167,8 +167,8 @@ describe('<Unit Test>', function () {
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(11);
-                    should(literalChoices).eql(['belongs to smartlist', 'city', 'country', 'created', 'in zone', 'level', 'points', 'state', 'tag', 'zip']);
+                    should(err.expected.length).equal(13);
+                    should(literalChoices).eql(['belongs to smartlist', 'city', 'country', 'created','did','has', 'in zone', 'level', 'points', 'state', 'tag', 'zip']);
                     should(otherChoices).eql(['whitespace']);
                 }
 
@@ -344,8 +344,9 @@ describe('<Unit Test>', function () {
                     parser.parse("member created between");
                 }
                 catch (err) {
-                    should(err.expected.length).equal(2);
-                    should(err.expected[0].description).equal('datetime');
+                    should(err.expected.length).equal(3);
+                    should(err.expected[0].description).equal('date');
+                    should(err.expected[1].description).equal('datetime');
                 }
 
                 done();
@@ -357,8 +358,9 @@ describe('<Unit Test>', function () {
                     parser.parse('member created between 2014-01-01');
                 }
                 catch (err) {
-                    should(err.expected.length).equal(2);
-                    should(err.expected[0].description).equal('datetime');
+                    should(err.expected.length).equal(3);
+                    should(err.expected[0].description).equal('date');
+                    should(err.expected[1].description).equal('datetime');
                 }
 
                 done();

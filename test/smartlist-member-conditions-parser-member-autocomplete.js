@@ -8,12 +8,11 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-    describe('Auto-Complete Challenge Availability Member Condition Rules:', function () {
+    describe('Auto-Complete List Member Conditions Member:', function () {
         var literalChoices;
         var otherChoices;
-        
         beforeEach(function (done) {
-            fs.readFile(__dirname + '/../dsl/challenge-availability-rules-parser.pegjs', 'utf8', function (err, data) {
+            fs.readFile(__dirname + '/../dsl/smartlist-member-conditions-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
                     return done(err);
                 }
@@ -22,18 +21,6 @@ describe('<Unit Test>', function () {
             });
         });
 
-        it('should auto complete after the member keyword',function(){
-            try {
-                parser.parse('member');
-            } catch (error) {
-                literalChoices = helper.extractLiterals(error);
-                otherChoices = helper.extractOthers(error);
-
-                should(error.expected.length).equal(3);
-                should(literalChoices).eql(['did', 'has']);
-                should(otherChoices).eql([ 'whitespace']);
-            }
-        });
 
         describe('did',function(){
 
@@ -377,7 +364,7 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
+                    should(error.expected.length).equal(3);
                     should(literalChoices).eql(['and']);
                     should(otherChoices).eql([ 'whitespace']);
                 }
@@ -425,7 +412,7 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
+                    should(error.expected.length).equal(3);
                     should(literalChoices).eql(['and']);
                     should(otherChoices).eql([ 'whitespace']);
                 }
@@ -475,7 +462,7 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
+                    should(error.expected.length).equal(3);
                     should(literalChoices).eql(['and']);
                     should(otherChoices).eql([ 'whitespace']);
                 }

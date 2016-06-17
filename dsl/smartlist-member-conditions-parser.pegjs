@@ -62,7 +62,7 @@ start
     }
 
 simple_condition
-    = scope:"member" S* sub:("level" / "points") S* levelCode:levelCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    = scope:"member" S* sub:("level" / "points") S* levelCode:levelCode S* operator:OPERATOR S* value:NUMBER
     {
         return {
             scope: "member",
@@ -72,7 +72,7 @@ simple_condition
             value: value
         };
     }
-    / scope:"member" S* sub:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    / scope:"member" S* sub:"tag" S* tagCode:tagCode S* operator:OPERATOR S* value:NUMBER
     {
         return {
             scope: "member",
@@ -93,7 +93,7 @@ simple_condition
             timeframe: timeframe
         };
     }
-    / scope:"member" S* "created" S* condition:"between" S* date1:DATE_TIME S* date2:DATE_TIME
+    / scope:"member" S* "created" S* condition:"between" S* date1:(DATE_TIME / DATE) S* date2:(DATE_TIME / DATE)
     {
         return {
             scope: "member",
@@ -146,7 +146,172 @@ simple_condition
             conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3),
             filters: buildList(null, filters, 1)
         };
+    }/member_condition
+
+
+
+/******************EXTRA TO TEST*************************/
+/*This should replace
+    Est-ce que la syntaxe est acceptable : challenge test and member = “bob” and member = “david” ...
+    Normalement se serait : challenge test with member = “david” and member = “bob” ...
+*/
+
+conditionList
+	=firstCondition:("with" S* condition) conditions:(S* "and" S* condition)*
+    {
+    	return buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
     }
+/******************EXTRA TO TEST*************************/
+
+
+
+
+/*MEMBER CONDITION*/
+
+member_condition
+    = scope:"member" S* sub:"did" S* conditions:did_rule S* filters: member_filter_condition
+    {
+        return {
+            scope:scope,
+            sub_scope:sub,
+            condition:conditions,
+            filters:filters
+        };
+    }
+    /scope:"member" S* sub:"has" S* conditions:has_rule S* filters:member_filter_condition
+      {
+          return {
+              scope:scope,
+              sub_scope:sub,
+              condition:conditions,
+              filters:filters
+          };
+      }
+
+member_filter_condition
+    = filter1:occurence_filter? S* filter2:period_filter?
+    {
+        var filter =[];
+        if(filter1){
+            filter.push(filter1);
+        }
+        if(filter2){
+            filter.push(filter2);
+        }
+        return filter;
+    }
+
+
+member_action_condition
+    = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
+    {
+        return buildList(first,remainders,3);
+    }
+
+
+did_rule
+    =type:"nothing"
+    {
+        return {
+             type:type
+        }
+    }/type:"not" S* actionCode:actionCode S* condition:member_action_condition?
+    {
+        return {
+            type:type,
+            code:actionCode,
+            conditions:condition
+        }
+    }
+
+    /type:"something"
+    {
+        return {
+            type:type
+        }
+    }/actionCode:actionCode S* condition:member_action_condition?
+    {
+    	return {
+        	type:null,
+            code:actionCode,
+            condition:condition
+        }
+    }
+
+has_rule
+    = type:"not" S* "completed" S* challengeCode:challengeCode
+    {
+        return {
+            type:type,
+            code:challengeCode
+        }
+    }/ "completed" S* challengeCode:challengeCode
+     {
+         return {
+             type:null,
+             code:challengeCode
+         }
+     }
+
+/*OCCURENCE FILTER*/
+
+occurence_filter
+    = "at" S* type:"least" S* number:NUMBER S* ("times" / "time")
+    {
+        return {
+            type:type,
+            number:number
+        }
+    }
+    /type:"less" S* "than" S* number:NUMBER S* ("times" / "time")
+    {
+        return {
+          type:type,
+          number:number
+        }
+    }
+    /type:"exactly" S* number:NUMBER S* ("times" / "time")
+    {
+        return {
+          type:type,
+          number:number
+        }
+    }
+
+/*PERIOD_FILTER*/
+
+period_filter
+    = type:"before" S* date:DATE_TIME
+    {
+        return {
+            type:type,
+            date:[date]
+        }
+    }
+    /type:"after" S* date:DATE_TIME
+    {
+        return {
+            type:type,
+            date:[date]
+        }
+    }
+    /type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
+    {
+        return {
+            type:type,
+            date:[start,end]
+        }
+    }
+    /"in" S* type:"last" S* duration:NUMBER S* durationScope:timeframe
+    {
+        return {
+            type:type,
+            duration: duration,
+            durationScope: durationScope
+        }
+    }
+
+/*OTHER*/
 
 inZoneAction
     = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
@@ -158,7 +323,7 @@ inZoneAction
     }
 
 condition
-    = attributeName:attributeName S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:stringOrNumber
+    = attributeName:attributeName S* operator:OPERATOR S* value:stringOrNumber
     {
       return {
           name: attributeName,
@@ -166,6 +331,18 @@ condition
           value: value
       }
     }
+
+attribute_operator_value
+    = attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
+    {
+         return {
+             operator: operator,
+             attribute: attributeName,
+             value: value
+         };
+    }
+
+/*PRIMARY*/
 
 timeframe
     = value:("minutes" / "minute" / "hours" / "hour" / "days" / "day" / "weeks" / "week" / "months" / "month" / "years" / "year" )
@@ -272,40 +449,50 @@ STRING "string"
 date_full_year "year"
     = $(DIGIT DIGIT DIGIT DIGIT)
 
-date_month "month"
-    = $(DIGIT DIGIT)
+date_month
+    = ($([0] DIGIT) / $([1] [0-2]))
 
-date_day "day"
-    = $(DIGIT DIGIT)
+date_day
+    = ($([0-2] DIGIT) / $([3] [0-1]))
 
-time_hour "hour"
-    = $(DIGIT DIGIT)
+time_hour_12
+    = $([0] DIGIT) / $([1] [0-2]) / $(DIGIT)
 
-time_minute "minute"
-    = $(DIGIT DIGIT)
+time_hour_24
+    =$([0-1] DIGIT) / $([2][0-3])
 
-time_second "second"
-    = $(DIGIT DIGIT)
+time_minute
+    = $([0-5] DIGIT)
 
-TIME "time"
-    = hour:time_hour ":" minute:time_minute second:(":" time_second)?
+time_second
+    = $([0-5] DIGIT)
+
+
+TIME_24 "time"
+    = hour:time_hour_24 ":" minute:time_minute second:(":" time_second)?
     {
         return {
             hour: hour,
             minute: minute,
-            second: second | "00"
+            second: second ? second[1] : "00"
         }
     }
 
-DATE_TIME "datetime"
-    = year:date_full_year "-" month:date_month "-" day:date_day S* time:TIME?
+DATE "date"
+    = year:date_full_year "-" month:date_month "-" day:date_day
     {
-        if(time){
-            //return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(time.hour), parseInt(time.minute), parseInt(time.second), 0);
-            return year + "-" + month + "-" + day + "T" + time.hour + ":" + time.minute + ":" + time.second;
-        }
-        else{
-            //return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-            return year + "-" + month + "-" + day;
-        }
+         return year + "-" + month + "-" + day;
+    }
+
+
+DATE_TIME "datetime"
+    = year:date_full_year "-" month:date_month "-" day:date_day "T" time:TIME_24
+    {
+          return year + "-" + month + "-" + day + "T" + time.hour + ":" + time.minute + ":" + time.second;
+    }
+
+OPERATOR
+    = op:(">=" / "<=" / "=" / ">" / "<")
+    {
+        return op;
     }

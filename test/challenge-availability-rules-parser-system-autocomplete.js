@@ -883,7 +883,8 @@ describe('<Unit Test>', function () {
             describe('should auto-complete times', function () {
 
                 describe('before', function () {
-                    it('before time', function () {
+                    
+                    it('on the 1st day of month before', function () {
                         try {
                             parser.parse('on the 1st day of month before');
 
@@ -896,7 +897,7 @@ describe('<Unit Test>', function () {
                         }
                     });
 
-                    it('after time', function () {
+                    it('on the 1st day of month before 01:30 am', function () {
                         try {
                             parser.parse('on the 1st day of month before 01:30 am 3');
 
@@ -914,7 +915,7 @@ describe('<Unit Test>', function () {
                 });
 
                 describe('after', function () {
-                    it('before time', function () {
+                    it('on the 1st day of month after', function () {
                         try {
                             parser.parse('on the 1st day of month after');
 
@@ -927,7 +928,7 @@ describe('<Unit Test>', function () {
                         }
                     });
 
-                    it('after time', function () {
+                    it('on the 1st day of month after 01:30 am', function () {
                         try {
                             parser.parse('on the 1st day of month after 01:30 am 3');
 
@@ -946,7 +947,7 @@ describe('<Unit Test>', function () {
 
                 describe('between', function () {
 
-                    it('before first time', function () {
+                    it('on the 1st day of month between', function () {
                         try {
                             parser.parse('on the 1st day of month between');
 
@@ -959,7 +960,7 @@ describe('<Unit Test>', function () {
                         }
                     });
 
-                    it('after first time', function () {
+                    it('on the 1st day of month  between 01:30 am', function () {
                         try {
                             parser.parse('on the 1st day of month  between 01:30 am');
 
@@ -974,7 +975,7 @@ describe('<Unit Test>', function () {
                         }
                     });
 
-                    it('before second time', function () {
+                    it('on the 1st day of month  between 01:30 am and', function () {
                         try {
                             parser.parse('on the 1st day of month  between 01:30 am and');
 
@@ -987,7 +988,7 @@ describe('<Unit Test>', function () {
                         }
                     });
 
-                    it('after second time', function () {
+                    it('on the 1st day of month  between 01:30 am and 02:00 pm', function () {
                         try {
                             parser.parse('on the 1st day of month  between 01:30 am and 02:00 pm 3');
 

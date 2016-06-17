@@ -39,7 +39,7 @@ describe('<Unit Test>', function () {
 
             describe('should auto-complete',function(){
                 
-                it('after did',function(){
+                it('member did',function(){
                     try {
                         parser.parse('member did');
                     } catch (error) {
@@ -52,7 +52,7 @@ describe('<Unit Test>', function () {
                     }
                 });
                 
-                it('after did not',function(){
+                it('member did not',function(){
                     //This happen because the parser don't know yet that the word 'not' is a token and not an actionCode
                     try {
                         parser.parse('member did not');
@@ -66,7 +66,7 @@ describe('<Unit Test>', function () {
                     }
                 });
                 
-                it('after actionCode',function(){
+                it('member did actionCode',function(){
                     try {
                         parser.parse('member did eat 3');
                     } catch (error) {
@@ -80,7 +80,7 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('after actionCode with',function(){
+                it('member did actionCode with',function(){
                     try {
                         parser.parse('member did eat with');
                     } catch (error) {
@@ -91,7 +91,7 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('after actionCode with attributeName',function(){
+                it('member did actionCode with attributeName',function(){
                     try {
                         parser.parse('member did eat with bob');
                     } catch (error) {
@@ -104,7 +104,7 @@ describe('<Unit Test>', function () {
                     }
                 });
                 
-                it('after actionCode with attributeName =',function(){
+                it('member did actionCode with attributeName =',function(){
                     try {
                         parser.parse('member did eat with bob =');
                     } catch (error) {
@@ -118,7 +118,7 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('after actionCode with attributeName = \"',function(){
+                it('member did actionCode with attributeName = \"',function(){
                     try {
                         parser.parse('member did eat with bob = \"');
                     } catch (error) {
@@ -132,7 +132,7 @@ describe('<Unit Test>', function () {
                     }
                 });
                 
-                it('after actionCode with attributeName = \"attributeValue\"',function(){
+                it('member did actionCode with attributeName = \"attributeValue\"',function(){
                     try {
                         parser.parse('member did eat with bob = \"bob\" 3');
                     } catch (error) {
@@ -146,7 +146,7 @@ describe('<Unit Test>', function () {
                     }
                 });
                 
-                it('after actionCode with attributeName = \"attributeValue\",',function(){
+                it('member did actionCode with attributeName = \"attributeValue\",',function(){
                     try {
                         parser.parse('member did eat with bob = \"bob\",');
                     } catch (error) {
@@ -157,7 +157,7 @@ describe('<Unit Test>', function () {
                     }
                 });
                 
-                it('after nothing',function(){
+                it('member did nothing',function(){
                     try {
                         parser.parse('member did nothing 3');
                     } catch (error) {
@@ -170,7 +170,7 @@ describe('<Unit Test>', function () {
                     }
                 });
                 
-                it('after something',function(){
+                it('member did something',function(){
                     try {
                         parser.parse('member did something 3');
                     } catch (error) {
@@ -191,7 +191,7 @@ describe('<Unit Test>', function () {
             
             describe('should auto-complete',function(){
 
-                it('after has',function(){
+                it('member has',function(){
                     try {
                         parser.parse('member has');
                     } catch (error) {
@@ -204,7 +204,7 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('after has not',function(){
+                it('member has not',function(){
                     try {
                         parser.parse('member has not');
                     } catch (error) {
@@ -217,7 +217,7 @@ describe('<Unit Test>', function () {
                     }
                 });
                 
-                it('after has not completed',function(){
+                it('member has not completed',function(){
                     try {
                         parser.parse('member has not completed');
                     } catch (error) {
@@ -228,7 +228,7 @@ describe('<Unit Test>', function () {
                     }
                 });
                 
-                it('after has not completed challengeCode',function() {
+                it('member has not completed challengeCode',function() {
                     try {
                         parser.parse('member has not completed bob 3');
                     } catch (error) {
@@ -246,7 +246,7 @@ describe('<Unit Test>', function () {
 
         describe('should auto-complete the occurence filter',function(){ 
 
-            it('after at',function(){
+            it('member did something at',function(){
                 try {
                     parser.parse('member did something at');
                 } catch (error) {
@@ -259,7 +259,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after at least',function(){
+            it('member did something at least',function(){
                 try {
                     parser.parse('member did something at least');
                 } catch (error) {
@@ -270,7 +270,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after exactly',function(){
+            it('member did something exactly',function(){
                 try {
                     parser.parse('member did something exactly');
                 } catch (error) {
@@ -281,7 +281,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after less',function(){
+            it('member did something less',function(){
                 try {
                     parser.parse('member did something less');
                 } catch (error) {
@@ -294,7 +294,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after less than',function(){
+            it('member did something less than',function(){
                 try {
                     parser.parse('member did something less than');
                 } catch (error) {
@@ -305,7 +305,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after at least number',function(){
+            it('member did something at least number',function(){
                 try {
                     parser.parse('member did something at least 2');
                 } catch (error) {
@@ -318,7 +318,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after at least number times',function(){
+            it('member did something at least number times',function(){
                 try {
                     parser.parse('member did something at least 2 times 3');
                 } catch (error) {
@@ -331,7 +331,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after at least number time',function(){
+            it('member did something at least number time',function(){
                 try {
                     parser.parse('member did something at least 1 time 3');
                 } catch (error) {
@@ -348,7 +348,7 @@ describe('<Unit Test>', function () {
 
         describe('should auto-complete the period filter',function(){
 
-            it('after before',function(){
+            it('member did something before',function(){
                 try {
                     parser.parse('member did something before');
                 } catch (error) {
@@ -359,7 +359,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after after',function(){
+            it('member did something after',function(){
                 try {
                     parser.parse('member did something after');
                 } catch (error) {
@@ -370,7 +370,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after after/before datetime',function(){
+            it('member did something after/before datetime',function(){
                 try {
                     parser.parse('member did something after 2016-03-04T23:20:20 3');
                 } catch (error) {
@@ -383,7 +383,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after between',function(){
+            it('member did something between',function(){
                 try {
                     parser.parse('member did something between');
                 } catch (error) {
@@ -394,7 +394,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after between datetime',function(){
+            it('member did something between datetime',function(){
                 try {
                     parser.parse('member did something between 2016-03-04T23:20:20');
                 } catch (error) {
@@ -407,7 +407,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after between datetime and',function(){
+            it('member did something between datetime and',function(){
                 try {
                     parser.parse('member did something between 2016-03-04T23:20:20 and');
                 } catch (error) {
@@ -418,7 +418,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after between datetime and datetime',function(){
+            it('member did something between datetime and datetime',function(){
                 try {
                     parser.parse('member did something between 2016-03-04T23:20:20 and 2016-03-04T23:20:21 3');
                 } catch (error) {
@@ -431,7 +431,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after in',function(){
+            it('member did something in',function(){
                 try {
                     parser.parse('member did something in');
                 } catch (error) {
@@ -444,7 +444,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after in last',function(){
+            it('member did something in last',function(){
                 try {
                     parser.parse('member did something in last');
                 } catch (error) {
@@ -455,7 +455,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after in last number',function(){
+            it('member did something in last number',function(){
                 try {
                     parser.parse('member did something in last 3');
                 } catch (error) {
@@ -468,7 +468,7 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('after in last number timeframe',function(){
+            it('member did something in last number timeframe',function(){
                 try {
                     parser.parse('member did something in last 3 weeks 3');
                 } catch (error) {
