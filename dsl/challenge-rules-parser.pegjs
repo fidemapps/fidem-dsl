@@ -185,7 +185,7 @@ member_condition
         return {
             scope:scope,
             type:type,
-            conditions:conditions,
+            condition:conditions,
             filters:filters
         };
     }
@@ -194,10 +194,11 @@ member_condition
           return {
               scope:scope,
               type:type,
-              conditions:conditions,
+              condition:conditions,
               filters:filters
           };
       }
+
 member_filter_condition
     = filter1:occurence_filter? S* filter2:period_filter?
     {
@@ -220,26 +221,26 @@ member_action_condition
 
 
 did_rule
-    =type:"not" S* actionCode:actionCode S* condition:member_action_condition?
+    =type:"nothing"
+    {
+        return {
+             type:type
+        }
+    }/type:"not" S* actionCode:actionCode S* condition:member_action_condition?
     {
         return {
             type:type,
             code:actionCode,
-            condition:condition
+            conditions:condition
         }
     }
-    /type:"nothing"
-    {
-        return {
-            type:type
-        }
-    }
+
     /type:"something"
     {
         return {
             type:type
         }
-    }/ actionCode:actionCode S* condition:member_action_condition?
+    }/actionCode:actionCode S* condition:member_action_condition?
     {
     	return {
         	type:null,
@@ -667,8 +668,11 @@ date_month
 date_day
     = ($([0-2] DIGIT) / $([3] [0-1]))
 
-time_hour
+time_hour_12
     = $([0] DIGIT) / $([1] [0-2]) / $(DIGIT)
+
+time_hour_24
+    =$([0-1] DIGIT) / $([2] [0-3])
 
 time_minute
     = $([0-5] DIGIT)
@@ -683,7 +687,7 @@ DATE "date"
     }
 
 DATE_TIME "datetime"
-    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour ":" minute:time_minute ":" second:time_second
+    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
     {
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
     }
@@ -707,7 +711,7 @@ MONTHS
     }
 
 TIME_CHOICE
-    = time:TIME S* choice:("am"/"pm")
+    = time:TIME_12 S* choice:("am"/"pm")
      {
         if(choice=="pm"){
             time.hour=parseInt(time.hour)+12;
@@ -715,8 +719,8 @@ TIME_CHOICE
         return time.hour+":"+time.minute;
     }
 
-TIME "time"
-    = hour:time_hour ":" minute:time_minute
+TIME_12 "time"
+    = hour:time_hour_12 ":" minute:time_minute
     {
 
         return {hour:hour,minute:minute};

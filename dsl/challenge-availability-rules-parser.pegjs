@@ -115,9 +115,155 @@ simple_rule
             }
         }
     /onRule
+    /member_condition
+
+/*MEMBER CONDITION*/
+
+member_condition
+    = scope:"member" S* type:"did" S* conditions:did_rule S* filters: member_filter_condition
+    {
+        return {
+            scope:scope,
+            type:type,
+            condition:conditions,
+            filters:filters
+        };
+    }
+    /scope:"member" S* type:"has" S* conditions:has_rule S* filters:member_filter_condition
+      {
+          return {
+              scope:scope,
+              type:type,
+              condition:conditions,
+              filters:filters
+          };
+      }
+
+member_filter_condition
+    = filter1:occurence_filter? S* filter2:period_filter?
+    {
+        var filter =[];
+        if(filter1){
+            filter.push(filter1);
+        }
+        if(filter2){
+            filter.push(filter2);
+        }
+        return filter;
+    }
 
 
+member_action_condition
+    = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
+    {
+        return buildList(first,remainders,3);
+    }
 
+
+did_rule
+    =type:"nothing"
+    {
+        return {
+             type:type
+        }
+    }/type:"not" S* actionCode:actionCode S* condition:member_action_condition?
+    {
+        return {
+            type:type,
+            code:actionCode,
+            conditions:condition
+        }
+    }
+
+    /type:"something"
+    {
+        return {
+            type:type
+        }
+    }/actionCode:actionCode S* condition:member_action_condition?
+    {
+    	return {
+        	type:null,
+            code:actionCode,
+            condition:condition
+        }
+    }
+
+has_rule
+    = type:"not" S* "completed" S* challengeCode:challengeCode
+    {
+        return {
+            type:type,
+            code:challengeCode
+        }
+    }/ "completed" S* challengeCode:challengeCode
+     {
+         return {
+             type:null,
+             code:challengeCode
+         }
+     }
+
+/*OCCURENCE FILTER*/
+
+occurence_filter
+    = "at" S* type:"least" S* number:NUMBER S* ("times" / "time")
+    {
+        return {
+            type:type,
+            number:number
+        }
+    }
+    /type:"less" S* "than" S* number:NUMBER S* ("times" / "time")
+    {
+        return {
+          type:type,
+          number:number
+        }
+    }
+    /type:"exactly" S* number:NUMBER S* ("times" / "time")
+    {
+        return {
+          type:type,
+          number:number
+        }
+    }
+
+/*PERIOD_FILTER*/
+
+period_filter
+    = type:"before" S* date:DATE_TIME
+    {
+        return {
+            type:type,
+            date:[date]
+        }
+    }
+    /type:"after" S* date:DATE_TIME
+    {
+        return {
+            type:type,
+            date:[date]
+        }
+    }
+    /type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
+    {
+        return {
+            type:type,
+            date:[start,end]
+        }
+    }
+    /"in" S* type:"last" S* duration:NUMBER S* durationScope:timeframe
+    {
+        return {
+            type:type,
+            duration: duration,
+            durationScope: durationScope
+        }
+    }
+
+
+/*SYSTEM CONDITION*/
 onRule
     = "on" S* rule:( onDate / onThe )
     {
@@ -152,6 +298,18 @@ onThe
         return result;
     }
 
+attribute_operator_value
+    = attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
+    {
+         return {
+             operator: operator,
+             attribute: attributeName,
+             value: value
+         };
+    }
+
+/*PRIMARY*/
+
 string1
     = '"' chars:([^\n\r\f\\"] / "\\" )* '"'
     {
@@ -175,6 +333,12 @@ code
     {
         return chars.join("");
     }
+
+attributeName "attributeName"
+    = code
+
+actionCode "actionCode"
+	= code
 
 challengeCode "challengeCode"
     = code
@@ -320,8 +484,11 @@ date_month
 date_day
     = ($([0-2] DIGIT) / $([3] [0-1]))
 
-time_hour
+time_hour_12
     = $([0] DIGIT) / $([1] [0-2]) / $(DIGIT)
+
+time_hour_24
+    =$([0-1] DIGIT) / $([2][0-3])
 
 time_minute
     = $([0-5] DIGIT)
@@ -335,8 +502,14 @@ DATE "date"
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
     }
 
+DATE_TIME "datetime"
+    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
+    {
+        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
+    }
+
 TIME_CHOICE
-    = time:TIME S* choice:("am"/"pm")
+    = time:TIME_12 S* choice:("am"/"pm")
      {
         if(choice=="pm"){
             time.hour=parseInt(time.hour)+12;
@@ -344,8 +517,8 @@ TIME_CHOICE
         return time.hour+":"+time.minute;
     }
 
-TIME "time"
-    = hour:time_hour ":" minute:time_minute
+TIME_12 "time"
+    = hour:time_hour_12 ":" minute:time_minute
     {
 
         return {hour:hour,minute:minute};
@@ -373,4 +546,16 @@ POSITION
     = position:("1st" / "2nd" / "3rd" / $([4-9] "th") / $(DIGIT DIGIT "th")/ "last")
     {
         return position;
+    }
+
+OPERATOR
+    = op:(">=" / "<=" / "=" / ">" / "<")
+    {
+        return op;
+    }
+
+timeframe
+    = value:("minutes" / "minute" / "hours" / "hour" / "days" / "day" / "weeks" / "week" / "months" / "month" / "years" / "year" )
+    {
+        return value.replace(/s/g,'');
     }

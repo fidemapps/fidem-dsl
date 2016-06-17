@@ -7,7 +7,8 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-    describe('Availability Rules:', function () {
+    describe('Availability System Conditions Rules:', function () {
+        
         beforeEach(function (done) {
             fs.readFile(__dirname + '/../dsl/challenge-availability-rules-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
@@ -129,8 +130,7 @@ describe('<Unit Test>', function () {
                 done();
             });
         });
-
-
+        
         describe('Should parse "on" rules', function () {
 
             it('on 1990-04-06', function (done) {
