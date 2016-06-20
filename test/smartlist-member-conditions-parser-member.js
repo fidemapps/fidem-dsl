@@ -17,7 +17,7 @@ describe('<Unit Test>', function () {
                 done();
             });
         });
-        
+
         describe('did', function () {
 
             it('member did nothing', function (done) {
@@ -31,8 +31,8 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'nothing'
                             },
-                            filters: []
-
+                            occurence_filter: null,
+                            period_filter: null
                         }
                     ]
                 });
@@ -63,7 +63,8 @@ describe('<Unit Test>', function () {
                                     }
                                 ]
                             },
-                            filters: []
+                            occurence_filter: null,
+                            period_filter: null
                         }
                     ]
                 });
@@ -89,10 +90,11 @@ describe('<Unit Test>', function () {
                                     }
                                 ]
                             },
-                            filters: [{
+                            occurence_filter: {
                                 type: 'less',
                                 number: 3
-                            }]
+                            },
+                            period_filter: null
                         }
                     ]
                 });
@@ -118,12 +120,13 @@ describe('<Unit Test>', function () {
                                     }
                                 ]
                             },
-                            filters: [{
+                            occurence_filter: null,
+                            period_filter: {
                                 type: 'before',
                                 date: [
                                     '2016-03-03T04:40:40'
                                 ]
-                            }]
+                            }
                         }
                     ]
                 });
@@ -149,15 +152,16 @@ describe('<Unit Test>', function () {
                                     }
                                 ]
                             },
-                            filters: [{
+                            occurence_filter: {
                                 type: 'less',
                                 number: 3
-                            }, {
+                            },
+                            period_filter: {
                                 type: 'before',
                                 date: [
                                     '2016-03-03T04:40:40'
                                 ]
-                            }]
+                            }
                         }
                     ]
                 });
@@ -180,7 +184,8 @@ describe('<Unit Test>', function () {
                                 type: null,
                                 code: 'TEST'
                             },
-                            filters: []
+                            occurence_filter: null,
+                            period_filter: null
 
                         }]
                 });
@@ -198,7 +203,8 @@ describe('<Unit Test>', function () {
                             type: 'not',
                             code: 'TEST'
                         },
-                        filters: []
+                        occurence_filter: null,
+                        period_filter: null
 
                     }]
                 });
@@ -216,10 +222,11 @@ describe('<Unit Test>', function () {
                             type: 'not',
                             code: 'TEST'
                         },
-                        filters: [{
+                        occurence_filter: {
                             type: 'less',
                             number: 3
-                        }]
+                        },
+                        period_filter: null
                     }]
                 });
                 done();
@@ -237,14 +244,16 @@ describe('<Unit Test>', function () {
                                 type: 'not',
                                 code: 'TEST'
                             },
-                            filters: [{
+                            occurence_filter: null,
+                            period_filter: {
                                 type: 'before',
                                 date: [
                                     '2016-03-03T04:40:40'
                                 ]
-                            }]
+                            }
                         }]
-                });
+                })
+                ;
                 done();
             });
 
@@ -260,15 +269,16 @@ describe('<Unit Test>', function () {
                                 type: 'not',
                                 code: 'TEST'
                             },
-                            filters: [{
+                            occurence_filter: {
                                 type: 'less',
                                 number: 3
-                            }, {
+                            },
+                            period_filter: {
                                 type: 'before',
                                 date: [
                                     '2016-03-03T04:40:40'
                                 ]
-                            }]
+                            }
                         }]
                 });
                 done();

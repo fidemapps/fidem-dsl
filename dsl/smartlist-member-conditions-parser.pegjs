@@ -169,37 +169,27 @@ conditionList
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S* sub:"did" S* conditions:did_rule S* filters: member_filter_condition
+    = scope:"member" S* sub:"did" S* conditions:did_rule S* occurence:occurence_filter? S* period:period_filter?
     {
         return {
             scope:scope,
             sub_scope:sub,
             condition:conditions,
-            filters:filters
+            occurence_filter:occurence,
+            period_filter:period
         };
     }
-    /scope:"member" S* sub:"has" S* conditions:has_rule S* filters:member_filter_condition
+    /scope:"member" S* sub:"has" S* conditions:has_rule S* occurence:occurence_filter? S* period:period_filter?
       {
           return {
               scope:scope,
               sub_scope:sub,
               condition:conditions,
-              filters:filters
+              occurence_filter:occurence,
+              period_filter:period
           };
       }
 
-member_filter_condition
-    = filter1:occurence_filter? S* filter2:period_filter?
-    {
-        var filter =[];
-        if(filter1){
-            filter.push(filter1);
-        }
-        if(filter2){
-            filter.push(filter2);
-        }
-        return filter;
-    }
 
 
 member_action_condition
