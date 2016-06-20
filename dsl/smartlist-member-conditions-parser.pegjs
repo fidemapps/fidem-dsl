@@ -327,7 +327,7 @@ attribute_operator_value
     {
          return {
              operator: operator,
-             attribute: attributeName,
+             name: attributeName,
              value: value
          };
     }

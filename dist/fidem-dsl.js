@@ -17645,7 +17645,7 @@ module.exports = (function() {
         peg$c99 = function(attributeName, operator, value) {
                  return {
                      operator: operator,
-                     attribute: attributeName,
+                     name: attributeName,
                      value: value
                  };
             },

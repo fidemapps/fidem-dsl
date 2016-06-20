@@ -53,12 +53,12 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         operator: '<',
-                                        attribute: 'jean',
+                                        name: 'jean',
                                         value: 2
                                     },
                                     {
                                         operator: '=',
-                                        attribute: 'bob',
+                                        name: 'bob',
                                         value: 3
                                     }
                                 ]
@@ -85,7 +85,7 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         operator: '<',
-                                        attribute: 'jean',
+                                        name: 'jean',
                                         value: 2
                                     }
                                 ]
@@ -115,7 +115,7 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         operator: '<',
-                                        attribute: 'jean',
+                                        name: 'jean',
                                         value: 2
                                     }
                                 ]
@@ -147,7 +147,7 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         operator: '<',
-                                        attribute: 'jean',
+                                        name: 'jean',
                                         value: "thomas"
                                     }
                                 ]
