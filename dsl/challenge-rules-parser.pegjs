@@ -289,14 +289,14 @@ period_filter
             date:[date]
         }
     }
-    /type:"after" S* date:DATE_TIME
+    /type:"after" S* date:DATE_TIME_STRING
     {
         return {
             type:type,
             date:[date]
         }
     }
-    /type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
+    /type:"between" S* start:DATE_TIME_STRING S* "and" S* end:DATE_TIME_STRING
     {
         return {
             type:type,

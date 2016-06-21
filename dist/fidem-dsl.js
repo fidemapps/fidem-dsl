@@ -8471,7 +8471,7 @@ module.exports = (function() {
             s3 = peg$parseS();
           }
           if (s2 !== peg$FAILED) {
-            s3 = peg$parseDATE_TIME();
+            s3 = peg$parseDATE_TIME_STRING();
             if (s3 !== peg$FAILED) {
               peg$savedPos = s0;
               s1 = peg$c71(s1, s3);
@@ -8505,7 +8505,7 @@ module.exports = (function() {
               s3 = peg$parseS();
             }
             if (s2 !== peg$FAILED) {
-              s3 = peg$parseDATE_TIME();
+              s3 = peg$parseDATE_TIME_STRING();
               if (s3 !== peg$FAILED) {
                 s4 = [];
                 s5 = peg$parseS();
@@ -8529,7 +8529,7 @@ module.exports = (function() {
                       s7 = peg$parseS();
                     }
                     if (s6 !== peg$FAILED) {
-                      s7 = peg$parseDATE_TIME();
+                      s7 = peg$parseDATE_TIME_STRING();
                       if (s7 !== peg$FAILED) {
                         peg$savedPos = s0;
                         s1 = peg$c76(s1, s3, s7);
