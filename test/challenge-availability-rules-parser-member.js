@@ -20,25 +20,25 @@ describe('<Unit Test>', function () {
 
         describe('did', function () {
 
-            it('member did nothing',function(done){
+            it('member did nothing', function (done) {
 
                 var rule = parser.parse('member did nothing');
                 should(rule).eql([
                     {
                         scope: 'member',
-                        type:'did',
+                        type: 'did',
                         condition: {
-                            type:'nothing'
+                            type: 'nothing'
                         },
-                        filters: [
-                        ]
+                        occurence_filter: null,
+                        period_filter: null
 
                     }
                 ]);
                 done();
             });
 
-            it('member did not TEST with jean < 2, bob = 3',function(done){
+            it('member did not TEST with jean < 2, bob = 3', function (done) {
 
                 var rule = parser.parse('member did not TEST with jean < 2, bob = 3');
                 should(rule).eql([
@@ -61,13 +61,14 @@ describe('<Unit Test>', function () {
                                 }
                             ]
                         },
-                        filters: []
+                        occurence_filter: null,
+                        period_filter: null
                     }
                 ]);
                 done();
             });
 
-            it('member did not TEST with jean < 2 less than 3 times',function(done){
+            it('member did not TEST with jean < 2 less than 3 times', function (done) {
 
                 var rule = parser.parse('member did not TEST with jean < 2 less than 3 times');
                 should(rule).eql([
@@ -85,16 +86,17 @@ describe('<Unit Test>', function () {
                                 }
                             ]
                         },
-                        filters: [{
+                        occurence_filter: {
                             type: 'less',
                             number: 3
-                        }]
+                        },
+                        period_filter: null
                     }
                 ]);
                 done();
             });
 
-            it('member did not TEST with jean < 2 before 2016-03-03T04:40:40',function(done){
+            it('member did not TEST with jean < 2 before 2016-03-03T04:40:40', function (done) {
 
                 var rule = parser.parse('member did not TEST with jean < 2 before 2016-03-03T04:40:40');
                 should(rule).eql([
@@ -112,18 +114,19 @@ describe('<Unit Test>', function () {
                                 }
                             ]
                         },
-                        filters: [{
+                        occurence_filter: null,
+                        period_filter: {
                             type: 'before',
                             date: [
-                                new Date(2016,2,3,4,40,40)
+                                '2016-03-03T04:40:40'
                             ]
-                        }]
+                        }
                     }
                 ]);
                 done();
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 times before 2016-03-03T04:40:40',function(done){
+            it('member did not TEST with jean < "thomas" less than 3 times before 2016-03-03T04:40:40', function (done) {
 
                 var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times before 2016-03-03T04:40:40');
                 should(rule).eql([
@@ -141,15 +144,16 @@ describe('<Unit Test>', function () {
                                 }
                             ]
                         },
-                        filters: [{
+                        occurence_filter: {
                             type: 'less',
                             number: 3
-                        },{
+                        },
+                        period_filter:{
                             type: 'before',
                             date: [
-                                new Date(2016,2,3,4,40,40)
+                                '2016-03-03T04:40:40'
                             ]
-                        }]
+                        }
                     }
                 ]);
                 done();
@@ -170,7 +174,8 @@ describe('<Unit Test>', function () {
                             type: null,
                             code: 'TEST'
                         },
-                        filters: []
+                        occurence_filter: null,
+                        period_filter: null
 
                     }]
                 );
@@ -187,7 +192,8 @@ describe('<Unit Test>', function () {
                         type: 'not',
                         code: 'TEST'
                     },
-                    filters: []
+                    occurence_filter: null,
+                    period_filter: null
 
                 }]);
                 done();
@@ -203,10 +209,11 @@ describe('<Unit Test>', function () {
                         type: 'not',
                         code: 'TEST'
                     },
-                    filters: [{
+                    occurence_filter: {
                         type: 'less',
                         number: 3
-                    }]
+                    },
+                    period_filter: null
                 }]);
                 done();
             });
@@ -222,12 +229,13 @@ describe('<Unit Test>', function () {
                             type: 'not',
                             code: 'TEST'
                         },
-                        filters: [{
+                        occurence_filter: null,
+                        period_filter: {
                             type: 'before',
                             date: [
-                                new Date(2016, 2, 3, 4, 40, 40)
+                                '2016-03-03T04:40:40'
                             ]
-                        }]
+                        }
                     }]);
                 done();
             });
@@ -243,15 +251,16 @@ describe('<Unit Test>', function () {
                             type: 'not',
                             code: 'TEST'
                         },
-                        filters: [{
+                        occurence_filter: {
                             type: 'less',
                             number: 3
-                        }, {
+                        },
+                        period_filter: {
                             type: 'before',
                             date: [
-                                new Date(2016, 2, 3, 4, 40, 40)
+                                '2016-03-03T04:40:40'
                             ]
-                        }]
+                        }
                     }]);
                 done();
             });

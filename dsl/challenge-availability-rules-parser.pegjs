@@ -120,37 +120,26 @@ simple_rule
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S* type:"did" S* conditions:did_rule S* filters: member_filter_condition
+    = scope:"member" S* type:"did" S* conditions:did_rule S* filter1:occurence_filter? S* filter2:period_filter?
     {
         return {
             scope:scope,
             type:type,
             condition:conditions,
-            filters:filters
+            occurence_filter:filter1,
+            period_filter:filter2
         };
     }
-    /scope:"member" S* type:"has" S* conditions:has_rule S* filters:member_filter_condition
+    /scope:"member" S* type:"has" S* conditions:has_rule S* filter1:occurence_filter? S* filter2:period_filter?
       {
           return {
               scope:scope,
               type:type,
               condition:conditions,
-              filters:filters
+              occurence_filter:filter1,
+              period_filter:filter2
           };
       }
-
-member_filter_condition
-    = filter1:occurence_filter? S* filter2:period_filter?
-    {
-        var filter =[];
-        if(filter1){
-            filter.push(filter1);
-        }
-        if(filter2){
-            filter.push(filter2);
-        }
-        return filter;
-    }
 
 
 member_action_condition
@@ -232,21 +221,21 @@ occurence_filter
 /*PERIOD_FILTER*/
 
 period_filter
-    = type:"before" S* date:DATE_TIME
+    = type:"before" S* date:DATE_TIME_STRING
     {
         return {
             type:type,
             date:[date]
         }
     }
-    /type:"after" S* date:DATE_TIME
+    /type:"after" S* date:DATE_TIME_STRING
     {
         return {
             type:type,
             date:[date]
         }
     }
-    /type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
+    /type:"between" S* start:DATE_TIME_STRING S* "and" S* end:DATE_TIME_STRING
     {
         return {
             type:type,
@@ -500,6 +489,12 @@ DATE "date"
     = year:date_full_year "-" month:date_month "-" day:date_day
     {
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    }
+
+DATE_TIME_STRING "datetime"
+    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
+    {
+        return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
     }
 
 DATE_TIME "datetime"

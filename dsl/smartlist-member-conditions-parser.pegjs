@@ -174,7 +174,7 @@ member_condition
         return {
             scope:scope,
             sub_scope:sub,
-            conditions:conditions,
+            condition:conditions,
             occurence_filter:occurence,
             period_filter:period
         };
@@ -184,7 +184,7 @@ member_condition
           return {
               scope:scope,
               sub_scope:sub,
-              conditions:conditions,
+              condition:conditions,
               occurence_filter:occurence,
               period_filter:period
           };
