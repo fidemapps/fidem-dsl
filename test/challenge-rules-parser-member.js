@@ -128,7 +128,7 @@ describe('<Unit Test>', function () {
                         period_filter: {
                             type: 'before',
                             date: [
-                                new Date(2016, 2, 3, 4, 40, 40)
+                                '2016-03-03T04:40:40'
                             ]
                         }
                     }],
@@ -164,7 +164,7 @@ describe('<Unit Test>', function () {
                         period_filter: {
                             type: 'before',
                             date: [
-                                new Date(2016, 2, 3, 4, 40, 40)
+                                '2016-03-03T04:40:40'
                             ]
                         }
                     }],
@@ -262,7 +262,7 @@ describe('<Unit Test>', function () {
                         period_filter: {
                             type: 'before',
                             date: [
-                                new Date(2016, 2, 3, 4, 40, 40)
+                                '2016-03-03T04:40:40'
                             ]
                         }
                     }],
@@ -291,7 +291,7 @@ describe('<Unit Test>', function () {
                         period_filter:{
                             type: 'before',
                             date: [
-                                new Date(2016, 2, 3, 4, 40, 40)
+                                '2016-03-03T04:40:40'
                             ]
                         }
                     }],

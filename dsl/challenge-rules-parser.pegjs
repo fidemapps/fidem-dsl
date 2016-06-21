@@ -282,7 +282,7 @@ occurence_filter
 /*PERIOD_FILTER*/
 
 period_filter
-    = type:"before" S* date:DATE_TIME
+    = type:"before" S* date:DATE_TIME_STRING
     {
         return {
             type:type,
@@ -680,6 +680,12 @@ DATE_TIME "datetime"
     = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
     {
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
+    }
+
+DATE_TIME_STRING "datetime"
+    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
+    {
+        return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
     }
 
 WEEK_DAY
