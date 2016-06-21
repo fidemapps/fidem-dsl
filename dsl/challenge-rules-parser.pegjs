@@ -180,37 +180,27 @@ simple_reward
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S* type:"did" S* conditions:did_rule S* filters: member_filter_condition
+    = scope:"member" S* type:"did" S* conditions:did_rule S* filter1:occurence_filter? S* filter2:period_filter?
     {
         return {
             scope:scope,
             type:type,
             condition:conditions,
-            filters:filters
+            occurence_filter:filter1,
+            period_filter:filter2
         };
     }
-    /scope:"member" S* type:"has" S* conditions:has_rule S* filters:member_filter_condition
+    /scope:"member" S* type:"has" S* conditions:has_rule S* filter1:occurence_filter? S* filter2:period_filter?
       {
           return {
               scope:scope,
               type:type,
               condition:conditions,
-              filters:filters
+              occurence_filter:filter1,
+              period_filter:filter2
           };
       }
 
-member_filter_condition
-    = filter1:occurence_filter? S* filter2:period_filter?
-    {
-        var filter =[];
-        if(filter1){
-            filter.push(filter1);
-        }
-        if(filter2){
-            filter.push(filter2);
-        }
-        return filter;
-    }
 
 
 member_action_condition
