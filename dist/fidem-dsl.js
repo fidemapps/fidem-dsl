@@ -5858,7 +5858,7 @@ module.exports = (function() {
                 return {
                     scope:scope,
                     type:type,
-                    conditions:conditions,
+                    condition:conditions,
                     occurence_filter:filter1,
                     period_filter:filter2
                 };
@@ -5869,7 +5869,7 @@ module.exports = (function() {
                   return {
                       scope:scope,
                       type:type,
-                      conditions:conditions,
+                      condition:conditions,
                       occurence_filter:filter1,
                       period_filter:filter2
                   };
