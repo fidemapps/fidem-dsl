@@ -28,7 +28,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             sub_scope: 'did',
-                            condition: {
+                            conditions: {
                                 type: 'nothing'
                             },
                             occurence_filter: null,
@@ -47,7 +47,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             sub_scope: 'did',
-                            condition: {
+                            conditions: {
                                 type: 'not',
                                 code: 'TEST',
                                 conditions: [
@@ -79,7 +79,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             sub_scope: 'did',
-                            condition: {
+                            conditions: {
                                 type: 'not',
                                 code: 'TEST',
                                 conditions: [
@@ -109,7 +109,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             sub_scope: 'did',
-                            condition: {
+                            conditions: {
                                 type: 'not',
                                 code: 'TEST',
                                 conditions: [
@@ -141,7 +141,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             sub_scope: 'did',
-                            condition: {
+                            conditions: {
                                 type: 'not',
                                 code: 'TEST',
                                 conditions: [
@@ -180,7 +180,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             sub_scope: 'has',
-                            condition: {
+                            conditions: {
                                 type: null,
                                 code: 'TEST'
                             },
@@ -199,7 +199,7 @@ describe('<Unit Test>', function () {
                     conditions: [{
                         scope: 'member',
                         sub_scope: 'has',
-                        condition: {
+                        conditions: {
                             type: 'not',
                             code: 'TEST'
                         },
@@ -218,7 +218,7 @@ describe('<Unit Test>', function () {
                     conditions: [{
                         scope: 'member',
                         sub_scope: 'has',
-                        condition: {
+                        conditions: {
                             type: 'not',
                             code: 'TEST'
                         },
@@ -240,7 +240,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             sub_scope: 'has',
-                            condition: {
+                            conditions: {
                                 type: 'not',
                                 code: 'TEST'
                             },
@@ -265,7 +265,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             sub_scope: 'has',
-                            condition: {
+                            conditions: {
                                 type: 'not',
                                 code: 'TEST'
                             },

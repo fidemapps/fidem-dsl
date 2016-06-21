@@ -7,7 +7,7 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-    describe('Availability Member Conditions Rules:', function () {
+    describe('Availability Member conditions Rules:', function () {
         beforeEach(function (done) {
             fs.readFile(__dirname + '/../dsl/challenge-availability-rules-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
