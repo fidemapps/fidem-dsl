@@ -198,8 +198,8 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(3);
-                        should(literalChoices).eql(['completed','not']);
+                        should(error.expected.length).equal(5);
+                        should(literalChoices).eql(['completed','gained','loss','not']);
                         should(otherChoices).eql([ 'whitespace']);
                     }
                 });
@@ -211,8 +211,8 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(2);
-                        should(literalChoices).eql(['completed']);
+                        should(error.expected.length).equal(4);
+                        should(literalChoices).eql(['completed','gained','loss',]);
                         should(otherChoices).eql([ 'whitespace']);
                     }
                 });
@@ -237,6 +237,80 @@ describe('<Unit Test>', function () {
 
                         should(error.expected.length).equal(10);
                         should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'give', 'in', 'less']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member has not gained',function(){
+                    try {
+                        parser.parse('member has not gained');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(4);
+                        should(literalChoices).eql(['tag','tags']);
+                        should(otherChoices).eql([ 'number','whitespace']);
+                    }
+                });
+
+                it('member has not loss',function(){
+                    try {
+                        parser.parse('member has not loss');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(4);
+                        should(literalChoices).eql(['tag','tags']);
+                        should(otherChoices).eql(['number', 'whitespace']);
+                    }
+                });
+
+                it('member has not gained 3',function(){
+                    try {
+                        parser.parse('member has not gained 3');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['tag','tags']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member has not loss tag',function(){
+                    try {
+                        parser.parse('member has not loss tag');
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['tagCode', 'whitespace']);
+                    }
+                });
+
+                it('member has not gained 3 tags',function(){
+                    try {
+                        parser.parse('member has not gained 3 tags');
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['tagCode','whitespace']);
+                    }
+                });
+
+                it('member has not loss tag bob',function(){
+                    try {
+                        parser.parse('member has not loss tag bob x');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(10);
+                        should(literalChoices).eql(['after','and','at','before','between','exactly','give','in','less']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });

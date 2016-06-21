@@ -229,19 +229,39 @@ did_rule
     }
 
 has_rule
-    = type:"not" S* "completed" S* challengeCode:challengeCode
+    = type:"not" S* subType:"completed" S* challengeCode:challengeCode
     {
         return {
             type:type,
+            sub_type:subType,
             code:challengeCode
         }
-    }/ "completed" S* challengeCode:challengeCode
+    }/ subType:"completed" S* challengeCode:challengeCode
      {
          return {
              type:null,
+             sub_type:subType,
              code:challengeCode
          }
      }
+    /type:"not" S* subType:("gained"/"loss") S* number:NUMBER? S* ("tags"/"tag") S* tagCode:tagCode
+    {
+        return {
+            type:type,
+            sub_type:subType,
+            number:number,
+            tagCode:tagCode
+        }
+    }
+    /subType:("gained"/"loss") S* number:NUMBER? S* ("tags"/"tag") S* tagCode:tagCode
+    {
+        return {
+            type:null,
+            sub_type:subType,
+            number:number,
+            tagCode:tagCode
+        }
+    }
 
 /*OCCURENCE FILTER*/
 
