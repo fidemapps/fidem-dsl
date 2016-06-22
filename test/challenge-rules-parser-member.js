@@ -419,38 +419,7 @@ describe('<Unit Test>', function () {
                     );
                     done();
                 });
-
-                it('member has gained tag bob exactly 3 times give 1 points', function (done) {
-                    var rule = parser.parse('member has gained tag bob exactly 3 times give 1 points');
-                    should(rule).eql({
-                            rules: [
-                                {
-                                    scope: 'member',
-                                    type: 'has',
-                                    condition: {
-                                        number: null,
-                                        type: null,
-                                        sub_type: 'gained',
-                                        tagCode: {
-                                            tagClusterCode: null,
-                                            tagCode: 'bob'
-                                        }
-                                    },
-                                    occurence_filter: {
-                                        type: 'exactly',
-                                        number: 3
-                                    },
-                                    period_filter: null
-
-                                }],
-                            rewards: [
-                                {quantity: 1, code: 'points'}
-                            ]
-                        }
-                    );
-                    done();
-                });
-
+                
                 it('member has gained tag bob in last 3 days give 1 points', function (done) {
                     var rule = parser.parse('member has gained tag bob in last 3 days give 1 points');
                     should(rule).eql({
@@ -482,42 +451,7 @@ describe('<Unit Test>', function () {
                     );
                     done();
                 });
-
-                it('member has gained tag bob exactly 3 times in last 3 days give 1 points', function (done) {
-                    var rule = parser.parse('member has gained tag bob exactly 3 times in last 3 days give 1 points');
-                    should(rule).eql({
-                            rules: [
-                                {
-                                    scope: 'member',
-                                    type: 'has',
-                                    condition: {
-                                        number: null,
-                                        type: null,
-                                        sub_type: 'gained',
-                                        tagCode: {
-                                            tagClusterCode: null,
-                                            tagCode: 'bob'
-                                        }
-                                    },
-                                    occurence_filter: {
-                                        type: 'exactly',
-                                        number: 3
-                                    },
-                                    period_filter: {
-                                        type: 'last',
-                                        duration: 3,
-                                        durationScope: 'day'
-                                    }
-
-                                }],
-                            rewards: [
-                                {quantity: 1, code: 'points'}
-                            ]
-                        }
-                    );
-                    done();
-                });
-
+                
             })
         });
 

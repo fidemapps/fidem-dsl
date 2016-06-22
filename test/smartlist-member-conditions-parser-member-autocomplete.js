@@ -223,7 +223,7 @@ describe('<Unit Test>', function () {
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(10);
-                        should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'in', 'less']);
+                        should(literalChoices).eql(['after', 'and', 'at','before', 'between', 'exactly', 'in','less']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
@@ -235,8 +235,8 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(4);
-                        should(literalChoices).eql(['tag','tags']);
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['tag']);
                         should(otherChoices).eql([ 'number','whitespace']);
                     }
                 });
@@ -248,8 +248,8 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(4);
-                        should(literalChoices).eql(['tag','tags']);
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['tag']);
                         should(otherChoices).eql(['number', 'whitespace']);
                     }
                 });
@@ -261,8 +261,8 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(3);
-                        should(literalChoices).eql(['tag','tags']);
+                        should(error.expected.length).equal(2);
+                        should(literalChoices).eql(['tag']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
@@ -278,9 +278,9 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member has not gained 3 tags',function(){
+                it('member has not gained 3 tag',function(){
                     try {
-                        parser.parse('member has not gained 3 tags');
+                        parser.parse('member has not gained 3 tag');
                     } catch (error) {
                         otherChoices = helper.extractOthers(error);
 
@@ -296,8 +296,8 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(10);
-                        should(literalChoices).eql(['after','and','at','before','between','exactly','in','less']);
+                        should(error.expected.length).equal(7);
+                        should(literalChoices).eql(['after','and','before','between','in']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });

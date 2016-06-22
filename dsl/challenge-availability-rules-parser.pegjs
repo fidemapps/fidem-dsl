@@ -130,7 +130,7 @@ member_condition
             period_filter:filter2
         };
     }
-    /scope:"member" S* type:"has" S* conditions:has_rule S* filter1:occurence_filter? S* filter2:period_filter?
+    /scope:"member" S* type:"has" S* conditions:has_rule_all_filter S* filter1:occurence_filter? S* filter2:period_filter?
       {
           return {
               scope:scope,
@@ -140,6 +140,16 @@ member_condition
               period_filter:filter2
           };
       }
+    /scope:"member" S* type:"has" S* conditions:has_rule S* filter2:period_filter?
+        {
+           return {
+               scope:scope,
+               type:type,
+               condition:conditions,
+               occurence_filter:null,
+               period_filter:filter2
+           };
+        }
 
 
 member_action_condition
@@ -179,6 +189,26 @@ did_rule
     }
 
 has_rule
+    =type:"not" S* subType:("gained"/"lost") S* number:NUMBER? S* ("tag") S* tagCode:tagCode
+    {
+        return {
+            type:type,
+            sub_type:subType,
+            number:number,
+            tagCode:tagCode
+        }
+    }
+    /subType:("gained"/"lost") S* number:NUMBER? S* ("tag") S* tagCode:tagCode
+    {
+        return {
+            type:null,
+            sub_type:subType,
+            number:number,
+            tagCode:tagCode
+        }
+    }
+
+has_rule_all_filter
     = type:"not" S* subType:"completed" S* challengeCode:challengeCode
     {
         return {
@@ -194,24 +224,7 @@ has_rule
              code:challengeCode
          }
      }
-    /type:"not" S* subType:("gained"/"lost") S* number:NUMBER? S* ("tags"/"tag") S* tagCode:tagCode
-    {
-        return {
-            type:type,
-            sub_type:subType,
-            number:number,
-            tagCode:tagCode
-        }
-    }
-    /subType:("gained"/"lost") S* number:NUMBER? S* ("tags"/"tag") S* tagCode:tagCode
-    {
-        return {
-            type:null,
-            sub_type:subType,
-            number:number,
-            tagCode:tagCode
-        }
-    }
+
 
 
 /*OCCURENCE FILTER*/
