@@ -255,7 +255,7 @@ has_rule
              code:challengeCode
          }
      }
-    /type:"not" S* subType:("gained"/"loss") S* number:NUMBER? S* ("tags"/"tag") S* tagCode:tagCode
+    /type:"not" S* subType:("gained"/"lost") S* number:NUMBER? S* ("tags"/"tag") S* tagCode:tagCode
     {
         return {
             type:type,
@@ -264,7 +264,7 @@ has_rule
             tagCode:tagCode
         }
     }
-    /subType:("gained"/"loss") S* number:NUMBER? S* ("tags"/"tag") S* tagCode:tagCode
+    /subType:("gained"/"lost") S* number:NUMBER? S* ("tags"/"tag") S* tagCode:tagCode
     {
         return {
             type:null,

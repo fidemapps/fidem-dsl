@@ -199,7 +199,7 @@ describe('<Unit Test>', function () {
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(5);
-                        should(literalChoices).eql(['completed','gained','loss','not']);
+                        should(literalChoices).eql(['completed','gained','lost','not']);
                         should(otherChoices).eql([ 'whitespace']);
                     }
                 });
@@ -212,7 +212,7 @@ describe('<Unit Test>', function () {
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(4);
-                        should(literalChoices).eql(['completed','gained','loss',]);
+                        should(literalChoices).eql(['completed','gained','lost',]);
                         should(otherChoices).eql([ 'whitespace']);
                     }
                 });
@@ -254,9 +254,9 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member has not loss',function(){
+                it('member has not lost',function(){
                     try {
-                        parser.parse('member has not loss');
+                        parser.parse('member has not lost');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
@@ -280,9 +280,9 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member has not loss tag',function(){
+                it('member has not lost tag',function(){
                     try {
-                        parser.parse('member has not loss tag');
+                        parser.parse('member has not lost tag');
                     } catch (error) {
                         otherChoices = helper.extractOthers(error);
 
@@ -302,9 +302,9 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member has not loss tag bob',function(){
+                it('member has not lost tag bob',function(){
                     try {
-                        parser.parse('member has not loss tag bob x');
+                        parser.parse('member has not lost tag bob x');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);

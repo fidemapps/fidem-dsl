@@ -229,8 +229,8 @@ module.exports = (function() {
              },
         peg$c64 = "gained",
         peg$c65 = { type: "literal", value: "gained", description: "\"gained\"" },
-        peg$c66 = "loss",
-        peg$c67 = { type: "literal", value: "loss", description: "\"loss\"" },
+        peg$c66 = "lost",
+        peg$c67 = { type: "literal", value: "lost", description: "\"lost\"" },
         peg$c68 = "tags",
         peg$c69 = { type: "literal", value: "tags", description: "\"tags\"" },
         peg$c70 = function(type, subType, number, tagCode) {
@@ -6280,8 +6280,8 @@ module.exports = (function() {
              },
         peg$c53 = "gained",
         peg$c54 = { type: "literal", value: "gained", description: "\"gained\"" },
-        peg$c55 = "loss",
-        peg$c56 = { type: "literal", value: "loss", description: "\"loss\"" },
+        peg$c55 = "lost",
+        peg$c56 = { type: "literal", value: "lost", description: "\"lost\"" },
         peg$c57 = "tags",
         peg$c58 = { type: "literal", value: "tags", description: "\"tags\"" },
         peg$c59 = function(type, subType, number, tagCode) {
@@ -18288,8 +18288,8 @@ module.exports = (function() {
              },
         peg$c72 = "gained",
         peg$c73 = { type: "literal", value: "gained", description: "\"gained\"" },
-        peg$c74 = "loss",
-        peg$c75 = { type: "literal", value: "loss", description: "\"loss\"" },
+        peg$c74 = "lost",
+        peg$c75 = { type: "literal", value: "lost", description: "\"lost\"" },
         peg$c76 = "tags",
         peg$c77 = { type: "literal", value: "tags", description: "\"tags\"" },
         peg$c78 = function(type, subType, number, tagCode) {

@@ -293,7 +293,7 @@ describe('<Unit Test>', function () {
 
             });
 
-            describe('gained/loss',function(){
+            describe('gained/lost',function(){
 
                 it('member has gained tag bob',function(done){
                     var rule = parser.parse('member has gained tag bob');
@@ -320,8 +320,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has loss 3 tag bob',function(done){
-                    var rule = parser.parse('member has loss 3 tag bob');
+                it('member has lost 3 tag bob',function(done){
+                    var rule = parser.parse('member has lost 3 tag bob');
                     should(rule).eql({
                         conditions: [
                             {
@@ -330,7 +330,7 @@ describe('<Unit Test>', function () {
                                 condition: {
                                     number:3,
                                     type: null,
-                                    sub_type:'loss',
+                                    sub_type:'lost',
                                     tagCode: {
                                         tagClusterCode:null,
                                         tagCode : 'bob'
@@ -370,8 +370,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has not loss tag bob',function(done){
-                    var rule = parser.parse('member has not loss tag bob');
+                it('member has not lost tag bob',function(done){
+                    var rule = parser.parse('member has not lost tag bob');
                     should(rule).eql({
                         conditions: [
                             {
@@ -380,7 +380,7 @@ describe('<Unit Test>', function () {
                                 condition: {
                                     number:null,
                                     type: 'not',
-                                    sub_type:'loss',
+                                    sub_type:'lost',
                                     tagCode: {
                                         tagClusterCode:null,
                                         tagCode : 'bob'
