@@ -235,8 +235,8 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(6);
-                        should(literalChoices).eql(['level','points','prize','tag']);
+                        should(error.expected.length).equal(5);
+                        should(literalChoices).eql(['points','prize','tag']);
                         should(otherChoices).eql([ 'number','whitespace']);
                     }
                 });
@@ -248,8 +248,8 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(6);
-                        should(literalChoices).eql(['level','points','prize','tag']);
+                        should(error.expected.length).equal(5);
+                        should(literalChoices).eql(['points','prize','tag']);
                         should(otherChoices).eql(['number', 'whitespace']);
                     }
                 });
@@ -261,8 +261,8 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(5);
-                        should(literalChoices).eql(['level','points','prize','tag']);
+                        should(error.expected.length).equal(4);
+                        should(literalChoices).eql(['points','prize','tag']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });

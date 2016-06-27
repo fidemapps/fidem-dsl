@@ -216,13 +216,6 @@ object_rule
             tagCode:tagCode
         }
     }
-    /"level" S* levelCode:levelCode
-    {
-        return {
-            type:"level",
-            levelCode:levelCode
-        }
-    }
     /"points" S* levelCode:levelCode
     {
         return {
