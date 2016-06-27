@@ -130,7 +130,7 @@ member_condition
             period_filter:filter2
         };
     }
-    /scope:"member" S* type:"has" S* conditions:has_rule_all_filter S* filter1:occurence_filter? S* filter2:period_filter?
+    /scope:"member" S* type:"has" S* conditions:has_rule_completed S* filter1:occurence_filter? S* filter2:period_filter?
       {
           return {
               scope:scope,
@@ -140,7 +140,7 @@ member_condition
               period_filter:filter2
           };
       }
-    /scope:"member" S* type:"has" S* conditions:has_rule S* filter2:period_filter?
+    /scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* filter2:period_filter?
         {
            return {
                scope:scope,
@@ -188,7 +188,7 @@ did_rule
         }
     }
 
-has_rule
+has_rule_gained_lost
     =type:"not" S* subType:("gained"/"lost") S* number:NUMBER? S* ("tag") S* tagCode:tagCode
     {
         return {
@@ -208,7 +208,7 @@ has_rule
         }
     }
 
-has_rule_all_filter
+has_rule_completed
     = type:"not" S* subType:"completed" S* challengeCode:challengeCode
     {
         return {
