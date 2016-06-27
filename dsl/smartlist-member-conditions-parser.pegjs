@@ -256,22 +256,52 @@ has_rule_completed
      }
 
 has_rule_gained_lost
-    =type:"not" S* subType:("gained"/"lost") S* number:NUMBER? S* ("tag") S* tagCode:tagCode
+    =type:"not" S* subType:("gained"/"lost") S* number:NUMBER? S* object:object_rule
     {
         return {
             type:type,
             sub_type:subType,
             number:number,
-            tagCode:tagCode
+            object:object
         }
     }
-    /subType:("gained"/"lost") S* number:NUMBER? S* ("tag") S* tagCode:tagCode
+    /subType:("gained"/"lost") S* number:NUMBER? S* object:object_rule
     {
         return {
             type:null,
             sub_type:subType,
             number:number,
+            object:object
+        }
+    }
+
+object_rule
+    ="tag" S* tagCode:tagCode
+    {
+        return {
+            type:"tag",
             tagCode:tagCode
+        }
+    }
+    /"level" S* levelCode:levelCode
+    {
+        return {
+            type:"level",
+            levelCode:levelCode
+        }
+    }
+    /"points" S* levelCode:levelCode
+    {
+        return {
+            type:"points",
+            levelCode:levelCode
+        }
+    }
+    /"prize" S* prizeCode:prizeCode
+    {
+        return {
+            type:"prize",
+            prizeCode:prizeCode
         }
     }
 
@@ -421,6 +451,9 @@ challengeCode "challengeCode"
     = code
 
 actionCode "actionCode"
+    = code
+
+prizeCode "prizeCode"
     = code
 
 levelCode "levelCode"

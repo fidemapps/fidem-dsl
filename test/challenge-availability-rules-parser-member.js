@@ -274,126 +274,508 @@ describe('<Unit Test>', function () {
             });
 
             describe('gained/lost',function(){
+                describe('tag',function(){
 
-                it('member has gained tag bob',function(done){
-                    var rule = parser.parse('member has gained tag bob');
-                    should(rule).eql([
-                        {
-                            scope: 'member',
-                            type: 'has',
-                            condition: {
-                                number:null,
-                                type: null,
-                                sub_type:'gained',
-                                tagCode: {
-                                    tagClusterCode:null,
-                                    tagCode : 'bob'
+                    it('member has gained tag bob',function(done){
+                        var rule = parser.parse('member has gained tag bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: null,
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'tag',
+                                        tagCode: {
+                                            tagClusterCode:null,
+                                            tagCode : 'bob'
+                                        }
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has lost 3 tag bob',function(done){
+                        var rule = parser.parse('member has lost 3 tag bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:3,
+                                    type: null,
+                                    sub_type:'lost',
+                                    object:{
+                                        type:'tag',
+                                        tagCode: {
+                                            tagClusterCode:null,
+                                            tagCode : 'bob'
+                                        }
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has not gained 3 tag bob',function(done){
+                        var rule = parser.parse('member has not gained 3 tag bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:3,
+                                    type: 'not',
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'tag',
+                                        tagCode: {
+                                            tagClusterCode:null,
+                                            tagCode : 'bob'
+                                        }
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has not lost tag bob',function(done){
+                        var rule = parser.parse('member has not lost tag bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: 'not',
+                                    sub_type:'lost',
+                                    object:{
+                                        type:'tag',
+                                        tagCode: {
+                                            tagClusterCode:null,
+                                            tagCode : 'bob'
+                                        }
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has gained tag bob in last 3 days',function(done){
+                        var rule = parser.parse('member has gained tag bob in last 3 days');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: null,
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'tag',
+                                        tagCode: {
+                                            tagClusterCode:null,
+                                            tagCode : 'bob'
+                                        }
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: {
+                                    type:'last',
+                                    duration:3,
+                                    durationScope:'day'
                                 }
-                            },
-                            occurence_filter: null,
-                            period_filter: null
 
-                        }]
-                    );
-                    done();
+                            }]
+                        );
+                        done();
+                    });
+
                 });
 
-                it('member has lost 3 tag bob',function(done){
-                    var rule = parser.parse('member has lost 3 tag bob');
-                    should(rule).eql([
-                        {
-                            scope: 'member',
-                            type: 'has',
-                            condition: {
-                                number:3,
-                                type: null,
-                                sub_type:'lost',
-                                tagCode: {
-                                    tagClusterCode:null,
-                                    tagCode : 'bob'
-                                }
-                            },
-                            occurence_filter: null,
-                            period_filter: null
+                describe('points',function(){
+                    
+                    it('member has gained points bob',function(done){
+                        var rule = parser.parse('member has gained points bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: null,
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'points',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
 
-                        }]
-                    );
-                    done();
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has lost 3 points bob',function(done){
+                        var rule = parser.parse('member has lost 3 points bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:3,
+                                    type: null,
+                                    sub_type:'lost',
+                                    object:{
+                                        type:'points',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has not gained 3 points bob',function(done){
+                        var rule = parser.parse('member has not gained 3 points bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:3,
+                                    type: 'not',
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'points',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has not lost points bob',function(done){
+                        var rule = parser.parse('member has not lost points bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: 'not',
+                                    sub_type:'lost',
+                                    object:{
+                                        type:'points',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob in last 3 days',function(done){
+                        var rule = parser.parse('member has gained points bob in last 3 days');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: null,
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'points',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: {
+                                    type:'last',
+                                    duration:3,
+                                    durationScope:'day'
+                                }
+
+                            }]
+                        );
+                        done();
+                    });
                 });
 
-                it('member has not gained 3 tag bob',function(done){
-                    var rule = parser.parse('member has not gained 3 tag bob');
-                    should(rule).eql([
-                        {
-                            scope: 'member',
-                            type: 'has',
-                            condition: {
-                                number:3,
-                                type: 'not',
-                                sub_type:'gained',
-                                tagCode: {
-                                    tagClusterCode:null,
-                                    tagCode : 'bob'
-                                }
-                            },
-                            occurence_filter: null,
-                            period_filter: null
+                describe('level',function(){
+                    it('member has gained level bob',function(done){
+                        var rule = parser.parse('member has gained level bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: null,
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'level',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
 
-                        }]
-                    );
-                    done();
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has lost 3 level bob',function(done){
+                        var rule = parser.parse('member has lost 3 level bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:3,
+                                    type: null,
+                                    sub_type:'lost',
+                                    object:{
+                                        type:'level',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has not gained 3 level bob',function(done){
+                        var rule = parser.parse('member has not gained 3 level bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:3,
+                                    type: 'not',
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'level',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has not lost level bob',function(done){
+                        var rule = parser.parse('member has not lost level bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: 'not',
+                                    sub_type:'lost',
+                                    object:{
+                                        type:'level',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has gained level bob in last 3 days',function(done){
+                        var rule = parser.parse('member has gained level bob in last 3 days');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: null,
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'level',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: {
+                                    type:'last',
+                                    duration:3,
+                                    durationScope:'day'
+                                }
+
+                            }]
+                        );
+                        done();
+                    });
                 });
 
-                it('member has not lost tag bob',function(done){
-                    var rule = parser.parse('member has not lost tag bob');
-                    should(rule).eql([
-                        {
-                            scope: 'member',
-                            type: 'has',
-                            condition: {
-                                number:null,
-                                type: 'not',
-                                sub_type:'lost',
-                                tagCode: {
-                                    tagClusterCode:null,
-                                    tagCode : 'bob'
-                                }
-                            },
-                            occurence_filter: null,
-                            period_filter: null
+                describe('prize',function(){
+                    it('member has gained prize bob',function(done){
+                        var rule = parser.parse('member has gained prize bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: null,
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'prize',
+                                        prizeCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
 
-                        }]
-                    );
-                    done();
-                });
-                
-                it('member has gained tag bob in last 3 days',function(done){
-                    var rule = parser.parse('member has gained tag bob in last 3 days');
-                    should(rule).eql([
-                        {
-                            scope: 'member',
-                            type: 'has',
-                            condition: {
-                                number:null,
-                                type: null,
-                                sub_type:'gained',
-                                tagCode: {
-                                    tagClusterCode:null,
-                                    tagCode : 'bob'
-                                }
-                            },
-                            occurence_filter: null,
-                            period_filter: {
-                                type:'last',
-                                duration:3,
-                                durationScope:'day'
-                            }
+                            }]
+                        );
+                        done();
+                    });
 
-                        }]
-                    );
-                    done();
+                    it('member has lost 3 prize bob',function(done){
+                        var rule = parser.parse('member has lost 3 prize bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:3,
+                                    type: null,
+                                    sub_type:'lost',
+                                    object:{
+                                        type:'prize',
+                                        prizeCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has not gained 3 prize bob',function(done){
+                        var rule = parser.parse('member has not gained 3 prize bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:3,
+                                    type: 'not',
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'prize',
+                                        prizeCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has not lost prize bob',function(done){
+                        var rule = parser.parse('member has not lost prize bob');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: 'not',
+                                    sub_type:'lost',
+                                    object:{
+                                        type:'prize',
+                                        prizeCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }]
+                        );
+                        done();
+                    });
+
+                    it('member has gained prize bob in last 3 days',function(done){
+                        var rule = parser.parse('member has gained prize bob in last 3 days');
+                        should(rule).eql([
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number:null,
+                                    type: null,
+                                    sub_type:'gained',
+                                    object:{
+                                        type:'prize',
+                                        prizeCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: {
+                                    type:'last',
+                                    duration:3,
+                                    durationScope:'day'
+                                }
+
+                            }]
+                        );
+                        done();
+                    });
                 });
-                
+
             });
 
         });

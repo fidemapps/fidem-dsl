@@ -312,146 +312,592 @@ describe('<Unit Test>', function () {
             });
 
             describe('gained/lost', function () {
-
-                it('member has gained tag bob give 1 points', function (done) {
-                    var rule = parser.parse('member has gained tag bob give 1 points');
-                    should(rule).eql({
-                        rules: [{
-                            scope: 'member',
-                            type: 'has',
-                            condition: {
-                                number: null,
-                                type: null,
-                                sub_type: 'gained',
-                                tagCode: {
-                                    tagClusterCode: null,
-                                    tagCode: 'bob'
-                                }
-                            },
-                            occurence_filter: null,
-                            period_filter: null
-
-                        }],
-                        rewards: [
-                            {quantity: 1, code: 'points'}
-                        ]
-                    });
-                    done();
-                });
-
-                it('member has lost 3 tag bob give 1 points', function (done) {
-                    var rule = parser.parse('member has lost 3 tag bob give 1 points');
-                    should(rule).eql({
-                        rules: [{
-                            scope: 'member',
-                            type: 'has',
-                            condition: {
-                                number: 3,
-                                type: null,
-                                sub_type: 'lost',
-                                tagCode: {
-                                    tagClusterCode: null,
-                                    tagCode: 'bob'
-                                }
-                            },
-                            occurence_filter: null,
-                            period_filter: null
-                        }],
-                        rewards: [
-                            {quantity: 1, code: 'points'}
-                        ]
-                    });
-                    done();
-                });
-
-                it('member has not gained 3 tag bob give 1 points', function (done) {
-                    var rule = parser.parse('member has not gained 3 tag bob give 1 points');
-                    should(rule).eql({
-                            rules: [
-                                {
-                                    scope: 'member',
-                                    type: 'has',
-                                    condition: {
-                                        number: 3,
-                                        type: 'not',
-                                        sub_type: 'gained',
-                                        tagCode: {
-                                            tagClusterCode: null,
-                                            tagCode: 'bob'
-                                        }
-                                    },
-                                    occurence_filter: null,
-                                    period_filter: null
-
-                                }],
-                            rewards: [
-                                {quantity: 1, code: 'points'}
-                            ]
-                        }
-                    );
-                    done();
-                });
-
-                it('member has not lost tag bob give 1 points', function (done) {
-                    var rule = parser.parse('member has not lost tag bob give 1 points');
-                    should(rule).eql({
-                            rules: [
-                                {
-                                    scope: 'member',
-                                    type: 'has',
-                                    condition: {
-                                        number: null,
-                                        type: 'not',
-                                        sub_type: 'lost',
-                                        tagCode: {
-                                            tagClusterCode: null,
-                                            tagCode: 'bob'
-                                        }
-                                    },
-                                    occurence_filter: null,
-                                    period_filter: null
-
-                                }],
-                            rewards: [
-                                {quantity: 1, code: 'points'}
-                            ]
-                        }
-                    );
-                    done();
-                });
                 
-                it('member has gained tag bob in last 3 days give 1 points', function (done) {
-                    var rule = parser.parse('member has gained tag bob in last 3 days give 1 points');
-                    should(rule).eql({
-                            rules: [
-                                {
-                                    scope: 'member',
-                                    type: 'has',
-                                    condition: {
-                                        number: null,
-                                        type: null,
-                                        sub_type: 'gained',
+                describe('tag',function(){
+
+                    it('member has gained tag bob give 1 points', function (done) {
+                        var rule = parser.parse('member has gained tag bob give 1 points');
+                        should(rule).eql({
+                            rules: [{
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number: null,
+                                    type: null,
+                                    sub_type: 'gained',
+                                    object:{
+                                        type:'tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
                                         }
-                                    },
-                                    occurence_filter: null,
-                                    period_filter: {
-                                        type: 'last',
-                                        duration: 3,
-                                        durationScope: 'day'
                                     }
 
-                                }],
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }],
                             rewards: [
                                 {quantity: 1, code: 'points'}
                             ]
-                        }
-                    );
-                    done();
+                        });
+                        done();
+                    });
+
+                    it('member has lost 3 tag bob give 1 points', function (done) {
+                        var rule = parser.parse('member has lost 3 tag bob give 1 points');
+                        should(rule).eql({
+                            rules: [{
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number: 3,
+                                    type: null,
+                                    sub_type: 'lost',
+                                    object:{
+                                        type:'tag',
+                                        tagCode: {
+                                            tagClusterCode: null,
+                                            tagCode: 'bob'
+                                        }
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+                            }],
+                            rewards: [
+                                {quantity: 1, code: 'points'}
+                            ]
+                        });
+                        done();
+                    });
+
+                    it('member has not gained 3 tag bob give 1 points', function (done) {
+                        var rule = parser.parse('member has not gained 3 tag bob give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: 3,
+                                            type: 'not',
+                                            sub_type: 'gained',
+                                            object:{
+                                                type:'tag',
+                                                tagCode: {
+                                                    tagClusterCode: null,
+                                                    tagCode: 'bob'
+                                                }
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: null
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has not lost tag bob give 1 points', function (done) {
+                        var rule = parser.parse('member has not lost tag bob give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: null,
+                                            type: 'not',
+                                            sub_type: 'lost',
+                                            object:{
+                                                type:'tag',
+                                                tagCode: {
+                                                    tagClusterCode: null,
+                                                    tagCode: 'bob'
+                                                }
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: null
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained tag bob in last 3 days give 1 points', function (done) {
+                        var rule = parser.parse('member has gained tag bob in last 3 days give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: null,
+                                            type: null,
+                                            sub_type: 'gained',
+                                            object:{
+                                                type:'tag',
+                                                tagCode: {
+                                                    tagClusterCode: null,
+                                                    tagCode: 'bob'
+                                                }
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: {
+                                            type: 'last',
+                                            duration: 3,
+                                            durationScope: 'day'
+                                        }
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+
                 });
                 
+                describe('points',function(){
+                    it('member has gained points bob give 1 points', function (done) {
+                        var rule = parser.parse('member has gained points bob give 1 points');
+                        should(rule).eql({
+                            rules: [{
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number: null,
+                                    type: null,
+                                    sub_type: 'gained',
+                                    object:{
+                                        type:'points',
+                                        levelCode: 'bob'
+                                    }
+
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }],
+                            rewards: [
+                                {quantity: 1, code: 'points'}
+                            ]
+                        });
+                        done();
+                    });
+
+                    it('member has lost 3 points bob give 1 points', function (done) {
+                        var rule = parser.parse('member has lost 3 points bob give 1 points');
+                        should(rule).eql({
+                            rules: [{
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number: 3,
+                                    type: null,
+                                    sub_type: 'lost',
+                                    object:{
+                                        type:'points',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+                            }],
+                            rewards: [
+                                {quantity: 1, code: 'points'}
+                            ]
+                        });
+                        done();
+                    });
+
+                    it('member has not gained 3 points bob give 1 points', function (done) {
+                        var rule = parser.parse('member has not gained 3 points bob give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: 3,
+                                            type: 'not',
+                                            sub_type: 'gained',
+                                            object:{
+                                                type:'points',
+                                                levelCode: 'bob'
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: null
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has not lost points bob give 1 points', function (done) {
+                        var rule = parser.parse('member has not lost points bob give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: null,
+                                            type: 'not',
+                                            sub_type: 'lost',
+                                            object:{
+                                                type:'points',
+                                                levelCode: 'bob'
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: null
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob in last 3 days give 1 points', function (done) {
+                        var rule = parser.parse('member has gained points bob in last 3 days give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: null,
+                                            type: null,
+                                            sub_type: 'gained',
+                                            object:{
+                                                type:'points',
+                                                levelCode: 'bob'
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: {
+                                            type: 'last',
+                                            duration: 3,
+                                            durationScope: 'day'
+                                        }
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+                });
+                
+                describe('level',function(){
+                    it('member has gained level bob give 1 points', function (done) {
+                        var rule = parser.parse('member has gained level bob give 1 points');
+                        should(rule).eql({
+                            rules: [{
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number: null,
+                                    type: null,
+                                    sub_type: 'gained',
+                                    object:{
+                                        type:'level',
+                                        levelCode: 'bob'
+                                    }
+
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }],
+                            rewards: [
+                                {quantity: 1, code: 'points'}
+                            ]
+                        });
+                        done();
+                    });
+
+                    it('member has lost 3 level bob give 1 points', function (done) {
+                        var rule = parser.parse('member has lost 3 level bob give 1 points');
+                        should(rule).eql({
+                            rules: [{
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number: 3,
+                                    type: null,
+                                    sub_type: 'lost',
+                                    object:{
+                                        type:'level',
+                                        levelCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+                            }],
+                            rewards: [
+                                {quantity: 1, code: 'points'}
+                            ]
+                        });
+                        done();
+                    });
+
+                    it('member has not gained 3 level bob give 1 points', function (done) {
+                        var rule = parser.parse('member has not gained 3 level bob give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: 3,
+                                            type: 'not',
+                                            sub_type: 'gained',
+                                            object:{
+                                                type:'level',
+                                                levelCode: 'bob'
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: null
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has not lost points bob give 1 points', function (done) {
+                        var rule = parser.parse('member has not lost level bob give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: null,
+                                            type: 'not',
+                                            sub_type: 'lost',
+                                            object:{
+                                                type:'level',
+                                                levelCode: 'bob'
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: null
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob in last 3 days give 1 points', function (done) {
+                        var rule = parser.parse('member has gained level bob in last 3 days give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: null,
+                                            type: null,
+                                            sub_type: 'gained',
+                                            object:{
+                                                type:'level',
+                                                levelCode: 'bob'
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: {
+                                            type: 'last',
+                                            duration: 3,
+                                            durationScope: 'day'
+                                        }
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+                });
+                
+                describe('prize',function(){
+                    it('member has gained prize bob give 1 points', function (done) {
+                        var rule = parser.parse('member has gained prize bob give 1 points');
+                        should(rule).eql({
+                            rules: [{
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number: null,
+                                    type: null,
+                                    sub_type: 'gained',
+                                    object:{
+                                        type:'prize',
+                                        prizeCode: 'bob'
+                                    }
+
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+
+                            }],
+                            rewards: [
+                                {quantity: 1, code: 'points'}
+                            ]
+                        });
+                        done();
+                    });
+
+                    it('member has lost 3 prize bob give 1 points', function (done) {
+                        var rule = parser.parse('member has lost 3 prize bob give 1 points');
+                        should(rule).eql({
+                            rules: [{
+                                scope: 'member',
+                                type: 'has',
+                                condition: {
+                                    number: 3,
+                                    type: null,
+                                    sub_type: 'lost',
+                                    object:{
+                                        type:'prize',
+                                        prizeCode: 'bob'
+                                    }
+                                },
+                                occurence_filter: null,
+                                period_filter: null
+                            }],
+                            rewards: [
+                                {quantity: 1, code: 'points'}
+                            ]
+                        });
+                        done();
+                    });
+
+                    it('member has not gained 3 prize bob give 1 points', function (done) {
+                        var rule = parser.parse('member has not gained 3 prize bob give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: 3,
+                                            type: 'not',
+                                            sub_type: 'gained',
+                                            object:{
+                                                type:'prize',
+                                                prizeCode: 'bob'
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: null
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has not lost points bob give 1 points', function (done) {
+                        var rule = parser.parse('member has not lost prize bob give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: null,
+                                            type: 'not',
+                                            sub_type: 'lost',
+                                            object:{
+                                                type:'prize',
+                                                prizeCode: 'bob'
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: null
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob in last 3 days give 1 points', function (done) {
+                        var rule = parser.parse('member has gained prize bob in last 3 days give 1 points');
+                        should(rule).eql({
+                                rules: [
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            number: null,
+                                            type: null,
+                                            sub_type: 'gained',
+                                            object:{
+                                                type:'prize',
+                                                prizeCode: 'bob'
+                                            }
+                                        },
+                                        occurence_filter: null,
+                                        period_filter: {
+                                            type: 'last',
+                                            duration: 3,
+                                            durationScope: 'day'
+                                        }
+
+                                    }],
+                                rewards: [
+                                    {quantity: 1, code: 'points'}
+                                ]
+                            }
+                        );
+                        done();
+                    });
+                })
+
             })
         });
 
