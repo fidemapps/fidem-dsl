@@ -66,7 +66,7 @@ simple_condition
     {
         return {
             scope: "member",
-            sub_scope: sub,
+            type: sub,
             code: levelCode,
             operator: operator,
             value: value
@@ -76,7 +76,7 @@ simple_condition
     {
         return {
             scope: "member",
-            sub_scope: sub,
+            type: sub,
             tagClusterCode: tagCode.tagClusterCode,
             code: tagCode.tagCode,
             operator: operator,
@@ -87,17 +87,17 @@ simple_condition
     {
         return {
             scope: "member",
-            sub_scope: "created",
+            type: "created",
             condition: condition,
             quantity: qty,
             timeframe: timeframe
         };
     }
-    / scope:"member" S* "created" S* condition:"between" S* date1:(DATE_TIME / DATE) S* date2:(DATE_TIME / DATE)
+    / scope:"member" S* "created" S* condition:"between" S* date1:(DATE_TIME / DATE) S* "and" S* date2:(DATE_TIME / DATE)
     {
         return {
-            scope: "member",
-            sub_scope: "created",
+            scope: scope,
+            type: "created",
             condition: condition,
             date1: date1,
             date2: date2
@@ -106,62 +106,54 @@ simple_condition
     / scope:"member" S* sub:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:string
     {
         return {
-            scope: "member",
-            sub_scope: sub,
+            scope: scope,
+            type: sub,
             operator: operator,
             value: value
         };
     }
     / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
     {
-        // duration: (durationOption) ? durationOption[3] : null,
-        // timeframe: (durationOption) ? durationOption[5] : null
-
         return {
-            scope: "member",
-            sub_scope: "zone",
+            scope: scope,
+            type: "zone",
             codes: buildList(first, reminders, 3)
         };
     }
     / scope: "member" S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
     {
         return {
-           scope: "smartlist",
+        	scope: scope,
+           type: "smartlist",
            codes: buildList(firstCode, codes, 2)
        };
     }
-    / scope:"challenge" S* challengeCode:challengeCode S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)*
+    /   scope: "member" S* "challenge" S* challengeCode:challengeCode S* conditions:conditionList
     {
         return {
-            scope: "challenge",
+        	scope: scope,
+            type: "challenge",
             code: challengeCode,
-            conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
+            conditions: conditions
         };
     }
-    / scope:"action" S* actionCode:actionCode S* firstCondition:("with" S* condition)? conditions:(S* "and" S* condition)* filters:(S* inZoneAction)*
+    /  scope: "member" S* "action" S* actionCode:actionCode S* conditions:conditionList filters:(S* inZoneAction)*
     {
         return {
-            scope: "action",
+        	scope: scope,
+            type: "action",
             code: actionCode,
-            conditions: buildList(firstCondition ? firstCondition[2] : null, conditions, 3),
+            conditions: conditions,
             filters: buildList(null, filters, 1)
         };
     }/member_condition
 
-
-
-/******************EXTRA TO TEST*************************/
-/*This should replace
-    Est-ce que la syntaxe est acceptable : challenge test and member = “bob” and member = “david” ...
-    Normalement se serait : challenge test with member = “david” and member = “bob” ...
-*/
-
 conditionList
-	=firstCondition:("with" S* condition) conditions:(S* "and" S* condition)*
+	=firstCondition:("with" S* attribute_operator_value) conditions:(S* "," S* attribute_operator_value)*
     {
     	return buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
     }
-/******************EXTRA TO TEST*************************/
+
 
 
 
@@ -173,7 +165,7 @@ member_condition
     {
         return {
             scope:scope,
-            sub_scope:sub,
+            type:sub,
             condition:conditions,
             occurence_filter:occurence,
             period_filter:period
@@ -183,7 +175,7 @@ member_condition
       {
           return {
               scope:scope,
-              sub_scope:sub,
+              type:sub,
               condition:conditions,
               occurence_filter:occurence,
               period_filter:period
@@ -223,7 +215,6 @@ did_rule
             conditions:condition
         }
     }
-
     /type:"something"
     {
         return {
