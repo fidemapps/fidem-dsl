@@ -75,8 +75,11 @@ member_scope_rule
             return {
                 scope: scope,
                 type: sub,
-                operator: operator,
-                value: value,
+                condition:{
+                    operator: operator,
+                    value: value,
+                }
+
             };
         }
         / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
@@ -84,7 +87,9 @@ member_scope_rule
             return {
                 scope: scope,
                 type: "zone",
-                codes: buildList(first, reminders, 3)
+                condition:{
+                   codes: buildList(first, reminders, 3)
+                }
             };
         }
         / scope: "member" S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
@@ -92,19 +97,14 @@ member_scope_rule
             return {
             	scope: scope,
                type: "smartlist",
-               codes: buildList(firstCode, codes, 2)
+               condition:{
+                  codes: buildList(firstCode, codes, 2)
+               }
            };
         }/member_condition
 
 simple_condition
     = member_scope_rule
-
-conditionList
-	=firstCondition:("with" S* attribute_operator_value) conditions:(S* "," S* attribute_operator_value)*
-    {
-    	return buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
-    }
-
 
 member_action_condition
     = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
