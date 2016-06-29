@@ -61,92 +61,43 @@ start
       };
     }
 
+member_scope_rule
+    = scope:"member" S* "created" S* period_filter:period_filter
+        {
+            return {
+                scope: "member",
+                type: "created",
+                period_filter: period_filter
+            };
+        }
+        / scope:"member" S* sub:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:string
+        {
+            return {
+                scope: scope,
+                type: sub,
+                operator: operator,
+                value: value,
+            };
+        }
+        / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
+        {
+            return {
+                scope: scope,
+                type: "zone",
+                codes: buildList(first, reminders, 3)
+            };
+        }
+        / scope: "member" S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
+        {
+            return {
+            	scope: scope,
+               type: "smartlist",
+               codes: buildList(firstCode, codes, 2)
+           };
+        }/member_condition
+
 simple_condition
-    = scope:"member" S* sub:("level" / "points") S* levelCode:levelCode S* operator:OPERATOR S* value:NUMBER
-    {
-        return {
-            scope: "member",
-            type: sub,
-            code: levelCode,
-            operator: operator,
-            value: value
-        };
-    }
-    / scope:"member" S* sub:"tag" S* tagCode:tagCode S* operator:OPERATOR S* value:NUMBER
-    {
-        return {
-            scope: "member",
-            type: sub,
-            tagClusterCode: tagCode.tagClusterCode,
-            code: tagCode.tagCode,
-            operator: operator,
-            value: value
-        };
-    }
-    / scope:"member" S* "created" S* condition:"last" S* qty:NUMBER S* timeframe:timeframe
-    {
-        return {
-            scope: "member",
-            type: "created",
-            condition: condition,
-            quantity: qty,
-            timeframe: timeframe
-        };
-    }
-    / scope:"member" S* "created" S* condition:"between" S* date1:(DATE_TIME / DATE) S* "and" S* date2:(DATE_TIME / DATE)
-    {
-        return {
-            scope: scope,
-            type: "created",
-            condition: condition,
-            date1: date1,
-            date2: date2
-        };
-    }
-    / scope:"member" S* sub:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:string
-    {
-        return {
-            scope: scope,
-            type: sub,
-            operator: operator,
-            value: value
-        };
-    }
-    / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
-    {
-        return {
-            scope: scope,
-            type: "zone",
-            codes: buildList(first, reminders, 3)
-        };
-    }
-    / scope: "member" S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
-    {
-        return {
-        	scope: scope,
-           type: "smartlist",
-           codes: buildList(firstCode, codes, 2)
-       };
-    }
-    /   scope: "member" S* "challenge" S* challengeCode:challengeCode S* conditions:conditionList
-    {
-        return {
-        	scope: scope,
-            type: "challenge",
-            code: challengeCode,
-            conditions: conditions
-        };
-    }
-    /  scope: "member" S* "action" S* actionCode:actionCode S* conditions:conditionList filters:(S* inZoneAction)*
-    {
-        return {
-        	scope: scope,
-            type: "action",
-            code: actionCode,
-            conditions: conditions,
-            filters: buildList(null, filters, 1)
-        };
-    }/member_condition
+    = member_scope_rule
 
 conditionList
 	=firstCondition:("with" S* attribute_operator_value) conditions:(S* "," S* attribute_operator_value)*
@@ -154,6 +105,12 @@ conditionList
     	return buildList(firstCondition ? firstCondition[2] : null, conditions, 3)
     }
 
+
+member_action_condition
+    = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
+    {
+        return buildList(first,remainders,3);
+    }
 
 
 
@@ -193,14 +150,6 @@ member_condition
         }
 
 
-
-member_action_condition
-    = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
-    {
-        return buildList(first,remainders,3);
-    }
-
-
 did_rule
     =type:"nothing"
     {
@@ -230,19 +179,21 @@ did_rule
     }
 
 has_rule_completed
-    = type:"not" S* subType:"completed" S* challengeCode:challengeCode
+    = type:"not" S* subType:"completed" S* challengeCode:challengeCode S* conditionList:member_action_condition?
     {
         return {
             type:type,
             sub_type:subType,
-            code:challengeCode
+            code:challengeCode,
+            condition:conditionList
         }
-    }/ subType:"completed" S* challengeCode:challengeCode
+    }/ subType:"completed" S* challengeCode:challengeCode S* conditionList:member_action_condition?
      {
          return {
              type:null,
              sub_type:subType,
-             code:challengeCode
+             code:challengeCode,
+             condition:conditionList
          }
      }
 
@@ -356,16 +307,6 @@ inZoneAction
             type: 'zone',
             zones: buildList(first, reminders, 3)
         };
-    }
-
-condition
-    = attributeName:attributeName S* operator:OPERATOR S* value:stringOrNumber
-    {
-      return {
-          name: attributeName,
-          operator: operator,
-          value: value
-      }
     }
 
 attribute_operator_value
