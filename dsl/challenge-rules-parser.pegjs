@@ -41,7 +41,7 @@ rules
     }
 
 simple_rule
-    =scope:"member" S* type:"created" S* period_filter:period_filter
+    =scope:"member" S* type:"created" S* period_filter:period_filter S* filter4:moment_filter?
      {
          return {
              scope: scope,
@@ -50,10 +50,10 @@ simple_rule
              period_filter: period_filter,
              occurence_filter:null,
              geo_filter:null,
-             moment_filter:null
+             moment_filter:filter4
          };
      }
-     / scope:"member" S* type:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:STRING
+     / scope:"member" S* type:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:STRING S* filter4:moment_filter?
      {
          return {
              scope: scope,
@@ -65,40 +65,40 @@ simple_rule
              period_filter: null,
              occurence_filter:null,
              geo_filter:null,
-             moment_filter:null
+             moment_filter:filter4
 
          };
      }
-    /scope:'member' S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)* S* condition:smartlist_condition?
+    /scope:'member' S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:(S* "&" S* code:smartlistCode)* S* condition:smartlist_condition? S* filter4:moment_filter?
     {
         return {
            scope:scope,
            type: "smartlist",
            condition:{
                 type:null,
-                codes: buildList(firstCode, codes, 2),
+                codes: buildList(firstCode, codes, 3),
                 condition:condition
            },
            period_filter: null,
            occurence_filter:null,
            geo_filter:null,
-           moment_filter:null
+           moment_filter:filter4
        };
     }
-    /scope:'member' S* "do not belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)* S* condition:smartlist_condition?
+    /scope:'member' S* "do not belongs to smartlist" S* firstCode:smartlistCode S* codes:(S* "&" S* code:smartlistCode)* S* condition:smartlist_condition? S* filter4:moment_filter?
     {
         return {
            scope:scope,
            type: "smartlist",
            condition:{
                 type:"not",
-                codes: buildList(firstCode, codes, 2),
+                codes: buildList(firstCode, codes, 3),
                 condition:condition
            },
            period_filter: null,
            occurence_filter:null,
            geo_filter:null,
-           moment_filter:null
+           moment_filter:filter4
        };
     }
     /member_condition
@@ -154,7 +154,7 @@ member_condition
               moment_filter:filter4
           };
       }
-    /scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* filter2:period_filter?
+    /scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* filter2:period_filter? S* filter4:moment_filter?
         {
            return {
                scope:scope,
@@ -163,10 +163,10 @@ member_condition
                occurence_filter:null,
                period_filter:filter2,
                geo_filter:null,
-               moment_filter:null
+               moment_filter:filter4
            };
         }
-        /scope:"member" S* type:"has" S* conditions:has_rule_been S* geo:geo_filter
+        /scope:"member" S* type:"has" S* conditions:has_rule_been S* geo:geo_filter S* filter4:moment_filter?
             {
                 return {
                     scope:scope,
@@ -175,10 +175,10 @@ member_condition
                     occurence_filter:null,
                     period_filter:null,
                     geo_filter:geo,
-                    moment_filter:null
+                    moment_filter:filter4
                 };
             }
-       /scope:"member" S* type:"is" S* geo:geo_filter
+       /scope:"member" S* type:"is" S* geo:geo_filter S* filter4:moment_filter?
            {
                return {
                    scope:scope,
@@ -187,10 +187,10 @@ member_condition
                    occurence_filter:null,
                    period_filter:null,
                    geo_filter:geo,
-                   moment_filter:null
+                   moment_filter:filter4
                };
            }
-       /scope:"member" S* "with" S* condition:with_condition
+       /scope:"member" S* "with" S* condition:with_condition S* filter4:moment_filter?
           {
               condition.sub_type=condition.type;
               condition.type=null;
@@ -201,10 +201,10 @@ member_condition
                   occurence_filter:null,
                   period_filter:null,
                   geo_filter:null,
-                  moment_filter:null
+                  moment_filter:filter4
               };
           }
-         /scope:"member" S* "without" S* condition:with_condition
+         /scope:"member" S* "without" S* condition:with_condition S* filter4:moment_filter?
             {
                 condition.sub_type=condition.type;
                 condition.type="not";
@@ -215,14 +215,14 @@ member_condition
                     occurence_filter:null,
                     period_filter:null,
                     geo_filter:null,
-                    moment_filter:null
+                    moment_filter:filter4
                 };
             }
 
 
 
 member_action_condition
-    = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
+    = "with" S* first:attribute_operator_value remainders:(S* "&" S* attribute_operator_value)*
     {
         return buildList(first,remainders,3);
     }
@@ -253,7 +253,7 @@ did_rule
     	return {
         	type:null,
             code:actionCode,
-            condition:condition
+            conditions:condition
         }
     }
 has_rule_gained_lost

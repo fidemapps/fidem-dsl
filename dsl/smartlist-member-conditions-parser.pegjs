@@ -35,22 +35,22 @@ member_scope_rule
     = scope:"member" S* type:"created" S* period_filter:period_filter
         {
             return {
-                scope: type,
-                type: scope,
-                condition: null
+                scope: scope,
+                type: type,
+                condition: null,
                 period_filter: period_filter,
                 occurence_filter:null,
                 geo_filter:null
             };
         }
-        / scope:"member" S* type:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:string
+        / scope:"member" S* type:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:STRING
         {
             return {
                 scope: scope,
                 type: type,
                 condition:{
                     operator: operator,
-                    value: value,
+                    value: value
                 },
                 occurence_filter:null,
                 period_filter:null,
@@ -96,14 +96,14 @@ member_condition
                 geo_filter:null
             };
         }
-    /scope:"member" S* type:"has" S* condition:has_rule_been S* geo:geo_filter
+    /scope:"member" S* type:"has" S* conditions:has_rule_been S* geo:geo_filter S* period:period_filter?
         {
             return {
                 scope:scope,
                 type:type,
                 condition:conditions,
                 occurence_filter:null,
-                period_filter:null,
+                period_filter:period,
                 geo_filter:geo
             };
         }
@@ -231,7 +231,12 @@ has_rule_been
     }
 
 with_condition
-    = condition:(object_rule_tag/object_rule_points) S* value:operator_number
+    = condition:object_rule_tag S* value:operator_number?
+    {
+        return Object.assign(condition,value);
+
+    }
+    /condition:object_rule_points S* value:operator_number
     {
         return Object.assign(condition,value);
 
@@ -387,7 +392,7 @@ beacon_list
 /*OTHER*/
 
 attribute_operator_value
-    = attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
+    = attributeName:attributeName S* operator:OPERATOR S* value:(STRING / NUMBER)
     {
          return {
              operator: operator,
@@ -427,13 +432,8 @@ string2
         return chars.join("");
     }
 
-string
-    = string1 / string2
 
-stringOrNumber
-  = string / NUMBER
-
-string
+STRING "string"
     = string1 / string2
 
 path_start
@@ -510,12 +510,6 @@ s
 
 S "whitespace"
     = s
-
-STRING "string"
-    = string:string
-    {
-        return string;
-    }
 
 date_full_year "year"
     = $(DIGIT DIGIT DIGIT DIGIT)

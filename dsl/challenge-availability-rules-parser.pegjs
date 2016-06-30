@@ -55,14 +55,14 @@ simple_rule
 
          };
      }
-    /scope:'member' S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)* S* condition:smartlist_condition?
+    /scope:'member' S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:( S* "&" S* smartlistCode:smartlistCode)* S* condition:smartlist_condition?
     {
         return {
            scope:scope,
            type: "smartlist",
            condition:{
                 type:null,
-                codes: buildList(firstCode, codes, 2),
+                codes: buildList(firstCode, codes, 3),
                 condition:condition
            },
            period_filter: null,
@@ -71,14 +71,14 @@ simple_rule
            moment_filter:null
        };
     }
-    /scope:'member' S* "do not belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)* S* condition:smartlist_condition?
+    /scope:'member' S* "do not belongs to smartlist" S* firstCode:smartlistCode S* codes:(S* "&" S* smartlistCode:smartlistCode)* S* condition:smartlist_condition?
     {
         return {
            scope:scope,
            type: "smartlist",
            condition:{
                 type:"not",
-                codes: buildList(firstCode, codes, 2),
+                codes: buildList(firstCode, codes, 3),
                 condition:condition
            },
            period_filter: null,
@@ -316,21 +316,21 @@ object_rule_prize
     }
 
  has_rule_completed
-     = type:"not" S* subType:"completed" S* challengeCode:challengeCode S* conditionList:member_action_condition?
+     = type:"not" S* subType:"completed" S* challengeCode:challengeCode
      {
          return {
              type:type,
              sub_type:subType,
              code:challengeCode,
-             condition:conditionList
+             conditions:conditionList
          }
-     }/ subType:"completed" S* challengeCode:challengeCode S* conditionList:member_action_condition?
+     }/ subType:"completed" S* challengeCode:challengeCode
       {
           return {
               type:null,
               sub_type:subType,
               code:challengeCode,
-              condition:conditionList
+              conditions:conditionList
           }
       }
 
