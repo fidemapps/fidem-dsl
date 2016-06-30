@@ -1,41 +1,6 @@
-/*
-  List Member Conditions Rules
-  ============================
 
-    time_period (minute, hour, day, week, month, year)
-
-    DATE_CRITERIA : last X time, between start_date end_date
-    NUMBER_CRITERIA : >, <, =, <=, >=, *IN()
-    STRING_CRITERIA : =, !=, *IN()
-
-    // Member related
-    member tag CODE NUMBER_CRITERIA
-    member level CODE NUMBER_CRITERIA
-    member point CODE NUMBER_CRITERIA
-    // member segment CODE NUMBER_CRITERIA  --> Not supported right now
-
-    member city STRING_CRITERIA
-    member state STRING_CRITERIA
-    member country STRING_CRITERIA
-    member postal_code STRING_CRITERIA
-
-    member created DATE_CRITERIA
-
-    member in zone ZONE_CODE[,ZONE_CODE][for x time_period] // durationOption:(S* "for" S* NUMBER S* timeframe)?
-
-    // Challenge related
-    * challenge CODE
-
-    // Action related
-    action CODE
-    * action CODE with data attributes GENERIC_CRITERIA
-    * action CODE with data attributes GENERIC_CRITERIA with coordinates COORDINATE_CRITERIA
- */
+/*HELPER FUNCTIONS*/
 {
-    function extractOptional(optional, index) {
-        return optional ? optional[index] : null;
-    }
-
     function extractList(list, index) {
         var result = [], i;
 
@@ -61,91 +26,118 @@ start
       };
     }
 
-member_scope_rule
-    = scope:"member" S* "created" S* period_filter:period_filter
-        {
-            return {
-                scope: "member",
-                type: "created",
-                period_filter: period_filter
-            };
-        }
-        / scope:"member" S* sub:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:string
-        {
-            return {
-                scope: scope,
-                type: sub,
-                condition:{
-                    operator: operator,
-                    value: value,
-                }
-
-            };
-        }
-        / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
-        {
-            return {
-                scope: scope,
-                type: "zone",
-                condition:{
-                   codes: buildList(first, reminders, 3)
-                }
-            };
-        }
-        / scope: "member" S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
-        {
-            return {
-            	scope: scope,
-               type: "smartlist",
-               condition:{
-                  codes: buildList(firstCode, codes, 2)
-               }
-           };
-        }/member_condition
-
 simple_condition
     = member_scope_rule
 
-member_action_condition
-    = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
-    {
-        return buildList(first,remainders,3);
-    }
+/*MEMBER SCOPE*/
 
+member_scope_rule
+    = scope:"member" S* type:"created" S* period_filter:period_filter
+        {
+            return {
+                scope: type,
+                type: scope,
+                condition: null
+                period_filter: period_filter,
+                occurence_filter:null,
+                geo_filter:null
+            };
+        }
+        / scope:"member" S* type:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:string
+        {
+            return {
+                scope: scope,
+                type: type,
+                condition:{
+                    operator: operator,
+                    value: value,
+                },
+                occurence_filter:null,
+                period_filter:null,
+                geo_filter:null
 
+            };
+        }/member_condition
 
 
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S* sub:"did" S* conditions:did_rule S* occurence:occurence_filter? S* period:period_filter?
+    = scope:"member" S* type:"did" S* conditions:did_rule S* occurence:occurence_filter? S* geo:geo_filter? S* period:period_filter?
     {
         return {
             scope:scope,
-            type:sub,
+            type:type,
             condition:conditions,
             occurence_filter:occurence,
-            period_filter:period
+            period_filter:period,
+            geo_filter:geo
         };
     }
-    /scope:"member" S* sub:"has" S* conditions:has_rule_completed S* occurence:occurence_filter? S* period:period_filter?
+    /scope:"member" S* type:"has" S* conditions:has_rule_completed S* occurence:occurence_filter?  S* geo:geo_filter? S* period:period_filter?
       {
           return {
               scope:scope,
-              type:sub,
+              type:type,
               condition:conditions,
               occurence_filter:occurence,
-              period_filter:period
+              period_filter:period,
+              geo_filter:geo
           };
       }
-    /scope:"member" S* sub:"has" S* conditions:has_rule_gained_lost S* period:period_filter?
+    /scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* period:period_filter?
         {
             return {
                 scope:scope,
-                sub_scope:sub,
+                type:type,
                 condition:conditions,
                 occurence_filter:null,
-                period_filter:period
+                period_filter:period,
+                geo_filter:null
+            };
+        }
+    /scope:"member" S* type:"has" S* condition:has_rule_been S* geo:geo_filter
+        {
+            return {
+                scope:scope,
+                type:type,
+                condition:conditions,
+                occurence_filter:null,
+                period_filter:null,
+                geo_filter:geo
+            };
+        }
+   /scope:"member" S* type:"is" S* geo:geo_filter
+       {
+           return {
+               scope:scope,
+               type:type,
+               condition:null,
+               occurence_filter:null,
+               period_filter:null,
+               geo_filter:geo
+           };
+       }
+   /scope:"member" S* type:"with" S* condition:with_condition
+      {
+          return {
+              scope:scope,
+              type:type,
+              condition:condition,
+              occurence_filter:null,
+              period_filter:null,
+              geo_filter:null
+          };
+      }
+     /scope:"member" S* type:"without" S* condition:with_condition
+        {
+            return {
+                scope:scope,
+                type:type,
+                condition:condition,
+                occurence_filter:null,
+                period_filter:null,
+                geo_filter:null
             };
         }
 
@@ -179,23 +171,30 @@ did_rule
     }
 
 has_rule_completed
-    = type:"not" S* subType:"completed" S* challengeCode:challengeCode S* conditionList:member_action_condition?
+    = type:"not" S* subType:"completed" S* challengeCode:challengeCode
     {
         return {
             type:type,
             sub_type:subType,
             code:challengeCode,
-            condition:conditionList
+            condition:null
         }
-    }/ subType:"completed" S* challengeCode:challengeCode S* conditionList:member_action_condition?
+    }/ subType:"completed" S* challengeCode:challengeCode
      {
          return {
              type:null,
              sub_type:subType,
              code:challengeCode,
-             condition:conditionList
+             condition:null
          }
      }
+
+
+member_action_condition
+    = "with" S* first:attribute_operator_value remainders:(S* "&" S* attribute_operator_value)*
+    {
+        return buildList(first,remainders,3);
+    }
 
 has_rule_gained_lost
     =type:"not" S* subType:("gained"/"lost") S* number:NUMBER? S* object:object_rule
@@ -217,7 +216,35 @@ has_rule_gained_lost
         }
     }
 
+has_rule_been
+    = type:"not" S* "been"
+    {
+        return {
+            type:type
+        }
+    }
+    / type: S* "been"
+    {
+        return {
+            type:null
+        }
+    }
+
+with_condition
+    = condition:(object_rule_tag/object_rule_points) S* value:operator_number
+    {
+        return Object.assign(condition,value);
+
+    }
+    /condition:object_rule_prize
+    {
+        return condition;
+    }
+
 object_rule
+    = (object_rule_tag / object_rule_points / object_rule_prize)
+
+object_rule_tag
     ="tag" S* tagCode:tagCode
     {
         return {
@@ -225,14 +252,18 @@ object_rule
             tagCode:tagCode
         }
     }
-    /"points" S* levelCode:levelCode
+
+object_rule_points
+    ="points" S* levelCode:levelCode
     {
         return {
             type:"points",
             levelCode:levelCode
         }
     }
-    /"prize" S* prizeCode:prizeCode
+
+object_rule_prize
+    ="prize" S* prizeCode:prizeCode
     {
         return {
             type:"prize",
@@ -297,10 +328,25 @@ period_filter
             durationScope: durationScope
         }
     }
+    /"since" S* type:"did" S* position:("first"/"last")? S* actionCode:actionCode
+    {
+        return {
+            type:"since-"+type,
+            position:position,
+            actionCode:actionCode
+        }
+    }
+    /"since" S* type:"received" S* target:"prize" S* prizeCode:prizeCode
+    {
+        return {
+            type:"since-"+type,
+            target:target,
+            prizeCode:prizeCode
+        }
+    }
 
-/*OTHER*/
-
-inZoneAction
+/*GEO FILTER*/
+geo_filter
     = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
     {
         return {
@@ -308,6 +354,37 @@ inZoneAction
             zones: buildList(first, reminders, 3)
         };
     }
+    / "in range of" S* beacons:beacon_list
+    {
+        return {
+            type: 'inRange',
+            beacons:beacons
+        }
+    }
+    / "with RSSI" S* type:("over"/"below") S* number:NUMBER S* "from" S* beacons:beacon_list
+    {
+        return{
+            type:"RSSI-"+type,
+            number:number,
+            beacons:beacons
+        }
+    }
+    / "with RSSI" S* type:"between" S* start:NUMBER S* "and" S* end:NUMBER S* "from" S* beacons:beacon_list
+    {
+        return{
+            type:"RSSI-"+type,
+            start:start,
+            end:end,
+            beacons:beacons
+        }
+    }
+
+beacon_list
+    = "beacon" S* first:beaconCode reminders:(S* "," S* beaconCode:beaconCode)*
+        {
+            return buildList(first,reminders,3);
+        }
+/*OTHER*/
 
 attribute_operator_value
     = attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
@@ -318,6 +395,17 @@ attribute_operator_value
              value: value
          };
     }
+
+operator_number
+    = operator:OPERATOR S* value: NUMBER
+    {
+         return {
+             operator: operator,
+             value: value
+         };
+    }
+
+
 
 /*PRIMARY*/
 
@@ -379,6 +467,9 @@ actionCode "actionCode"
     = code
 
 prizeCode "prizeCode"
+    = code
+
+beaconCode "beaconCode"
     = code
 
 levelCode "levelCode"

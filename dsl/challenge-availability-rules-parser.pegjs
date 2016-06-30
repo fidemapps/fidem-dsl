@@ -1,23 +1,6 @@
-/*
-  Availability Rules
-  ==================
 
-  time_period (minute, hour, day, week, month, year)
-
-  level LEVELCODE >= 1
-  tag TAGCODE >= 10
-  //segment SEGMENTCODE >= 1 --> Not supported right now
-  challenge CHALLENGECODE
-  in zone ZONECODE[,ZONECODE][for x time_period]
-
-  // NOT IMPLEMENTED YET
-  zone enter ZONECODE
-  zone exit ZONECODE
- */
+/*HELPER FUNCTIONS*/
 {
-    function extractOptional(optional, index) {
-        return optional ? optional[index] : null;
-    }
 
     function extractList(list, index) {
         var result = [], i;
@@ -37,107 +20,113 @@
 }
 
 start
-    = rules;
-
-rules
-    = first:simple_rule reminders:(S* "and" S* simple_rule)+
+    = first:simple_rule reminders:(S* "and" S* simple_rule)* S*
     {
-        return  buildList(first, reminders, 3);
+      return  buildList(first, reminders, 3);
     }
 
-    / rule:simple_rule
-    {
-        return [rule];
-    }
 
 simple_rule
-    = scope:"level" S* levelCode:levelCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
+    =scope:"member" S* type:"created" S* period_filter:period_filter
+     {
+         return {
+             scope: scope,
+             type: type,
+             condition:null,
+             period_filter: period_filter,
+             occurence_filter:null,
+             geo_filter:null,
+             moment_filter:null
+         };
+     }
+     / scope:"member" S* type:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:STRING
+     {
+         return {
+             scope: scope,
+             type: type,
+             condition:{
+                 operator: operator,
+                 value: value
+             },
+             period_filter: null,
+             occurence_filter:null,
+             geo_filter:null,
+             moment_filter:null
+
+         };
+     }
+    /scope:'member' S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)* S* condition:smartlist_condition?
     {
         return {
-            scope: scope,
-            code: levelCode,
-            operator: operator,
-            value: value
-        };
-    }
-    / scope:"tag" S* tagCode:tagCode S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER
-    {
-        return {
-            scope: scope,
-            code: tagCode.tagCode,
-            tagClusterCode: tagCode.tagClusterCode,
-            operator: operator,
-            value: value
-        };
-    }
-    / "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
-    {
-        return {
-            scope: "zone",
-            codes: buildList(first, reminders, 3),
-            duration: (durationOption) ? durationOption[3] : null,
-            timeframe: (durationOption) ? durationOption[5] : null
-        };
-    }
-    / scope:"challenge" S* challengeCode:challengeCode
-    {
-        return {
-            scope: scope,
-            code: challengeCode
-        };
-    }
-    / "belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)*
-    {
-        return {
-           scope: "smartlist",
-           codes: buildList(firstCode, codes, 2)
+           scope:scope,
+           type: "smartlist",
+           condition:{
+                type:null,
+                codes: buildList(firstCode, codes, 2),
+                condition:condition
+           },
+           period_filter: null,
+           occurence_filter:null,
+           geo_filter:null,
+           moment_filter:null
        };
     }
-    /"every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
-        {
-            return {
-                scope : 'every',
-                days:{type:"days",list:buildList(first,remainders,3)},
-                months:months,
-                years:years,
-                time:time
-            }
-        }
-    /"every" S* "day" S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
-        {
-            return {
-                scope : 'every',
-                days:{type:"day",list:["day"]},
-                months:months,
-                years:years,
-                time:time
-
-            }
-        }
-    /onRule
+    /scope:'member' S* "do not belongs to smartlist" S* firstCode:smartlistCode S* codes:("," S* code:smartlistCode)* S* condition:smartlist_condition?
+    {
+        return {
+           scope:scope,
+           type: "smartlist",
+           condition:{
+                type:"not",
+                codes: buildList(firstCode, codes, 2),
+                condition:condition
+           },
+           period_filter: null,
+           occurence_filter:null,
+           geo_filter:null,
+           moment_filter:null
+       };
+    }
+    /system_condition
     /member_condition
+
+/*SMARTLIST CONDITION*/
+
+smartlist_condition
+    =type:"since" S* number:NUMBER S* timeframe:timeframe
+    {
+        return{
+            type:type,
+            number:number,
+            timeframe:timeframe
+        }
+    }
 
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S* type:"did" S* conditions:did_rule S* filter1:occurence_filter? S* filter2:period_filter?
+    = scope:"member" S* type:"did" S* conditions:did_rule S* filter1:occurence_filter? S* filter3:geo_filter? S* filter2:period_filter? S* filter4:moment_filter?
     {
         return {
             scope:scope,
             type:type,
             condition:conditions,
             occurence_filter:filter1,
-            period_filter:filter2
+            period_filter:filter2,
+            geo_filter:filter3,
+            moment_filter:filter4
         };
     }
-    /scope:"member" S* type:"has" S* conditions:has_rule_completed S* filter1:occurence_filter? S* filter2:period_filter?
+    /scope:"member" S* type:"has" S* conditions:has_rule_completed S* filter1:occurence_filter? S* filter3:geo_filter? S* filter2:period_filter? S* filter4:moment_filter?
       {
           return {
               scope:scope,
               type:type,
               condition:conditions,
               occurence_filter:filter1,
-              period_filter:filter2
+              period_filter:filter2,
+              geo_filter:filter3,
+              moment_filter:filter4
           };
       }
     /scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* filter2:period_filter?
@@ -147,13 +136,68 @@ member_condition
                type:type,
                condition:conditions,
                occurence_filter:null,
-               period_filter:filter2
+               period_filter:filter2,
+               geo_filter:null,
+               moment_filter:null
            };
         }
+        /scope:"member" S* type:"has" S* conditions:has_rule_been S* geo:geo_filter
+            {
+                return {
+                    scope:scope,
+                    type:type,
+                    condition:conditions,
+                    occurence_filter:null,
+                    period_filter:null,
+                    geo_filter:geo,
+                    moment_filter:null
+                };
+            }
+       /scope:"member" S* type:"is" S* geo:geo_filter
+           {
+               return {
+                   scope:scope,
+                   type:type,
+                   condition:null,
+                   occurence_filter:null,
+                   period_filter:null,
+                   geo_filter:geo,
+                   moment_filter:null
+               };
+           }
+       /scope:"member" S* "with" S* condition:with_condition
+          {
+              condition.sub_type=condition.type;
+              condition.type=null;
+              return {
+                  scope:scope,
+                  type:"with",
+                  condition:condition,
+                  occurence_filter:null,
+                  period_filter:null,
+                  geo_filter:null,
+                  moment_filter:null
+              };
+          }
+         /scope:"member" S* "without" S* condition:with_condition
+            {
+                condition.sub_type=condition.type;
+                condition.type="not";
+                return {
+                    scope:scope,
+                    type:"with",
+                    condition:condition,
+                    occurence_filter:null,
+                    period_filter:null,
+                    geo_filter:null,
+                    moment_filter:null
+                };
+            }
+
 
 
 member_action_condition
-    = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
+    = "with" S* first:attribute_operator_value remainders:(S* "&" S* attribute_operator_value)*
     {
         return buildList(first,remainders,3);
     }
@@ -208,7 +252,43 @@ has_rule_gained_lost
         }
     }
 
+has_rule_been
+    = type:"not" S* "been"
+    {
+        return {
+            type:type,
+            sub_type:"been"
+        }
+    }
+    / type: S* "been"
+    {
+        return {
+            type:null,
+            sub_type:"been"
+        }
+    }
+
+with_condition
+    = condition:object_rule_tag S* value:operator_number?
+    {
+        return Object.assign(condition,value);
+
+    }
+    /condition:object_rule_points S* value:operator_number
+    {
+        return Object.assign(condition,value);
+
+    }
+    /condition:object_rule_prize
+    {
+        return condition;
+    }
+
+
 object_rule
+    = (object_rule_tag / object_rule_points / object_rule_prize)
+
+object_rule_tag
     ="tag" S* tagCode:tagCode
     {
         return {
@@ -216,14 +296,18 @@ object_rule
             tagCode:tagCode
         }
     }
-    /"points" S* levelCode:levelCode
+
+object_rule_points
+    ="points" S* levelCode:levelCode
     {
         return {
             type:"points",
             levelCode:levelCode
         }
     }
-    /"prize" S* prizeCode:prizeCode
+
+object_rule_prize
+    ="prize" S* prizeCode:prizeCode
     {
         return {
             type:"prize",
@@ -231,22 +315,24 @@ object_rule
         }
     }
 
-has_rule_completed
-    = type:"not" S* subType:"completed" S* challengeCode:challengeCode
-    {
-        return {
-            type:type,
-            sub_type:subType,
-            code:challengeCode
-        }
-    }/ subType:"completed" S* challengeCode:challengeCode
+ has_rule_completed
+     = type:"not" S* subType:"completed" S* challengeCode:challengeCode S* conditionList:member_action_condition?
      {
          return {
-             type:null,
+             type:type,
              sub_type:subType,
-             code:challengeCode
+             code:challengeCode,
+             condition:conditionList
          }
-     }
+     }/ subType:"completed" S* challengeCode:challengeCode S* conditionList:member_action_condition?
+      {
+          return {
+              type:null,
+              sub_type:subType,
+              code:challengeCode,
+              condition:conditionList
+          }
+      }
 
 
 
@@ -278,21 +364,21 @@ occurence_filter
 /*PERIOD_FILTER*/
 
 period_filter
-    = type:"before" S* date:DATE_TIME_STRING
+    = type:"before" S* date:DATE_TIME
     {
         return {
             type:type,
             date:[date]
         }
     }
-    /type:"after" S* date:DATE_TIME_STRING
+    /type:"after" S* date:DATE_TIME
     {
         return {
             type:type,
             date:[date]
         }
     }
-    /type:"between" S* start:DATE_TIME_STRING S* "and" S* end:DATE_TIME_STRING
+    /type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
     {
         return {
             type:type,
@@ -307,9 +393,87 @@ period_filter
             durationScope: durationScope
         }
     }
+    /"since" S* type:"did" S* position:("first"/"last")? S* actionCode:actionCode
+    {
+        return {
+            type:"since-"+type,
+            position:position,
+            actionCode:actionCode
+        }
+    }
+    /"since" S* type:"received" S* target:"prize" S* prizeCode:prizeCode
+    {
+        return {
+            type:"since-"+type,
+            target:target,
+            prizeCode:prizeCode
+        }
+    }
 
+/*GEO FILTER*/
+geo_filter
+    = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
+    {
+        return {
+            type: 'zone',
+            zones: buildList(first, reminders, 3)
+        };
+    }
+    / "in range of" S* beacons:beacon_list
+    {
+        return {
+            type: 'inRange',
+            beacons:beacons
+        }
+    }
+    / "with RSSI" S* type:("over"/"below") S* number:NUMBER S* "from" S* beacons:beacon_list
+    {
+        return{
+            type:"RSSI-"+type,
+            number:number,
+            beacons:beacons
+        }
+    }
+    / "with RSSI" S* type:"between" S* start:NUMBER S* "and" S* end:NUMBER S* "from" S* beacons:beacon_list
+    {
+        return{
+            type:"RSSI-"+type,
+            start:start,
+            end:end,
+            beacons:beacons
+        }
+    }
 
-/*SYSTEM CONDITION*/
+beacon_list
+    = "beacon" S* first:beaconCode reminders:(S* "," S* beaconCode:beaconCode)*
+    {
+        return buildList(first,reminders,3);
+    }
+
+/*MOMENT FILTER*/
+moment_filter
+    ="on" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
+        {
+            return {
+                type : 'on',
+                days:{type:"days",list:buildList(first,remainders,3)},
+                months:months,
+                years:years,
+                time:time
+            }
+        }
+    /"on" S* "day" S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
+        {
+            return {
+                type : 'on',
+                days:{type:"day",list:["day"]},
+                months:months,
+                years:years,
+                time:time
+            }
+        }
+    /onRule
+
 onRule
     = "on" S* rule:( onDate / onThe )
     {
@@ -320,7 +484,7 @@ onDate
     = first:DATE S* remainders:(S* "," S* DATE)* S* time:timeRule?
     {
         return {
-            scope: 'on',
+            type: 'onDate',
             date:buildList(first,remainders,3),
             time:time
         }
@@ -330,7 +494,7 @@ onThe
     = "the" S* first:POSITION remainders:(S* "," S* position:POSITION)* S* "day" S* months:(ofMonth/ "of" S* "month") S* years:(inYear / dateRules)? S* time:timeRule?
     {
         var result={
-           scope: 'onThe',
+           type: 'onThe',
            days: {type:"position",list:buildList(first,remainders,3)},
            months:months,
            years:years,
@@ -344,12 +508,54 @@ onThe
         return result;
     }
 
+/*SYSTEM CONDITION*/
+system_condition
+    ="every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
+        {
+            return {
+                scope : "system",
+                type:'every',
+                days:{type:"days",list:buildList(first,remainders,3)},
+                months:months,
+                years:years,
+                time:time
+            }
+        }
+    /"every" S* "day" S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
+        {
+            return {
+                scope : "system",
+                type:'every',
+                days:{type:"day",list:["day"]},
+                months:months,
+                years:years,
+                time:time
+            }
+        }
+    /system_onRule
+
+system_onRule
+    = "on" S* rule:(onDate /onThe )
+    {
+        return Object.assign({scope:"system"},rule);
+    }
+
+/*MIX*/
 attribute_operator_value
-    = attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
+    = attributeName:attributeName S* operator:OPERATOR S* value:(STRING / NUMBER)
     {
          return {
              operator: operator,
              attribute: attributeName,
+             value: value
+         };
+    }
+
+operator_number
+    = operator:OPERATOR S* value: NUMBER
+    {
+         return {
+             operator: operator,
              value: value
          };
     }
@@ -368,8 +574,12 @@ string2
         return chars.join("");
     }
 
-string
-    = string1 / string2
+STRING "string"
+    = string:(string1 / string2)
+    {
+        return string;
+    }
+
 
 code_char
     = [_a-z0-9-\.]i
@@ -381,6 +591,9 @@ code
     }
 
 attributeName "attributeName"
+    = code
+
+beaconCode "beaconCode"
     = code
 
 actionCode "actionCode"
@@ -430,12 +643,6 @@ s
 
 S "whitespace"
     = s
-
-STRING "string"
-    = string:string
-    {
-        return string;
-    }
 
 timeframe
     = value:("minutes" / "minute" / "hours" / "hour" / "days" / "day" / "weeks" / "week" / "months" / "month" / "years" / "year" )
@@ -549,12 +756,6 @@ DATE "date"
     = year:date_full_year "-" month:date_month "-" day:date_day
     {
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-    }
-
-DATE_TIME_STRING "datetime"
-    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
-    {
-        return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
     }
 
 DATE_TIME "datetime"
