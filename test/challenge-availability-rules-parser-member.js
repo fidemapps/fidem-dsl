@@ -31,6 +31,28 @@ describe('<Unit Test>', function () {
                             type: 'nothing'
                         },
                         occurence_filter: null,
+                        geo_filter:null,
+                        moment_filter:null,
+                        period_filter: null
+
+                    }
+                ]);
+                done();
+            });
+
+            it('member did something', function (done) {
+
+                var rule = parser.parse('member did something');
+                should(rule).eql([
+                    {
+                        scope: 'member',
+                        type: 'did',
+                        condition: {
+                            type: 'something'
+                        },
+                        occurence_filter: null,
+                        geo_filter:null,
+                        moment_filter:null,
                         period_filter: null
 
                     }
@@ -40,7 +62,7 @@ describe('<Unit Test>', function () {
 
             it('member did not TEST with jean < 2, bob = 3', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < 2, bob = 3');
+                var rule = parser.parse('member did not TEST with jean < 2& bob = 3');
                 should(rule).eql([
                     {
                         scope: 'member',
@@ -62,7 +84,10 @@ describe('<Unit Test>', function () {
                             ]
                         },
                         occurence_filter: null,
+                        geo_filter:null,
+                        moment_filter:null,
                         period_filter: null
+
                     }
                 ]);
                 done();
@@ -90,7 +115,10 @@ describe('<Unit Test>', function () {
                             type: 'less',
                             number: 3
                         },
+                        geo_filter:null,
+                        moment_filter:null,
                         period_filter: null
+
                     }
                 ]);
                 done();
@@ -118,9 +146,11 @@ describe('<Unit Test>', function () {
                         period_filter: {
                             type: 'before',
                             date: [
-                                '2016-03-03T04:40:40'
+                                new Date('2016-03-03 04:40:40')
                             ]
-                        }
+                        },
+                        geo_filter:null,
+                        moment_filter:null
                     }
                 ]);
                 done();
@@ -151,12 +181,98 @@ describe('<Unit Test>', function () {
                         period_filter:{
                             type: 'before',
                             date: [
-                                '2016-03-03T04:40:40'
+                                new Date('2016-03-03 04:40:40')
                             ]
-                        }
+                        },
+                        geo_filter:null,
+                        moment_filter:null
                     }
                 ]);
                 done();
+            });
+            
+            it('member did not TEST in zone montreal',function(){
+                should(true).eql(false);
+            });
+
+            it('member did not TEST at least 4 times on monday',function(){
+                var rule = parser.parse('member did not TEST at least 4 times on monday');
+                should(rule).eql([
+                    {
+                        scope: 'member',
+                        type: 'did',
+                        condition: {
+                            type: 'not',
+                            code: 'TEST',
+                            conditions: null
+                        },
+                        occurence_filter: {number:4,type:'least'},
+                        geo_filter:null,
+                        moment_filter:{
+                            days: { list: [ 'monday' ], type: 'days' },
+                            months: null,
+                            time: null,
+                            type: 'on',
+                            years: null
+                        },
+                        period_filter: null
+
+                    }
+                ]);
+            });
+
+            it('member did not TEST at least 4  times on the 1st,2nd day of december before 12:59 pm',function(){
+                var rule = parser.parse('member did not TEST at least 4 times on the 1st,2nd day of december before 12:59 pm');
+                should(rule).eql([
+                    {
+                        scope: 'member',
+                        type: 'did',
+                        condition: {
+                            type: 'not',
+                            code: 'TEST',
+                            conditions: null
+                        },
+                        occurence_filter: {number:4,type:'least'},
+                        geo_filter:null,
+                        moment_filter: {
+                            days: { list: [ '1st', '2nd' ], type: 'position' },
+                            months: { list: [ 'december' ], type: 'of' },
+                            time: { list: [ '24:59' ], type: 'before' },
+                            type: 'onThe',
+                            years: null
+                        },
+                        period_filter: null
+
+                    }
+                ]);
+            });
+
+            it('member did not TEST at least 4  times on 2016-04-04,2017-04-04,2018-04-04',function(){
+                var rule = parser.parse('member did not TEST at least 4  times on 2016-04-04,2017-04-04,2018-04-04');
+                should(rule).eql([
+                    {
+                        scope: 'member',
+                        type: 'did',
+                        condition: {
+                            type: 'not',
+                            code: 'TEST',
+                            conditions: null
+                        },
+                        occurence_filter: {number:4,type:'least'},
+                        geo_filter:null,
+                        moment_filter: {
+                            date: [
+                                new Date(2016,4-1,4),
+                                new Date(2017,4-1,4),
+                                new Date(2018,4-1,4)
+                ],
+                time: null,
+                    type: 'onDate'
+            },
+                        period_filter: null
+
+                    }
+                ]);
             });
 
         });
@@ -177,7 +293,9 @@ describe('<Unit Test>', function () {
                                 code: 'TEST'
                             },
                             occurence_filter: null,
-                            period_filter: null
+                            period_filter: null,
+                            geo_filter:null,
+                            moment_filter:null
 
                         }]
                     );
@@ -196,7 +314,9 @@ describe('<Unit Test>', function () {
                             code: 'TEST'
                         },
                         occurence_filter: null,
-                        period_filter: null
+                        period_filter: null,
+                        geo_filter:null,
+                        moment_filter:null
 
                     }]);
                     done();
@@ -217,7 +337,9 @@ describe('<Unit Test>', function () {
                             type: 'less',
                             number: 3
                         },
-                        period_filter: null
+                        period_filter: null,
+                        geo_filter:null,
+                        moment_filter:null
                     }]);
                     done();
                 });
@@ -238,9 +360,11 @@ describe('<Unit Test>', function () {
                             period_filter: {
                                 type: 'before',
                                 date: [
-                                    '2016-03-03T04:40:40'
+                                    new Date('2016-03-03 04:40:40')
                                 ]
-                            }
+                            },
+                            geo_filter:null,
+                            moment_filter:null
                         }]);
                     done();
                 });
@@ -264,9 +388,11 @@ describe('<Unit Test>', function () {
                             period_filter: {
                                 type: 'before',
                                 date: [
-                                    '2016-03-03T04:40:40'
+                                    new Date('2016-03-03 04:40:40')
                                 ]
-                            }
+                            },
+                            geo_filter:null,
+                            moment_filter:null
                         }]);
                     done();
                 });
@@ -274,6 +400,7 @@ describe('<Unit Test>', function () {
             });
 
             describe('gained/lost',function(){
+                
                 describe('tag',function(){
 
                     it('member has gained tag bob',function(done){
@@ -295,7 +422,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -321,7 +450,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -347,7 +478,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -373,7 +506,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -403,7 +538,9 @@ describe('<Unit Test>', function () {
                                     type:'last',
                                     duration:3,
                                     durationScope:'day'
-                                }
+                                },
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -430,7 +567,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -453,7 +592,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -476,7 +617,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -499,7 +642,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -526,14 +671,15 @@ describe('<Unit Test>', function () {
                                     type:'last',
                                     duration:3,
                                     durationScope:'day'
-                                }
+                                },
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
                         done();
                     });
                 });
-                
 
                 describe('prize',function(){
                     it('member has gained prize bob',function(done){
@@ -552,7 +698,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -575,7 +723,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -598,7 +748,9 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -621,7 +773,10 @@ describe('<Unit Test>', function () {
                                     }
                                 },
                                 occurence_filter: null,
-                                period_filter: null
+                                period_filter: null,
+                                geo_filter:null,
+                                moment_filter:null
+
 
                             }]
                         );
@@ -648,7 +803,9 @@ describe('<Unit Test>', function () {
                                     type:'last',
                                     duration:3,
                                     durationScope:'day'
-                                }
+                                },
+                                geo_filter:null,
+                                moment_filter:null
 
                             }]
                         );
@@ -657,8 +814,240 @@ describe('<Unit Test>', function () {
                 });
 
             });
+            
+            describe('has been',function(){
+                
+                it('member has been in zone',function(){
+
+                    var rule = parser.parse('member has been in zone bob');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: null,
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'zone',
+                                zones:['bob']
+                            },
+                            moment_filter:null
+                        }]);
+                    
+                });
+
+                it('member has not been in zone',function(){
+
+                    var rule = parser.parse('member has not been in zone bob');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: 'not',
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'zone',
+                                zones:['bob']
+                            },
+                            moment_filter:null
+                        }]);
+
+                });
+
+                it('member has been in range',function(){
+
+                    var rule = parser.parse('member has been in range of beacon bob');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: null,
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'inRange',
+                                beacons:['bob']
+                            },
+                            moment_filter:null
+                        }]);
+
+                });
+
+                it('member has not been in range',function(){
+
+                    var rule = parser.parse('member has not been in range of beacon bob,tom');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: 'not',
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'inRange',
+                                beacons:['bob','tom']
+                            },
+                            moment_filter:null
+                        }]);
+
+                });
+                
+                it('member has been with RSSI over',function(){
+
+                    var rule = parser.parse('member has been with RSSI over 310 from beacon bob');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: null,
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'RSSI-over',
+                                number:310,
+                                beacons:['bob']
+                            },
+                            moment_filter:null
+                        }]);
+
+                });
+                
+                it('member has not been with RSSI over',function(){
+
+                    var rule = parser.parse('member has not been  with RSSI over 310 from beacon bob,tom,carl');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: 'not',
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'RSSI-over',
+                                number:310,
+                                beacons:['bob','tom','carl']
+                            },
+                            moment_filter:null
+                        }]);
+
+                });
+
+                it('member has been with RSSI below',function(){
+
+                    var rule = parser.parse('member has been with RSSI below 4 from beacon bob');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: null,
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'RSSI-below',
+                                number:4,
+                                beacons:['bob']
+                            },
+                            moment_filter:null
+                        }]);
+
+                });
+                
+                it('member has not been with RSSI below',function(){
+
+                    var rule = parser.parse('member has not been with RSSI below 4 from beacon bob,eric,jean');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: 'not',
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'RSSI-below',
+                                number:4,
+                                beacons:['bob','eric','jean']
+                            },
+                            moment_filter:null
+                        }]);
+
+                });
+
+                it('member has been with RSSI between',function(){
+
+                    var rule = parser.parse('member has been with RSSI between 4 and 6 from beacon bob');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: null,
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'RSSI-between',
+                                start:4,
+                                end:6,
+                                beacons:['bob']
+                            },
+                            moment_filter:null
+                        }]);
+                });
+                
+                it('member has not been with RSSI between',function(){
+
+                    var rule = parser.parse('member has not been with RSSI between 6 and 4 from beacon bob,norbert');
+                    should(rule).eql([
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type: 'not',
+                                sub_type:'been'
+                            },
+                            occurence_filter: null,
+                            period_filter: null,
+                            geo_filter:{
+                                type:'RSSI-between',
+                                start:6,
+                                end:4,
+                                beacons:['bob','norbert']
+                            },
+                            moment_filter:null
+                        }]);
+
+                });
+                
+            });
 
         });
 
     });
+    
 });

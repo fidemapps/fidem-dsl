@@ -27,29 +27,27 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
                             scope: 'member',
-                            sub_scope: 'did',
+                            type: 'did',
                             condition: {
                                 type: 'nothing'
-                            },
-                            occurence_filter: null,
-                            period_filter: null
+                            }
                         }
                     ]
                 });
                 done();
             });
 
-            it('member did not TEST with jean < 2, bob = 3', function (done) {
+            it('member did not TEST with jean < 2 & bob = 3', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < 2, bob = 3');
+                var rule = parser.parse('member did not TEST with jean < 2& bob = 3');
                 should(rule).eql({
                     conditions: [
                         {
                             scope: 'member',
-                            sub_scope: 'did',
+                            type: 'did',
+                            negative:true,
                             condition: {
-                                type: 'not',
-                                code: 'TEST',
+                                actionCode: 'TEST',
                                 conditions: [
                                     {
                                         operator: '<',
@@ -62,9 +60,7 @@ describe('<Unit Test>', function () {
                                         value: 3
                                     }
                                 ]
-                            },
-                            occurence_filter: null,
-                            period_filter: null
+                            }
                         }
                     ]
                 });
@@ -78,10 +74,10 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
                             scope: 'member',
-                            sub_scope: 'did',
+                            type: 'did',
+                            negative:true,
                             condition: {
-                                type: 'not',
-                                code: 'TEST',
+                                actionCode: 'TEST',
                                 conditions: [
                                     {
                                         operator: '<',
@@ -90,11 +86,10 @@ describe('<Unit Test>', function () {
                                     }
                                 ]
                             },
-                            occurence_filter: {
+                            occurrence_filter: {
                                 type: 'less',
                                 number: 3
-                            },
-                            period_filter: null
+                            }
                         }
                     ]
                 });
@@ -108,10 +103,10 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
                             scope: 'member',
-                            sub_scope: 'did',
+                            type: 'did',
+                            negative:true,
                             condition: {
-                                type: 'not',
-                                code: 'TEST',
+                                actionCode: 'TEST',
                                 conditions: [
                                     {
                                         operator: '<',
@@ -120,11 +115,10 @@ describe('<Unit Test>', function () {
                                     }
                                 ]
                             },
-                            occurence_filter: null,
                             period_filter: {
                                 type: 'before',
                                 date: [
-                                    '2016-03-03T04:40:40'
+                                    new Date('2016-03-03 04:40:40')
                                 ]
                             }
                         }
@@ -140,10 +134,10 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
                             scope: 'member',
-                            sub_scope: 'did',
+                            type: 'did',
+                            negative:true,
                             condition: {
-                                type: 'not',
-                                code: 'TEST',
+                                actionCode: 'TEST',
                                 conditions: [
                                     {
                                         operator: '<',
@@ -152,20 +146,205 @@ describe('<Unit Test>', function () {
                                     }
                                 ]
                             },
-                            occurence_filter: {
+                            occurrence_filter: {
                                 type: 'less',
                                 number: 3
                             },
                             period_filter: {
                                 type: 'before',
                                 date: [
-                                    '2016-03-03T04:40:40'
+                                    new Date('2016-03-03 04:40:40')
                                 ]
                             }
                         }
                     ]
                 });
                 done();
+            });
+
+            it('member did not TEST with jean < "thomas" less than 3 time in zone montreal,laval after 2016-03-03T04:40:40',function(){
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time in zone montreal,laval after 2016-03-03T04:40:40');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'did',
+                            negative:true,
+                            condition: {
+                                actionCode: 'TEST',
+                                conditions: [
+                                    {
+                                        operator: '<',
+                                        name: 'jean',
+                                        value: "thomas"
+                                    }
+                                ]
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'after',
+                                date: [
+                                    new Date('2016-03-03 04:40:40')
+                                ]
+                            },
+                            geo_filter:{
+                                type:'zone',
+                                zones:['montreal','laval']
+                            }
+                        }
+                    ]
+                });
+            });
+
+            it('member did not TEST with jean < "thomas" less than 3 time in range of beacon BEACON1,BEACON2 since did eat',function(){
+
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time in range of beacon BEACON1,BEACON2 since did eat');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'did',
+                            negative:true,
+                            condition: {
+                                actionCode: 'TEST',
+                                conditions: [
+                                    {
+                                        operator: '<',
+                                        name: 'jean',
+                                        value: "thomas"
+                                    }
+                                ]
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'since-did',
+                                actionCode:'eat'
+                            },
+                            geo_filter:{
+                                type:'inRange',
+                                beacons:['BEACON1','BEACON2']
+                            }
+                        }
+                    ]
+                });
+            });
+
+            it('member did not TEST with jean < "thomas" less than 3 time with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat',function(){
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'did',
+                            negative:true,
+                            condition: {
+                                actionCode: 'TEST',
+                                conditions: [
+                                    {
+                                        operator: '<',
+                                        name: 'jean',
+                                        value: "thomas"
+                                    }
+                                ]
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'since-did',
+                                position:'last',
+                                actionCode:'eat'
+                            },
+                            geo_filter:{
+                                type:'RSSI-below',
+                                number:3,
+                                beacons:['BEACON1','BEACON2','BEACON3']
+                            }
+                        }
+                    ]
+                });
+            });
+
+            it('member did not TEST with jean < "thomas" less than 3 time with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat',function(){
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'did',
+                            negative:true,
+                            condition: {
+                                actionCode: 'TEST',
+                                conditions: [
+                                    {
+                                        operator: '<',
+                                        name: 'jean',
+                                        value: "thomas"
+                                    }
+                                ]
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'since-did',
+                                position:'first',
+                                actionCode:'eat'
+                            },
+                            geo_filter:{
+                                type:'RSSI-over',
+                                number:3,
+                                beacons:['BEACON1','BEACON2','BEACON3']
+                            }
+                        }
+                    ]
+                });
+            });
+
+            it('member did not TEST with jean < "thomas" less than 3 time with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since recieved prize bob',function(){
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since received prize bob');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'did',
+                            negative:true,
+                            condition: {
+                                actionCode: 'TEST',
+                                conditions: [
+                                    {
+                                        operator: '<',
+                                        name: 'jean',
+                                        value: "thomas"
+                                    }
+                                ]
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'since-received',
+                                target:'prize',
+                                prizeCode:'bob'
+                            },
+                            geo_filter:{
+                                type:'RSSI-between',
+                                start:3,
+                                end:4,
+                                beacons:['BEACON1','BEACON2','BEACON3']
+                            }
+                        }
+                    ]
+                });
             });
 
         });
@@ -181,14 +360,11 @@ describe('<Unit Test>', function () {
                         conditions: [
                             {
                                 scope: 'member',
-                                sub_scope: 'has',
+                                type: 'has',
                                 condition: {
-                                    type: null,
-                                    sub_type:'completed',
+                                    type:'completed',
                                     code: 'TEST'
-                                },
-                                occurence_filter: null,
-                                period_filter: null
+                                }
 
                             }]
                     });
@@ -201,14 +377,12 @@ describe('<Unit Test>', function () {
                     should(rule).eql({
                         conditions: [{
                             scope: 'member',
-                            sub_scope: 'has',
+                            type: 'has',
+                            negative:true,
                             condition: {
-                                type: 'not',
-                                sub_type:'completed',
+                                type: 'completed',
                                 code: 'TEST'
-                            },
-                            occurence_filter: null,
-                            period_filter: null
+                            }
 
                         }]
                     });
@@ -221,17 +395,16 @@ describe('<Unit Test>', function () {
                     should(rule).eql({
                         conditions: [{
                             scope: 'member',
-                            sub_scope: 'has',
+                            type: 'has',
+                            negative:true,
                             condition: {
-                                type: 'not',
-                                sub_type:'completed',
+                                type: 'completed',
                                 code: 'TEST'
                             },
-                            occurence_filter: {
+                            occurrence_filter: {
                                 type: 'less',
                                 number: 3
-                            },
-                            period_filter: null
+                            }
                         }]
                     });
                     done();
@@ -244,52 +417,206 @@ describe('<Unit Test>', function () {
                         conditions: [
                             {
                                 scope: 'member',
-                                sub_scope: 'has',
+                                type: 'has',
+                                negative:true,
                                 condition: {
-                                    type: 'not',
-                                    sub_type:'completed',
+                                    type: 'completed',
                                     code: 'TEST'
-                                },
-                                occurence_filter: null,
-                                period_filter: {
-                                    type: 'before',
-                                    date: [
-                                        '2016-03-03T04:40:40'
-                                    ]
-                                }
-                            }]
-                    })
-                    ;
-                    done();
-                });
-
-                it('member has not completed TEST less than 3 times before 2016-03-03T04:40:40', function (done) {
-
-                    var rule = parser.parse('member has not completed TEST less than 3 times before 2016-03-03T04:40:40');
-                    should(rule).eql({
-                        conditions: [
-                            {
-                                scope: 'member',
-                                sub_scope: 'has',
-                                condition: {
-                                    type: 'not',
-                                    sub_type:'completed',
-                                    code: 'TEST'
-                                },
-                                occurence_filter: {
-                                    type: 'less',
-                                    number: 3
                                 },
                                 period_filter: {
                                     type: 'before',
                                     date: [
-                                        '2016-03-03T04:40:40'
+                                        new Date('2016-03-03 04:40:40')
                                     ]
                                 }
                             }]
                     });
                     done();
                 });
+
+                it('member has not completed TEST less than 3 times after 2016-03-03T04:40:40', function (done) {
+
+                    var rule = parser.parse('member has not completed TEST less than 3 times after 2016-03-03T04:40:40');
+                    should(rule).eql({
+                        conditions: [
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                negative:true,
+                                condition: {
+                                    type: 'completed',
+                                    code: 'TEST'
+                                },
+                                occurrence_filter: {
+                                    type: 'less',
+                                    number: 3
+                                },
+                                period_filter: {
+                                    type: 'after',
+                                    date: [
+                                        new Date('2016-03-03 04:40:40')
+                                    ]
+                                }
+                            }]
+                    });
+                    done();
+                });
+
+                it('member has not completed TEST less than 3 time in zone montreal,laval after 2016-03-03T04:40:40',function(){
+                    var rule = parser.parse('member has not completed TEST less than 3 time in zone montreal,laval after 2016-03-03T04:40:40');
+                    should(rule).eql({
+                        conditions: [
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                negative:true,
+                                condition: {
+                                    code: 'TEST',
+                                    type: 'completed'
+                                },
+                                occurrence_filter: {
+                                    type: 'less',
+                                    number: 3
+                                },
+                                period_filter: {
+                                    type: 'after',
+                                    date: [
+                                        new Date('2016-03-03 04:40:40')
+                                    ]
+                                },
+                                geo_filter:{
+                                    type:'zone',
+                                    zones:['montreal','laval']
+                                }
+                            }
+                        ]
+                    });
+                });
+
+                it('member has not completed TEST less than 3 time in range of beacon BEACON1,BEACON2 since did eat',function(){
+
+                    var rule = parser.parse('member has not completed TEST less than 3 time in range of beacon BEACON1,BEACON2 since did eat');
+                    should(rule).eql({
+                        conditions: [
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                negative:true,
+                                condition: {
+                                    code: 'TEST',
+                                    type: 'completed'
+                                },
+                                occurrence_filter: {
+                                    type: 'less',
+                                    number: 3
+                                },
+                                period_filter: {
+                                    type: 'since-did',
+                                    actionCode:'eat'
+                                },
+                                geo_filter:{
+                                    type:'inRange',
+                                    beacons:['BEACON1','BEACON2']
+                                }
+                            }
+                        ]
+                    });
+                });
+
+                it('member has not completed TEST less than 3 time with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat',function(){
+                    var rule = parser.parse('member has not completed TEST less than 3 time with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat');
+                    should(rule).eql({
+                        conditions: [
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                negative:true,
+                                condition: {
+                                    code: 'TEST',
+                                    type: 'completed'
+                                },
+                                occurrence_filter: {
+                                    type: 'less',
+                                    number: 3
+                                },
+                                period_filter: {
+                                    type: 'since-did',
+                                    position:'last',
+                                    actionCode:'eat'
+                                },
+                                geo_filter:{
+                                    type:'RSSI-below',
+                                    number:3,
+                                    beacons:['BEACON1','BEACON2','BEACON3']
+                                }
+                            }
+                        ]
+                    });
+                });
+
+                it('member has not completed TEST less than 3 time with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat',function(){
+                    var rule = parser.parse('member has not completed TEST less than 3 time with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat');
+                    should(rule).eql({
+                        conditions: [
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                negative:true,
+                                condition: {
+                                    code: 'TEST',
+                                    type: 'completed'
+                                },
+                                occurrence_filter: {
+                                    type: 'less',
+                                    number: 3
+                                },
+                                period_filter: {
+                                    type: 'since-did',
+                                    position:'first',
+                                    actionCode:'eat'
+                                },
+                                geo_filter:{
+                                    type:'RSSI-over',
+                                    number:3,
+                                    beacons:['BEACON1','BEACON2','BEACON3']
+                                }
+                            }
+                        ]
+                    });
+                });
+
+                it('member has not completed TEST less than 3 time with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since recieved prize bob',function(){
+                    var rule = parser.parse('member has not completed TEST less than 3 time with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since received prize bob');
+                    should(rule).eql({
+                        conditions: [
+                            {
+                                scope: 'member',
+                                type: 'has',
+                                negative:true,
+                                condition: {
+                                    code: 'TEST',
+                                    type: 'completed'
+                                },
+                                occurrence_filter: {
+                                    type: 'less',
+                                    number: 3
+                                },
+                                period_filter: {
+                                    type: 'since-received',
+                                    target:'prize',
+                                    prizeCode:'bob'
+                                },
+                                geo_filter:{
+                                    type:'RSSI-between',
+                                    start:3,
+                                    end:4,
+                                    beacons:['BEACON1','BEACON2','BEACON3']
+                                }
+                            }
+                        ]
+                    });
+                });
+
 
             });
 
@@ -303,21 +630,15 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
                                         condition: {
-                                            number:null,
-                                            type: null,
-                                            sub_type:'gained',
-                                            object:{
-                                                type:'tag',
-                                                tagCode: {
-                                                    tagClusterCode: null,
-                                                    tagCode: 'bob'
-                                                }
+                                            type: 'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
                                             }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+
+                                        }
 
                                     }]
                             }
@@ -331,21 +652,15 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
                                         condition: {
                                             number:3,
-                                            type: null,
-                                            sub_type:'lost',
-                                            object:{
-                                                type:'tag',
-                                                tagCode: {
-                                                    tagClusterCode: null,
-                                                    tagCode: 'bob'
-                                                }
+                                            type:'lost',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
                                             }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+                                        }
 
                                     }]
                             }
@@ -359,21 +674,16 @@ describe('<Unit Test>', function () {
                                 conditions:[
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
+                                        negative:true,
                                         condition: {
                                             number:3,
-                                            type: 'not',
-                                            sub_type:'gained',
-                                            object:{
-                                                type:'tag',
-                                                tagCode: {
-                                                    tagClusterCode: null,
-                                                    tagCode: 'bob'
-                                                }
+                                            type:'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
                                             }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+                                        }
 
                                     }]
                             }
@@ -387,52 +697,14 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
+                                        negative:true,
                                         condition: {
-                                            number:null,
-                                            type: 'not',
-                                            sub_type:'lost',
-                                            object:{
-                                                type:'tag',
-                                                tagCode: {
-                                                    tagClusterCode: null,
-                                                    tagCode: 'bob'
-                                                }
+                                            type:'lost',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
                                             }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
-
-                                    }]
-                            }
-                        );
-                        done();
-                    });
-
-                    it('member has gained tag bob in last 3 days',function(done){
-                        var rule = parser.parse('member has gained tag bob in last 3 days');
-                        should(rule).eql({
-                                conditions:[
-                                    {
-                                        scope: 'member',
-                                        sub_scope: 'has',
-                                        condition: {
-                                            number:null,
-                                            type: null,
-                                            sub_type:'gained',
-                                            object:{
-                                                type:'tag',
-                                                tagCode: {
-                                                    tagClusterCode: null,
-                                                    tagCode: 'bob'
-                                                }
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: {
-                                            type:'last',
-                                            duration:3,
-                                            durationScope:'day'
                                         }
 
                                     }]
@@ -440,29 +712,228 @@ describe('<Unit Test>', function () {
                         );
                         done();
                     });
+
+                    it('member has gained tag bob in last 3 days ',function(done){
+                        var rule = parser.parse('member has gained tag bob in last 3 days');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
+                                            }
+                                        },
+                                        period_filter: {
+                                            type:'last',
+                                            duration:3,
+                                            durationScope:'day'
+
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained tag bob before 2016-04-04T10:10:10',function(done){
+                        var rule = parser.parse('member has gained tag bob before 2016-04-04T10:10:10');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
+                                            }
+                                        },
+                                        period_filter: {
+                                            type:'before',
+                                            date:[new Date('2016-04-04 10:10:10')]
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained tag bob after 2016-04-04T10:10:10',function(done){
+                        var rule = parser.parse('member has gained tag bob after 2016-04-04T10:10:10');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
+                                            }
+                                        },
+                                        period_filter: {
+                                            type:'after',
+                                            date:[new Date('2016-04-04 10:10:10')]
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained tag bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10',function(done){
+                        var rule = parser.parse('member has gained tag bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
+                                            }
+                                        },
+                                        period_filter: {
+                                            type:'between',
+                                            date:[new Date('2016-04-04 10:10:10'),new Date('2016-04-05 10:10:10')]
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained tag bob since did eat',function(done){
+                        var rule = parser.parse('member has gained tag bob since did eat');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
+                                            }
+                                        },
+                                        period_filter: {
+                                            type:'since-did',
+                                            actionCode:'eat'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained tag bob since did first eat',function(done){
+                        var rule = parser.parse('member has gained tag bob since did first eat');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
+                                            }
+                                        },
+                                        period_filter: {
+                                            type:'since-did',
+                                            position:'first',
+                                            actionCode:'eat'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained tag bob since did last eat',function(done){
+                        var rule = parser.parse('member has gained tag bob since did last eat');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
+                                            }
+                                        },
+                                        period_filter: {
+                                            type:'since-did',
+                                            position:'last',
+                                            actionCode:'eat'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained tag bob since received prize points',function(done){
+                        var rule = parser.parse('member has gained tag bob since received prize points');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            tagCode: {
+                                                tagClusterCode: null,
+                                                tagCode: 'bob'
+                                            }
+                                        },
+                                        period_filter: {
+                                            type:'since-received',
+                                            target:'prize',
+                                            prizeCode:'points'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
                 });
 
                 describe('points',function(){
-                    
+
                     it('member has gained points bob',function(done){
                         var rule = parser.parse('member has gained points bob');
                         should(rule).eql({
                                 conditions: [
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
                                         condition: {
-                                            number:null,
-                                            type: null,
-                                            sub_type:'gained',
-                                            object:{
-                                                type:'points',
-                                                levelCode: 'bob'
-                                                
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+                                            type: 'gained',
+                                            levelCode:'bob'
+
+                                        }
 
                                     }]
                             }
@@ -476,19 +947,12 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
                                         condition: {
                                             number:3,
-                                            type: null,
-                                            sub_type:'lost',
-                                            object:{
-                                                type:'points',
-                                                levelCode: 'bob'
-
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+                                            type:'lost',
+                                            levelCode:'bob'
+                                        }
 
                                     }]
                             }
@@ -502,19 +966,13 @@ describe('<Unit Test>', function () {
                                 conditions:[
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
+                                        negative:true,
                                         condition: {
                                             number:3,
-                                            type: 'not',
-                                            sub_type:'gained',
-                                            object:{
-                                                type:'points',
-                                                levelCode: 'bob'
-
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+                                            type:'gained',
+                                            levelCode:'bob'
+                                        }
 
                                     }]
                             }
@@ -528,48 +986,11 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
+                                        negative:true,
                                         condition: {
-                                            number:null,
-                                            type: 'not',
-                                            sub_type:'lost',
-                                            object:{
-                                                type:'points',
-                                                levelCode: 'bob'
-
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
-
-                                    }]
-                            }
-                        );
-                        done();
-                    });
-
-                    it('member has gained points bob in last 3 days',function(done){
-                        var rule = parser.parse('member has gained points bob in last 3 days');
-                        should(rule).eql({
-                                conditions:[
-                                    {
-                                        scope: 'member',
-                                        sub_scope: 'has',
-                                        condition: {
-                                            number:null,
-                                            type: null,
-                                            sub_type:'gained',
-                                            object:{
-                                                type:'points',
-                                                levelCode: 'bob'
-
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: {
-                                            type:'last',
-                                            duration:3,
-                                            durationScope:'day'
+                                            type:'lost',
+                                            levelCode:'bob'
                                         }
 
                                     }]
@@ -577,29 +998,203 @@ describe('<Unit Test>', function () {
                         );
                         done();
                     });
+
+                    it('member has gained points bob in last 3 days ',function(done){
+                        var rule = parser.parse('member has gained points bob in last 3 days');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            levelCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'last',
+                                            duration:3,
+                                            durationScope:'day'
+
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob before 2016-04-04T10:10:10',function(done){
+                        var rule = parser.parse('member has gained points bob before 2016-04-04T10:10:10');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            levelCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'before',
+                                            date:[new Date('2016-04-04 10:10:10')]
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob after 2016-04-04T10:10:10',function(done){
+                        var rule = parser.parse('member has gained points bob after 2016-04-04T10:10:10');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            levelCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'after',
+                                            date:[new Date('2016-04-04 10:10:10')]
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10',function(done){
+                        var rule = parser.parse('member has gained points bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            levelCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'between',
+                                            date:[new Date('2016-04-04 10:10:10'),new Date('2016-04-05 10:10:10')]
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob since did eat',function(done){
+                        var rule = parser.parse('member has gained points bob since did eat');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            levelCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'since-did',
+                                            actionCode:'eat'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob since did first eat',function(done){
+                        var rule = parser.parse('member has gained points bob since did first eat');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            levelCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'since-did',
+                                            position:'first',
+                                            actionCode:'eat'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob since did last eat',function(done){
+                        var rule = parser.parse('member has gained points bob since did last eat');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            levelCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'since-did',
+                                            position:'last',
+                                            actionCode:'eat'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained points bob since received prize points',function(done){
+                        var rule = parser.parse('member has gained points bob since received prize points');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            levelCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'since-received',
+                                            target:'prize',
+                                            prizeCode:'points'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
                 });
 
                 describe('prize',function(){
-
                     it('member has gained prize bob',function(done){
                         var rule = parser.parse('member has gained prize bob');
                         should(rule).eql({
                                 conditions: [
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
                                         condition: {
-                                            number:null,
-                                            type: null,
-                                            sub_type:'gained',
-                                            object:{
-                                                type:'prize',
-                                                prizeCode: 'bob'
+                                            type: 'gained',
+                                            prizeCode:'bob'
 
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+                                        }
 
                                     }]
                             }
@@ -613,19 +1208,12 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
                                         condition: {
                                             number:3,
-                                            type: null,
-                                            sub_type:'lost',
-                                            object:{
-                                                type:'prize',
-                                                prizeCode: 'bob'
-
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+                                            type:'lost',
+                                            prizeCode:'bob'
+                                        }
 
                                     }]
                             }
@@ -639,19 +1227,13 @@ describe('<Unit Test>', function () {
                                 conditions:[
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
+                                        negative:true,
                                         condition: {
                                             number:3,
-                                            type: 'not',
-                                            sub_type:'gained',
-                                            object:{
-                                                type:'prize',
-                                                prizeCode: 'bob'
-
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+                                            type:'gained',
+                                            prizeCode:'bob'
+                                        }
 
                                     }]
                             }
@@ -665,19 +1247,12 @@ describe('<Unit Test>', function () {
                                 conditions: [
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
+                                        negative:true,
                                         condition: {
-                                            number:null,
-                                            type: 'not',
-                                            sub_type:'lost',
-                                            object:{
-                                                type:'prize',
-                                                prizeCode: 'bob'
-
-                                            }
-                                        },
-                                        occurence_filter: null,
-                                        period_filter: null
+                                            type:'lost',
+                                            prizeCode:'bob'
+                                        }
 
                                     }]
                             }
@@ -685,28 +1260,179 @@ describe('<Unit Test>', function () {
                         done();
                     });
 
-                    it('member has gained prize bob in last 3 days',function(done){
+                    it('member has gained prize bob in last 3 days ',function(done){
                         var rule = parser.parse('member has gained prize bob in last 3 days');
                         should(rule).eql({
                                 conditions:[
                                     {
                                         scope: 'member',
-                                        sub_scope: 'has',
+                                        type: 'has',
                                         condition: {
-                                            number:null,
-                                            type: null,
-                                            sub_type:'gained',
-                                            object:{
-                                                type:'prize',
-                                                prizeCode: 'bob'
-
-                                            }
+                                            type:'gained',
+                                            prizeCode:'bob'
                                         },
-                                        occurence_filter: null,
                                         period_filter: {
                                             type:'last',
                                             duration:3,
                                             durationScope:'day'
+
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained prize bob before 2016-04-04T10:10:10',function(done){
+                        var rule = parser.parse('member has gained prize bob before 2016-04-04T10:10:10');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            prizeCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'before',
+                                            date:[new Date('2016-04-04 10:10:10')]
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained prize bob after 2016-04-04T10:10:10',function(done){
+                        var rule = parser.parse('member has gained prize bob after 2016-04-04T10:10:10');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            prizeCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'after',
+                                            date:[new Date('2016-04-04 10:10:10')]
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained prize bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10',function(done){
+                        var rule = parser.parse('member has gained prize bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            prizeCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'between',
+                                            date:[new Date('2016-04-04 10:10:10'),new Date('2016-04-05 10:10:10')]
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained prize bob since did eat',function(done){
+                        var rule = parser.parse('member has gained prize bob since did eat');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            prizeCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'since-did',
+                                            actionCode:'eat'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained prize bob since did first eat',function(done){
+                        var rule = parser.parse('member has gained prize bob since did first eat');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            prizeCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'since-did',
+                                            position:'first',
+                                            actionCode:'eat'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained prize bob since did last eat',function(done){
+                        var rule = parser.parse('member has gained prize bob since did last eat');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            prizeCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'since-did',
+                                            position:'last',
+                                            actionCode:'eat'
+                                        }
+
+                                    }]
+                            }
+                        );
+                        done();
+                    });
+
+                    it('member has gained prize bob since received prize prize',function(done){
+                        var rule = parser.parse('member has gained prize bob since received prize prize');
+                        should(rule).eql({
+                                conditions:[
+                                    {
+                                        scope: 'member',
+                                        type: 'has',
+                                        condition: {
+                                            type:'gained',
+                                            prizeCode:'bob'
+                                        },
+                                        period_filter: {
+                                            type:'since-received',
+                                            target:'prize',
+                                            prizeCode:'prize'
                                         }
 
                                     }]

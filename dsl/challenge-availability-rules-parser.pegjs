@@ -217,7 +217,6 @@ did_rule
             conditions:condition
         }
     }
-
     /type:"something"
     {
         return {
@@ -321,16 +320,14 @@ object_rule_prize
          return {
              type:type,
              sub_type:subType,
-             code:challengeCode,
-             conditions:conditionList
+             code:challengeCode
          }
      }/ subType:"completed" S* challengeCode:challengeCode
       {
           return {
               type:null,
               sub_type:subType,
-              code:challengeCode,
-              conditions:conditionList
+              code:challengeCode
           }
       }
 

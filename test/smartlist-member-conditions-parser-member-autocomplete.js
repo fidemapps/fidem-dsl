@@ -22,11 +22,11 @@ describe('<Unit Test>', function () {
         });
 
 
-        describe('did',function(){
+        describe('did', function () {
 
-            describe('should auto-complete',function(){
+            describe('should auto-complete', function () {
 
-                it('member did',function(){
+                it('member did', function () {
                     try {
                         parser.parse('member did');
                     } catch (error) {
@@ -34,12 +34,12 @@ describe('<Unit Test>', function () {
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(5);
-                        should(literalChoices).eql(['not','nothing','something']);
-                        should(otherChoices).eql([ 'actionCode','whitespace']);
+                        should(literalChoices).eql(['not', 'nothing', 'something']);
+                        should(otherChoices).eql(['actionCode', 'whitespace']);
                     }
                 });
 
-                it('member did not',function(){
+                it('member did not', function () {
                     //This happen because the parser don't know yet that the word 'not' is a token and not an actionCode
                     try {
                         parser.parse('member did not');
@@ -48,37 +48,50 @@ describe('<Unit Test>', function () {
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(12);
-                        should(literalChoices).eql(['after','and','at','before','between','exactly','give','in','less','with']);
-                        should(otherChoices).eql([ 'actionCode','whitespace']);
+                        should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'give', 'in', 'less', 'with']);
+                        should(otherChoices).eql(['actionCode', 'whitespace']);
                     }
                 });
 
-                it('member did actionCode',function(){
+                it('member did actionCode', function () {
                     try {
                         parser.parse('member did eat d');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(11);
-                        should(literalChoices).eql(['after','and','at','before','between','exactly','in','less','with']);
+                        should(error.expected.length).equal(15);
+                        should(literalChoices).eql([
+                            'after',
+                            'and',
+                            'at',
+                            'before',
+                            'between',
+                            'exactly',
+                            'in range of',
+                            'in zone',
+                            'in',
+                            'less',
+                            'since',
+                            'with RSSI',
+                            'with']);
 
-                        should(otherChoices).eql([ 'whitespace']);
+                        should(otherChoices).eql(['whitespace']);
                     }
                 });
 
-                it('member did actionCode with',function(){
+                it('member did actionCode with', function () {
                     try {
                         parser.parse('member did eat with');
                     } catch (error) {
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(2);
-                        should(otherChoices).eql([ 'attributeName','whitespace']);
+                        should(otherChoices).eql(['attributeName', 'whitespace']);
                     }
                 });
 
-                it('member did actionCode with attributeName',function(){
+                it('member did actionCode with attributeName', function () {
                     try {
                         parser.parse('member did eat with bob');
                     } catch (error) {
@@ -86,12 +99,12 @@ describe('<Unit Test>', function () {
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(6);
-                        should(literalChoices).eql(['<','<=','=','>','>=']);
-                        should(otherChoices).eql([ 'whitespace']);
+                        should(literalChoices).eql(['<', '<=', '=', '>', '>=']);
+                        should(otherChoices).eql(['whitespace']);
                     }
                 });
 
-                it('member did actionCode with attributeName =',function(){
+                it('member did actionCode with attributeName =', function () {
                     try {
                         parser.parse('member did eat with bob =');
                     } catch (error) {
@@ -99,13 +112,13 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
 
 
-                        should(error.expected.length).equal(4);
-                        should(literalChoices).eql(["'",'\"']);
-                        should(otherChoices).eql([ 'number','whitespace']);
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql([]);
+                        should(otherChoices).eql(['number', 'string', 'whitespace']);
                     }
                 });
 
-                it('member did actionCode with attributeName = \"',function(){
+                it('member did actionCode with attributeName = \"', function () {
                     try {
                         parser.parse('member did eat with bob = \"');
                     } catch (error) {
@@ -114,59 +127,60 @@ describe('<Unit Test>', function () {
 
 
                         should(error.expected.length).equal(3);
-                        should(literalChoices).eql(['\"','\\']);
-                        should(otherChoices).eql([]);
+                        should(literalChoices).eql([]);
+                        should(otherChoices).eql(['number', 'string', 'whitespace']);
                     }
                 });
 
-                it('member did actionCode with attributeName = \"attributeValue\"',function(){
+                it('member did actionCode with attributeName = \"attributeValue\"', function () {
                     try {
                         parser.parse('member did eat with bob = \"bob\" 3');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(11);
-                        should(literalChoices).eql([',','after','and','at','before','between','exactly','in','less']);
+                        should(error.expected.length).equal(15);
+                        should(literalChoices).eql(['&', 'after', 'and', 'at', 'before', 'between', 'exactly', 'in range of', 'in zone', 'in', 'less', 'since', 'with RSSI']);
 
-                        should(otherChoices).eql([ 'whitespace']);
+                        should(otherChoices).eql(['whitespace']);
                     }
                 });
 
-                it('member did actionCode with attributeName = \"attributeValue\",',function(){
+                it('member did actionCode with attributeName = \"attributeValue\",', function () {
                     try {
-                        parser.parse('member did eat with bob = \"bob\",');
+                        parser.parse('member did eat with bob = \"bob\"&');
                     } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(2);
-                        should(otherChoices).eql([ 'attributeName','whitespace']);
+                        should(otherChoices).eql(['attributeName', 'whitespace']);
                     }
                 });
 
-                it('member did nothing',function(){
+                it('member did nothing', function () {
                     try {
                         parser.parse('member did nothing 3');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(10);
-                        should(literalChoices).eql(['after','and','at','before','between','exactly','in','less']);
-                        should(otherChoices).eql([ 'whitespace']);
+                        should(error.expected.length).equal(14);
+                        should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'in range of', 'in zone', 'in', 'less', 'since', 'with RSSI']);
+                        should(otherChoices).eql(['whitespace']);
                     }
                 });
 
-                it('member did something',function(){
+                it('member did something', function () {
                     try {
                         parser.parse('member did something 3');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(10);
-                        should(literalChoices).eql(['after','and','at','before','between','exactly','in','less']);
-                        should(otherChoices).eql([ 'whitespace']);
+                        should(error.expected.length).equal(14);
+                        should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'in range of', 'in zone', 'in', 'less', 'since', 'with RSSI']);
+                        should(otherChoices).eql(['whitespace']);
                     }
                 });
 
@@ -174,375 +188,990 @@ describe('<Unit Test>', function () {
 
         });
 
-        describe('has',function(){
+        describe('has', function () {
 
-            describe('should auto-complete',function(){
+            describe('should auto-complete', function () {
 
-                it('member has',function(){
-                    try {
-                        parser.parse('member has');
-                    } catch (error) {
-                        literalChoices = helper.extractLiterals(error);
-                        otherChoices = helper.extractOthers(error);
+                describe('completed', function () {
 
-                        should(error.expected.length).equal(5);
-                        should(literalChoices).eql(['completed','gained','lost','not']);
-                        should(otherChoices).eql([ 'whitespace']);
-                    }
+                    it('member has', function () {
+                        try {
+                            parser.parse('member has');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(6);
+                            should(literalChoices).eql(['been', 'completed', 'gained', 'lost', 'not']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has not', function () {
+                        try {
+                            parser.parse('member has not');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(5);
+                            should(literalChoices).eql(['been', 'completed', 'gained', 'lost']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has not completed', function () {
+                        try {
+                            parser.parse('member has not completed');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['challengeCode', 'whitespace']);
+                        }
+                    });
+
+                    it('member has not completed challengeCode', function () {
+                        try {
+                            parser.parse('member has not completed bob 3');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(14);
+                            should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'in range of', 'in zone', 'in', 'less', 'since', 'with RSSI']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
                 });
 
-                it('member has not',function(){
-                    try {
-                        parser.parse('member has not');
-                    } catch (error) {
-                        literalChoices = helper.extractLiterals(error);
-                        otherChoices = helper.extractOthers(error);
+                describe('gain/ lost', function () {
 
-                        should(error.expected.length).equal(4);
-                        should(literalChoices).eql(['completed','gained','lost']);
-                        should(otherChoices).eql([ 'whitespace']);
-                    }
+                    it('member has not gained', function () {
+                        try {
+                            parser.parse('member has not gained');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(5);
+                            should(literalChoices).eql(['points', 'prize', 'tag']);
+                            should(otherChoices).eql(['number', 'whitespace']);
+                        }
+                    });
+
+                    it('member has not lost', function () {
+                        try {
+                            parser.parse('member has not lost');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(5);
+                            should(literalChoices).eql(['points', 'prize', 'tag']);
+                            should(otherChoices).eql(['number', 'whitespace']);
+                        }
+                    });
+
+                    it('member has not gained 3', function () {
+                        try {
+                            parser.parse('member has not gained 3');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(4);
+                            should(literalChoices).eql(['points', 'prize', 'tag']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has not lost tag', function () {
+                        try {
+                            parser.parse('member has not lost tag');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['tagCode', 'whitespace']);
+                        }
+                    });
+
+                    it('member has not gained 3 tag', function () {
+                        try {
+                            parser.parse('member has not gained 3 tag');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['tagCode', 'whitespace']);
+                        }
+                    });
+
+                    it('member has not lost tag bob', function () {
+                        try {
+                            parser.parse('member has not lost tag bob x');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(8);
+                            should(literalChoices).eql(['after', 'and', 'before', 'between', 'in', 'since']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has not lost points', function () {
+                        try {
+                            parser.parse('member has not lost points');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['levelCode', 'whitespace']);
+                        }
+                    });
+
+                    it('member has not gained 3 points', function () {
+                        try {
+                            parser.parse('member has not gained 3 points');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['levelCode', 'whitespace']);
+                        }
+                    });
+
+                    it('member has not lost points bob', function () {
+                        try {
+                            parser.parse('member has not lost points bob x');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(8);
+                            should(literalChoices).eql(['after', 'and', 'before', 'between', 'in', 'since']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has not lost prize', function () {
+                        try {
+                            parser.parse('member has not lost prize');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['prizeCode', 'whitespace']);
+                        }
+                    });
+
+                    it('member has not gained 3 prize', function () {
+                        try {
+                            parser.parse('member has not gained 3 prize');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql(['prizeCode', 'whitespace']);
+                        }
+                    });
+
+                    it('member has not lost prize bob', function () {
+                        try {
+                            parser.parse('member has not lost prize bob x');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(8);
+                            should(literalChoices).eql(['after', 'and', 'before', 'between', 'in', 'since']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+
                 });
 
-                it('member has not completed',function(){
+                describe('been',function(){
+
+                    it('member has been',function(){
+                        try {
+                            parser.parse('member has been');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(4);
+                            should(literalChoices).eql(['in range of', 'in zone', 'with RSSI']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has not been',function(){
+                        try {
+                            parser.parse('member has not been');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(4);
+                            should(literalChoices).eql(['in range of', 'in zone', 'with RSSI']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been in zone',function(){
+                        try {
+                            parser.parse('member has been in zone');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['whitespace','zoneCode']);
+                        }
+                    });
+
+                    it('member has been in zone bob',function(){
+                        try {
+                            parser.parse('member has been in zone bob s');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(9);
+                            should(literalChoices).eql([',','after','and','before','between','in','since']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been in zone bob,',function(){
+                        try {
+                            parser.parse('member has been in zone bob,');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['whitespace','zoneCode']);
+                        }
+                    });
+
+                    it('member has been in zone bob,pierre',function(){
+                        try {
+                            parser.parse('member has been in zone bob,pierre s');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(9);
+                            should(literalChoices).eql([',','after','and','before','between','in','since']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been in range of',function(){
+                        try {
+                            parser.parse('member has been in range of');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql(['beacon']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been in range of beacon',function(){
+                        try {
+                            parser.parse('member has been in range of beacon');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['beaconCode','whitespace']);
+                        }
+                    });
+
+                    it('member has been in range of beacon bob',function(){
+                        try {
+                            parser.parse('member has been in range of beacon bob s');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(9);
+                            should(literalChoices).eql([',','after','and','before','between','in','since']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been in range of beacon bob,',function(){
+                        try {
+                            parser.parse('member has been in range of beacon bob, ');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['beaconCode','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI',function(){
+                        try {
+                            parser.parse('member has been with RSSI ');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(4);
+                            should(literalChoices).eql(['below','between','over']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI over',function(){
+                        try {
+                            parser.parse('member has been with RSSI over');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['number','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI over 3',function(){
+                        try {
+                            parser.parse('member has been with RSSI over 3');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql(['from']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI over 3 from',function(){
+                        try {
+                            parser.parse('member has been with RSSI over 3 from');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql(['beacon']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI over 3 from beacon',function(){
+                        try {
+                            parser.parse('member has been with RSSI over 3 from beacon');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['beaconCode','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI over 3 from beacon bob',function(){
+                        try {
+                            parser.parse('member has been with RSSI over 3 from beacon bob s');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(9);
+                            should(literalChoices).eql([',','after','and','before','between','in','since']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI over 3 from beacon bob,',function(){
+                        try {
+                            parser.parse('member has been with RSSI over 3 from beacon bob,');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['beaconCode','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI below',function(){
+                        try {
+                            parser.parse('member has been with RSSI over');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['number','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI below 3',function(){
+                        try {
+                            parser.parse('member has been with RSSI below 3');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql(['from']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI below 3 from',function(){
+                        try {
+                            parser.parse('member has been with RSSI below 3 from');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql(['beacon']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI below 3 from beacon',function(){
+                        try {
+                            parser.parse('member has been with RSSI below 3 from beacon');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['beaconCode','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI below 3 from beacon bob',function(){
+                        try {
+                            parser.parse('member has been with RSSI below 3 from beacon bob s');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(9);
+                            should(literalChoices).eql([',','after','and','before','between','in','since']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI below 3 from beacon bob,',function(){
+                        try {
+                            parser.parse('member has been with RSSI below 3 from beacon bob,');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['beaconCode','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI between',function(){
+                        try {
+                            parser.parse('member has been with RSSI over');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['number','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI between 3',function(){
+                        try {
+                            parser.parse('member has been with RSSI between 3');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql(['and']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI between 3 and',function(){
+                        try {
+                            parser.parse('member has been with RSSI between 3 and');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['number','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI between 3 and 4',function(){
+                        try {
+                            parser.parse('member has been with RSSI between 3 and 4');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql(['from']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI between 3 and 4 from',function(){
+                        try {
+                            parser.parse('member has been with RSSI between 3 and 4 from');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql(['beacon']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI between 3 and 4 from beacon',function(){
+                        try {
+                            parser.parse('member has been with RSSI between 3 and 4 from beacon');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['beaconCode','whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI between 3 and 4 from beacon bob',function(){
+                        try {
+                            parser.parse('member has been with RSSI between 3 and 4 from beacon bob s');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(9);
+                            should(literalChoices).eql([',','after','and','before','between','in','since']);
+                            should(otherChoices).eql(['whitespace']);
+                        }
+                    });
+
+                    it('member has been with RSSI between 3 and 4 from beacon bob,',function(){
+                        try {
+                            parser.parse('member has been with RSSI between 3 and 4 from beacon bob,');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(literalChoices).eql([]);
+                            should(otherChoices).eql(['beaconCode','whitespace']);
+                        }
+                    });
+
+                });
+
+            });
+
+            describe('should auto-complete the occurence filter', function () {
+
+                it('member did something at', function () {
                     try {
-                        parser.parse('member has not completed');
+                        parser.parse('member did something at');
                     } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(2);
-                        should(otherChoices).eql([ 'challengeCode','whitespace']);
-                    }
-                });
-
-                it('member has not completed challengeCode',function() {
-                    try {
-                        parser.parse('member has not completed bob 3');
-                    } catch (error) {
-                        literalChoices = helper.extractLiterals(error);
-                        otherChoices = helper.extractOthers(error);
-
-                        should(error.expected.length).equal(10);
-                        should(literalChoices).eql(['after', 'and', 'at','before', 'between', 'exactly', 'in','less']);
+                        should(literalChoices).eql(['least']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
 
-                it('member has not gained',function(){
+                it('member did something at least', function () {
                     try {
-                        parser.parse('member has not gained');
+                        parser.parse('member did something at least');
                     } catch (error) {
-                        literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(5);
-                        should(literalChoices).eql(['points','prize','tag']);
-                        should(otherChoices).eql([ 'number','whitespace']);
-                    }
-                });
-
-                it('member has not lost',function(){
-                    try {
-                        parser.parse('member has not lost');
-                    } catch (error) {
-                        literalChoices = helper.extractLiterals(error);
-                        otherChoices = helper.extractOthers(error);
-
-                        should(error.expected.length).equal(5);
-                        should(literalChoices).eql(['points','prize','tag']);
+                        should(error.expected.length).equal(2);
                         should(otherChoices).eql(['number', 'whitespace']);
                     }
                 });
 
-                it('member has not gained 3',function(){
+                it('member did something exactly', function () {
                     try {
-                        parser.parse('member has not gained 3');
+                        parser.parse('member did something exactly');
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['number', 'whitespace']);
+                    }
+                });
+
+                it('member did something less', function () {
+                    try {
+                        parser.parse('member did something less');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(literalChoices).eql(['than']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something less than', function () {
+                    try {
+                        parser.parse('member did something less than');
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['number', 'whitespace']);
+                    }
+                });
+
+                it('member did something at least number', function () {
+                    try {
+                        parser.parse('member did something at least 2');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['time', 'times']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something at least number times', function () {
+                    try {
+                        parser.parse('member did something at least 2 times 3');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(11);
+                        should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in range of', 'in zone', 'in', 'since', 'with RSSI']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something at least number time', function () {
+                    try {
+                        parser.parse('member did something at least 1 time 3');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(11);
+                        should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in range of', 'in zone', 'in', 'since', 'with RSSI']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+            });
+
+            describe('should auto-complete the period filter', function () {
+
+                it('member did something before', function () {
+                    try {
+                        parser.parse('member did something before');
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['datetime', 'whitespace']);
+                    }
+                });
+
+                it('member did something after', function () {
+                    try {
+                        parser.parse('member did something after');
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['datetime', 'whitespace']);
+                    }
+                });
+
+                it('member did something after/before datetime', function () {
+                    try {
+                        parser.parse('member did something after 2016-03-04T23:20:20 2');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['and']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something between', function () {
+                    try {
+                        parser.parse('member did something between');
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['datetime', 'whitespace']);
+                    }
+                });
+
+                it('member did something between datetime', function () {
+                    try {
+                        parser.parse('member did something between 2016-03-04T23:20:20');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(literalChoices).eql(['and']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something between datetime and', function () {
+                    try {
+                        parser.parse('member did something between 2016-03-04T23:20:20 and');
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['datetime', 'whitespace']);
+                    }
+                });
+
+                it('member did something between datetime and datetime', function () {
+                    try {
+                        parser.parse('member did something between 2016-03-04T23:20:20 and 2016-03-04T23:20:21 4');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['and']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something in', function () {
+                    try {
+                        parser.parse('member did something in');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(literalChoices).eql(['last']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something in last', function () {
+                    try {
+                        parser.parse('member did something in last');
+                    } catch (error) {
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(otherChoices).eql(['number', 'whitespace']);
+                    }
+                });
+
+                it('member did something in last number', function () {
+                    try {
+                        parser.parse('member did something in last 3');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(13);
+                        should(literalChoices).eql(['day', 'days', 'hour', 'hours', 'minute', 'minutes', 'month', 'months', 'week', 'weeks', 'year', 'years']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something in last number timeframe', function () {
+                    try {
+                        parser.parse('member did something in last 3 weeks 4');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['and']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something since',function(){
+                    try {
+                        parser.parse('member did something since');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['did','received']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something since did',function(){
+                    try {
+                        parser.parse('member did something since did');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
                         should(error.expected.length).equal(4);
-                        should(literalChoices).eql(['points','prize','tag']);
-                        should(otherChoices).eql(['whitespace']);
+                        should(literalChoices).eql(['first','last']);
+                        should(otherChoices).eql(['actionCode','whitespace']);
                     }
                 });
 
-                it('member has not lost tag',function(){
+                it('member did something since did eat',function(){
                     try {
-                        parser.parse('member has not lost tag');
-                    } catch (error) {
-                        otherChoices = helper.extractOthers(error);
-
-                        should(error.expected.length).equal(2);
-                        should(otherChoices).eql(['tagCode', 'whitespace']);
-                    }
-                });
-
-                it('member has not gained 3 tag',function(){
-                    try {
-                        parser.parse('member has not gained 3 tag');
-                    } catch (error) {
-                        otherChoices = helper.extractOthers(error);
-
-                        should(error.expected.length).equal(2);
-                        should(otherChoices).eql(['tagCode','whitespace']);
-                    }
-                });
-
-                it('member has not lost tag bob',function(){
-                    try {
-                        parser.parse('member has not lost tag bob x');
+                        parser.parse('member did something since did eat s');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(7);
-                        should(literalChoices).eql(['after','and','before','between','in']);
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['and']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
+
+                it('member did something since did first',function(){
+                    try {
+                        parser.parse('member did something since did first ');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(literalChoices).eql([]);
+                        should(otherChoices).eql(['actionCode','whitespace']);
+                    }
+                });
+
+                it('member did something since did last',function(){
+                    try {
+                        parser.parse('member did something since did last ');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(literalChoices).eql([]);
+                        should(otherChoices).eql(['actionCode','whitespace']);
+                    }
+                });
+
+                it('member did something since did first eat',function(){
+                    try {
+                        parser.parse('member did something since did first eat s');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['and']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something since did last eat',function(){
+                    try {
+                        parser.parse('member did something since did last eat s');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['and']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something since received',function(){
+                    try {
+                        parser.parse('member did something since received');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(literalChoices).eql(['prize']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member did something since received prize',function(){
+                    try {
+                        parser.parse('member did something since received prize');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(2);
+                        should(literalChoices).eql([]);
+                        should(otherChoices).eql(['prizeCode','whitespace']);
+                    }
+                });
+
+                it('member did something since received prize prizeCode',function(){
+                    try {
+                        parser.parse('member did something since received prize prizeCode s');
+                    } catch (error) {
+                        literalChoices = helper.extractLiterals(error);
+                        otherChoices = helper.extractOthers(error);
+
+                        should(error.expected.length).equal(3);
+                        should(literalChoices).eql(['and']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
             });
 
         });
-
-        describe('should auto-complete the occurence filter',function(){
-
-            it('member did something at',function(){
-                try {
-                    parser.parse('member did something at');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(literalChoices).eql(['least']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-            it('member did something at least',function(){
-                try {
-                    parser.parse('member did something at least');
-                } catch (error) {
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql([ 'number','whitespace']);
-                }
-            });
-
-            it('member did something exactly',function(){
-                try {
-                    parser.parse('member did something exactly');
-                } catch (error) {
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql([ 'number','whitespace']);
-                }
-            });
-
-            it('member did something less',function(){
-                try {
-                    parser.parse('member did something less');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(literalChoices).eql(['than']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-            it('member did something less than',function(){
-                try {
-                    parser.parse('member did something less than');
-                } catch (error) {
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql([ 'number','whitespace']);
-                }
-            });
-
-            it('member did something at least number',function(){
-                try {
-                    parser.parse('member did something at least 2');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['time','times']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-            it('member did something at least number times',function(){
-                try {
-                    parser.parse('member did something at least 2 times 3');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(7);
-                    should(literalChoices).eql(['after','and','before','between','in']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-            it('member did something at least number time',function(){
-                try {
-                    parser.parse('member did something at least 1 time 3');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(7);
-                    should(literalChoices).eql(['after','and','before','between','in']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-        });
-
-        describe('should auto-complete the period filter',function(){
-
-            it('member did something before',function(){
-                try {
-                    parser.parse('member did something before');
-                } catch (error) {
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql([ 'datetime','whitespace']);
-                }
-            });
-
-            it('member did something after',function(){
-                try {
-                    parser.parse('member did something after');
-                } catch (error) {
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql([ 'datetime','whitespace']);
-                }
-            });
-
-            it('member did something after/before datetime',function(){
-                try {
-                    parser.parse('member did something after 2016-03-04T23:20:20 2');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-            it('member did something between',function(){
-                try {
-                    parser.parse('member did something between');
-                } catch (error) {
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql([ 'datetime','whitespace']);
-                }
-            });
-
-            it('member did something between datetime',function(){
-                try {
-                    parser.parse('member did something between 2016-03-04T23:20:20');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(literalChoices).eql(['and']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-            it('member did something between datetime and',function(){
-                try {
-                    parser.parse('member did something between 2016-03-04T23:20:20 and');
-                } catch (error) {
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql([ 'datetime','whitespace']);
-                }
-            });
-
-            it('member did something between datetime and datetime',function(){
-                try {
-                    parser.parse('member did something between 2016-03-04T23:20:20 and 2016-03-04T23:20:21 4');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-            it('member did something in',function(){
-                try {
-                    parser.parse('member did something in');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(literalChoices).eql(['last']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-            it('member did something in last',function(){
-                try {
-                    parser.parse('member did something in last');
-                } catch (error) {
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['number', 'whitespace']);
-                }
-            });
-
-            it('member did something in last number',function(){
-                try {
-                    parser.parse('member did something in last 3');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(13);
-                    should(literalChoices).eql(['day','days','hour','hours','minute','minutes','month','months','week','weeks','year','years']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-            it('member did something in last number timeframe',function(){
-                try {
-                    parser.parse('member did something in last 3 weeks 4');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
-                    should(otherChoices).eql([ 'whitespace']);
-                }
-            });
-
-        });
-
     });
 });
