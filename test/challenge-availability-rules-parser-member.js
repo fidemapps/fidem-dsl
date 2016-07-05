@@ -52,9 +52,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < 2, bob = 3', function (done) {
+            it('member did not TEST with jean < 2 & bob = 3', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < 2& bob = 3');
+                var rule = parser.parse('member did not TEST with jean < 2 & bob = 3');
                 should(rule).eql([
                     {
                         scope: 'member',
@@ -299,8 +299,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter:{
                             type:'RSSI-between',
-                            start:5,
-                            end:3,
+                            number:[5,3],
                             beacons:['shop','store']
                         }
 
@@ -955,8 +954,7 @@ describe('<Unit Test>', function () {
                             },
                             geo_filter:{
                                 type:'RSSI-between',
-                                start:4,
-                                end:6,
+                                number:[4,6],
                                 beacons:['bob']
                             }
                         }]);
@@ -975,8 +973,7 @@ describe('<Unit Test>', function () {
                             },
                             geo_filter:{
                                 type:'RSSI-between',
-                                start:6,
-                                end:4,
+                                number:[6,4],
                                 beacons:['bob','norbert']
                             }
                         }]);

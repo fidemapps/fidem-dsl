@@ -242,7 +242,7 @@ describe('<Unit Test>', function () {
         }]);
       });
 
-      it('should parse simple is rule with in zone ,',function(){
+      it('should parse simple is rule with multiple in zone ,',function(){
         var rule = parser.parse('member is in zone ZONECODE,zone2');
         should(rule).eql([{
           scope:'member',
@@ -269,7 +269,7 @@ describe('<Unit Test>', function () {
         }]);
       });
       
-      it('should parse simple is rule with in range of beacon ,',function(){
+      it('should parse simple is rule with multiple in range of beacon ,',function(){
         var rule = parser.parse('member is in range of beacon bob,max,matt');
         should(rule).eql([{
           scope:'member',
@@ -314,8 +314,7 @@ describe('<Unit Test>', function () {
           type:'is',
           geo_filter: {
             type:'RSSI-between',
-            start:3,
-            end:4,
+            number:[3,4],
             beacons:['bob']
           }
         }]);

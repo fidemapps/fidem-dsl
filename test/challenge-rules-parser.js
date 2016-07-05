@@ -1,889 +1,712 @@
 'use strict';
 
 var should = require('should'),
-  fs = require('fs'),
-  PEG = require('pegjs');
+    fs = require('fs'),
+    PEG = require('pegjs');
 
 var parser;
 
 describe('<Unit Test>', function () {
-  describe('Rules:', function () {
-    beforeEach(function (done) {
-      fs.readFile(__dirname + '/../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
-        if (err) {
-          return done(err);
-        }
-        parser = PEG.buildParser(data);
-        done();
-      });
+    describe('Rules:', function () {
+        beforeEach(function (done) {
+            fs.readFile(__dirname + '/../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
+                if (err) {
+                    return done(err);
+                }
+                parser = PEG.buildParser(data);
+                done();
+            });
+        });
+
+        describe('created rule', function () {
+
+            it('should parse simple created rule with in last give 1 points', function () {
+
+                var rule = parser.parse('member created in last 3 days give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            period_filter: {duration: 3, durationScope: 'day', type: 'last'},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+
+            });
+
+            it('should parse simple created rule with before', function () {
+
+                var rule = parser.parse('member created before 2016-10-10T11:11:11 give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            period_filter: {type: 'before', date: [new Date(2016, 10 - 1, 10, 11, 11, 11)]},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+
+
+            });
+
+            it('should parse simple created rule with between', function () {
+
+                var rule = parser.parse('member created between 2016-10-10T11:11:11 and 2017-10-10T11:11:11 give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            period_filter: {
+                                type: 'between',
+                                date: [new Date(2016, 10 - 1, 10, 11, 11, 11), new Date(2017, 10 - 1, 10, 11, 11, 11)]
+                            },
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+
+            });
+
+            it('should parse simple created rule with after', function () {
+
+                var rule = parser.parse('member created after 2016-10-10T11:11:11 give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            period_filter: {type: 'after', date: [new Date(2016, 10 - 1, 10, 11, 11, 11)]},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+
+            });
+
+            it('should parse simple created rule with since did', function () {
+                var rule = parser.parse('member created since did actionCode give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            period_filter: {type: 'since-did', actionCode: 'actionCode'},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+
+                var rule = parser.parse('member created since did first actionCode give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            period_filter: {type: 'since-did', position: 'first', actionCode: 'actionCode'},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+
+                var rule = parser.parse('member created since did last actionCode give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            period_filter: {type: 'since-did', position: 'last', actionCode: 'actionCode'},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple created rule with since received', function () {
+                var rule = parser.parse('member created since received prize prizeCode give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            period_filter: {type: 'since-received', target: 'prize', prizeCode: 'prizeCode'},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple created rule with since received on monday', function () {
+                var rule = parser.parse('member created since received prize prizeCode on monday give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            moment_filter: {type: 'on', days: {list: ['monday'], type: 'days'}},
+                            period_filter: {type: 'since-received', target: 'prize', prizeCode: 'prizeCode'},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple created rule with since received on monday of march in 2016 after 10:00 pm', function () {
+                var rule = parser.parse('member created since received prize prizeCode on monday of march in 2016 after 10:00 pm give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            moment_filter: {
+                                days: {list: ['monday'], type: 'days'},
+                                months: {list: ['march'], type: 'of'},
+                                time: {list: ['22:00'], type: 'after'},
+                                type: 'on',
+                                years: {list: ['2016'], type: 'in'}
+                            },
+                            period_filter: {prizeCode: 'prizeCode', target: 'prize', type: 'since-received'},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple created rule with since received on the 1st day of month  before 10:00 am', function () {
+                var rule = parser.parse('member created since received prize prizeCode on the 1st day of month  before 10:00 am give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            moment_filter: {
+                                days: {list: ['1st'], type: 'position'},
+                                months: {list: ['month'], type: 'month'},
+                                time: {list: ['10:00'], type: 'before'},
+                                type: 'onThe'
+                            },
+                            period_filter: {prizeCode: 'prizeCode', target: 'prize', type: 'since-received'},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple created rule with since received on 2016-04-05 between 5:00 am and 10:00 am', function () {
+                var rule = parser.parse('member created since received prize prizeCode on 2016-04-05  between 5:00 am and 10:00 am give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            moment_filter: {
+                                date: [new Date(2016, 4 - 1, 5)],
+                                time: {list: ['5:00', '10:00'], type: 'between'},
+                                type: 'onDate'
+                            },
+                            period_filter: {prizeCode: 'prizeCode', target: 'prize', type: 'since-received'},
+                            scope: 'member',
+                            type: 'created'
+                        }
+                    ]
+                });
+            });
+
+        });
+
+//TODO:add moment filter
+        describe('city rule', function () {
+
+            it('should parse simple city rule with =', function () {
+                var rule = parser.parse('member city = "montreal" give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {operator: '=', value: 'montreal'},
+                            scope: 'member',
+                            type: 'city'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple city rule with !=', function () {
+                var rule = parser.parse('member city != "montreal" give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {operator: '!=', value: 'montreal'},
+                            scope: 'member',
+                            type: 'city'
+                        }
+                    ]
+                });
+            });
+
+        });
+
+        describe('state rule', function () {
+
+            it('should parse simple state rule with =', function () {
+                var rule = parser.parse('member state = "quebec" give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {operator: '=', value: 'quebec'},
+                            scope: 'member',
+                            type: 'state'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple state rule with !=', function () {
+                var rule = parser.parse('member state != "quebec" give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {operator: '!=', value: 'quebec'},
+                            scope: 'member',
+                            type: 'state'
+                        }
+                    ]
+                });
+            });
+
+        });
+
+        describe('zip rule', function () {
+
+            it('should parse simple state rule with =', function () {
+                var rule = parser.parse('member zip = "h7v2v2" give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {operator: '=', value: 'h7v2v2'},
+                            scope: 'member',
+                            type: 'zip'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple state rule with !=', function () {
+                var rule = parser.parse('member zip != "h7v2v2" give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {operator: '!=', value: 'h7v2v2'},
+                            scope: 'member',
+                            type: 'zip'
+                        }
+                    ]
+                });
+            });
+
+        });
+
+        describe('country rule', function () {
+
+            it('should parse simple state rule with =', function () {
+                var rule = parser.parse('member country = "canada" give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {operator: '=', value: 'canada'},
+                            scope: 'member',
+                            type: 'country'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple state rule with !=', function () {
+                var rule = parser.parse('member country != "canada" give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {operator: '!=', value: 'canada'},
+                            scope: 'member',
+                            type: 'country'
+                        }
+                    ]
+                });
+            });
+
+        });
+
+
+        describe('is rule', function () {
+
+            it('should parse simple is rule with in zone', function () {
+                var rule = parser.parse('member is in zone montreal give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            geo_filter: {
+                                type: 'zone',
+                                zones: ['montreal']
+                            },
+                            scope: 'member',
+                            type: 'is'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple is rule with  multiple in zone ,', function () {
+                var rule = parser.parse('member is in zone montreal,laval give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            geo_filter: {
+                                type: 'zone',
+                                zones: ['montreal', 'laval']
+                            },
+                            scope: 'member',
+                            type: 'is'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple is rule with in range of beacon', function () {
+                var rule = parser.parse('member is in range of beacon montreal give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            geo_filter: {
+                                type: 'inRange',
+                                beacons: ['montreal']
+                            },
+                            scope: 'member',
+                            type: 'is'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple is rule with multiple in range of beacon ,', function () {
+                var rule = parser.parse('member is in range of beacon montreal,laval,store,shop give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            geo_filter: {
+                                type: 'inRange',
+                                beacons: ['montreal', 'laval', 'store', 'shop']
+                            },
+                            scope: 'member',
+                            type: 'is'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple is rule with with RSSI below', function () {
+                var rule = parser.parse('member is with RSSI below 3 from beacon montreal give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            geo_filter: {
+                                type: 'RSSI-below',
+                                number: 3,
+                                beacons: ['montreal']
+                            },
+                            scope: 'member',
+                            type: 'is'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple is rule with with RSSI over', function () {
+                var rule = parser.parse('member is with RSSI over 3 from beacon montreal,laval give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            geo_filter: {
+                                type: 'RSSI-over',
+                                number: 3,
+                                beacons: ['montreal', 'laval']
+                            },
+                            scope: 'member',
+                            type: 'is'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple is rule with with RSSI between', function () {
+                var rule = parser.parse('member is with RSSI between 3 and 4 from beacon montreal give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            geo_filter: {
+                                type: 'RSSI-between',
+                                number: [3, 4],
+                                beacons: ['montreal']
+                            },
+                            scope: 'member',
+                            type: 'is'
+                        }
+                    ]
+                });
+            });
+
+
+        });
+
+
+        describe('smartlist rule', function () {
+
+            it('should parse simple belongs to smartlist rule', function () {
+                var rule = parser.parse('member belongs to smartlist montreal give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {codes: ['montreal']},
+                            scope: 'member',
+                            type: 'smartlist'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple belongs to smartlist rule with multiple code', function () {
+                var rule = parser.parse('member belongs to smartlist montreal & quebec & bob give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {codes: ['montreal', 'quebec', 'bob']},
+                            scope: 'member',
+                            type: 'smartlist'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse complexe belongs to smartlist rule', function () {
+                var rule = parser.parse('member belongs to smartlist montreal&bob since 4 hours give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {
+                                condition: {number: 4, timeframe: 'hour', type: 'since'},
+                                codes: ['montreal', 'bob']
+                            },
+                            scope: 'member',
+                            type: 'smartlist'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple do not belongs to smartlist rule', function () {
+
+                var rule = parser.parse('member do not belongs to smartlist montreal give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {codes: ['montreal']},
+                            negative: true,
+                            scope: 'member',
+                            type: 'smartlist'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple do not belongs to smartlist rule with multiple code', function () {
+                var rule = parser.parse('member do not belongs to smartlist montreal&quebec&bob give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            negative: true,
+                            condition: {codes: ['montreal', 'quebec', 'bob']},
+                            scope: 'member',
+                            type: 'smartlist'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse complexe do not belongs to smartlist rule', function () {
+                var rule = parser.parse('member do not belongs to smartlist montreal&bob since 4 hours give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            negative: true,
+                            condition: {
+                                condition: {number: 4, timeframe: 'hour', type: 'since'},
+                                codes: ['montreal', 'bob']
+                            },
+                            scope: 'member',
+                            type: 'smartlist'
+                        }
+                    ]
+                });
+            });
+
+
+        });
+
+        describe('with/without rule', function () {
+
+            it('should parse simple rule with tag', function () {
+                var rule = parser.parse('member with tag tagcode give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {tagCode: {tagClusterCode: null, tagCode: 'tagcode'}},
+                            scope: 'member',
+                            type: 'with'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple rule with tag and condition', function () {
+                var rule = parser.parse('member with tag tagcode > 4 give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {
+                                tagCode: {
+                                    tagClusterCode: null,
+                                    tagCode: 'tagcode'
+                                },
+                                operator: ">",
+                                value: 4
+                            },
+                            scope: 'member',
+                            type: 'with'
+                        }
+                    ]
+                });
+
+            });
+
+            it('should parse simple rule without tag', function () {
+                var rule = parser.parse('member without tag tagcode give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {tagCode: {tagClusterCode: null, tagCode: 'tagcode'}},
+                            scope: 'member',
+                            type: 'with',
+                            negative:true
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple rule without tag and condition', function () {
+                var rule = parser.parse('member without tag tagcode > 4 give 1 points');
+                should(rule).eql({
+                    rewards: [{code: 'points', quantity: 1}],
+                    rules: [
+                        {
+                            condition: {
+                                tagCode: {
+                                    tagClusterCode: null,
+                                    tagCode: 'tagcode'
+                                },
+                                operator: ">",
+                                value: 4
+                            },
+                            negative:true,
+                            scope: 'member',
+                            type: 'with'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple rule with points', function () {
+                var rule = parser.parse('member with points levelCode >= 3 give 1 points');
+                should(rule).eql({
+                    rewards: [ { code: 'points', quantity: 1 } ],
+                    rules: [
+                        {
+                            condition: { levelCode: 'levelCode', operator: '>=', value: 3 },
+                            scope: 'member',
+                            type: 'with'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple rule without points', function () {
+                var rule = parser.parse('member without points levelCode >= 3 give 1 points');
+                should(rule).eql({
+                    rewards: [ { code: 'points', quantity: 1 } ],
+                    rules: [
+                        {
+                            condition: { levelCode: 'levelCode', operator: '>=', value: 3 },
+                            negative: true,
+                            scope: 'member',
+                            type: 'with'
+                        }
+                    ]
+                });
+            });
+
+            it('should parse simple rule with prize', function () {
+                var rule = parser.parse('member with prize coupon give 1 points');
+                should(rule).eql({
+                    rewards: [ { code: 'points', quantity: 1 } ],
+                    rules: [
+                        {
+                            condition: { prizeCode: 'coupon' },
+                            scope: 'member',
+                            type: 'with'
+                        }
+                    ]
+                } );
+            });
+
+            it('should parse simple rule without prize', function () {
+                var rule = parser.parse('member without prize coupon give 1 bananaPopsicle');
+                should(rule).eql({
+                    rewards: [ { code: 'bananaPopsicle', quantity: 1 } ],
+                    rules: [
+                        {
+                            condition: { prizeCode: 'coupon' },
+                            negative: true,
+                            scope: 'member',
+                            type: 'with'
+                        }
+                    ]
+                });
+            });
+
+        });
     });
-
-    describe('Should parse zone rules', function () {
-      it('action TEST in zone CODE1 give 1 points', function (done) {
-
-        var rule = parser.parse("action TEST in zone CODE1 give 1 points");
-        should(rule).eql({
-          rules: [{
-            scope: 'action', code: 'TEST',
-            conditions: [],
-            filters: [
-              {type: 'zone', zones: ['CODE1']}
-            ]
-          }],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-        done();
-      });
-
-      it('action TEST in zone CODE1,CODE2 give 1 points', function (done) {
-
-        var rule = parser.parse("action TEST in zone CODE1,CODE2 give 1 points");
-        should(rule).eql({
-          rules: [{
-            scope: 'action', code: 'TEST',
-            conditions: [],
-            filters: [
-              {type: 'zone', zones: ['CODE1', 'CODE2']}
-            ]
-          }],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-        done();
-      });
-    });
-
-    describe('Should parse beacon rules', function () {
-      it('action TEST near 50 of beacon CODE1 give 1 points', function (done) {
-
-        var rule = parser.parse("action TEST near 50 of beacon CODE1 give 1 points");
-        should(rule).eql({
-          rules: [{
-            scope: 'action', code: 'TEST',
-            conditions: [],
-            filters: [
-              {distance: 50, type: 'beacon', beacons: ['CODE1']}
-            ]
-          }],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-        done();
-      });
-
-      it('action TEST near 50 of beacon CODE1,CODE2 give 1 points', function (done) {
-
-        var rule = parser.parse("action TEST near 50 of beacon CODE1,CODE2 give 1 points");
-        should(rule).eql({
-          rules: [{
-            scope: 'action', code: 'TEST',
-            conditions: [],
-            filters: [
-              {distance: 50, type: 'beacon', beacons: ['CODE1', 'CODE2']}
-            ]
-          }],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-        done();
-      });
-    });
-
-    describe('Should parse action rules', function () {
-      it('action BrowseTicket give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket give 1 points");
-        should(rule).eql({
-          rules: [
-            {scope: 'action', code: 'BrowseTicket', conditions: [], filters: []}
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-        done();
-      });
-
-      it('action BrowseTicket give 1 points and give 1 CourageBadge', function (done) {
-
-        var rule = parser.parse("action BrowseTicket give 1 points give 1 CourageBadge");
-        should(rule).eql({
-          rules: [
-            {scope: 'action', code: 'BrowseTicket', conditions: [], filters: []}
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'},
-            {quantity: 1, code: 'CourageBadge'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket give 100 points give 1 CourageBadge give 2 Rebates', function (done) {
-
-        var rule = parser.parse("action BrowseTicket give 100 points give 1 CourageBadge give 2 Rebates");
-        should(rule).eql({
-          rules: [
-            {scope: 'action', code: 'BrowseTicket', conditions: [], filters: []}
-          ],
-          rewards: [
-            {quantity: 100, code: 'points'},
-            {quantity: 1, code: 'CourageBadge'},
-            {quantity: 2, code: 'Rebates'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket 3 times give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 3 times give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [
-                {type: 'times', value: 3}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket 3 times within 2 months give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 3 times within 2 months give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [
-                {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'month'}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket with tag Patate give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket with tag CLUSTER:Patate give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket with tag CLUSTER:Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [],
-              filters: [
-                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket with data test = "test value" give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket with data test = 'test value' give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [],
-              filters: [
-                {operator: '=', type: 'data', attribute: 'test', value: 'test value'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket with data number = 3 value" give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket with data number = 3 give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [],
-              filters: [
-                {operator: '=', type: 'data', attribute: 'number', value: 3}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket with data number < 3 value" give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket with data number < 3 give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [],
-              filters: [
-                {operator: '<', type: 'data', attribute: 'number', value: 3}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket 3 times with tag Patate give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 3 times with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [
-                {type: 'times', value: 3}
-              ],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket 3 times with tag CLUSTER:Patate give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 3 times with tag CLUSTER:Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [
-                {type: 'times', value: 3}
-              ],
-              filters: [
-                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket with tag Patate 3 times within 2 months give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 3 times within 2 months with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [
-                {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'month'}
-              ],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket with tag CLUSTER:Patate 3 times within 2 months give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 3 times within 2 months with tag CLUSTER:Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [
-                {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'month'}
-              ],
-              filters: [
-                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-    });
-
-    describe('Should parse challenge rules', function () {
-      it('challenge ChallengeCode give 1 points', function (done) {
-
-        var rule = parser.parse("challenge ChallengeCode give 1 points");
-        should(rule).eql({
-          rules: [
-            {scope: 'challenge', code: 'ChallengeCode', conditions: [], filters: []}
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('challenge ChallengeCode give 1 points and give 1 CourageBadge', function (done) {
-
-        var rule = parser.parse("challenge ChallengeCode give 1 points give 1 CourageBadge");
-        should(rule).eql({
-          rules: [
-            {scope: 'challenge', code: 'ChallengeCode', conditions: [], filters: []}
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'},
-            {quantity: 1, code: 'CourageBadge'}
-          ]
-        });
-
-        done();
-      });
-
-      it('challenge ChallengeCode give 100 points give 1 CourageBadge give 2 Rebates', function (done) {
-
-        var rule = parser.parse("challenge ChallengeCode give 100 points give 1 CourageBadge give 2 Rebates");
-        should(rule).eql({
-          rules: [
-            {scope: 'challenge', code: 'ChallengeCode', conditions: [], filters: []}
-          ],
-          rewards: [
-            {quantity: 100, code: 'points'},
-            {quantity: 1, code: 'CourageBadge'},
-            {quantity: 2, code: 'Rebates'}
-          ]
-        });
-
-        done();
-      });
-
-      it('challenge ChallengeCode 3 times give 1 points', function (done) {
-
-        var rule = parser.parse("challenge ChallengeCode 3 times give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'challenge', code: 'ChallengeCode',
-              conditions: [
-                {type: 'times', value: 3}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('challenge ChallengeCode 3 times within 2 months give 1 points', function (done) {
-
-        var rule = parser.parse("challenge ChallengeCode 3 times within 2 months give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'challenge', code: 'ChallengeCode',
-              conditions: [
-                {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'month'}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      // FIXME (SG) : May not need the tag condition for challenge scope
-      it('challenge ChallengeCode with tag Patate give 1 points', function (done) {
-
-        var rule = parser.parse("challenge ChallengeCode with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'challenge', code: 'ChallengeCode',
-              conditions: [],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('challenge ChallengeCode with tag CLUSTER:Patate give 1 points', function (done) {
-
-        var rule = parser.parse("challenge ChallengeCode with tag CLUSTER:Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'challenge', code: 'ChallengeCode',
-              conditions: [],
-              filters: [
-                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-    });
-
-    describe('Should parse member zone rules', function () {
-      it('member in zone CODE1 give 1 point', function (done) {
-
-        var rule = parser.parse("member in zone CODE1 give 1 points");
-        should(rule).eql({
-          rules: [{
-            scope: 'member',
-            type: 'zone',
-            codes: ['CODE1'],
-            duration: null,
-            timeframe: null
-          }],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member in zone CODE1,CODE2 give 1 point', function (done) {
-
-        var rule = parser.parse("member in zone CODE1,CODE2 give 1 points");
-        should(rule).eql({
-          rules: [{
-            scope: 'member',
-            type: 'zone',
-            codes: ['CODE1', 'CODE2'],
-            duration: null,
-            timeframe: null
-          }],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member in zone CODE1 for 10 minutes give 1 point', function (done) {
-
-        var rule = parser.parse("member in zone CODE1 for 10 minutes give 1 points");
-        should(rule).eql({
-          rules: [{
-            scope: 'member',
-            type: 'zone',
-            codes: ['CODE1'],
-            duration: 10,
-            timeframe: 'minute'
-          }],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-    });
-
-    describe('Should parse member rules', function () {
-      it('member level LevelListCode 2 give 1 point', function (done) {
-
-        var rule = parser.parse("member level LevelListCode 2 give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'level', levelCode: 'LevelListCode',
-              conditions: [
-                {operator: '>=', type: 'level', value: 2}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member level LevelListCode 2 with tag Patate give 1 points', function (done) {
-
-        var rule = parser.parse("member level LevelListCode 2 with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'level', levelCode: 'LevelListCode',
-              conditions: [
-                {operator: '>=', type: 'level', value: 2}
-              ],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member level LevelListCode 2 with tag CLUSTER:Patate give 1 points', function (done) {
-
-        var rule = parser.parse("member level LevelListCode 2 with tag CLUSTER:Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'level', levelCode: 'LevelListCode',
-              conditions: [
-                {operator: '>=', type: 'level', value: 2}
-              ],
-              filters: [
-                {type: 'tag', tagClusterCode: 'CLUSTER', tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member point LevelListCode 100 give 1 points', function (done) {
-
-        var rule = parser.parse("member point LevelListCode 100 give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'point', levelCode: 'LevelListCode',
-              conditions: [
-                {operator: '>=', type: 'point', value: 100}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member tag TagCode 20 give 1 points', function (done) {
-
-        var rule = parser.parse("member tag TagCode 20 give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'tag', tagClusterCode: null, levelCode: 'TagCode',
-              conditions: [
-                {operator: '>=', type: 'tag', value: 20}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member tag CLUSTER:TagCode 20 give 1 points', function (done) {
-
-        var rule = parser.parse("member tag CLUSTER:TagCode 20 give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'tag', tagClusterCode: 'CLUSTER', levelCode: 'TagCode',
-              conditions: [
-                {operator: '>=', type: 'tag', value: 20}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      /** NOT IMPLEMENTED YET IN ENGINE
-      it('member level up LevelListCode give 1 points', function (done) {
-
-        var rule = parser.parse("member level up LevelListCode give 1 points");
-        should(rule).eql({
-          rules: [
-            {scope: 'member', type: 'level up', levelCode: 'LevelListCode', conditions: [], filters: []}
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member level up LevelListCode 3 times give 1 points', function (done) {
-
-        var rule = parser.parse("member level up LevelListCode 3 times give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'level up', levelCode: 'LevelListCode',
-              conditions: [
-                {type: 'times', value: 3}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member level up LevelListCode 3 times within 2 days give 1 points', function (done) {
-
-        var rule = parser.parse("member level up LevelListCode 3 times within 2 days give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'level up', levelCode: 'LevelListCode',
-              conditions: [
-                {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'day'}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member level up LevelListCode 3 times within 2 days with tag Patate give 1 points', function (done) {
-
-        var rule = parser.parse("member level up LevelListCode 3 times within 2 days with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'level up', levelCode: 'LevelListCode',
-              conditions: [
-                {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'day'}
-              ],
-              filters: [
-                {type: 'tag', tag: 'Patate', value: null}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-      */
-    });
-
-    describe('Should parse complexe action rules', function () {
-      it('action BrowseTicket and action CoolThing give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket and action CoolThing give 1 points");
-        should(rule).eql(
-          {
-            rules: [
-              {scope: 'action', code: 'BrowseTicket', conditions: [], filters: []},
-              {scope: 'action', code: 'CoolThing', conditions: [], filters: []}
-            ],
-            rewards: [
-              {quantity: 1, code: 'points'}
-            ]
-          });
-
-        done();
-      });
-
-      it('action BrowseTicket 5 times and action CoolThing with tag Patate and challenge Boule 8 times and member level LevelCode 5 give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 5 times and action CoolThing with tag Patate and challenge BouleCode 8 times within 6 years and member level LevelCode 5 with tag Cool give 1 points give 8 ballouns");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket', conditions: [
-              {type: 'times', value: 5}
-            ], filters: []
-            },
-            {
-              scope: 'action', code: 'CoolThing', conditions: [], filters: [
-              {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-            ]
-            },
-            {
-              scope: 'challenge', code: 'BouleCode', conditions: [
-              {type: 'times_within_timeframe', value: 8, duration: 6, durationScope: 'year'}
-            ], filters: []
-            },
-            {
-              scope: 'member', type: 'level', levelCode: 'LevelCode', conditions: [
-              {operator: '>=', type: 'level', value: 5}
-            ], filters: [
-              {type: 'tag', tagClusterCode: null, tag: 'Cool'}
-            ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'},
-            {quantity: 8, code: 'ballouns'}
-          ]
-        });
-
-        done();
-      });
-
-      it('action BrowseTicket 5 times and action CoolThing with tag CLUSTER1:Patate and challenge Boule 8 times and member level LevelCode 5 give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 5 times and action CoolThing with tag CLUSTER1:Patate and challenge BouleCode 8 times within 6 years and member level LevelCode 5 with tag CLUSTER2:Cool give 1 points give 8 ballouns");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket', conditions: [
-              {type: 'times', value: 5}
-            ], filters: []
-            },
-            {
-              scope: 'action', code: 'CoolThing', conditions: [], filters: [
-              {type: 'tag', tagClusterCode: 'CLUSTER1', tag: 'Patate'}
-            ]
-            },
-            {
-              scope: 'challenge', code: 'BouleCode', conditions: [
-              {type: 'times_within_timeframe', value: 8, duration: 6, durationScope: 'year'}
-            ], filters: []
-            },
-            {
-              scope: 'member', type: 'level', levelCode: 'LevelCode', conditions: [
-              {operator: '>=', type: 'level', value: 5}
-            ], filters: [
-              {type: 'tag', tagClusterCode: 'CLUSTER2', tag: 'Cool'}
-            ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'},
-            {quantity: 8, code: 'ballouns'}
-          ]
-        });
-
-        done();
-      });
-
-    });
-  });
 });

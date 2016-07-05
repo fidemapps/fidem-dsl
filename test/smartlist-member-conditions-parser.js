@@ -107,7 +107,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            geo_filter: { type: 'RSSI-between', start:4,end:5, beacons: [ 'bob' ,'tom'] },
+                            geo_filter: { type: 'RSSI-between', number:[4,5], beacons: [ 'bob' ,'tom'] },
                             scope: 'member',
                             type: 'is'
                         }

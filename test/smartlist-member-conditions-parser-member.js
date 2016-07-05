@@ -338,8 +338,7 @@ describe('<Unit Test>', function () {
                             },
                             geo_filter:{
                                 type:'RSSI-between',
-                                start:3,
-                                end:4,
+                                number:[3,4],
                                 beacons:['BEACON1','BEACON2','BEACON3']
                             }
                         }
@@ -608,8 +607,7 @@ describe('<Unit Test>', function () {
                                 },
                                 geo_filter:{
                                     type:'RSSI-between',
-                                    start:3,
-                                    end:4,
+                                    number:[3,4],
                                     beacons:['BEACON1','BEACON2','BEACON3']
                                 }
                             }

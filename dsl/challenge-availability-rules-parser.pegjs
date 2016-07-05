@@ -531,8 +531,7 @@ geo_filter
 {
     return{
         type:"RSSI-"+type,
-        start:start,
-        end:end,
+        number:[start,end],
         beacons:beacons
     }
 }

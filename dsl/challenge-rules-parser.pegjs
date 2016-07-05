@@ -560,11 +560,16 @@ period_filter
 }
 /"since" S* type:"did" S* position:("first"/"last")? S* actionCode:actionCode
 {
-    return {
+    var rule = {
         type:"since-"+type,
-        position:position,
         actionCode:actionCode
+    };
+
+    if(position){
+        rule.position=position;
     }
+
+    return rule;
 }
 /"since" S* type:"received" S* target:"prize" S* prizeCode:prizeCode
 {
@@ -603,8 +608,7 @@ geo_filter
 {
     return{
         type:"RSSI-"+type,
-        start:start,
-        end:end,
+        number:[start,end],
         beacons:beacons
     }
 }
