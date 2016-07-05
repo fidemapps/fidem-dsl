@@ -1,0 +1,291 @@
+'use strict';
+
+var should = require('should'),
+    fs = require('fs'),
+    PEG = require('pegjs');
+
+var parser;
+
+describe('<Unit Test>', function () {
+    describe('SmartList Member Conditions has completed:', function () {
+        beforeEach(function (done) {
+            fs.readFile(__dirname + '/../dsl/smartlist-member-conditions-parser.pegjs', 'utf8', function (err, data) {
+                if (err) {
+                    return done(err);
+                }
+                parser = PEG.buildParser(data);
+                done();
+            });
+        });
+
+        describe('completed',function(){
+
+            it('member has completed TEST ', function (done) {
+
+                var rule = parser.parse('member has completed TEST ');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            condition: {
+                                type:'completed',
+                                code: 'TEST'
+                            }
+
+                        }]
+                });
+                done();
+            });
+
+            it('member has not completed TEST', function (done) {
+
+                var rule = parser.parse('member has not completed TEST');
+                should(rule).eql({
+                    conditions: [{
+                        scope: 'member',
+                        type: 'has',
+                        negative:true,
+                        condition: {
+                            type: 'completed',
+                            code: 'TEST'
+                        }
+
+                    }]
+                });
+                done();
+            });
+
+            it('member has not completed TEST less than 3 times', function (done) {
+
+                var rule = parser.parse('member has not completed TEST less than 3 times');
+                should(rule).eql({
+                    conditions: [{
+                        scope: 'member',
+                        type: 'has',
+                        negative:true,
+                        condition: {
+                            type: 'completed',
+                            code: 'TEST'
+                        },
+                        occurrence_filter: {
+                            type: 'less',
+                            number: 3
+                        }
+                    }]
+                });
+                done();
+            });
+
+            it('member has not completed TEST before 2016-03-03T04:40:40', function (done) {
+
+                var rule = parser.parse('member has not completed TEST before 2016-03-03T04:40:40');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            negative:true,
+                            condition: {
+                                type: 'completed',
+                                code: 'TEST'
+                            },
+                            period_filter: {
+                                type: 'before',
+                                date: [
+                                    new Date('2016-03-03 04:40:40')
+                                ]
+                            }
+                        }]
+                });
+                done();
+            });
+
+            it('member has not completed TEST less than 3 times after 2016-03-03T04:40:40', function (done) {
+
+                var rule = parser.parse('member has not completed TEST less than 3 times after 2016-03-03T04:40:40');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            negative:true,
+                            condition: {
+                                type: 'completed',
+                                code: 'TEST'
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'after',
+                                date: [
+                                    new Date('2016-03-03 04:40:40')
+                                ]
+                            }
+                        }]
+                });
+                done();
+            });
+
+            it('member has not completed TEST less than 3 time in zone montreal,laval after 2016-03-03T04:40:40',function(){
+                var rule = parser.parse('member has not completed TEST less than 3 time in zone montreal,laval after 2016-03-03T04:40:40');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            negative:true,
+                            condition: {
+                                code: 'TEST',
+                                type: 'completed'
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'after',
+                                date: [
+                                    new Date('2016-03-03 04:40:40')
+                                ]
+                            },
+                            geo_filter:{
+                                type:'zone',
+                                zones:['montreal','laval']
+                            }
+                        }
+                    ]
+                });
+            });
+
+            it('member has not completed TEST less than 3 time in range of beacon BEACON1,BEACON2 since did eat',function(){
+
+                var rule = parser.parse('member has not completed TEST less than 3 time in range of beacon BEACON1,BEACON2 since did eat');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            negative:true,
+                            condition: {
+                                code: 'TEST',
+                                type: 'completed'
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'since-did',
+                                actionCode:'eat'
+                            },
+                            geo_filter:{
+                                type:'inRange',
+                                beacons:['BEACON1','BEACON2']
+                            }
+                        }
+                    ]
+                });
+            });
+
+            it('member has not completed TEST less than 3 time with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat',function(){
+                var rule = parser.parse('member has not completed TEST less than 3 time with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            negative:true,
+                            condition: {
+                                code: 'TEST',
+                                type: 'completed'
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'since-did',
+                                position:'last',
+                                actionCode:'eat'
+                            },
+                            geo_filter:{
+                                type:'RSSI-below',
+                                number:3,
+                                beacons:['BEACON1','BEACON2','BEACON3']
+                            }
+                        }
+                    ]
+                });
+            });
+
+            it('member has not completed TEST less than 3 time with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat',function(){
+                var rule = parser.parse('member has not completed TEST less than 3 time with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            negative:true,
+                            condition: {
+                                code: 'TEST',
+                                type: 'completed'
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'since-did',
+                                position:'first',
+                                actionCode:'eat'
+                            },
+                            geo_filter:{
+                                type:'RSSI-over',
+                                number:3,
+                                beacons:['BEACON1','BEACON2','BEACON3']
+                            }
+                        }
+                    ]
+                });
+            });
+
+            it('member has not completed TEST less than 3 time with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since recieved prize bob',function(){
+                var rule = parser.parse('member has not completed TEST less than 3 time with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since received prize bob');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'has',
+                            negative:true,
+                            condition: {
+                                code: 'TEST',
+                                type: 'completed'
+                            },
+                            occurrence_filter: {
+                                type: 'less',
+                                number: 3
+                            },
+                            period_filter: {
+                                type: 'since-received',
+                                target:'prize',
+                                prizeCode:'bob'
+                            },
+                            geo_filter:{
+                                type:'RSSI-between',
+                                number:[3,4],
+                                beacons:['BEACON1','BEACON2','BEACON3']
+                            }
+                        }
+                    ]
+                });
+            });
+
+
+        });
+
+
+    });
+});
