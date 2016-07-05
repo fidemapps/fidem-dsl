@@ -321,10 +321,7 @@ describe('<Unit Test>', function () {
                         occurrence_filter: {number:4,type:'least'},
                         moment_filter:{
                             days: { list: [ 'monday' ], type: 'days' },
-                            months: null,
-                            time: null,
-                            type: 'on',
-                            years: null
+                            type: 'on'
                         }
 
                     }
@@ -346,8 +343,7 @@ describe('<Unit Test>', function () {
                             days: { list: [ '1st', '2nd' ], type: 'position' },
                             months: { list: [ 'december' ], type: 'of' },
                             time: { list: [ '24:59' ], type: 'before' },
-                            type: 'onThe',
-                            years: null
+                            type: 'onThe'
                         }
 
                     }
@@ -371,7 +367,6 @@ describe('<Unit Test>', function () {
                                 new Date(2017,4-1,4),
                                 new Date(2018,4-1,4)
                             ],
-                            time: null,
                                 type: 'onDate'
                         }
 

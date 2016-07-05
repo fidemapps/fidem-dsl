@@ -26,10 +26,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'system',
                     type: 'every',
-                    days: {type: 'day', list: ['day']},
-                    months: null,
-                    years: null,
-                    time: null
+                    days: {type: 'day', list: ['day']}
                 }]);
 
             });
@@ -40,9 +37,7 @@ describe('<Unit Test>', function () {
                     scope:'system',
                     type: 'every',
                     days: {type: 'days', list: ['monday']},
-                    months: {type: 'of', list: ['march']},
-                    years: null,
-                    time: null
+                    months: {type: 'of', list: ['march']}
                 }]);
                 done();
             });
@@ -53,10 +48,7 @@ describe('<Unit Test>', function () {
                     {
                         scope:'system',
                         type: 'every',
-                        days: {type: 'days', list: ['sunday', 'monday']},
-                        months: null,
-                        years: null,
-                        time: null
+                        days: {type: 'days', list: ['sunday', 'monday']}
                     }
                 ]);
                 done();
@@ -69,9 +61,7 @@ describe('<Unit Test>', function () {
                         scope:'system',
                         type: 'every',
                         days: {type: 'days', list: ['sunday', 'monday']},
-                        months: {type: 'of', list: ['march']},
-                        years: null,
-                        time: null
+                        months: {type: 'of', list: ['march']}
                     }
                 ]);
                 done();
@@ -85,8 +75,7 @@ describe('<Unit Test>', function () {
                         type: 'every',
                         days: {type: 'days', list: ['sunday']},
                         months: {type: 'of', list: ['march', 'january']},
-                        years: {type: 'in', list: ['1959']},
-                        time: null
+                        years: {type: 'in', list: ['1959']}
                     }
                 ]);
                 done();
@@ -100,9 +89,7 @@ describe('<Unit Test>', function () {
                         type: 'every',
                         days: {type: 'day', list: ['day']},
                         months: {type: 'of', list: ['march', 'january']},
-                        years: {type: 'from', list: [new Date(1959, 11, 10), new Date(1960, 2, 10)]},
-                        time: null
-
+                        years: {type: 'from', list: [new Date(1959, 11, 10), new Date(1960, 2, 10)]}
                     }
                 ]);
                 done();
@@ -148,8 +135,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'system',
                     type: 'onDate',
-                    date: [new Date(1990, 4 - 1, 6)],
-                    time: null
+                    date: [new Date(1990, 4 - 1, 6)]
                 }]);
                 done();
             });
@@ -159,8 +145,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'system',
                     type: 'onDate',
-                    date: [new Date(1990, 4 - 1, 6), new Date(2016, 6 - 1, 14)],
-                    time: null
+                    date: [new Date(1990, 4 - 1, 6), new Date(2016, 6 - 1, 14)]
                 }]);
                 done();
             });
@@ -190,9 +175,7 @@ describe('<Unit Test>', function () {
                         scope:'system',
                         type: 'onThe',
                         days: {type:'position', list:['1st']},
-                        months: {type: 'month', list: ['month']},
-                        years:null,
-                        time:null
+                        months: {type: 'month', list: ['month']}
                     }
                 ]);
                 done();
@@ -206,8 +189,7 @@ describe('<Unit Test>', function () {
                         type: 'onThe',
                         days: {type:'position', list:['1st','4th']},
                         months: {type: 'of', list: ['march','may']},
-                        years:{type:'starting',list:[new Date(2016,4-1,5)]},
-                        time:null
+                        years:{type:'starting',list:[new Date(2016,4-1,5)]}
                     }
                 ]);
                 done();

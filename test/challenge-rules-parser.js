@@ -7,7 +7,7 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-  describe('Rules:', function () {
+  describe.only('Rules:', function () {
     beforeEach(function (done) {
       fs.readFile(__dirname + '/../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
         if (err) {
