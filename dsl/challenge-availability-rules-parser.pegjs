@@ -32,11 +32,7 @@ simple_rule
          return {
              scope: scope,
              type: type,
-             condition:null,
-             period_filter: period_filter,
-             occurence_filter:null,
-             geo_filter:null,
-             moment_filter:null
+             period_filter: period_filter
          };
      }
      / scope:"member" S* type:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:STRING
@@ -47,45 +43,38 @@ simple_rule
              condition:{
                  operator: operator,
                  value: value
-             },
-             period_filter: null,
-             occurence_filter:null,
-             geo_filter:null,
-             moment_filter:null
+             }
 
          };
      }
     /scope:'member' S* "belongs to smartlist" S* firstCode:smartlistCode S* codes:( S* "&" S* smartlistCode:smartlistCode)* S* condition:smartlist_condition?
     {
-        return {
+        var rule =  {
            scope:scope,
            type: "smartlist",
            condition:{
-                type:null,
-                codes: buildList(firstCode, codes, 3),
-                condition:condition
-           },
-           period_filter: null,
-           occurence_filter:null,
-           geo_filter:null,
-           moment_filter:null
+                codes: buildList(firstCode, codes, 3)
+           }
        };
+       if(condition){
+            rule.condition.condition=condition
+       }
+       return rule;
     }
     /scope:'member' S* "do not belongs to smartlist" S* firstCode:smartlistCode S* codes:(S* "&" S* smartlistCode:smartlistCode)* S* condition:smartlist_condition?
     {
-        return {
+        var rule = {
            scope:scope,
            type: "smartlist",
+           negative:true,
            condition:{
-                type:"not",
-                codes: buildList(firstCode, codes, 3),
-                condition:condition
-           },
-           period_filter: null,
-           occurence_filter:null,
-           geo_filter:null,
-           moment_filter:null
-       };
+                codes: buildList(firstCode, codes, 3)
+           }
+           }
+          if(condition){
+               rule.condition.condition=condition
+          }
+          return rule;
     }
     /system_condition
     /member_condition
@@ -105,94 +94,233 @@ smartlist_condition
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S* type:"did" S* conditions:did_rule S* filter1:occurence_filter? S* filter3:geo_filter? S* filter2:period_filter? S* filter4:moment_filter?
+    =scope:"member" S* type:"did" S* conditionType:("nothing" / "something")  S* occurrence:occurrence_filter? S* geo:geo_filter? S* period:period_filter? S* moment:moment_filter?
+          {
+              var rule= {
+                  scope:scope,
+                  type:type,
+                  condition:{
+                    type:conditionType
+                  }
+
+              };
+
+              if(period){
+                  rule.period_filter=period;
+              }
+
+              if(geo){
+                rule.geo_filter=geo;
+              }
+
+              if(occurrence){
+                  rule.occurrence_filter = occurrence
+              }
+          if(moment){
+            rule.moment_filter=moment
+          }
+              return rule;
+      }
+    / scope:"member" S* type:"did" S* "not" S* conditions:did_rule S* occurrence:occurrence_filter? S* geo:geo_filter? S* period:period_filter? S* moment:moment_filter?
+     {
+         var rule= {
+             scope:scope,
+             type:type,
+             negative:true,
+             condition:conditions
+
+         };
+
+         if(period){
+             rule.period_filter=period;
+         }
+
+         if(geo){
+           rule.geo_filter=geo;
+         }
+
+         if(occurrence){
+             rule.occurrence_filter = occurrence
+         }
+          if(moment){
+            rule.moment_filter=moment
+          }
+         return rule;
+     }
+    / scope:"member" S* type:"did" S* conditions:did_rule S* occurrence:occurrence_filter? S* geo:geo_filter? S* period:period_filter? S* moment:moment_filter?
+    {
+        var rule= {
+            scope:scope,
+            type:type,
+            condition:conditions
+
+        };
+
+        if(period){
+            rule.period_filter=period;
+        }
+
+        if(geo){
+          rule.geo_filter=geo;
+        }
+
+        if(occurrence){
+            rule.occurrence_filter = occurrence
+        }
+          if(moment){
+            rule.moment_filter=moment
+          }
+        return rule;
+    }
+    /scope:"member" S* type:"has" S* conditions:has_rule_completed S* occurrence:occurrence_filter?  S* geo:geo_filter? S* period:period_filter? S* moment:moment_filter?
+      {
+          var rule= {
+              scope:scope,
+              type:type,
+              condition:conditions
+          };
+
+          if(period){
+              rule.period_filter=period;
+          }
+
+          if(geo){
+              rule.geo_filter=geo;
+          }
+
+          if(occurrence){
+              rule.occurrence_filter = occurrence
+          }
+            if(moment){
+              rule.moment_filter=moment
+            }
+          return rule;
+      }
+    /scope:"member" S* type:"has" S* "not" S* conditions:has_rule_completed S* occurrence:occurrence_filter?  S* geo:geo_filter? S* period:period_filter? S* moment:moment_filter?
+      {
+          var rule= {
+              scope:scope,
+              type:type,
+              negative:true,
+              condition:conditions
+          };
+
+          if(period){
+              rule.period_filter=period;
+          }
+
+          if(geo){
+              rule.geo_filter=geo;
+          }
+
+          if(occurrence){
+              rule.occurrence_filter = occurrence
+          }
+          if(moment){
+            rule.moment_filter=moment
+          }
+          return rule;
+      }
+    /scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* period:period_filter?
+    {
+        var rule= {
+            scope:scope,
+            type:type,
+            condition:conditions
+
+        };
+        if(period){
+          rule.period_filter=period;
+        }
+        return rule;
+    }
+    /scope:"member" S* type:"has" S* "not" S* conditions:has_rule_gained_lost S* period:period_filter?
+    {
+        var rule= {
+            scope:scope,
+            type:type,
+            negative:true,
+            condition:conditions
+
+        };
+        if(period){
+          rule.period_filter=period;
+        }
+        return rule;
+    }
+    /scope:"member" S* type:"has" S* conditions:has_rule_been S* geo:geo_filter S* period:period_filter?
+    {
+        var rule= {
+            scope:scope,
+            type:type,
+            condition:conditions
+        };
+        if(geo){
+            rule.geo_filter=geo
+        }
+        if(period){
+          rule.period_filter=period;
+        }
+        return rule;
+    }
+    /scope:"member" S* type:"has" S* "not" S* conditions:has_rule_been S* geo:geo_filter S* period:period_filter?
+    {
+        var rule= {
+            scope:scope,
+            type:type,
+            negative:true,
+            condition:conditions
+        };
+        if(geo){
+            rule.geo_filter=geo
+        }
+        if(period){
+          rule.period_filter=period;
+        }
+        return rule;
+    }
+   /scope:"member" S* type:"is" S* geo:geo_filter
+   {
+       var rule= {
+           scope:scope,
+           type:type,
+           geo_filter:geo
+       };
+       if(geo){
+           rule.geo_filter=geo
+       }
+       return rule;
+   }
+   /scope:"member" S* type:"with" S* condition:with_condition
+      {
+        return {
+            scope:scope,
+            type:"with",
+            condition:condition
+        };
+      }
+    /scope:"member" S* type:"without" S* condition:with_condition
     {
         return {
             scope:scope,
-            type:type,
-            condition:conditions,
-            occurence_filter:filter1,
-            period_filter:filter2,
-            geo_filter:filter3,
-            moment_filter:filter4
+            type:"with",
+            negative:true,
+            condition:condition
         };
     }
-    /scope:"member" S* type:"has" S* conditions:has_rule_completed S* filter1:occurence_filter? S* filter3:geo_filter? S* filter2:period_filter? S* filter4:moment_filter?
-      {
-          return {
-              scope:scope,
-              type:type,
-              condition:conditions,
-              occurence_filter:filter1,
-              period_filter:filter2,
-              geo_filter:filter3,
-              moment_filter:filter4
-          };
-      }
-    /scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* filter2:period_filter?
-        {
-           return {
-               scope:scope,
-               type:type,
-               condition:conditions,
-               occurence_filter:null,
-               period_filter:filter2,
-               geo_filter:null,
-               moment_filter:null
-           };
+
+
+did_rule
+    =actionCode:actionCode S* condition:member_action_condition?
+    {
+    	var rule= {
+            actionCode:actionCode
+        };
+        if(condition){
+            rule.conditions=condition;
         }
-        /scope:"member" S* type:"has" S* conditions:has_rule_been S* geo:geo_filter
-            {
-                return {
-                    scope:scope,
-                    type:type,
-                    condition:conditions,
-                    occurence_filter:null,
-                    period_filter:null,
-                    geo_filter:geo,
-                    moment_filter:null
-                };
-            }
-       /scope:"member" S* type:"is" S* geo:geo_filter
-           {
-               return {
-                   scope:scope,
-                   type:type,
-                   condition:null,
-                   occurence_filter:null,
-                   period_filter:null,
-                   geo_filter:geo,
-                   moment_filter:null
-               };
-           }
-       /scope:"member" S* "with" S* condition:with_condition
-          {
-              condition.sub_type=condition.type;
-              condition.type=null;
-              return {
-                  scope:scope,
-                  type:"with",
-                  condition:condition,
-                  occurence_filter:null,
-                  period_filter:null,
-                  geo_filter:null,
-                  moment_filter:null
-              };
-          }
-         /scope:"member" S* "without" S* condition:with_condition
-            {
-                condition.sub_type=condition.type;
-                condition.type="not";
-                return {
-                    scope:scope,
-                    type:"with",
-                    condition:condition,
-                    occurence_filter:null,
-                    period_filter:null,
-                    geo_filter:null,
-                    moment_filter:null
-                };
-            }
+        return rule;
+    }
 
 
 
@@ -203,67 +331,24 @@ member_action_condition
     }
 
 
-did_rule
-    =type:"nothing"
-    {
-        return {
-             type:type
-        }
-    }/type:"not" S* actionCode:actionCode S* condition:member_action_condition?
-    {
-        return {
-            type:type,
-            code:actionCode,
-            conditions:condition
-        }
-    }
-    /type:"something"
-    {
-        return {
-            type:type
-        }
-    }/actionCode:actionCode S* condition:member_action_condition?
-    {
-    	return {
-        	type:null,
-            code:actionCode,
-            condition:condition
-        }
-    }
 
 has_rule_gained_lost
-    =type:"not" S* subType:("gained"/"lost") S* number:NUMBER? S* object:object_rule
+    =type:("gained"/"lost") S* number:NUMBER? S* object:object_rule
     {
-        return {
-            type:type,
-            sub_type:subType,
-            number:number,
-            object:object
+        var rule= Object.assign({
+            type:type
+        },object);
+        if(number){
+            rule.number=number
         }
-    }
-    /subType:("gained"/"lost") S* number:NUMBER? S* object:object_rule
-    {
-        return {
-            type:null,
-            sub_type:subType,
-            number:number,
-            object:object
-        }
+        return rule;
     }
 
 has_rule_been
-    = type:"not" S* "been"
+    =  S* "been"
     {
         return {
-            type:type,
-            sub_type:"been"
-        }
-    }
-    / type: S* "been"
-    {
-        return {
-            type:null,
-            sub_type:"been"
+            type:"been"
         }
     }
 
@@ -291,7 +376,6 @@ object_rule_tag
     ="tag" S* tagCode:tagCode
     {
         return {
-            type:"tag",
             tagCode:tagCode
         }
     }
@@ -300,7 +384,6 @@ object_rule_points
     ="points" S* levelCode:levelCode
     {
         return {
-            type:"points",
             levelCode:levelCode
         }
     }
@@ -309,33 +392,25 @@ object_rule_prize
     ="prize" S* prizeCode:prizeCode
     {
         return {
-            type:"prize",
             prizeCode:prizeCode
         }
     }
 
- has_rule_completed
-     = type:"not" S* subType:"completed" S* challengeCode:challengeCode
+has_rule_completed
+    =type:"completed" S* challengeCode:challengeCode
      {
          return {
              type:type,
-             sub_type:subType,
              code:challengeCode
          }
-     }/ subType:"completed" S* challengeCode:challengeCode
-      {
-          return {
-              type:null,
-              sub_type:subType,
-              code:challengeCode
-          }
-      }
+     }
+
 
 
 
 /*OCCURENCE FILTER*/
 
-occurence_filter
+occurrence_filter
     = "at" S* type:"least" S* number:NUMBER S* ("times" / "time")
     {
         return {

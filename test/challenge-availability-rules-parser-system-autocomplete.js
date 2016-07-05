@@ -315,7 +315,7 @@ describe('<Unit Test>', function () {
                                 literalChoices = helper.extractLiterals(error);
 
 
-                                should(error.expected.length).equal(2);
+                                should(error.expected.length).equal(3);
                                 should(literalChoices).eql(['and']);
                                 should(otherChoices).eql(['whitespace']);
                             }
@@ -347,7 +347,7 @@ describe('<Unit Test>', function () {
                                 literalChoices = helper.extractLiterals(error);
 
 
-                                should(error.expected.length).equal(2);
+                                should(error.expected.length).equal(3);
                                 should(literalChoices).eql(['and']);
                                 should(otherChoices).eql(['whitespace']);
                             }
@@ -407,7 +407,7 @@ describe('<Unit Test>', function () {
                                 literalChoices = helper.extractLiterals(error);
 
 
-                                should(error.expected.length).equal(2);
+                                should(error.expected.length).equal(3);
                                 should(literalChoices).eql(['and']);
                                 should(otherChoices).eql(['whitespace']);
                             }
@@ -495,7 +495,7 @@ describe('<Unit Test>', function () {
                             literalChoices = helper.extractLiterals(error);
 
 
-                            should(error.expected.length).equal(2);
+                            should(error.expected.length).equal(3);
                             should(literalChoices).eql(['and']);
                             should(otherChoices).eql(['whitespace']);
                         }
@@ -525,7 +525,7 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
                             literalChoices = helper.extractLiterals(error);
 
-                            should(error.expected.length).equal(2);
+                            should(error.expected.length).equal(3);
                             should(literalChoices).eql(['and']);
                             should(otherChoices).eql(['whitespace']);
                         }
@@ -585,7 +585,7 @@ describe('<Unit Test>', function () {
                             literalChoices = helper.extractLiterals(error);
 
 
-                            should(error.expected.length).equal(2);
+                            should(error.expected.length).equal(3);
                             should(literalChoices).eql(['and']);
                             should(otherChoices).eql(['whitespace']);
                         }
@@ -906,7 +906,7 @@ describe('<Unit Test>', function () {
                             literalChoices = helper.extractLiterals(error);
 
 
-                            should(error.expected.length).equal(2);
+                            should(error.expected.length).equal(3);
                             should(literalChoices).eql(['and']);
                             should(otherChoices).eql(['whitespace']);
                         }
@@ -937,7 +937,7 @@ describe('<Unit Test>', function () {
                             literalChoices = helper.extractLiterals(error);
 
 
-                            should(error.expected.length).equal(2);
+                            should(error.expected.length).equal(3);
                             should(literalChoices).eql(['and']);
                             should(otherChoices).eql(['whitespace']);
                         }
@@ -997,7 +997,7 @@ describe('<Unit Test>', function () {
                             literalChoices = helper.extractLiterals(error);
 
 
-                            should(error.expected.length).equal(2);
+                            should(error.expected.length).equal(3);
                             should(literalChoices).eql(['and']);
                             should(otherChoices).eql(['whitespace']);
                         }

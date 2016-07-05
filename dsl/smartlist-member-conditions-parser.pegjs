@@ -301,10 +301,10 @@ has_rule_gained_lost
     }
 
 has_rule_been
-    =  type: S* "been"
+    = S* "been"
     {
         return {
-            type:null
+            type:"been"
         }
     }
 

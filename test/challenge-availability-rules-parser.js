@@ -26,10 +26,6 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'created',
-          condition: null,
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
           period_filter: {
              duration: 3,
              durationScope: "day",
@@ -45,10 +41,6 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'created',
-          condition: null,
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
           period_filter: {
             date: [new Date(2015,4-1,4,10,10,10)],
             type: "before"
@@ -63,10 +55,6 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'created',
-          condition: null,
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
           period_filter: {
             date: [new Date(2015,4-1,4,10,10,10),new Date(2016,4-1,4,10,10,10)],
             type: 'between'
@@ -81,10 +69,6 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'created',
-          condition: null,
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
           period_filter: {
             date: [new Date(2015,4-1,4,10,10,10)],
             type: "after"
@@ -98,10 +82,6 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'created',
-          condition: null,
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
           period_filter: {
             position:'first',
             actionCode: 'ACTIONCODE',
@@ -113,10 +93,6 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'created',
-          condition: null,
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
           period_filter: {
             position:'last',
             actionCode: 'ACTIONCODE',
@@ -130,10 +106,6 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'created',
-          condition: null,
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
           period_filter: {
             prizeCode: 'PRIZECODE',
             target:'prize',
@@ -154,11 +126,7 @@ describe('<Unit Test>', function () {
           condition: {
             operator:'=',
             value:'montreal'
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -170,11 +138,7 @@ describe('<Unit Test>', function () {
           condition: {
             operator:'!=',
             value:'montreal'
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
       
@@ -190,11 +154,7 @@ describe('<Unit Test>', function () {
           condition: {
             operator:'=',
             value:'quebec'
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -206,11 +166,7 @@ describe('<Unit Test>', function () {
           condition: {
             operator:'!=',
             value:'quebec'
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
       
@@ -226,11 +182,7 @@ describe('<Unit Test>', function () {
           condition: {
             operator:'=',
             value:'quebec'
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -242,11 +194,7 @@ describe('<Unit Test>', function () {
           condition: {
             operator:'!=',
             value:'quebec'
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
       
@@ -262,11 +210,7 @@ describe('<Unit Test>', function () {
           condition: {
             operator:'=',
             value:'quebec'
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -278,11 +222,7 @@ describe('<Unit Test>', function () {
           condition: {
             operator:'!=',
             value:'quebec'
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
       
@@ -295,14 +235,10 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'is',
-          condition: null,
           geo_filter: {
             type:'zone',
             zones:['ZONECODE']
-          },
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -311,17 +247,13 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'is',
-          condition: null,
           geo_filter: {
             type:'zone',
             zones:[
               'ZONECODE',
               'zone2'
             ]
-          },
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -330,14 +262,10 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'is',
-          condition: null,
           geo_filter: {
-            type:'inRange',
-            beacons:['bob']
-          },
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+            type: 'inRange',
+            beacons: ['bob']
+          }
         }]);
       });
       
@@ -346,14 +274,10 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'is',
-          condition: null,
           geo_filter: {
             type:'inRange',
             beacons:['bob','max','matt']
-          },
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -362,15 +286,11 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'is',
-          condition: null,
           geo_filter: {
             type:'RSSI-below',
             number:3,
             beacons:['bob']
-          },
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -379,15 +299,11 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'is',
-          condition: null,
           geo_filter: {
             type:'RSSI-over',
             number:3,
             beacons:['bob']
-          },
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -396,16 +312,12 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'is',
-          condition: null,
           geo_filter: {
             type:'RSSI-between',
             start:3,
             end:4,
             beacons:['bob']
-          },
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -420,14 +332,9 @@ describe('<Unit Test>', function () {
           scope:'member',
           type:'smartlist',
           condition: {
-            type:null,
-            codes:['montreal'],
-            condition:null
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+            codes:['montreal']
+
+          }
         }]);
       });
 
@@ -437,14 +344,10 @@ describe('<Unit Test>', function () {
           scope:'member',
           type:'smartlist',
           condition: {
-            type:null,
-            codes:['montreal','quebec','bob'],
-            condition:null
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+
+            codes:['montreal','quebec','bob']
+
+          }
         }]);
       });
 
@@ -454,18 +357,13 @@ describe('<Unit Test>', function () {
             scope:'member',
             type:'smartlist',
             condition: {
-              type:null,
               codes:['montreal','bob'],
               condition:{
                 type:'since',
                 number:4,
                 timeframe:'hour'
               }
-            },
-            geo_filter: null,
-            moment_filter: null,
-            occurence_filter: null,
-            period_filter: null
+            }
           }]);
       });
       
@@ -475,15 +373,10 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'smartlist',
+          negative:true,
           condition: {
-            type:'not',
-            codes:['montreal'],
-            condition:null
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+            codes:['montreal']
+          }
         }]);
       });
 
@@ -492,15 +385,10 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'smartlist',
+          negative:true,
           condition: {
-            type:'not',
-            codes:['montreal','quebec','bob'],
-            condition:null
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+            codes:['montreal','quebec','bob']
+          }
         }]);
       });
 
@@ -509,19 +397,15 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'smartlist',
+          negative:true,
           condition: {
-            type:'not',
             codes:['montreal','bob'],
             condition:{
               type:'since',
               number:4,
               timeframe:'hour'
             }
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -536,17 +420,8 @@ describe('<Unit Test>', function () {
           scope:'member',
           type:'with',
           condition: {
-            type:null,
-            sub_type:'tag',
-            tagCode: {
-               tagClusterCode: null,
-               tagCode: 'tagcode'
-            }
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+            tagCode:{ tagClusterCode: null, tagCode: 'tagcode' }
+          }
         }]);
       });
 
@@ -556,19 +431,13 @@ describe('<Unit Test>', function () {
           scope:'member',
           type:'with',
           condition: {
-            type:null,
-            sub_type:'tag',
             tagCode: {
               tagClusterCode: null,
               tagCode: 'tagcode'
             },
             operator:">",
             value:4
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -577,18 +446,13 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'with',
+          negative:true,
           condition: {
-            type:'not',
-            sub_type:'tag',
             tagCode: {
               tagClusterCode: null,
               tagCode: 'tagcode'
             }
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -597,20 +461,15 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'with',
+          negative:true,
           condition: {
-            type:'not',
-            sub_type:'tag',
             tagCode: {
               tagClusterCode: null,
               tagCode: 'tagcode'
             },
             operator:">",
             value:4
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -620,16 +479,10 @@ describe('<Unit Test>', function () {
           scope:'member',
           type:'with',
           condition: {
-            type:null,
-            sub_type:'points',
             levelCode: "levelCode",
             operator:'>=',
             value:3
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -638,17 +491,12 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'with',
+          negative:true,
           condition: {
-            type:'not',
-            sub_type:'points',
             levelCode: "levelCode",
             operator: '>=',
             value:3
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -658,15 +506,9 @@ describe('<Unit Test>', function () {
           scope:'member',
           type:'with',
           condition: {
-            type:null,
-            sub_type:'prize',
             prizeCode: 'coupon'
 
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
@@ -675,16 +517,11 @@ describe('<Unit Test>', function () {
         should(rule).eql([{
           scope:'member',
           type:'with',
+          negative:true,
           condition: {
-            type:'not',
-            sub_type:'prize',
             prizeCode: 'coupon'
 
-          },
-          geo_filter: null,
-          moment_filter: null,
-          occurence_filter: null,
-          period_filter: null
+          }
         }]);
       });
 
