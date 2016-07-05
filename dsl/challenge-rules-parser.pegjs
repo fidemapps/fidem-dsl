@@ -787,7 +787,7 @@ untilDate
 {
     return {
         type:"until",
-    l   ist:[year]
+        list:[year]
     };
 }
 

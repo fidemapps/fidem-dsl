@@ -685,7 +685,7 @@ system_condition
 system_onRule
 = "on" S* rule:(onDate /onThe )
 {
-r   eturn Object.assign({scope:"system"},rule);
+    return Object.assign({scope:"system"},rule);
 }
 
 /*MIX*/
