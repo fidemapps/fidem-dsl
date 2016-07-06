@@ -21,38 +21,77 @@ describe('<Unit Test>', function () {
                 done();
             });
         });
-        
+
+        it('member lives',function(){
+            try {
+                parser.parse("member lives");
+            }
+            catch (err) {
+                var literalChoices = helper.extractLiterals(err);
+                var otherChoices = helper.extractOthers(err);
+                should(err.expected.length).equal(3);
+                should(literalChoices).eql(['in','not']);
+                should(otherChoices).eql(['whitespace']);
+            }
+        });
+
+        it('member lives in',function(){
+            try {
+                parser.parse("member lives in");
+            }
+            catch (err) {
+                var literalChoices = helper.extractLiterals(err);
+                var otherChoices = helper.extractOthers(err);
+                should(err.expected.length).equal(5);
+                should(literalChoices).eql(['city','country','state','zip']);
+                should(otherChoices).eql(['whitespace']);
+            }
+        });
+
+        it('member lives not in',function(){
+            try {
+                parser.parse("member lives not in");
+            }
+            catch (err) {
+                var literalChoices = helper.extractLiterals(err);
+                var otherChoices = helper.extractOthers(err);
+                should(err.expected.length).equal(5);
+                should(literalChoices).eql(['city','country','state','zip']);
+                should(otherChoices).eql(['whitespace']);
+            }
+        });
+
         describe('city rule',function(){
 
-            it('member city',function(){
+            it('member lives in city',function(){
                 try {
-                    parser.parse("member city");
-                }
-                catch (err) {
-                    var literalChoices = helper.extractLiterals(err);
-                    var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(3);
-                    should(literalChoices).eql(['!=','=']);
-                    should(otherChoices).eql(['whitespace']);
-                }
-            });
-
-            it('member city =',function(){
-                try {
-                    parser.parse("member city =");
+                    parser.parse("member lives in city");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
                     should(err.expected.length).equal(2);
                     should(literalChoices).eql([]);
-                    should(otherChoices).eql(['string','whitespace']);
+                    should(otherChoices).eql(['name','whitespace']);
                 }
             });
 
-            it('member city = "bob"',function(){
+            it('member lives not in city',function(){
                 try {
-                    parser.parse("member city = 'bob' s");
+                    parser.parse("member lives not in city");
+                }
+                catch (err) {
+                    var literalChoices = helper.extractLiterals(err);
+                    var otherChoices = helper.extractOthers(err);
+                    should(err.expected.length).equal(2);
+                    should(literalChoices).eql([]);
+                    should(otherChoices).eql(['name','whitespace']);
+                }
+            });
+
+            it('member lives in city mtl',function(){
+                try {
+                    parser.parse("member lives in city mtl 3");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -63,22 +102,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member city !=',function(){
+            it('member lives not in city mtl',function(){
                 try {
-                    parser.parse("member city !=");
-                }
-                catch (err) {
-                    var literalChoices = helper.extractLiterals(err);
-                    var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(2);
-                    should(literalChoices).eql([]);
-                    should(otherChoices).eql(['string','whitespace']);
-                }
-            });
-
-            it('member city != "bob"',function(){
-                try {
-                    parser.parse("member city != 'bob' s");
+                    parser.parse("member lives not in city mtl 3");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -88,40 +114,41 @@ describe('<Unit Test>', function () {
                     should(otherChoices).eql(['whitespace']);
                 }
             });
+
 
         });
 
         describe('state rule',function(){
 
-            it('member state',function(){
+            it('member lives in state',function(){
                 try {
-                    parser.parse("member state");
-                }
-                catch (err) {
-                    var literalChoices = helper.extractLiterals(err);
-                    var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(3);
-                    should(literalChoices).eql(['!=','=']);
-                    should(otherChoices).eql(['whitespace']);
-                }
-            });
-
-            it('member state =',function(){
-                try {
-                    parser.parse("member state =");
+                    parser.parse("member lives in state");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
                     should(err.expected.length).equal(2);
                     should(literalChoices).eql([]);
-                    should(otherChoices).eql(['string','whitespace']);
+                    should(otherChoices).eql(['name','whitespace']);
                 }
             });
 
-            it('member state = "bob"',function(){
+            it('member lives not in state',function(){
                 try {
-                    parser.parse("member state = 'bob' s");
+                    parser.parse("member lives not in state");
+                }
+                catch (err) {
+                    var literalChoices = helper.extractLiterals(err);
+                    var otherChoices = helper.extractOthers(err);
+                    should(err.expected.length).equal(2);
+                    should(literalChoices).eql([]);
+                    should(otherChoices).eql(['name','whitespace']);
+                }
+            });
+
+            it('member lives in state mtl',function(){
+                try {
+                    parser.parse("member lives in state mtl 3");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -132,22 +159,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member state !=',function(){
+            it('member lives not in state mtl',function(){
                 try {
-                    parser.parse("member state !=");
-                }
-                catch (err) {
-                    var literalChoices = helper.extractLiterals(err);
-                    var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(2);
-                    should(literalChoices).eql([]);
-                    should(otherChoices).eql(['string','whitespace']);
-                }
-            });
-
-            it('member state != "bob"',function(){
-                try {
-                    parser.parse("member state != 'bob' s");
+                    parser.parse("member lives not in state mtl 3");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -160,36 +174,36 @@ describe('<Unit Test>', function () {
         });
 
         describe('zip rule',function(){
-
-            it('member zip',function(){
+            
+            it('member lives in zip',function(){
                 try {
-                    parser.parse("member zip");
-                }
-                catch (err) {
-                    var literalChoices = helper.extractLiterals(err);
-                    var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(3);
-                    should(literalChoices).eql(['!=','=']);
-                    should(otherChoices).eql(['whitespace']);
-                }
-            });
-
-            it('member zip =',function(){
-                try {
-                    parser.parse("member zip =");
+                    parser.parse("member lives in zip");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
                     should(err.expected.length).equal(2);
                     should(literalChoices).eql([]);
-                    should(otherChoices).eql(['string','whitespace']);
+                    should(otherChoices).eql(['name','whitespace']);
                 }
             });
 
-            it('member zip = "bob"',function(){
+            it('member lives not in zip',function(){
                 try {
-                    parser.parse("member zip = 'bob' s");
+                    parser.parse("member lives not in zip");
+                }
+                catch (err) {
+                    var literalChoices = helper.extractLiterals(err);
+                    var otherChoices = helper.extractOthers(err);
+                    should(err.expected.length).equal(2);
+                    should(literalChoices).eql([]);
+                    should(otherChoices).eql(['name','whitespace']);
+                }
+            });
+
+            it('member lives in zip mtl',function(){
+                try {
+                    parser.parse("member lives in zip mtl 3");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -200,22 +214,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member zip !=',function(){
+            it('member lives not in zip mtl',function(){
                 try {
-                    parser.parse("member zip !=");
-                }
-                catch (err) {
-                    var literalChoices = helper.extractLiterals(err);
-                    var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(2);
-                    should(literalChoices).eql([]);
-                    should(otherChoices).eql(['string','whitespace']);
-                }
-            });
-
-            it('member zip != "bob"',function(){
-                try {
-                    parser.parse("member zip != 'bob' s");
+                    parser.parse("member lives not in zip mtl 3");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -225,39 +226,40 @@ describe('<Unit Test>', function () {
                     should(otherChoices).eql(['whitespace']);
                 }
             });
+            
         });
 
         describe('country rule',function(){
 
-            it('member country',function(){
+            it('member lives in country',function(){
                 try {
-                    parser.parse("member country");
-                }
-                catch (err) {
-                    var literalChoices = helper.extractLiterals(err);
-                    var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(3);
-                    should(literalChoices).eql(['!=','=']);
-                    should(otherChoices).eql(['whitespace']);
-                }
-            });
-
-            it('member country =',function(){
-                try {
-                    parser.parse("member country =");
+                    parser.parse("member lives in country");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
                     should(err.expected.length).equal(2);
                     should(literalChoices).eql([]);
-                    should(otherChoices).eql(['string','whitespace']);
+                    should(otherChoices).eql(['name','whitespace']);
                 }
             });
 
-            it('member country = "bob"',function(){
+            it('member lives not in country',function(){
                 try {
-                    parser.parse("member country = 'bob' s");
+                    parser.parse("member lives not in country");
+                }
+                catch (err) {
+                    var literalChoices = helper.extractLiterals(err);
+                    var otherChoices = helper.extractOthers(err);
+                    should(err.expected.length).equal(2);
+                    should(literalChoices).eql([]);
+                    should(otherChoices).eql(['name','whitespace']);
+                }
+            });
+
+            it('member lives in country mtl',function(){
+                try {
+                    parser.parse("member lives in country mtl 3");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -268,22 +270,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member country !=',function(){
+            it('member lives not in country mtl',function(){
                 try {
-                    parser.parse("member country !=");
-                }
-                catch (err) {
-                    var literalChoices = helper.extractLiterals(err);
-                    var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(2);
-                    should(literalChoices).eql([]);
-                    should(otherChoices).eql(['string','whitespace']);
-                }
-            });
-
-            it('member country != "bob"',function(){
-                try {
-                    parser.parse("member country != 'bob' s");
+                    parser.parse("member lives not in country mtl 3");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -293,6 +282,7 @@ describe('<Unit Test>', function () {
                     should(otherChoices).eql(['whitespace']);
                 }
             });
+            
         });
 
     });

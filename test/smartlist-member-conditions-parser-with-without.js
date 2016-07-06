@@ -27,7 +27,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { tagCode: { tagClusterCode: null, tagCode: 'bob' } },
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' } },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -40,7 +40,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { tagCode: { tagClusterCode: null, tagCode: 'bob' }, operator:'=',value:3 },
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' }, operator:'=',value:3 },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -53,7 +53,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { tagCode: { tagClusterCode: null, tagCode: 'bob' } },
+                                query: { type:'tag', tagCode: { tagClusterCode: null, tagCode: 'bob' } },
                                 negative:true,
                                 scope: 'member',
                                 type: 'with'
@@ -67,7 +67,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { tagCode: { tagClusterCode: null, tagCode: 'bob' },operator:'>',value:3 },
+                                query: { type:'tag', tagCode: { tagClusterCode: null, tagCode: 'bob' },operator:'>',value:3 },
                                 negative:true,
                                 scope: 'member',
                                 type: 'with'
@@ -85,7 +85,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { levelCode: 'levelCode', operator:'<',value:10 },
+                                query: { type:'points',levelCode: 'levelCode', operator:'<',value:10 },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -98,7 +98,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { levelCode: 'levelCode', operator:'<=',value:10 },
+                                query: { type:'points',levelCode: 'levelCode', operator:'<=',value:10 },
                                 negative:true,
                                 scope: 'member',
                                 type: 'with'
@@ -116,7 +116,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { prizeCode: 'PRIZECODE' },
+                                query: {type:'prize', prizeCode: 'PRIZECODE' },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -129,7 +129,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { prizeCode: 'PRIZECODE'},
+                                query: { type:'prize',prizeCode: 'PRIZECODE'},
                                 negative:true,
                                 scope: 'member',
                                 type: 'with'

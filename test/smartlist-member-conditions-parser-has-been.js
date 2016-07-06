@@ -31,7 +31,7 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
+                        geoFilter:{
                             type:'zone',
                             zoneCodes:['bob']
                         }
@@ -52,7 +52,7 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
+                        geoFilter:{
                             type:'zone',
                             zoneCodes:['bob']
                         }
@@ -72,7 +72,7 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
+                        geoFilter:{
                             type:'inRange',
                             beaconCodes:['bob']
                         }
@@ -93,7 +93,7 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
+                        geoFilter:{
                             type:'inRange',
                             beaconCodes:['bob','tom']
                         }
@@ -113,8 +113,8 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
-                            type:'RSSI-over',
+                        geoFilter:{
+                            type:'RSSI_over',
                             rssiValue:310,
                             beaconCodes:['bob']
                         }
@@ -135,8 +135,8 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
-                            type:'RSSI-over',
+                        geoFilter:{
+                            type:'RSSI_over',
                             rssiValue:310,
                             beaconCodes:['bob','tom','carl']
                         }
@@ -156,8 +156,8 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
-                            type:'RSSI-below',
+                        geoFilter:{
+                            type:'RSSI_below',
                             rssiValue:4,
                             beaconCodes:['bob']
                         }
@@ -178,8 +178,8 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
-                            type:'RSSI-below',
+                        geoFilter:{
+                            type:'RSSI_below',
                             rssiValue:4,
                             beaconCodes:['bob','eric','jean']
                         }
@@ -199,9 +199,9 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
-                            type:'RSSI-between',
-                            rssiValue:[4,6],
+                        geoFilter:{
+                            type:'RSSI_between',
+                            rssiValues:[4,6],
                             beaconCodes:['bob']
                         }
                     }]
@@ -220,9 +220,9 @@ describe('<Unit Test>', function () {
                         query: {
                             type:'been'
                         },
-                        geo_filter:{
-                            type:'RSSI-between',
-                            rssiValue:[6,4],
+                        geoFilter:{
+                            type:'RSSI_between',
+                            rssiValues:[6,4],
                             beaconCodes:['bob','norbert']
                         }
                     }]

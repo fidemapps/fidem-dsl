@@ -57,32 +57,69 @@ simple_condition
 /*MEMBER SCOPE*/
 
 member_scope_rule
-= scope:"member" S* type:"created" S* period_filter:period_filter
+= scope:"member" S* type:"created" S* periodFilter:periodFilterCreatedLite
 {
     return {
         scope: scope,
         type: type,
-        period_filter: period_filter
+        periodFilter: periodFilter
     };
 }
-/ scope:"member" S* type:("city" / "state" / "zip" / "country") S* operator:("=" / "!=") S* value:STRING
+/ scope:"member" S* "lives" S* "in" S* query:live_condition
 {
 
     return {
         scope: scope,
-        type: type,
-        query:{
-            operator: operator,
-            value: value
-        }
+        type: "lives",
+        query:query
+    };
+}
+/ scope:"member" S* "lives" S* "not" S* "in" S* query:live_condition
+{
+
+    return {
+        scope: scope,
+        type: "lives",
+        negative:true,
+        query:query
     };
 }/member_condition
 
+/*LIVE CONDITION*/
+live_condition
+= "city"  S* value:name
+{
+    return {
+        type:'city',
+        cityName: value
+    }
+}
+/ "state"  S* value:name
+{
+    return {
+        type:'state',
+        stateName: value
+    }
+}
+/ "country" S* value:name
+{
+    return {
+        type:'country',
+        countryName: value
+    }
+}
+/ "zip"  S* value:name
+{
+    return {
+        type:'zip',
+        zipCode: value
+    }
+}
 
 /*MEMBER CONDITION*/
 
 member_condition
-=scope:"member" S* type:"did" S* conditionType:("nothing" / "something")  S* occurrence:occurrence_filter? S* geo:geo_filter? S* period:period_filter?
+=scope:"member" S* type:"did" S* conditionType:("nothing" / "something")  S* occurrence:occurrenceFilter? S* geo:geoFilter? S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -94,19 +131,19 @@ member_condition
     };
 
     if(period){
-        rule.period_filter=period;
+        rule.periodFilter=period;
     }
 
     if(geo){
-        rule.geo_filter=geo;
+        rule.geoFilter=geo;
     }
 
     if(occurrence){
-        rule.occurrence_filter = occurrence;
+        rule.occurrenceFilter = occurrence;
     }
     return rule;
 }
-/ scope:"member" S* type:"did" S* "not" S* conditions:did_rule S* occurrence:occurrence_filter? S* geo:geo_filter? S* period:period_filter?
+/ scope:"member" S* type:"did" S* "not" S* conditions:did_rule S* occurrence:occurrenceFilter? S* geo:geoFilter? S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -116,20 +153,20 @@ member_condition
     };
 
     if(period){
-        rule.period_filter=period;
+        rule.periodFilter=period;
     }
 
     if(geo){
-        rule.geo_filter=geo;
+        rule.geoFilter=geo;
     }
 
     if(occurrence){
-        rule.occurrence_filter = occurrence;
+        rule.occurrenceFilter = occurrence;
     }
 
     return rule;
 }
-/ scope:"member" S* type:"did" S* conditions:did_rule S* occurrence:occurrence_filter? S* geo:geo_filter? S* period:period_filter?
+/ scope:"member" S* type:"did" S* conditions:did_rule S* occurrence:occurrenceFilter? S* geo:geoFilter? S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -138,20 +175,20 @@ member_condition
     };
 
     if(period){
-        rule.period_filter=period;
+        rule.periodFilter=period;
     }
 
     if(geo){
-        rule.geo_filter=geo;
+        rule.geoFilter=geo;
     }
 
     if(occurrence){
-        rule.occurrence_filter = occurrence;
+        rule.occurrenceFilter = occurrence;
     }
 
     return rule;
 }
-/scope:"member" S* type:"has" S* conditions:has_rule_completed S* occurrence:occurrence_filter?  S* geo:geo_filter? S* period:period_filter?
+/scope:"member" S* type:"has" S* conditions:has_rule_completed S* occurrence:occurrenceFilter?  S* geo:geoFilter? S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -160,20 +197,20 @@ member_condition
     };
 
     if(period){
-        rule.period_filter=period;
+        rule.periodFilter=period;
     }
 
     if(geo){
-        rule.geo_filter=geo;
+        rule.geoFilter=geo;
     }
 
     if(occurrence){
-        rule.occurrence_filter = occurrence;
+        rule.occurrenceFilter = occurrence;
     }
 
     return rule;
 }
-/scope:"member" S* type:"has" S* "not" S* conditions:has_rule_completed S* occurrence:occurrence_filter?  S* geo:geo_filter? S* period:period_filter?
+/scope:"member" S* type:"has" S* "not" S* conditions:has_rule_completed S* occurrence:occurrenceFilter?  S* geo:geoFilter? S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -183,20 +220,20 @@ member_condition
     };
 
     if(period){
-        rule.period_filter=period;
+        rule.periodFilter=period;
     }
 
     if(geo){
-        rule.geo_filter=geo;
+        rule.geoFilter=geo;
     }
 
     if(occurrence){
-        rule.occurrence_filter = occurrence;
+        rule.occurrenceFilter = occurrence;
     }
 
     return rule;
 }
-/scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* period:period_filter?
+/scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -205,12 +242,12 @@ member_condition
     };
 
     if(period){
-        rule.period_filter=period;
+        rule.periodFilter=period;
     }
 
     return rule;
 }
-/scope:"member" S* type:"has" S* "not" S* conditions:has_rule_gained_lost S* period:period_filter?
+/scope:"member" S* type:"has" S* "not" S* conditions:has_rule_gained_lost S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -220,12 +257,12 @@ member_condition
     };
 
     if(period){
-        rule.period_filter=period;
+        rule.periodFilter=period;
     }
 
     return rule;
 }
-/scope:"member" S* type:"has" S* conditions:has_rule_been S* geo:geo_filter S* period:period_filter?
+/scope:"member" S* type:"has" S* conditions:has_rule_been S* geo:geoFilter S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -234,16 +271,16 @@ member_condition
     };
 
     if(geo){
-        rule.geo_filter=geo;
+        rule.geoFilter=geo;
     }
 
     if(period){
-        rule.period_filter=period;
+        rule.periodFilter=period;
     }
 
     return rule;
 }
-/scope:"member" S* type:"has" S* "not" S* conditions:has_rule_been S* geo:geo_filter S* period:period_filter?
+/scope:"member" S* type:"has" S* "not" S* conditions:has_rule_been S* geo:geoFilter S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -253,21 +290,21 @@ member_condition
     };
 
     if(geo){
-        rule.geo_filter=geo;
+        rule.geoFilter=geo;
     }
 
     if(period){
-        rule.period_filter=period;
+        rule.periodFilter=period;
     }
 
     return rule;
 }
-/scope:"member" S* type:"is" S* geo:geo_filter
+/scope:"member" S* type:"is" S* geo:geoFilter
 {
     var rule= {
         scope:scope,
         type:type,
-        geo_filter:geo
+        geoFilter:geo
     };
 
     return rule;
@@ -295,6 +332,7 @@ did_rule
 =actionCode:actionCode S* condition:member_action_condition?
 {
     var rule= {
+        type:'action',
         actionCode:actionCode
     };
 
@@ -324,7 +362,10 @@ member_action_condition
 has_rule_gained_lost
 =type:("gained"/"lost") S* number:NUMBER? S* object:object_rule
 {
-    var rule= Object.assign({type:type},object);
+
+    var completeType=type+"_"+object.type;
+    delete object.type;
+    var rule = Object.assign({type:completeType},object);
 
     if(number){
         rule.quantity=number;
@@ -362,6 +403,7 @@ object_rule_tag
 ="tag" S* tagCode:tagCode
 {
     return {
+        type:'tag',
         tagCode:tagCode
     }
 }
@@ -370,7 +412,9 @@ object_rule_points
 ="points" S* levelCode:levelCode
 {
     return {
+        type:'points',
         levelCode:levelCode
+
     }
 }
 
@@ -378,13 +422,14 @@ object_rule_prize
 ="prize" S* prizeCode:prizeCode
 {
     return {
+        type:'prize',
         prizeCode:prizeCode
     }
 }
 
 /*OCCURRENCE FILTER*/
 
-occurrence_filter
+occurrenceFilter
 = "at" S* type:"least" S* number:NUMBER S* ("times" / "time")
 {
     return {
@@ -407,28 +452,65 @@ occurrence_filter
     }
 }
 
-/*PERIOD_FILTER*/
+/*period rule*/
 
-period_filter
+
+/*periodFilterCreatedLite*/
+
+periodFilterCreatedLite
 = type:"before" S* date:DATE_TIME
 {
     return {
         type:type,
-        date:[date]
+        date:date
     }
 }
 /type:"after" S* date:DATE_TIME
 {
     return {
         type:type,
-        date:[date]
+        date:date
     }
 }
 /type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
 {
     return {
         type:type,
-        date:[start,end]
+        dates:[start,end]
+    }
+}
+/"in" S* type:"last" S* duration:NUMBER S* durationScope:timeframe
+{
+    return {
+        type:type,
+        duration: duration,
+        durationScope: durationScope
+    }
+}
+
+
+/*periodFilter*/
+
+periodFilter
+= type:"before" S* date:DATE_TIME
+{
+    return {
+        type:type,
+        date:date
+    }
+}
+/type:"after" S* date:DATE_TIME
+{
+    return {
+        type:type,
+        date:date
+    }
+}
+/type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
+{
+    return {
+        type:type,
+        dates:[start,end]
     }
 }
 /"in" S* type:"last" S* duration:NUMBER S* durationScope:timeframe
@@ -442,7 +524,7 @@ period_filter
 /"since" S* type:"did" S* position:("first"/"last")? S* actionCode:actionCode
 {
     var rule = {
-        type:"since-"+type,
+        type:"since_"+type,
         actionCode:actionCode
     };
 
@@ -455,13 +537,13 @@ period_filter
 /"since" S* type:"received" S* target:"prize" S* prizeCode:prizeCode
 {
     return {
-        type:"since-"+type,
+        type:"since_"+type,
         prizeCode:prizeCode
     }
 }
 
 /*GEO FILTER*/
-geo_filter
+geoFilter
 = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
 {
     return {
@@ -479,7 +561,7 @@ geo_filter
 / "with RSSI" S* type:("over"/"below") S* number:NUMBER S* "from" S* beacons:beacon_list
 {
     return{
-        type:"RSSI-"+type,
+        type:"RSSI_"+type,
         rssiValue:number,
         beaconCodes:beacons
     }
@@ -487,8 +569,8 @@ geo_filter
 / "with RSSI" S* type:"between" S* start:NUMBER S* "and" S* end:NUMBER S* "from" S* beacons:beacon_list
 {
     return{
-        type:"RSSI-"+type,
-        rssiValue:[start,end],
+        type:"RSSI_"+type,
+        rssiValues:[start,end],
         beaconCodes:beacons
     }
 }
@@ -558,7 +640,7 @@ path
     return start + chars.join("");
 }
 
-name
+name "name"
 = chars:path_char+
 {
     return chars.join("");
@@ -584,6 +666,8 @@ beaconCode "beaconCode"
 
 levelCode "levelCode"
 = code
+
+
 
 tagCode "tagCode"
 = tagClusterCode:tagClusterCode? code:code
@@ -653,13 +737,13 @@ TIME_24 "time"
 DATE "date"
 = year:date_full_year "-" month:date_month "-" day:date_day
 {
-    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    return year + "-" + month + "-" + day;
 }
 
 DATE_TIME "datetime"
 = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
 {
-    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
+    return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
 }
 
 OPERATOR

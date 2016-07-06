@@ -29,7 +29,7 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type: 'gained',
+                                        type: 'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
@@ -52,7 +52,7 @@ describe('<Unit Test>', function () {
                                     type: 'has',
                                     query: {
                                         quantity:3,
-                                        type:'lost',
+                                        type:'lost_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
@@ -75,7 +75,7 @@ describe('<Unit Test>', function () {
                                     negative:true,
                                     query: {
                                         quantity:3,
-                                        type:'gained',
+                                        type:'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
@@ -97,7 +97,7 @@ describe('<Unit Test>', function () {
                                     type: 'has',
                                     negative:true,
                                     query: {
-                                        type:'lost',
+                                        type:'lost_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
@@ -118,13 +118,13 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
                                         }
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'last',
                                         duration:3,
                                         durationScope:'day'
@@ -145,15 +145,15 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
                                         }
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'before',
-                                        date:[new Date('2016-04-04 10:10:10')]
+                                        date:'2016-04-04 10:10:10'
                                     }
 
                                 }]
@@ -170,15 +170,15 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
                                         }
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'after',
-                                        date:[new Date('2016-04-04 10:10:10')]
+                                        date:'2016-04-04 10:10:10'
                                     }
 
                                 }]
@@ -195,15 +195,15 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
                                         }
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'between',
-                                        date:[new Date('2016-04-04 10:10:10'),new Date('2016-04-05 10:10:10')]
+                                        dates:['2016-04-04 10:10:10','2016-04-05 10:10:10']
                                     }
 
                                 }]
@@ -220,14 +220,14 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
                                         }
                                     },
-                                    period_filter: {
-                                        type:'since-did',
+                                    periodFilter: {
+                                        type:'since_did',
                                         actionCode:'eat'
                                     }
 
@@ -245,14 +245,14 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
                                         }
                                     },
-                                    period_filter: {
-                                        type:'since-did',
+                                    periodFilter: {
+                                        type:'since_did',
                                         position:'first',
                                         actionCode:'eat'
                                     }
@@ -271,14 +271,14 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
                                         }
                                     },
-                                    period_filter: {
-                                        type:'since-did',
+                                    periodFilter: {
+                                        type:'since_did',
                                         position:'last',
                                         actionCode:'eat'
                                     }
@@ -297,14 +297,14 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_tag',
                                         tagCode: {
                                             tagClusterCode: null,
                                             tagCode: 'bob'
                                         }
                                     },
-                                    period_filter: {
-                                        type:'since-received',
+                                    periodFilter: {
+                                        type:'since_received',
                                         prizeCode:'points'
                                     }
 
@@ -326,7 +326,7 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type: 'gained',
+                                        type: 'gained_points',
                                         levelCode:'bob'
 
                                     }
@@ -346,7 +346,7 @@ describe('<Unit Test>', function () {
                                     type: 'has',
                                     query: {
                                         quantity:3,
-                                        type:'lost',
+                                        type:'lost_points',
                                         levelCode:'bob'
                                     }
 
@@ -366,7 +366,7 @@ describe('<Unit Test>', function () {
                                     negative:true,
                                     query: {
                                         quantity:3,
-                                        type:'gained',
+                                        type:'gained_points',
                                         levelCode:'bob'
                                     }
 
@@ -385,7 +385,7 @@ describe('<Unit Test>', function () {
                                     type: 'has',
                                     negative:true,
                                     query: {
-                                        type:'lost',
+                                        type:'lost_points',
                                         levelCode:'bob'
                                     }
 
@@ -403,10 +403,10 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_points',
                                         levelCode:'bob'
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'last',
                                         duration:3,
                                         durationScope:'day'
@@ -427,12 +427,12 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_points',
                                         levelCode:'bob'
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'before',
-                                        date:[new Date('2016-04-04 10:10:10')]
+                                        date:'2016-04-04 10:10:10'
                                     }
 
                                 }]
@@ -449,12 +449,12 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_points',
                                         levelCode:'bob'
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'after',
-                                        date:[new Date('2016-04-04 10:10:10')]
+                                        date:'2016-04-04 10:10:10'
                                     }
 
                                 }]
@@ -471,12 +471,12 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_points',
                                         levelCode:'bob'
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'between',
-                                        date:[new Date('2016-04-04 10:10:10'),new Date('2016-04-05 10:10:10')]
+                                        dates:['2016-04-04 10:10:10','2016-04-05 10:10:10']
                                     }
 
                                 }]
@@ -493,11 +493,11 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_points',
                                         levelCode:'bob'
                                     },
-                                    period_filter: {
-                                        type:'since-did',
+                                    periodFilter: {
+                                        type:'since_did',
                                         actionCode:'eat'
                                     }
 
@@ -515,11 +515,11 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_points',
                                         levelCode:'bob'
                                     },
-                                    period_filter: {
-                                        type:'since-did',
+                                    periodFilter: {
+                                        type:'since_did',
                                         position:'first',
                                         actionCode:'eat'
                                     }
@@ -538,11 +538,11 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_points',
                                         levelCode:'bob'
                                     },
-                                    period_filter: {
-                                        type:'since-did',
+                                    periodFilter: {
+                                        type:'since_did',
                                         position:'last',
                                         actionCode:'eat'
                                     }
@@ -561,11 +561,11 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_points',
                                         levelCode:'bob'
                                     },
-                                    period_filter: {
-                                        type:'since-received',
+                                    periodFilter: {
+                                        type:'since_received',
                                         prizeCode:'points'
                                     }
 
@@ -586,7 +586,7 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type: 'gained',
+                                        type: 'gained_prize',
                                         prizeCode:'bob'
 
                                     }
@@ -606,7 +606,7 @@ describe('<Unit Test>', function () {
                                     type: 'has',
                                     query: {
                                         quantity:3,
-                                        type:'lost',
+                                        type:'lost_prize',
                                         prizeCode:'bob'
                                     }
 
@@ -626,7 +626,7 @@ describe('<Unit Test>', function () {
                                     negative:true,
                                     query: {
                                         quantity:3,
-                                        type:'gained',
+                                        type:'gained_prize',
                                         prizeCode:'bob'
                                     }
 
@@ -645,7 +645,7 @@ describe('<Unit Test>', function () {
                                     type: 'has',
                                     negative:true,
                                     query: {
-                                        type:'lost',
+                                        type:'lost_prize',
                                         prizeCode:'bob'
                                     }
 
@@ -663,10 +663,10 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_prize',
                                         prizeCode:'bob'
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'last',
                                         duration:3,
                                         durationScope:'day'
@@ -687,12 +687,12 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_prize',
                                         prizeCode:'bob'
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'before',
-                                        date:[new Date('2016-04-04 10:10:10')]
+                                        date:'2016-04-04 10:10:10'
                                     }
 
                                 }]
@@ -709,12 +709,12 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_prize',
                                         prizeCode:'bob'
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'after',
-                                        date:[new Date('2016-04-04 10:10:10')]
+                                        date:'2016-04-04 10:10:10'
                                     }
 
                                 }]
@@ -731,12 +731,12 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_prize',
                                         prizeCode:'bob'
                                     },
-                                    period_filter: {
+                                    periodFilter: {
                                         type:'between',
-                                        date:[new Date('2016-04-04 10:10:10'),new Date('2016-04-05 10:10:10')]
+                                        dates:['2016-04-04 10:10:10','2016-04-05 10:10:10']
                                     }
 
                                 }]
@@ -753,11 +753,11 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_prize',
                                         prizeCode:'bob'
                                     },
-                                    period_filter: {
-                                        type:'since-did',
+                                    periodFilter: {
+                                        type:'since_did',
                                         actionCode:'eat'
                                     }
 
@@ -775,11 +775,11 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_prize',
                                         prizeCode:'bob'
                                     },
-                                    period_filter: {
-                                        type:'since-did',
+                                    periodFilter: {
+                                        type:'since_did',
                                         position:'first',
                                         actionCode:'eat'
                                     }
@@ -798,11 +798,11 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_prize',
                                         prizeCode:'bob'
                                     },
-                                    period_filter: {
-                                        type:'since-did',
+                                    periodFilter: {
+                                        type:'since_did',
                                         position:'last',
                                         actionCode:'eat'
                                     }
@@ -821,11 +821,11 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     query: {
-                                        type:'gained',
+                                        type:'gained_prize',
                                         prizeCode:'bob'
                                     },
-                                    period_filter: {
-                                        type:'since-received',
+                                    periodFilter: {
+                                        type:'since_received',
                                         prizeCode:'prize'
                                     }
 

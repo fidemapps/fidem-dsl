@@ -25,7 +25,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            geo_filter: { type: 'zone', zoneCodes: [ 'CODE1' ] },
+                            geoFilter: { type: 'zone', zoneCodes: [ 'CODE1' ] },
                             scope: 'member',
                             type: 'is'
                         }
@@ -39,7 +39,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            geo_filter: { type: 'zone', zoneCodes: [ 'CODE1','CODE2' ] },
+                            geoFilter: { type: 'zone', zoneCodes: [ 'CODE1','CODE2' ] },
                             scope: 'member',
                             type: 'is'
                         }
@@ -53,7 +53,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            geo_filter: { type: 'inRange', beaconCodes: [ 'bob' ] },
+                            geoFilter: { type: 'inRange', beaconCodes: [ 'bob' ] },
                             scope: 'member',
                             type: 'is'
                         }
@@ -67,7 +67,7 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
 
-                            geo_filter: { type: 'inRange', beaconCodes: [ 'bob' ,'tom'] },
+                            geoFilter: { type: 'inRange', beaconCodes: [ 'bob' ,'tom'] },
                             scope: 'member',
                             type: 'is'
                         }
@@ -81,7 +81,7 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
 
-                            geo_filter: { type: 'RSSI-over', rssiValue:4, beaconCodes: [ 'bob' ,'tom'] },
+                            geoFilter: { type: 'RSSI_over', rssiValue:4, beaconCodes: [ 'bob' ,'tom'] },
                             scope: 'member',
                             type: 'is'
                         }
@@ -94,7 +94,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            geo_filter: { type: 'RSSI-below',rssiValue :4 , beaconCodes: [ 'bob' ,'tom'] },
+                            geoFilter: { type: 'RSSI_below',rssiValue :4 , beaconCodes: [ 'bob' ,'tom'] },
                             scope: 'member',
                             type: 'is'
                         }
@@ -107,7 +107,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            geo_filter: { type: 'RSSI-between', rssiValue:[4,5], beaconCodes: [ 'bob' ,'tom'] },
+                            geoFilter: { type: 'RSSI_between', rssiValues:[4,5], beaconCodes: [ 'bob' ,'tom'] },
                             scope: 'member',
                             type: 'is'
                         }

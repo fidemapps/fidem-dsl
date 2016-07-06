@@ -26,7 +26,7 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
 
-                            period_filter: { duration: 1, durationScope: 'week', type: 'last' },
+                            periodFilter: { duration: 1, durationScope: 'week', type: 'last' },
                             scope: 'member',
                             type: 'created'
                         }
@@ -41,7 +41,7 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
 
-                            period_filter: { date: [new Date('2014-01-01 10:10:10')], type: 'after' },
+                            periodFilter: { date: '2014-01-01 10:10:10', type: 'after' },
                             scope: 'member',
                             type: 'created'
                         }
@@ -55,7 +55,7 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
 
-                            period_filter: { date: [new Date('2014-01-01 10:10:10')], type: 'before' },
+                            periodFilter: { date: '2014-01-01 10:10:10', type: 'before' },
                             scope: 'member',
                             type: 'created'
                         }
@@ -63,62 +63,6 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member created since did first eat',function(){
-                var condition = parser.parse("member created since did first eat");
-                should(condition).eql({
-                    conditions: [
-                        {
-
-                            period_filter: { actionCode: 'eat', type: 'since-did',position:'first' },
-                            scope: 'member',
-                            type: 'created'
-                        }
-                    ]
-                });
-            });
-
-            it('member created since did last eat',function(){
-                var condition = parser.parse("member created since did last eat");
-                should(condition).eql({
-                    conditions: [
-                        {
-
-                            period_filter: { actionCode: 'eat', type: 'since-did',position:'last' },
-                            scope: 'member',
-                            type: 'created'
-                        }
-                    ]
-                });
-            });
-
-            it('member created since did eat',function(){
-                var condition = parser.parse("member created since did eat");
-                should(condition).eql({
-                    conditions: [
-                        {
-
-                            period_filter: { actionCode: 'eat', type: 'since-did' },
-                            scope: 'member',
-                            type: 'created'
-                        }
-                    ]
-                });
-            });
-
-            it('member created since received prize points',function(){
-
-                var condition = parser.parse("member created since received prize points");
-                should(condition).eql({
-                    conditions: [
-                        {
-
-                            period_filter: { prizeCode: 'points', type: 'since-received' },
-                            scope: 'member',
-                            type: 'created'
-                        }
-                    ]
-                });
-            });
 
             it('member created between 2014-01-01T10:10:10 and 2015-01-01T08:08:08', function (done) {
                 var condition = parser.parse('member created between 2014-01-01T10:10:10 and 2015-01-01T08:08:08');
@@ -126,8 +70,8 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
 
-                            period_filter: {
-                                date: [ new Date('2014-01-01 10:10:10'), new Date('2015-01-01 08:08:08') ],
+                            periodFilter: {
+                                dates: [ '2014-01-01 10:10:10', '2015-01-01 08:08:08' ],
                                 type: 'between'
                             },
                             scope: 'member',

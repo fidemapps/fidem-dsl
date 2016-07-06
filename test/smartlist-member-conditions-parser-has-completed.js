@@ -68,7 +68,7 @@ describe('<Unit Test>', function () {
                             type: 'completed',
                             challengeCode: 'TEST'
                         },
-                        occurrence_filter: {
+                        occurrenceFilter: {
                             type: 'less',
                             frequency: 3
                         }
@@ -90,11 +90,9 @@ describe('<Unit Test>', function () {
                                 type: 'completed',
                                 challengeCode: 'TEST'
                             },
-                            period_filter: {
+                            periodFilter: {
                                 type: 'before',
-                                date: [
-                                    new Date('2016-03-03 04:40:40')
-                                ]
+                                date: '2016-03-03 04:40:40'
                             }
                         }]
                 });
@@ -114,15 +112,13 @@ describe('<Unit Test>', function () {
                                 type: 'completed',
                                 challengeCode: 'TEST'
                             },
-                            occurrence_filter: {
+                            occurrenceFilter: {
                                 type: 'less',
                                 frequency: 3
                             },
-                            period_filter: {
+                            periodFilter: {
                                 type: 'after',
-                                date: [
-                                    new Date('2016-03-03 04:40:40')
-                                ]
+                                date: '2016-03-03 04:40:40'
                             }
                         }]
                 });
@@ -141,17 +137,15 @@ describe('<Unit Test>', function () {
                                 challengeCode: 'TEST',
                                 type: 'completed'
                             },
-                            occurrence_filter: {
+                            occurrenceFilter: {
                                 type: 'less',
                                 frequency: 3
                             },
-                            period_filter: {
+                            periodFilter: {
                                 type: 'after',
-                                date: [
-                                    new Date('2016-03-03 04:40:40')
-                                ]
+                                date: '2016-03-03 04:40:40'
                             },
-                            geo_filter:{
+                            geoFilter:{
                                 type:'zone',
                                 zoneCodes:['montreal','laval']
                             }
@@ -173,15 +167,15 @@ describe('<Unit Test>', function () {
                                 challengeCode: 'TEST',
                                 type: 'completed'
                             },
-                            occurrence_filter: {
+                            occurrenceFilter: {
                                 type: 'less',
                                 frequency: 3
                             },
-                            period_filter: {
-                                type: 'since-did',
+                            periodFilter: {
+                                type: 'since_did',
                                 actionCode:'eat'
                             },
-                            geo_filter:{
+                            geoFilter:{
                                 type:'inRange',
                                 beaconCodes:['BEACON1','BEACON2']
                             }
@@ -202,17 +196,17 @@ describe('<Unit Test>', function () {
                                 challengeCode: 'TEST',
                                 type: 'completed'
                             },
-                            occurrence_filter: {
+                            occurrenceFilter: {
                                 type: 'less',
                                 frequency: 3
                             },
-                            period_filter: {
-                                type: 'since-did',
+                            periodFilter: {
+                                type: 'since_did',
                                 position:'last',
                                 actionCode:'eat'
                             },
-                            geo_filter:{
-                                type:'RSSI-below',
+                            geoFilter:{
+                                type:'RSSI_below',
                                 rssiValue:3,
                                 beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
@@ -233,17 +227,17 @@ describe('<Unit Test>', function () {
                                 challengeCode: 'TEST',
                                 type: 'completed'
                             },
-                            occurrence_filter: {
+                            occurrenceFilter: {
                                 type: 'less',
                                 frequency: 3
                             },
-                            period_filter: {
-                                type: 'since-did',
+                            periodFilter: {
+                                type: 'since_did',
                                 position:'first',
                                 actionCode:'eat'
                             },
-                            geo_filter:{
-                                type:'RSSI-over',
+                            geoFilter:{
+                                type:'RSSI_over',
                                 rssiValue:3,
                                 beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
@@ -264,17 +258,17 @@ describe('<Unit Test>', function () {
                                 challengeCode: 'TEST',
                                 type: 'completed'
                             },
-                            occurrence_filter: {
+                            occurrenceFilter: {
                                 type: 'less',
                                 frequency: 3
                             },
-                            period_filter: {
-                                type: 'since-received',
+                            periodFilter: {
+                                type: 'since_received',
                                 prizeCode:'bob'
                             },
-                            geo_filter:{
-                                type:'RSSI-between',
-                                rssiValue:[3,4],
+                            geoFilter:{
+                                type:'RSSI_between',
+                                rssiValues:[3,4],
                                 beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
                         }

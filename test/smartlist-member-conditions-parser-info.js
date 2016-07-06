@@ -21,112 +21,116 @@ describe('<Unit Test>', function () {
 
         describe('Should parse member city/state/country/zip conditions', function () {
 
-            it('member city = "test"', function (done) {
-                var condition = parser.parse('member city = "test"');
+            it('member lives in city test', function (done) {
+                var condition = parser.parse('member lives in city test');
                 should(condition).eql({
                     conditions: [
                         {
-                            query: { operator: '=', value: 'test' },
+                            query: {type:'city', cityName: 'test' },
                             scope: 'member',
-                            type: 'city'
+                            type: 'lives'
                         }
                     ]
                 });
                 done();
             });
 
-            it('member state = "test"', function (done) {
-                var condition = parser.parse('member state = "test"');
+            it('member lives in state test', function (done) {
+                var condition = parser.parse('member lives in state test');
                 should(condition).eql({
                     conditions: [
                         {
-                            query: { operator: '=', value: 'test' },
+                            query: { type:'state', stateName: 'test' },
                             scope: 'member',
-                            type: 'state'
+                            type: 'lives'
                         }
                     ]
                 });
                 done();
             });
 
-            it('member country = "test"', function (done) {
-                var condition = parser.parse('member country = "test"');
+            it('member lives in country test', function (done) {
+                var condition = parser.parse('member lives in country test');
                 should(condition).eql({
                     conditions: [
                         {
-                            query: { operator: '=', value: 'test' },
+                            query: { type: 'country', countryName: 'test' },
                             scope: 'member',
-                            type: 'country'
+                            type: 'lives'
                         }
                     ]
                 });
                 done();
             });
 
-            it('member zip = "test"', function (done) {
-                var condition = parser.parse('member zip = "test"');
+            it('member lives in zip test', function (done) {
+                var condition = parser.parse('member lives in zip test');
                 should(condition).eql({
                     conditions: [
                         {
-                            query: { operator: '=', value: 'test' },
+                            query: { type: 'zip', zipCode: 'test' },
                             scope: 'member',
-                            type: 'zip'
+                            type: 'lives'
                         }
                     ]
                 });
                 done();
             });
 
-            it('member city != "test"', function (done) {
-                var condition = parser.parse('member city != "test"');
+            it('member lives not in city test', function (done) {
+                var condition = parser.parse('member lives not in city test');
                 should(condition).eql({
                     conditions: [
                         {
-                            query: { operator: '!=', value: 'test' },
+                            query: { type: 'city', cityName: 'test' },
+                            negative:true,
                             scope: 'member',
-                            type: 'city'
+                            type: 'lives'
                         }
                     ]
                 });
                 done();
             });
 
-            it('member state != "test"', function (done) {
-                var condition = parser.parse('member state != "test"');
+            it('member lives not in state test', function (done) {
+                var condition = parser.parse('member lives not in state test');
                 should(condition).eql({
                     conditions: [
                         {
-                            query: { operator: '!=', value: 'test' },
+                            query: { type: 'state', stateName: 'test' },
+                            negative:true,
                             scope: 'member',
-                            type: 'state'
+                            type: 'lives'
                         }
                     ]
                 });
                 done();
             });
 
-            it('member country != "test"', function (done) {
-                var condition = parser.parse('member country != "test"');
+            it('member lives not in country  "test"', function (done) {
+                var condition = parser.parse('member lives not in country test');
                 should(condition).eql({
                     conditions: [
                         {
-                            query: { operator: '!=', value: 'test' },
+                            query: { type: 'country', countryName: 'test' },
                             scope: 'member',
-                            type: 'country'
+                            negative:true,
+                            type: 'lives'
                         }
                     ]
                 });
                 done();
             });
 
-            it('member zip != "test"', function (done) {
-                var condition = parser.parse('member zip != "test"');
+            it('member live not in zip test', function (done) {
+                var condition = parser.parse('member lives not in zip test');
                 should(condition).eql({
                     conditions: [
                         {
-                            query: { operator: '!=', value: 'test' },
+                            query: { type: 'zip', zipCode: 'test' },
                             scope: 'member',
-                            type: 'zip'
+                            negative:true,
+                            type: 'lives'
                         }
                     ]
                 });
