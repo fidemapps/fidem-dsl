@@ -314,6 +314,8 @@ describe('<Unit Test>', function () {
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
+                
+                //TODO has been
 
             });
 
@@ -557,6 +559,9 @@ describe('<Unit Test>', function () {
             });
 
         });
+        
+        //TODO geo-filter
+        //TODO moment-filter
 
     });
 });
