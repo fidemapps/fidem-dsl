@@ -226,7 +226,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {operator: '=', value: 'montreal'},
+                            query: {operator: '=', value: 'montreal'},
                             scope: 'member',
                             type: 'city'
                         }
@@ -240,7 +240,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {operator: '!=', value: 'montreal'},
+                            query: {operator: '!=', value: 'montreal'},
                             scope: 'member',
                             type: 'city'
                         }
@@ -258,7 +258,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {operator: '=', value: 'quebec'},
+                            query: {operator: '=', value: 'quebec'},
                             scope: 'member',
                             type: 'state'
                         }
@@ -272,7 +272,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {operator: '!=', value: 'quebec'},
+                            query: {operator: '!=', value: 'quebec'},
                             scope: 'member',
                             type: 'state'
                         }
@@ -290,7 +290,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {operator: '=', value: 'h7v2v2'},
+                            query: {operator: '=', value: 'h7v2v2'},
                             scope: 'member',
                             type: 'zip'
                         }
@@ -304,7 +304,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {operator: '!=', value: 'h7v2v2'},
+                            query: {operator: '!=', value: 'h7v2v2'},
                             scope: 'member',
                             type: 'zip'
                         }
@@ -322,7 +322,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {operator: '=', value: 'canada'},
+                            query: {operator: '=', value: 'canada'},
                             scope: 'member',
                             type: 'country'
                         }
@@ -336,7 +336,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {operator: '!=', value: 'canada'},
+                            query: {operator: '!=', value: 'canada'},
                             scope: 'member',
                             type: 'country'
                         }
@@ -357,7 +357,7 @@ describe('<Unit Test>', function () {
                         {
                             geo_filter: {
                                 type: 'zone',
-                                zones: ['montreal']
+                                zoneCodes: ['montreal']
                             },
                             scope: 'member',
                             type: 'is'
@@ -374,7 +374,7 @@ describe('<Unit Test>', function () {
                         {
                             geo_filter: {
                                 type: 'zone',
-                                zones: ['montreal', 'laval']
+                                zoneCodes: ['montreal', 'laval']
                             },
                             scope: 'member',
                             type: 'is'
@@ -391,7 +391,7 @@ describe('<Unit Test>', function () {
                         {
                             geo_filter: {
                                 type: 'inRange',
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             },
                             scope: 'member',
                             type: 'is'
@@ -408,7 +408,7 @@ describe('<Unit Test>', function () {
                         {
                             geo_filter: {
                                 type: 'inRange',
-                                beacons: ['montreal', 'laval', 'store', 'shop']
+                                beaconCodes: ['montreal', 'laval', 'store', 'shop']
                             },
                             scope: 'member',
                             type: 'is'
@@ -426,7 +426,7 @@ describe('<Unit Test>', function () {
                             geo_filter: {
                                 type: 'RSSI-below',
                                 rssiValue: 3,
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             },
                             scope: 'member',
                             type: 'is'
@@ -444,7 +444,7 @@ describe('<Unit Test>', function () {
                             geo_filter: {
                                 type: 'RSSI-over',
                                 rssiValue: 3,
-                                beacons: ['montreal', 'laval']
+                                beaconCodes: ['montreal', 'laval']
                             },
                             scope: 'member',
                             type: 'is'
@@ -462,7 +462,7 @@ describe('<Unit Test>', function () {
                             geo_filter: {
                                 type: 'RSSI-between',
                                 rssiValue: [3, 4],
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             },
                             scope: 'member',
                             type: 'is'
@@ -483,7 +483,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {smartlistCodes: ['montreal']},
+                            query: {smartlistCodes: ['montreal']},
                             scope: 'member',
                             type: 'smartlist'
                         }
@@ -497,7 +497,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {smartlistCodes: ['montreal', 'quebec', 'bob']},
+                            query: {smartlistCodes: ['montreal', 'quebec', 'bob']},
                             scope: 'member',
                             type: 'smartlist'
                         }
@@ -511,8 +511,8 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {
-                                condition: {number: 4, timeframe: 'hour', type: 'since'},
+                            query: {
+                                condition: {duration: 4, durationScope: 'hour', type: 'since'},
                                 smartlistCodes: ['montreal', 'bob']
                             },
                             scope: 'member',
@@ -529,7 +529,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {smartlistCodes: ['montreal']},
+                            query: {smartlistCodes: ['montreal']},
                             negative: true,
                             scope: 'member',
                             type: 'smartlist'
@@ -545,7 +545,7 @@ describe('<Unit Test>', function () {
                     rules: [
                         {
                             negative: true,
-                            condition: {smartlistCodes: ['montreal', 'quebec', 'bob']},
+                            query: {smartlistCodes: ['montreal', 'quebec', 'bob']},
                             scope: 'member',
                             type: 'smartlist'
                         }
@@ -560,8 +560,8 @@ describe('<Unit Test>', function () {
                     rules: [
                         {
                             negative: true,
-                            condition: {
-                                condition: {number: 4, timeframe: 'hour', type: 'since'},
+                            query: {
+                                condition: {duration: 4, durationScope: 'hour', type: 'since'},
                                 smartlistCodes: ['montreal', 'bob']
                             },
                             scope: 'member',
@@ -582,7 +582,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {tagCode: {tagClusterCode: null, tagCode: 'tagcode'}},
+                            query: {tagCode: {tagClusterCode: null, tagCode: 'tagcode'}},
                             scope: 'member',
                             type: 'with'
                         }
@@ -596,7 +596,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {
+                            query: {
                                 tagCode: {
                                     tagClusterCode: null,
                                     tagCode: 'tagcode'
@@ -618,7 +618,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {tagCode: {tagClusterCode: null, tagCode: 'tagcode'}},
+                            query: {tagCode: {tagClusterCode: null, tagCode: 'tagcode'}},
                             scope: 'member',
                             type: 'with',
                             negative:true
@@ -633,7 +633,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {
+                            query: {
                                 tagCode: {
                                     tagClusterCode: null,
                                     tagCode: 'tagcode'
@@ -655,7 +655,7 @@ describe('<Unit Test>', function () {
                     rewards: [ { code: 'points', quantity: 1 } ],
                     rules: [
                         {
-                            condition: { levelCode: 'levelCode', operator: '>=', value: 3 },
+                            query: { levelCode: 'levelCode', operator: '>=', value: 3 },
                             scope: 'member',
                             type: 'with'
                         }
@@ -669,7 +669,7 @@ describe('<Unit Test>', function () {
                     rewards: [ { code: 'points', quantity: 1 } ],
                     rules: [
                         {
-                            condition: { levelCode: 'levelCode', operator: '>=', value: 3 },
+                            query: { levelCode: 'levelCode', operator: '>=', value: 3 },
                             negative: true,
                             scope: 'member',
                             type: 'with'
@@ -684,7 +684,7 @@ describe('<Unit Test>', function () {
                     rewards: [ { code: 'points', quantity: 1 } ],
                     rules: [
                         {
-                            condition: { prizeCode: 'coupon' },
+                            query: { prizeCode: 'coupon' },
                             scope: 'member',
                             type: 'with'
                         }
@@ -698,7 +698,7 @@ describe('<Unit Test>', function () {
                     rewards: [ { code: 'bananaPopsicle', quantity: 1 } ],
                     rules: [
                         {
-                            condition: { prizeCode: 'coupon' },
+                            query: { prizeCode: 'coupon' },
                             negative: true,
                             scope: 'member',
                             type: 'with'

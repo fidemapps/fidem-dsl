@@ -28,7 +28,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'did',
-                            condition: {
+                            query: {
                                 type: 'nothing'
                             }
                         }
@@ -45,7 +45,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'did',
-                            condition: {
+                            query: {
                                 type: 'something'
                             }
                         }
@@ -62,7 +62,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'did',
-                            condition: {
+                            query: {
                                 actionCode: 'TEST',
                                 conditions: [
                                     {
@@ -92,7 +92,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'did',
                             negative:true,
-                            condition: {
+                            query: {
                                 actionCode: 'TEST',
                                 conditions: [
                                     {
@@ -121,7 +121,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'did',
                             negative:true,
-                            condition: {
+                            query: {
                                 actionCode: 'TEST',
                                 conditions: [
                                     {
@@ -152,7 +152,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'did',
                             negative:true,
-                            condition: {
+                            query: {
                                 actionCode: 'TEST',
                                 conditions: [
                                     {
@@ -186,7 +186,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'did',
                             negative:true,
-                            condition: {
+                            query: {
                                 actionCode: 'TEST',
                                 conditions: [
                                     {
@@ -208,7 +208,7 @@ describe('<Unit Test>', function () {
                             },
                             geo_filter:{
                                 type:'zone',
-                                zones:['montreal','laval']
+                                zoneCodes:['montreal','laval']
                             }
                         }
                     ]
@@ -224,7 +224,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'did',
                             negative:true,
-                            condition: {
+                            query: {
                                 actionCode: 'TEST',
                                 conditions: [
                                     {
@@ -244,7 +244,7 @@ describe('<Unit Test>', function () {
                             },
                             geo_filter:{
                                 type:'inRange',
-                                beacons:['BEACON1','BEACON2']
+                                beaconCodes:['BEACON1','BEACON2']
                             }
                         }
                     ]
@@ -259,7 +259,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'did',
                             negative:true,
-                            condition: {
+                            query: {
                                 actionCode: 'TEST',
                                 conditions: [
                                     {
@@ -281,7 +281,7 @@ describe('<Unit Test>', function () {
                             geo_filter:{
                                 type:'RSSI-below',
                                 rssiValue:3,
-                                beacons:['BEACON1','BEACON2','BEACON3']
+                                beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
                         }
                     ]
@@ -296,7 +296,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'did',
                             negative:true,
-                            condition: {
+                            query: {
                                 actionCode: 'TEST',
                                 conditions: [
                                     {
@@ -318,7 +318,7 @@ describe('<Unit Test>', function () {
                             geo_filter:{
                                 type:'RSSI-over',
                                 rssiValue:3,
-                                beacons:['BEACON1','BEACON2','BEACON3']
+                                beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
                         }
                     ]
@@ -333,7 +333,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'did',
                             negative:true,
-                            condition: {
+                            query: {
                                 actionCode: 'TEST',
                                 conditions: [
                                     {
@@ -355,7 +355,7 @@ describe('<Unit Test>', function () {
                             geo_filter:{
                                 type:'RSSI-between',
                                 rssiValue:[3,4],
-                                beacons:['BEACON1','BEACON2','BEACON3']
+                                beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
                         }
                     ]

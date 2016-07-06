@@ -27,7 +27,7 @@ describe('<Unit Test>', function () {
                     should(rule).eql([{
                         scope: 'member',
                         type: 'with',
-                        condition: {
+                        query: {
                             tagCode: {tagClusterCode: null, tagCode: 'tagcode'}
                         }
                     }]);
@@ -38,7 +38,7 @@ describe('<Unit Test>', function () {
                     should(rule).eql([{
                         scope: 'member',
                         type: 'with',
-                        condition: {
+                        query: {
                             tagCode: {
                                 tagClusterCode: null,
                                 tagCode: 'tagcode'
@@ -55,7 +55,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'with',
                         negative: true,
-                        condition: {
+                        query: {
                             tagCode: {
                                 tagClusterCode: null,
                                 tagCode: 'tagcode'
@@ -70,7 +70,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'with',
                         negative: true,
-                        condition: {
+                        query: {
                             tagCode: {
                                 tagClusterCode: null,
                                 tagCode: 'tagcode'
@@ -90,7 +90,7 @@ describe('<Unit Test>', function () {
                     should(rule).eql([{
                         scope: 'member',
                         type: 'with',
-                        condition: {
+                        query: {
                             levelCode: "levelCode",
                             operator: '>=',
                             value: 3
@@ -104,7 +104,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'with',
                         negative: true,
-                        condition: {
+                        query: {
                             levelCode: "levelCode",
                             operator: '>=',
                             value: 3
@@ -121,7 +121,7 @@ describe('<Unit Test>', function () {
                     should(rule).eql([{
                         scope: 'member',
                         type: 'with',
-                        condition: {
+                        query: {
                             prizeCode: 'coupon'
 
                         }
@@ -134,7 +134,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'with',
                         negative: true,
-                        condition: {
+                        query: {
                             prizeCode: 'coupon'
 
                         }

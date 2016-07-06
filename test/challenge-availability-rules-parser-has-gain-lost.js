@@ -28,7 +28,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'gained',
                                 tagCode: {
                                     tagClusterCode: null,
@@ -47,7 +47,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 quantity: 3,
                                 type: 'lost',
                                 tagCode: {
@@ -69,7 +69,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 quantity: 3,
                                 type: 'gained',
                                 tagCode: {
@@ -90,7 +90,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'lost',
                                 tagCode: {
                                     tagClusterCode: null,
@@ -109,7 +109,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'gained',
                                 tagCode: {
                                     tagClusterCode: null,
@@ -137,7 +137,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'gained',
                                 levelCode: 'bob'
 
@@ -154,7 +154,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 quantity: 3,
                                 type: 'lost',
                                 levelCode: 'bob'
@@ -173,7 +173,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 quantity: 3,
                                 type: 'gained',
                                 levelCode: 'bob'
@@ -192,7 +192,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'lost',
                                 levelCode: 'bob'
 
@@ -209,7 +209,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'gained',
                                 levelCode: 'bob'
 
@@ -233,7 +233,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'gained',
                                 prizeCode: 'bob'
 
@@ -250,7 +250,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 quantity: 3,
                                 type: 'lost',
                                 prizeCode: 'bob'
@@ -269,7 +269,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 quantity: 3,
                                 type: 'gained',
                                 prizeCode: 'bob'
@@ -288,7 +288,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'lost',
                                 prizeCode: 'bob'
 
@@ -305,7 +305,7 @@ describe('<Unit Test>', function () {
                         {
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'gained',
                                 prizeCode: 'bob'
 

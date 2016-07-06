@@ -27,7 +27,7 @@ describe('<Unit Test>', function () {
                     {
                         scope: 'member',
                         type: 'did',
-                        condition: {
+                        query: {
                             type: 'nothing'
                         }
 
@@ -43,7 +43,7 @@ describe('<Unit Test>', function () {
                     {
                         scope: 'member',
                         type: 'did',
-                        condition: {
+                        query: {
                             type: 'something'
                         }
 
@@ -60,7 +60,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST',
                             conditions: [
                                 {
@@ -89,7 +89,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST',
                             conditions: [
                                 {
@@ -117,7 +117,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST',
                             conditions: [
                                 {
@@ -146,7 +146,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST',
                             conditions: [
                                 {
@@ -178,12 +178,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter:{
                             type:'zone',
-                            zones:['montreal']
+                            zoneCodes:['montreal']
                         }
 
                     }
@@ -197,12 +197,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter:{
                             type:'zone',
-                            zones:['montreal','laval','levis']
+                            zoneCodes:['montreal','laval','levis']
                         }
 
                     }
@@ -216,12 +216,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter:{
                             type:'inRange',
-                            beacons:['shop']
+                            beaconCodes:['shop']
                         }
 
                     }
@@ -235,12 +235,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter:{
                             type:'inRange',
-                            beacons:['shop','store','retail']
+                            beaconCodes:['shop','store','retail']
                         }
 
                     }
@@ -254,13 +254,13 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter:{
                             type:'RSSI-over',
                             rssiValue:3,
-                            beacons:['shop']
+                            beaconCodes:['shop']
                         }
 
                     }
@@ -274,13 +274,13 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter:{
                             type:'RSSI-below',
                             rssiValue:5,
-                            beacons:['shop','store']
+                            beaconCodes:['shop','store']
                         }
 
                     }
@@ -294,13 +294,13 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter:{
                             type:'RSSI-between',
                             rssiValue:[5,3],
-                            beacons:['shop','store']
+                            beaconCodes:['shop','store']
                         }
 
                     }
@@ -314,7 +314,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         occurrence_filter: {frequency:4,type:'least'},
@@ -334,7 +334,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         occurrence_filter: {frequency:4,type:'least'},
@@ -356,7 +356,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative:true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         occurrence_filter: {frequency:4,type:'least'},

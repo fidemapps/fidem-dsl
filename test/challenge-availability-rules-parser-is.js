@@ -27,7 +27,7 @@ describe('<Unit Test>', function () {
           type:'is',
           geo_filter: {
             type:'zone',
-            zones:['ZONECODE']
+            zoneCodes:['ZONECODE']
           }
         }]);
       });
@@ -39,7 +39,7 @@ describe('<Unit Test>', function () {
           type:'is',
           geo_filter: {
             type:'zone',
-            zones:[
+            zoneCodes:[
               'ZONECODE',
               'zone2'
             ]
@@ -54,7 +54,7 @@ describe('<Unit Test>', function () {
           type:'is',
           geo_filter: {
             type: 'inRange',
-            beacons: ['bob']
+            beaconCodes: ['bob']
           }
         }]);
       });
@@ -66,7 +66,7 @@ describe('<Unit Test>', function () {
           type:'is',
           geo_filter: {
             type:'inRange',
-            beacons:['bob','max','matt']
+            beaconCodes:['bob','max','matt']
           }
         }]);
       });
@@ -79,7 +79,7 @@ describe('<Unit Test>', function () {
           geo_filter: {
             type:'RSSI-below',
             rssiValue:3,
-            beacons:['bob']
+            beaconCodes:['bob']
           }
         }]);
       });
@@ -92,7 +92,7 @@ describe('<Unit Test>', function () {
           geo_filter: {
             type:'RSSI-over',
             rssiValue:3,
-            beacons:['bob']
+            beaconCodes:['bob']
           }
         }]);
       });
@@ -105,7 +105,7 @@ describe('<Unit Test>', function () {
           geo_filter: {
             type:'RSSI-between',
             rssiValue:[3,4],
-            beacons:['bob']
+            beaconCodes:['bob']
           }
         }]);
       });

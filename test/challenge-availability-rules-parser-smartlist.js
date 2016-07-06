@@ -25,7 +25,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'smartlist',
-                    condition: {
+                    query: {
                         smartlistCodes:['montreal']
 
                     }
@@ -37,7 +37,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'smartlist',
-                    condition: {
+                    query: {
 
                         smartlistCodes:['montreal','quebec','bob']
 
@@ -50,12 +50,12 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'smartlist',
-                    condition: {
+                    query: {
                         smartlistCodes:['montreal','bob'],
                         condition:{
                             type:'since',
-                            number:4,
-                            timeframe:'hour'
+                            duration:4,
+                            durationScope:'hour'
                         }
                     }
                 }]);
@@ -68,7 +68,7 @@ describe('<Unit Test>', function () {
                     scope:'member',
                     type:'smartlist',
                     negative:true,
-                    condition: {
+                    query: {
                         smartlistCodes:['montreal']
                     }
                 }]);
@@ -80,7 +80,7 @@ describe('<Unit Test>', function () {
                     scope:'member',
                     type:'smartlist',
                     negative:true,
-                    condition: {
+                    query: {
                         smartlistCodes:['montreal','quebec','bob']
                     }
                 }]);
@@ -92,12 +92,12 @@ describe('<Unit Test>', function () {
                     scope:'member',
                     type:'smartlist',
                     negative:true,
-                    condition: {
+                    query: {
                         smartlistCodes:['montreal','bob'],
                         condition:{
                             type:'since',
-                            number:4,
-                            timeframe:'hour'
+                            duration:4,
+                            durationScope:'hour'
                         }
                     }
                 }]);

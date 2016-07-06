@@ -27,12 +27,12 @@ describe('<Unit Test>', function () {
                     {
                         scope: 'member',
                         type: 'has',
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'zone',
-                            zones: ['bob']
+                            zoneCodes: ['bob']
                         }
                     }]);
 
@@ -46,12 +46,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'has',
                         negative: true,
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'zone',
-                            zones: ['bob']
+                            zoneCodes: ['bob']
                         }
                     }]);
 
@@ -64,12 +64,12 @@ describe('<Unit Test>', function () {
                     {
                         scope: 'member',
                         type: 'has',
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'inRange',
-                            beacons: ['bob']
+                            beaconCodes: ['bob']
                         }
                     }]);
 
@@ -83,12 +83,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'has',
                         negative: true,
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'inRange',
-                            beacons: ['bob', 'tom']
+                            beaconCodes: ['bob', 'tom']
                         }
                     }]);
 
@@ -101,13 +101,13 @@ describe('<Unit Test>', function () {
                     {
                         scope: 'member',
                         type: 'has',
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'RSSI-over',
                             rssiValue: 310,
-                            beacons: ['bob']
+                            beaconCodes: ['bob']
                         }
                     }]);
 
@@ -121,13 +121,13 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'has',
                         negative: true,
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'RSSI-over',
                             rssiValue: 310,
-                            beacons: ['bob', 'tom', 'carl']
+                            beaconCodes: ['bob', 'tom', 'carl']
                         }
                     }]);
 
@@ -140,13 +140,13 @@ describe('<Unit Test>', function () {
                     {
                         scope: 'member',
                         type: 'has',
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'RSSI-below',
                             rssiValue: 4,
-                            beacons: ['bob']
+                            beaconCodes: ['bob']
                         }
                     }]);
 
@@ -160,13 +160,13 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'has',
                         negative: true,
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'RSSI-below',
                             rssiValue: 4,
-                            beacons: ['bob', 'eric', 'jean']
+                            beaconCodes: ['bob', 'eric', 'jean']
                         }
                     }]);
 
@@ -179,13 +179,13 @@ describe('<Unit Test>', function () {
                     {
                         scope: 'member',
                         type: 'has',
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'RSSI-between',
                             rssiValue: [4, 6],
-                            beacons: ['bob']
+                            beaconCodes: ['bob']
                         }
                     }]);
             });
@@ -198,13 +198,13 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'has',
                         negative: true,
-                        condition: {
+                        query: {
                             type: 'been'
                         },
                         geo_filter: {
                             type: 'RSSI-between',
                             rssiValue: [6, 4],
-                            beacons: ['bob', 'norbert']
+                            beaconCodes: ['bob', 'norbert']
                         }
                     }]);
 

@@ -69,7 +69,7 @@ member_scope_rule
     return {
         scope: scope,
         type: type,
-        condition:{
+        query:{
             operator: operator,
             value: value
         }
@@ -85,7 +85,7 @@ member_condition
     var rule= {
         scope:scope,
         type:type,
-        condition:{
+        query:{
             type:conditionType
         }
 
@@ -110,7 +110,7 @@ member_condition
         scope:scope,
         type:type,
         negative:true,
-        condition:conditions
+        query:conditions
     };
 
     if(period){
@@ -132,7 +132,7 @@ member_condition
     var rule= {
         scope:scope,
         type:type,
-        condition:conditions
+        query:conditions
     };
 
     if(period){
@@ -154,7 +154,7 @@ member_condition
     var rule= {
         scope:scope,
         type:type,
-        condition:conditions
+        query:conditions
     };
 
     if(period){
@@ -177,7 +177,7 @@ member_condition
         scope:scope,
         type:type,
         negative:true,
-        condition:conditions
+        query:conditions
     };
 
     if(period){
@@ -199,7 +199,7 @@ member_condition
     var rule= {
         scope:scope,
         type:type,
-        condition:conditions
+        query:conditions
     };
 
     if(period){
@@ -214,7 +214,7 @@ member_condition
         scope:scope,
         type:type,
         negative:true,
-        condition:conditions
+        query:conditions
     };
 
     if(period){
@@ -228,7 +228,7 @@ member_condition
     var rule= {
         scope:scope,
         type:type,
-        condition:conditions
+        query:conditions
     };
 
     if(geo){
@@ -247,7 +247,7 @@ member_condition
         scope:scope,
         type:type,
         negative:true,
-        condition:conditions
+        query:conditions
     };
 
     if(geo){
@@ -275,7 +275,7 @@ member_condition
     return {
         scope:scope,
         type:"with",
-        condition:condition
+        query:condition
     };
 }
 /scope:"member" S* type:"without" S* condition:with_condition
@@ -284,7 +284,7 @@ member_condition
         scope:scope,
         type:"with",
         negative:true,
-        condition:condition
+        query:condition
     };
 }
 
@@ -465,14 +465,14 @@ geo_filter
 {
     return {
         type: 'zone',
-        zones: buildList(first, reminders, 3)
+        zoneCodes: buildList(first, reminders, 3)
     };
 }
 / "in range of" S* beacons:beacon_list
 {
     return {
         type: 'inRange',
-        beacons:beacons
+        beaconCodes:beacons
     }
 }
 / "with RSSI" S* type:("over"/"below") S* number:NUMBER S* "from" S* beacons:beacon_list
@@ -480,7 +480,7 @@ geo_filter
     return{
         type:"RSSI-"+type,
         rssiValue:number,
-        beacons:beacons
+        beaconCodes:beacons
     }
 }
 / "with RSSI" S* type:"between" S* start:NUMBER S* "and" S* end:NUMBER S* "from" S* beacons:beacon_list
@@ -488,7 +488,7 @@ geo_filter
     return{
         type:"RSSI-"+type,
         rssiValue:[start,end],
-        beacons:beacons
+        beaconCodes:beacons
     }
 }
 

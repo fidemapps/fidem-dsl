@@ -29,7 +29,7 @@ describe('<Unit Test>', function () {
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        condition: {
+                        query: {
                             type: 'nothing'
                         }
 
@@ -48,7 +48,7 @@ describe('<Unit Test>', function () {
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        condition: {
+                        query: {
                             type: 'something'
                         }
 
@@ -67,7 +67,7 @@ describe('<Unit Test>', function () {
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        condition: {
+                        query: {
                             actionCode: 'TEST',
                             conditions: [
                                 {
@@ -98,7 +98,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST',
                             conditions: [
                                 {
@@ -128,7 +128,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST',
                             conditions: [
                                 {
@@ -160,7 +160,7 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST',
                             conditions: [
                                 {
@@ -195,12 +195,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'zone',
-                            zones: ['montreal']
+                            zoneCodes: ['montreal']
                         }
 
                     }],
@@ -217,12 +217,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'zone',
-                            zones: ['montreal', 'laval', 'levis']
+                            zoneCodes: ['montreal', 'laval', 'levis']
                         }
 
                     }],
@@ -239,12 +239,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'inRange',
-                            beacons: ['shop']
+                            beaconCodes: ['shop']
                         }
 
                     }],
@@ -262,12 +262,12 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'inRange',
-                            beacons: ['shop', 'retail', 'store']
+                            beaconCodes: ['shop', 'retail', 'store']
                         }
 
                     }],
@@ -284,13 +284,13 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'RSSI-over',
                             rssiValue: 3,
-                            beacons: ['shop']
+                            beaconCodes: ['shop']
                         }
 
                     }],
@@ -307,13 +307,13 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'RSSI-below',
                             rssiValue: 5,
-                            beacons: ['shop', 'store']
+                            beaconCodes: ['shop', 'store']
                         }
 
                     }],
@@ -330,13 +330,13 @@ describe('<Unit Test>', function () {
                         scope: 'member',
                         type: 'did',
                         negative: true,
-                        condition: {
+                        query: {
                             actionCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'RSSI-between',
                             rssiValue: [3, 10],
-                            beacons: ['shop', 'store']
+                            beaconCodes: ['shop', 'store']
                         }
 
                     }],
@@ -352,7 +352,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {actionCode: 'TEST'},
+                            query: {actionCode: 'TEST'},
                             moment_filter: {days: {list: ['monday'], type: 'days'}, type: 'on'},
                             negative: true,
                             occurrence_filter: {frequency: 4, type: 'least'},
@@ -369,7 +369,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {actionCode: 'TEST'},
+                            query: {actionCode: 'TEST'},
                             moment_filter: {
                                 days: {list: ['1st', '2nd'], type: 'position'},
                                 months: {list: ['december'], type: 'of'},
@@ -391,7 +391,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {actionCode: 'TEST'},
+                            query: {actionCode: 'TEST'},
                             moment_filter: {
                                 date: [new Date(2016, 4 - 1, 4), new Date(2017, 4 - 1, 4), new Date(2018, 4 - 1, 4)],
                                 type: 'onDate'
@@ -418,7 +418,7 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'completed',
                                 challengeCode: 'TEST'
                             }
@@ -439,7 +439,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'completed',
                                 challengeCode: 'TEST'
                             }
@@ -460,13 +460,13 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'completed',
                                 challengeCode: 'TEST'
                             },
                             geo_filter: {
                                 type: 'zone',
-                                zones: ['bob']
+                                zoneCodes: ['bob']
                             }
 
                         }],
@@ -485,7 +485,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'completed',
                                 challengeCode: 'TEST'
                             },
@@ -509,7 +509,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'completed',
                                 challengeCode: 'TEST'
                             },
@@ -535,7 +535,7 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'completed',
                                 challengeCode: 'TEST'
                             },
@@ -551,7 +551,7 @@ describe('<Unit Test>', function () {
                             },
                             geo_filter: {
                                 type: 'zone',
-                                zones: ['bob']
+                                zoneCodes: ['bob']
                             }
                         }],
                         rewards: [
@@ -573,7 +573,7 @@ describe('<Unit Test>', function () {
                             rules: [{
                                 scope: 'member',
                                 type: 'has',
-                                condition: {
+                                query: {
                                     type: 'gained',
                                     tagCode: {
                                         tagClusterCode: null,
@@ -596,7 +596,7 @@ describe('<Unit Test>', function () {
                             rules: [{
                                 scope: 'member',
                                 type: 'has',
-                                condition: {
+                                query: {
                                     quantity: 3,
                                     type: 'lost',
                                     tagCode: {
@@ -621,7 +621,7 @@ describe('<Unit Test>', function () {
                                         scope: 'member',
                                         type: 'has',
                                         negative: true,
-                                        condition: {
+                                        query: {
                                             quantity: 3,
                                             type: 'gained',
                                             tagCode: {
@@ -647,7 +647,7 @@ describe('<Unit Test>', function () {
                                         scope: 'member',
                                         type: 'has',
                                         negative: true,
-                                        condition: {
+                                        query: {
                                             type: 'lost',
                                             tagCode: {
                                                 tagClusterCode: null,
@@ -671,7 +671,7 @@ describe('<Unit Test>', function () {
                                     {
                                         scope: 'member',
                                         type: 'has',
-                                        condition: {
+                                        query: {
                                             type: 'gained',
                                             tagCode: {
                                                 tagClusterCode: null,
@@ -702,7 +702,7 @@ describe('<Unit Test>', function () {
                             rules: [{
                                 scope: 'member',
                                 type: 'has',
-                                condition: {
+                                query: {
                                     type: 'gained',
                                     levelCode: 'bob'
 
@@ -722,7 +722,7 @@ describe('<Unit Test>', function () {
                             rules: [{
                                 scope: 'member',
                                 type: 'has',
-                                condition: {
+                                query: {
                                     quantity: 3,
                                     type: 'lost',
                                     levelCode: 'bob'
@@ -743,7 +743,7 @@ describe('<Unit Test>', function () {
                                         scope: 'member',
                                         type: 'has',
                                         negative: true,
-                                        condition: {
+                                        query: {
                                             quantity: 3,
                                             type: 'gained',
                                             levelCode: 'bob'
@@ -766,7 +766,7 @@ describe('<Unit Test>', function () {
                                         scope: 'member',
                                         type: 'has',
                                         negative: true,
-                                        condition: {
+                                        query: {
                                             type: 'lost',
                                             levelCode: 'bob'
 
@@ -788,7 +788,7 @@ describe('<Unit Test>', function () {
                                     {
                                         scope: 'member',
                                         type: 'has',
-                                        condition: {
+                                        query: {
                                             type: 'gained',
                                             levelCode: 'bob'
                                         },
@@ -815,7 +815,7 @@ describe('<Unit Test>', function () {
                             rules: [{
                                 scope: 'member',
                                 type: 'has',
-                                condition: {
+                                query: {
                                     type: 'gained',
                                     prizeCode: 'bob'
 
@@ -835,7 +835,7 @@ describe('<Unit Test>', function () {
                             rules: [{
                                 scope: 'member',
                                 type: 'has',
-                                condition: {
+                                query: {
                                     quantity: 3,
                                     type: 'lost',
                                     prizeCode: 'bob'
@@ -856,7 +856,7 @@ describe('<Unit Test>', function () {
                                         scope: 'member',
                                         type: 'has',
                                         negative: true,
-                                        condition: {
+                                        query: {
                                             quantity: 3,
                                             type: 'gained',
                                             prizeCode: 'bob'
@@ -879,7 +879,7 @@ describe('<Unit Test>', function () {
                                         scope: 'member',
                                         type: 'has',
                                         negative: true,
-                                        condition: {
+                                        query: {
                                             type: 'lost',
                                             prizeCode: 'bob'
                                         }
@@ -900,7 +900,7 @@ describe('<Unit Test>', function () {
                                     {
                                         scope: 'member',
                                         type: 'has',
-                                        condition: {
+                                        query: {
                                             type: 'gained',
                                             prizeCode: 'bob'
                                         },
@@ -930,12 +930,12 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'zone',
-                                zones: ['montreal']
+                                zoneCodes: ['montreal']
                             }
 
                         }],
@@ -952,12 +952,12 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'zone',
-                                zones: ['montreal']
+                                zoneCodes: ['montreal']
                             }
 
                         }],
@@ -973,12 +973,12 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'zone',
-                                zones: ['montreal', 'laval', 'verdun']
+                                zoneCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -995,12 +995,12 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'zone',
-                                zones: ['montreal', 'laval', 'verdun']
+                                zoneCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1016,12 +1016,12 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'inRange',
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             }
 
                         }],
@@ -1038,12 +1038,12 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'inRange',
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             }
 
                         }],
@@ -1059,12 +1059,12 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'inRange',
-                                beacons: ['montreal', 'laval', 'verdun']
+                                beaconCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1081,12 +1081,12 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'inRange',
-                                beacons: ['montreal', 'laval', 'verdun']
+                                beaconCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1102,13 +1102,13 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-over',
                                 rssiValue: 3,
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             }
 
                         }],
@@ -1125,13 +1125,13 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-over',
                                 rssiValue: 3,
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             }
 
                         }],
@@ -1147,13 +1147,13 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-over',
                                 rssiValue: 3,
-                                beacons: ['montreal', 'laval', 'verdun']
+                                beaconCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1170,13 +1170,13 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-over',
                                 rssiValue: 3,
-                                beacons: ['montreal', 'laval', 'verdun']
+                                beaconCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1192,13 +1192,13 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-below',
                                 rssiValue: 3,
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             }
 
                         }],
@@ -1215,13 +1215,13 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-below',
                                 rssiValue: 3,
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             }
 
                         }],
@@ -1237,13 +1237,13 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-below',
                                 rssiValue: 3,
-                                beacons: ['montreal', 'laval', 'verdun']
+                                beaconCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1260,13 +1260,13 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-below',
                                 rssiValue: 3,
-                                beacons: ['montreal', 'laval', 'verdun']
+                                beaconCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1282,13 +1282,13 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-between',
                                 rssiValue: [3, 4],
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             }
 
                         }],
@@ -1305,13 +1305,13 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-between',
                                 rssiValue: [3, 4],
-                                beacons: ['montreal']
+                                beaconCodes: ['montreal']
                             }
 
                         }],
@@ -1327,13 +1327,13 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-between',
                                 rssiValue: [3, 4],
-                                beacons: ['montreal', 'laval', 'verdun']
+                                beaconCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1350,13 +1350,13 @@ describe('<Unit Test>', function () {
                             scope: 'member',
                             type: 'has',
                             negative: true,
-                            condition: {
+                            query: {
                                 type: 'been'
                             },
                             geo_filter: {
                                 type: 'RSSI-between',
                                 rssiValue: [3, 4],
-                                beacons: ['montreal', 'laval', 'verdun']
+                                beaconCodes: ['montreal', 'laval', 'verdun']
                             }
 
                         }],

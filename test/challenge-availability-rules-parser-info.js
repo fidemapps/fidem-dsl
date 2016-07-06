@@ -25,7 +25,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'city',
-                    condition: {
+                    query: {
                         operator:'=',
                         value:'montreal'
                     }
@@ -37,7 +37,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'city',
-                    condition: {
+                    query: {
                         operator:'!=',
                         value:'montreal'
                     }
@@ -53,7 +53,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'state',
-                    condition: {
+                    query: {
                         operator:'=',
                         value:'quebec'
                     }
@@ -65,7 +65,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'state',
-                    condition: {
+                    query: {
                         operator:'!=',
                         value:'quebec'
                     }
@@ -81,7 +81,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'zip',
-                    condition: {
+                    query: {
                         operator:'=',
                         value:'quebec'
                     }
@@ -93,7 +93,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'zip',
-                    condition: {
+                    query: {
                         operator:'!=',
                         value:'quebec'
                     }
@@ -109,7 +109,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'country',
-                    condition: {
+                    query: {
                         operator:'=',
                         value:'quebec'
                     }
@@ -121,7 +121,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([{
                     scope:'member',
                     type:'country',
-                    condition: {
+                    query: {
                         operator:'!=',
                         value:'quebec'
                     }

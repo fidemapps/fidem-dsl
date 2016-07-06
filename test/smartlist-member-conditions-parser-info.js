@@ -26,7 +26,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            condition: { operator: '=', value: 'test' },
+                            query: { operator: '=', value: 'test' },
                             scope: 'member',
                             type: 'city'
                         }
@@ -40,7 +40,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            condition: { operator: '=', value: 'test' },
+                            query: { operator: '=', value: 'test' },
                             scope: 'member',
                             type: 'state'
                         }
@@ -54,7 +54,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            condition: { operator: '=', value: 'test' },
+                            query: { operator: '=', value: 'test' },
                             scope: 'member',
                             type: 'country'
                         }
@@ -68,7 +68,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            condition: { operator: '=', value: 'test' },
+                            query: { operator: '=', value: 'test' },
                             scope: 'member',
                             type: 'zip'
                         }
@@ -82,7 +82,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            condition: { operator: '!=', value: 'test' },
+                            query: { operator: '!=', value: 'test' },
                             scope: 'member',
                             type: 'city'
                         }
@@ -96,7 +96,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            condition: { operator: '!=', value: 'test' },
+                            query: { operator: '!=', value: 'test' },
                             scope: 'member',
                             type: 'state'
                         }
@@ -110,7 +110,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            condition: { operator: '!=', value: 'test' },
+                            query: { operator: '!=', value: 'test' },
                             scope: 'member',
                             type: 'country'
                         }
@@ -124,7 +124,7 @@ describe('<Unit Test>', function () {
                 should(condition).eql({
                     conditions: [
                         {
-                            condition: { operator: '!=', value: 'test' },
+                            query: { operator: '!=', value: 'test' },
                             scope: 'member',
                             type: 'zip'
                         }
