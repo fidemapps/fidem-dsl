@@ -501,8 +501,7 @@ module.exports = (function() {
         peg$c133 = function(type, start, end, beacons) {
             return{
                 type:"RSSI-"+type,
-                start:start,
-                end:end,
+                number:[start,end],
                 beacons:beacons
             }
         },
@@ -8427,6 +8426,29 @@ module.exports = (function() {
 
 
 
+
+        if (typeof Object.assign != 'function') {
+          Object.assign = function(target) {
+            'use strict';
+            if (target == null) {
+              throw new TypeError('Cannot convert undefined or null to object');
+            }
+
+            target = Object(target);
+            for (var index = 1; index < arguments.length; index++) {
+              var source = arguments[index];
+              if (source != null) {
+                for (var key in source) {
+                  if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+            }
+            return target;
+          };
+        }
+
         function extractList(list, index) {
             var result = [], i;
 
@@ -9020,11 +9042,16 @@ module.exports = (function() {
         peg$c115 = "first",
         peg$c116 = { type: "literal", value: "first", description: "\"first\"" },
         peg$c117 = function(type, position, actionCode) {
-            return {
+            var rule = {
                 type:"since-"+type,
-                position:position,
                 actionCode:actionCode
+            };
+
+            if(position){
+                rule.position=position;
             }
+
+            return rule;
         },
         peg$c118 = "received",
         peg$c119 = { type: "literal", value: "received", description: "\"received\"" },
@@ -9071,8 +9098,7 @@ module.exports = (function() {
         peg$c138 = function(type, start, end, beacons) {
             return{
                 type:"RSSI-"+type,
-                start:start,
-                end:end,
+                number:[start,end],
                 beacons:beacons
             }
         },
@@ -17190,6 +17216,28 @@ module.exports = (function() {
 
 
 
+        if (typeof Object.assign != 'function') {
+          Object.assign = function(target) {
+            'use strict';
+            if (target == null) {
+              throw new TypeError('Cannot convert undefined or null to object');
+            }
+
+            target = Object(target);
+            for (var index = 1; index < arguments.length; index++) {
+              var source = arguments[index];
+              if (source != null) {
+                for (var key in source) {
+                  if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+            }
+            return target;
+          };
+        }
+
         function extractList(list, index) {
             var result = [], i;
 
@@ -22402,8 +22450,7 @@ module.exports = (function() {
         peg$c126 = function(type, start, end, beacons) {
             return{
                 type:"RSSI-"+type,
-                start:start,
-                end:end,
+                number:[start,end],
                 beacons:beacons
             }
         },
@@ -27493,6 +27540,29 @@ module.exports = (function() {
       return s0;
     }
 
+
+
+        if (typeof Object.assign != 'function') {
+          Object.assign = function(target) {
+            'use strict';
+            if (target == null) {
+              throw new TypeError('Cannot convert undefined or null to object');
+            }
+
+            target = Object(target);
+            for (var index = 1; index < arguments.length; index++) {
+              var source = arguments[index];
+              if (source != null) {
+                for (var key in source) {
+                  if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+            }
+            return target;
+          };
+        }
 
         function extractList(list, index) {
             var result = [], i;
