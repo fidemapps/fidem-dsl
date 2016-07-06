@@ -380,28 +380,28 @@ object_rule_prize
     }
 }
 
-/*occurrence FILTER*/
+/*OCCURRENCE FILTER*/
 
 occurrence_filter
 = "at" S* type:"least" S* number:NUMBER S* ("times" / "time")
 {
     return {
         type:type,
-        number:number
+        frequency:number
     }
 }
 /type:"less" S* "than" S* number:NUMBER S* ("times" / "time")
 {
     return {
         type:type,
-        number:number
+        frequency:number
     }
 }
 /type:"exactly" S* number:NUMBER S* ("times" / "time")
 {
     return {
         type:type,
-        number:number
+        frequency:number
     }
 }
 
@@ -479,7 +479,7 @@ geo_filter
 {
     return{
         type:"RSSI-"+type,
-        number:number,
+        rssiValue:number,
         beacons:beacons
     }
 }
@@ -487,7 +487,7 @@ geo_filter
 {
     return{
         type:"RSSI-"+type,
-        number:[start,end],
+        rssiValue:[start,end],
         beacons:beacons
     }
 }

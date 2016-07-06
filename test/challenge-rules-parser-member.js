@@ -97,7 +97,7 @@ describe('<Unit Test>', function () {
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST',
                             conditions: [
@@ -110,7 +110,7 @@ describe('<Unit Test>', function () {
                         },
                         occurrence_filter: {
                             type: 'less',
-                            number: 3
+                            frequency: 3
                         }
                     }],
                     rewards: [
@@ -127,7 +127,7 @@ describe('<Unit Test>', function () {
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST',
                             conditions: [
@@ -159,7 +159,7 @@ describe('<Unit Test>', function () {
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST',
                             conditions: [
@@ -172,7 +172,7 @@ describe('<Unit Test>', function () {
                         },
                         occurrence_filter: {
                             type: 'less',
-                            number: 3
+                            frequency: 3
                         },
                         period_filter: {
                             type: 'before',
@@ -188,19 +188,19 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST in zone montreal',function(){
+            it('member did not TEST in zone montreal', function () {
                 var rule = parser.parse('member did not TEST in zone montreal give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST'
                         },
-                        geo_filter:{
-                            type:'zone',
-                            zones:['montreal']
+                        geo_filter: {
+                            type: 'zone',
+                            zones: ['montreal']
                         }
 
                     }],
@@ -210,19 +210,19 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST in zone montreal,laval,levis',function(){
+            it('member did not TEST in zone montreal,laval,levis', function () {
                 var rule = parser.parse('member did not TEST in zone montreal,laval,levis give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST'
                         },
-                        geo_filter:{
-                            type:'zone',
-                            zones:['montreal','laval','levis']
+                        geo_filter: {
+                            type: 'zone',
+                            zones: ['montreal', 'laval', 'levis']
                         }
 
                     }],
@@ -232,19 +232,19 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST in range of beacon shop',function(){
+            it('member did not TEST in range of beacon shop', function () {
                 var rule = parser.parse('member did not TEST in range of beacon shop give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST'
                         },
-                        geo_filter:{
-                            type:'inRange',
-                            beacons:['shop']
+                        geo_filter: {
+                            type: 'inRange',
+                            beacons: ['shop']
                         }
 
                     }],
@@ -254,20 +254,20 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST in range of beacon shop,store,retail',function(){
+            it('member did not TEST in range of beacon shop,store,retail', function () {
 
                 var rule = parser.parse('member did not TEST in range of beacon shop,retail,store give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST'
                         },
-                        geo_filter:{
-                            type:'inRange',
-                            beacons:['shop','retail','store']
+                        geo_filter: {
+                            type: 'inRange',
+                            beacons: ['shop', 'retail', 'store']
                         }
 
                     }],
@@ -277,20 +277,20 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with RSSI over 3 from beacon shop',function(){
+            it('member did not TEST with RSSI over 3 from beacon shop', function () {
                 var rule = parser.parse('member did not TEST with RSSI over 3 from beacon shop give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST'
                         },
-                        geo_filter:{
-                            type:'RSSI-over',
-                            number:3,
-                            beacons:['shop']
+                        geo_filter: {
+                            type: 'RSSI-over',
+                            rssiValue: 3,
+                            beacons: ['shop']
                         }
 
                     }],
@@ -300,20 +300,20 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with RSSI below 5 from beacon shop,store',function(){
+            it('member did not TEST with RSSI below 5 from beacon shop,store', function () {
                 var rule = parser.parse('member did not TEST with RSSI below 5 from beacon shop,store give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST'
                         },
-                        geo_filter:{
-                            type:'RSSI-below',
-                            number:5,
-                            beacons:['shop','store']
+                        geo_filter: {
+                            type: 'RSSI-below',
+                            rssiValue: 5,
+                            beacons: ['shop', 'store']
                         }
 
                     }],
@@ -323,20 +323,20 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with RSSI between 3 and 10 from beacon shop,store',function(){
+            it('member did not TEST with RSSI between 3 and 10 from beacon shop,store', function () {
                 var rule = parser.parse('member did not TEST with RSSI between 3 and 10 from beacon shop,store give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'member',
                         type: 'did',
-                        negative:true,
+                        negative: true,
                         condition: {
                             actionCode: 'TEST'
                         },
-                        geo_filter:{
-                            type:'RSSI-between',
-                            number:[3,10],
-                            beacons:['shop','store']
+                        geo_filter: {
+                            type: 'RSSI-between',
+                            rssiValue: [3, 10],
+                            beacons: ['shop', 'store']
                         }
 
                     }],
@@ -346,16 +346,16 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST at least 4 times on monday',function(){
+            it('member did not TEST at least 4 times on monday', function () {
                 var rule = parser.parse('member did not TEST at least 4 times on monday give 1 points');
                 should(rule).eql({
-                    rewards: [ { code: 'points', quantity: 1 } ],
+                    rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: { actionCode: 'TEST' },
-                            moment_filter: { days: { list: [ 'monday' ], type: 'days' }, type: 'on' },
+                            condition: {actionCode: 'TEST'},
+                            moment_filter: {days: {list: ['monday'], type: 'days'}, type: 'on'},
                             negative: true,
-                            occurrence_filter: { number: 4, type: 'least' },
+                            occurrence_filter: {frequency: 4, type: 'least'},
                             scope: 'member',
                             type: 'did'
                         }
@@ -363,7 +363,7 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST less than 4 times on the 1st,2nd day of december before 12:59 pm',function() {
+            it('member did not TEST less than 4 times on the 1st,2nd day of december before 12:59 pm', function () {
                 var rule = parser.parse('member did not TEST less than 4 times on the 1st,2nd day of december before 12:59 pm give 1 points');
                 should(rule).eql({
                     rewards: [{code: 'points', quantity: 1}],
@@ -377,7 +377,7 @@ describe('<Unit Test>', function () {
                                 type: 'onThe'
                             },
                             negative: true,
-                            occurrence_filter: {number: 4, type: 'less'},
+                            occurrence_filter: {frequency: 4, type: 'less'},
                             scope: 'member',
                             type: 'did'
                         }
@@ -385,7 +385,7 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST exactly 4 times on 2016-04-04,2017-04-04,2018-04-04',function(){
+            it('member did not TEST exactly 4 times on 2016-04-04,2017-04-04,2018-04-04', function () {
                 var rule = parser.parse('member did not TEST exactly 4 times on 2016-04-04,2017-04-04,2018-04-04 give 1 points');
                 should(rule).eql({
                     rewards: [{code: 'points', quantity: 1}],
@@ -393,11 +393,11 @@ describe('<Unit Test>', function () {
                         {
                             condition: {actionCode: 'TEST'},
                             moment_filter: {
-                                date:[new Date(2016,4-1,4),new Date(2017,4-1,4),new Date(2018,4-1,4)],
+                                date: [new Date(2016, 4 - 1, 4), new Date(2017, 4 - 1, 4), new Date(2018, 4 - 1, 4)],
                                 type: 'onDate'
                             },
                             negative: true,
-                            occurrence_filter: {number: 4, type: 'exactly'},
+                            occurrence_filter: {frequency: 4, type: 'exactly'},
                             scope: 'member',
                             type: 'did'
                         }
@@ -438,7 +438,7 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'completed',
                                 code: 'TEST'
@@ -459,14 +459,14 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'completed',
                                 code: 'TEST'
                             },
-                            geo_filter:{
-                                type:'zone',
-                                zones:['bob']
+                            geo_filter: {
+                                type: 'zone',
+                                zones: ['bob']
                             }
 
                         }],
@@ -484,14 +484,14 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'completed',
                                 code: 'TEST'
                             },
                             occurrence_filter: {
                                 type: 'less',
-                                number: 3
+                                frequency: 3
                             }
                         }],
                         rewards: [
@@ -508,7 +508,7 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'completed',
                                 code: 'TEST'
@@ -534,14 +534,14 @@ describe('<Unit Test>', function () {
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'completed',
                                 code: 'TEST'
                             },
                             occurrence_filter: {
                                 type: 'less',
-                                number: 3
+                                frequency: 3
                             },
                             period_filter: {
                                 type: 'before',
@@ -549,9 +549,9 @@ describe('<Unit Test>', function () {
                                     new Date('2016-03-03 04:40:40')
                                 ]
                             },
-                            geo_filter:{
-                                type:'zone',
-                                zones:['bob']
+                            geo_filter: {
+                                type: 'zone',
+                                zones: ['bob']
                             }
                         }],
                         rewards: [
@@ -564,8 +564,8 @@ describe('<Unit Test>', function () {
             });
 
             describe('gained/lost', function () {
-                
-                describe('tag',function(){
+
+                describe('tag', function () {
 
                     it('member has gained tag bob give 1 points', function (done) {
                         var rule = parser.parse('member has gained tag bob give 1 points');
@@ -620,7 +620,7 @@ describe('<Unit Test>', function () {
                                     {
                                         scope: 'member',
                                         type: 'has',
-                                        negative:true,
+                                        negative: true,
                                         condition: {
                                             number: 3,
                                             type: 'gained',
@@ -646,7 +646,7 @@ describe('<Unit Test>', function () {
                                     {
                                         scope: 'member',
                                         type: 'has',
-                                        negative:true,
+                                        negative: true,
                                         condition: {
                                             type: 'lost',
                                             tagCode: {
@@ -694,8 +694,8 @@ describe('<Unit Test>', function () {
                     });
 
                 });
-                
-                describe('points',function(){
+
+                describe('points', function () {
                     it('member has gained points bob give 1 points', function (done) {
                         var rule = parser.parse('member has gained points bob give 1 points');
                         should(rule).eql({
@@ -742,7 +742,7 @@ describe('<Unit Test>', function () {
                                     {
                                         scope: 'member',
                                         type: 'has',
-                                        negative:true,
+                                        negative: true,
                                         condition: {
                                             number: 3,
                                             type: 'gained',
@@ -765,7 +765,7 @@ describe('<Unit Test>', function () {
                                     {
                                         scope: 'member',
                                         type: 'has',
-                                        negative:true,
+                                        negative: true,
                                         condition: {
                                             type: 'lost',
                                             levelCode: 'bob'
@@ -807,8 +807,8 @@ describe('<Unit Test>', function () {
                         done();
                     });
                 });
-                
-                describe('prize',function(){
+
+                describe('prize', function () {
                     it('member has gained prize bob give 1 points', function (done) {
                         var rule = parser.parse('member has gained prize bob give 1 points');
                         should(rule).eql({
@@ -855,7 +855,7 @@ describe('<Unit Test>', function () {
                                     {
                                         scope: 'member',
                                         type: 'has',
-                                        negative:true,
+                                        negative: true,
                                         condition: {
                                             number: 3,
                                             type: 'gained',
@@ -878,7 +878,7 @@ describe('<Unit Test>', function () {
                                     {
                                         scope: 'member',
                                         type: 'has',
-                                        negative:true,
+                                        negative: true,
                                         condition: {
                                             type: 'lost',
                                             prizeCode: 'bob'
@@ -922,9 +922,9 @@ describe('<Unit Test>', function () {
 
             });
 
-            describe('been',function(){
+            describe('been', function () {
 
-                it('member has been in zone montreal',function(){
+                it('member has been in zone montreal', function () {
                     var rule = parser.parse('member has been in zone montreal give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -933,9 +933,9 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'zone',
-                                zones:['montreal']
+                            geo_filter: {
+                                type: 'zone',
+                                zones: ['montreal']
                             }
 
                         }],
@@ -945,19 +945,19 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been in zone montreal',function(){
+                it('member has not been in zone montreal', function () {
                     var rule = parser.parse('member has not been in zone montreal give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'zone',
-                                zones:['montreal']
+                            geo_filter: {
+                                type: 'zone',
+                                zones: ['montreal']
                             }
 
                         }],
@@ -967,7 +967,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has been in zone montreal,laval,verdun',function(){
+                it('member has been in zone montreal,laval,verdun', function () {
                     var rule = parser.parse('member has been in zone montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -976,9 +976,9 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'zone',
-                                zones:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'zone',
+                                zones: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -988,19 +988,19 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been in zone montreal,laval,verdun',function(){
+                it('member has not been in zone montreal,laval,verdun', function () {
                     var rule = parser.parse('member has not been in zone montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'zone',
-                                zones:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'zone',
+                                zones: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1010,7 +1010,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has been in range of beacon montreal',function(){
+                it('member has been in range of beacon montreal', function () {
                     var rule = parser.parse('member has been in range of beacon montreal give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -1019,9 +1019,9 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'inRange',
-                                beacons:['montreal']
+                            geo_filter: {
+                                type: 'inRange',
+                                beacons: ['montreal']
                             }
 
                         }],
@@ -1031,19 +1031,19 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been in range of beacon montreal',function(){
+                it('member has not been in range of beacon montreal', function () {
                     var rule = parser.parse('member has not been in range of beacon montreal give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'inRange',
-                                beacons:['montreal']
+                            geo_filter: {
+                                type: 'inRange',
+                                beacons: ['montreal']
                             }
 
                         }],
@@ -1053,7 +1053,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has been in range of beacon montreal,laval,verdun',function(){
+                it('member has been in range of beacon montreal,laval,verdun', function () {
                     var rule = parser.parse('member has been in range of beacon montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -1062,9 +1062,9 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'inRange',
-                                beacons:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'inRange',
+                                beacons: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1074,19 +1074,19 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been in range of beacon montreal,laval,verdun',function(){
+                it('member has not been in range of beacon montreal,laval,verdun', function () {
                     var rule = parser.parse('member has not been in range of beacon montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'inRange',
-                                beacons:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'inRange',
+                                beacons: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1096,7 +1096,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has been with RSSI over 3 from beacon montreal',function(){
+                it('member has been with RSSI over 3 from beacon montreal', function () {
                     var rule = parser.parse('member has been with RSSI over 3 from beacon montreal give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -1105,10 +1105,10 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-over',
-                                number:3,
-                                beacons:['montreal']
+                            geo_filter: {
+                                type: 'RSSI-over',
+                                rssiValue: 3,
+                                beacons: ['montreal']
                             }
 
                         }],
@@ -1118,20 +1118,20 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been with RSSI over 3 from beacon montreal',function(){
+                it('member has not been with RSSI over 3 from beacon montreal', function () {
                     var rule = parser.parse('member has not been with RSSI over 3 from beacon montreal give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-over',
-                                number:3,
-                                beacons:['montreal']
+                            geo_filter: {
+                                type: 'RSSI-over',
+                                rssiValue: 3,
+                                beacons: ['montreal']
                             }
 
                         }],
@@ -1141,7 +1141,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has been with RSSI over 3 from beacon montreal,laval,verdun',function(){
+                it('member has been with RSSI over 3 from beacon montreal,laval,verdun', function () {
                     var rule = parser.parse('member has been with RSSI over 3 from beacon montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -1150,10 +1150,10 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-over',
-                                number:3,
-                                beacons:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'RSSI-over',
+                                rssiValue: 3,
+                                beacons: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1163,20 +1163,20 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been with RSSI over 3 from beacon montreal,laval,verdun',function(){
+                it('member has not been with RSSI over 3 from beacon montreal,laval,verdun', function () {
                     var rule = parser.parse('member has not been with RSSI over 3 from beacon montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-over',
-                                number:3,
-                                beacons:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'RSSI-over',
+                                rssiValue: 3,
+                                beacons: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1186,7 +1186,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has been with RSSI below 3 from beacon montreal',function(){
+                it('member has been with RSSI below 3 from beacon montreal', function () {
                     var rule = parser.parse('member has been with RSSI below 3 from beacon montreal give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -1195,10 +1195,10 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-below',
-                                number:3,
-                                beacons:['montreal']
+                            geo_filter: {
+                                type: 'RSSI-below',
+                                rssiValue: 3,
+                                beacons: ['montreal']
                             }
 
                         }],
@@ -1208,20 +1208,20 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been with RSSI below 3 from beacon montreal',function(){
+                it('member has not been with RSSI below 3 from beacon montreal', function () {
                     var rule = parser.parse('member has not been with RSSI below 3 from beacon montreal give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-below',
-                                number:3,
-                                beacons:['montreal']
+                            geo_filter: {
+                                type: 'RSSI-below',
+                                rssiValue: 3,
+                                beacons: ['montreal']
                             }
 
                         }],
@@ -1231,7 +1231,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has been with RSSI below 3 from beacon montreal,laval,verdun',function(){
+                it('member has been with RSSI below 3 from beacon montreal,laval,verdun', function () {
                     var rule = parser.parse('member has been with RSSI below 3 from beacon montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -1240,10 +1240,10 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-below',
-                                number:3,
-                                beacons:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'RSSI-below',
+                                rssiValue: 3,
+                                beacons: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1253,20 +1253,20 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been with RSSI below 3 from beacon montreal,laval,verdun',function(){
+                it('member has not been with RSSI below 3 from beacon montreal,laval,verdun', function () {
                     var rule = parser.parse('member has not been with RSSI below 3 from beacon montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-below',
-                                number:3,
-                                beacons:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'RSSI-below',
+                                rssiValue: 3,
+                                beacons: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1276,7 +1276,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has been with RSSI between 3 and 4 from beacon montreal',function(){
+                it('member has been with RSSI between 3 and 4 from beacon montreal', function () {
                     var rule = parser.parse('member has been with RSSI between 3 and 4 from beacon montreal give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -1285,10 +1285,10 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-between',
-                                number:[3,4],
-                                beacons:['montreal']
+                            geo_filter: {
+                                type: 'RSSI-between',
+                                rssiValue: [3, 4],
+                                beacons: ['montreal']
                             }
 
                         }],
@@ -1298,20 +1298,20 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been with RSSI between 3 and 4 from beacon montreal',function(){
+                it('member has not been with RSSI between 3 and 4 from beacon montreal', function () {
                     var rule = parser.parse('member has not been with RSSI between 3 and 4 from beacon montreal give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-between',
-                                number:[3,4],
-                                beacons:['montreal']
+                            geo_filter: {
+                                type: 'RSSI-between',
+                                rssiValue: [3, 4],
+                                beacons: ['montreal']
                             }
 
                         }],
@@ -1321,7 +1321,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has been with RSSI between 3 and 4 from beacon montreal,laval,verdun',function(){
+                it('member has been with RSSI between 3 and 4 from beacon montreal,laval,verdun', function () {
                     var rule = parser.parse('member has been with RSSI between 3 and 4 from beacon montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
@@ -1330,10 +1330,10 @@ describe('<Unit Test>', function () {
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-between',
-                                number:[3,4],
-                                beacons:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'RSSI-between',
+                                rssiValue: [3, 4],
+                                beacons: ['montreal', 'laval', 'verdun']
                             }
 
                         }],
@@ -1343,20 +1343,20 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member has not been with RSSI between 3 and 4 from beacon montreal,laval,verdun',function(){
+                it('member has not been with RSSI between 3 and 4 from beacon montreal,laval,verdun', function () {
                     var rule = parser.parse('member has not been with RSSI between 3 and 4 from beacon montreal,laval,verdun give 1 points');
                     should(rule).eql({
                         rules: [{
                             scope: 'member',
                             type: 'has',
-                            negative:true,
+                            negative: true,
                             condition: {
                                 type: 'been'
                             },
-                            geo_filter:{
-                                type:'RSSI-between',
-                                number:[3,4],
-                                beacons:['montreal','laval','verdun']
+                            geo_filter: {
+                                type: 'RSSI-between',
+                                rssiValue: [3, 4],
+                                beacons: ['montreal', 'laval', 'verdun']
                             }
 
                         }],

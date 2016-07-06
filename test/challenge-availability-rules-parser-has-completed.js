@@ -66,7 +66,7 @@ describe('<Unit Test>', function () {
                     },
                     occurrence_filter: {
                         type: 'less',
-                        number: 3
+                        frequency: 3
                     }
                 }]);
                 done();
@@ -108,7 +108,7 @@ describe('<Unit Test>', function () {
                         },
                         occurrence_filter: {
                             type: 'less',
-                            number: 3
+                            frequency: 3
                         },
                         period_filter: {
                             type: 'before',
@@ -213,7 +213,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter: {
                             type: 'RSSI-over',
-                            number: 3,
+                            rssiValue: 3,
                             beacons: ['shop']
                         }
 
@@ -234,7 +234,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter: {
                             type: 'RSSI-below',
-                            number: 5,
+                            rssiValue: 5,
                             beacons: ['shop', 'store']
                         }
 
@@ -255,7 +255,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter: {
                             type: 'RSSI-between',
-                            number: [5, 3],
+                            rssiValue: [5, 3],
                             beacons: ['shop', 'store']
                         }
 
@@ -274,7 +274,7 @@ describe('<Unit Test>', function () {
                             type: 'completed',
                             code: 'TEST'
                         },
-                        occurrence_filter: {number: 4, type: 'least'},
+                        occurrence_filter: {frequency: 4, type: 'least'},
                         moment_filter: {
                             days: {list: ['monday'], type: 'days'},
                             type: 'on'
@@ -295,7 +295,7 @@ describe('<Unit Test>', function () {
                             type: 'completed',
                             code: 'TEST'
                         },
-                        occurrence_filter: {number: 4, type: 'least'},
+                        occurrence_filter: {frequency: 4, type: 'least'},
                         moment_filter: {
                             days: {list: ['1st', '2nd'], type: 'position'},
                             months: {list: ['december'], type: 'of'},
@@ -318,7 +318,7 @@ describe('<Unit Test>', function () {
                             type: 'completed',
                             code: 'TEST'
                         },
-                        occurrence_filter: {number: 4, type: 'least'},
+                        occurrence_filter: {frequency: 4, type: 'least'},
                         moment_filter: {
                             date: [
                                 new Date(2016, 4 - 1, 4),

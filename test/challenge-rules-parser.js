@@ -425,7 +425,7 @@ describe('<Unit Test>', function () {
                         {
                             geo_filter: {
                                 type: 'RSSI-below',
-                                number: 3,
+                                rssiValue: 3,
                                 beacons: ['montreal']
                             },
                             scope: 'member',
@@ -443,7 +443,7 @@ describe('<Unit Test>', function () {
                         {
                             geo_filter: {
                                 type: 'RSSI-over',
-                                number: 3,
+                                rssiValue: 3,
                                 beacons: ['montreal', 'laval']
                             },
                             scope: 'member',
@@ -461,7 +461,7 @@ describe('<Unit Test>', function () {
                         {
                             geo_filter: {
                                 type: 'RSSI-between',
-                                number: [3, 4],
+                                rssiValue: [3, 4],
                                 beacons: ['montreal']
                             },
                             scope: 'member',

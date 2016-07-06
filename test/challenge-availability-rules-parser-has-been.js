@@ -106,7 +106,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter: {
                             type: 'RSSI-over',
-                            number: 310,
+                            rssiValue: 310,
                             beacons: ['bob']
                         }
                     }]);
@@ -126,7 +126,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter: {
                             type: 'RSSI-over',
-                            number: 310,
+                            rssiValue: 310,
                             beacons: ['bob', 'tom', 'carl']
                         }
                     }]);
@@ -145,7 +145,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter: {
                             type: 'RSSI-below',
-                            number: 4,
+                            rssiValue: 4,
                             beacons: ['bob']
                         }
                     }]);
@@ -165,7 +165,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter: {
                             type: 'RSSI-below',
-                            number: 4,
+                            rssiValue: 4,
                             beacons: ['bob', 'eric', 'jean']
                         }
                     }]);
@@ -184,7 +184,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter: {
                             type: 'RSSI-between',
-                            number: [4, 6],
+                            rssiValue: [4, 6],
                             beacons: ['bob']
                         }
                     }]);
@@ -203,7 +203,7 @@ describe('<Unit Test>', function () {
                         },
                         geo_filter: {
                             type: 'RSSI-between',
-                            number: [6, 4],
+                            rssiValue: [6, 4],
                             beacons: ['bob', 'norbert']
                         }
                     }]);

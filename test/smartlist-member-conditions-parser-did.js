@@ -104,7 +104,7 @@ describe('<Unit Test>', function () {
                             },
                             occurrence_filter: {
                                 type: 'less',
-                                number: 3
+                                frequency: 3
                             }
                         }
                     ]
@@ -164,7 +164,7 @@ describe('<Unit Test>', function () {
                             },
                             occurrence_filter: {
                                 type: 'less',
-                                number: 3
+                                frequency: 3
                             },
                             period_filter: {
                                 type: 'before',
@@ -198,7 +198,7 @@ describe('<Unit Test>', function () {
                             },
                             occurrence_filter: {
                                 type: 'less',
-                                number: 3
+                                frequency: 3
                             },
                             period_filter: {
                                 type: 'after',
@@ -236,7 +236,7 @@ describe('<Unit Test>', function () {
                             },
                             occurrence_filter: {
                                 type: 'less',
-                                number: 3
+                                frequency: 3
                             },
                             period_filter: {
                                 type: 'since-did',
@@ -271,7 +271,7 @@ describe('<Unit Test>', function () {
                             },
                             occurrence_filter: {
                                 type: 'less',
-                                number: 3
+                                frequency: 3
                             },
                             period_filter: {
                                 type: 'since-did',
@@ -280,7 +280,7 @@ describe('<Unit Test>', function () {
                             },
                             geo_filter:{
                                 type:'RSSI-below',
-                                number:3,
+                                rssiValue:3,
                                 beacons:['BEACON1','BEACON2','BEACON3']
                             }
                         }
@@ -308,7 +308,7 @@ describe('<Unit Test>', function () {
                             },
                             occurrence_filter: {
                                 type: 'less',
-                                number: 3
+                                frequency: 3
                             },
                             period_filter: {
                                 type: 'since-did',
@@ -317,7 +317,7 @@ describe('<Unit Test>', function () {
                             },
                             geo_filter:{
                                 type:'RSSI-over',
-                                number:3,
+                                rssiValue:3,
                                 beacons:['BEACON1','BEACON2','BEACON3']
                             }
                         }
@@ -345,7 +345,7 @@ describe('<Unit Test>', function () {
                             },
                             occurrence_filter: {
                                 type: 'less',
-                                number: 3
+                                frequency: 3
                             },
                             period_filter: {
                                 type: 'since-received',
@@ -354,7 +354,7 @@ describe('<Unit Test>', function () {
                             },
                             geo_filter:{
                                 type:'RSSI-between',
-                                number:[3,4],
+                                rssiValue:[3,4],
                                 beacons:['BEACON1','BEACON2','BEACON3']
                             }
                         }

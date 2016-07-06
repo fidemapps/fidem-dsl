@@ -78,7 +78,7 @@ describe('<Unit Test>', function () {
           type:'is',
           geo_filter: {
             type:'RSSI-below',
-            number:3,
+            rssiValue:3,
             beacons:['bob']
           }
         }]);
@@ -91,7 +91,7 @@ describe('<Unit Test>', function () {
           type:'is',
           geo_filter: {
             type:'RSSI-over',
-            number:3,
+            rssiValue:3,
             beacons:['bob']
           }
         }]);
@@ -104,7 +104,7 @@ describe('<Unit Test>', function () {
           type:'is',
           geo_filter: {
             type:'RSSI-between',
-            number:[3,4],
+            rssiValue:[3,4],
             beacons:['bob']
           }
         }]);
