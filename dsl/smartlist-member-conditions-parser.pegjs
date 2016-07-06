@@ -2,6 +2,8 @@
 /*HELPER FUNCTIONS*/
 {
 
+    //Merge 2 objects and their fields into one object
+
     if (typeof Object.assign != 'function') {
       Object.assign = function(target) {
         'use strict';
