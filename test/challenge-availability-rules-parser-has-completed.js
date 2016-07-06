@@ -29,7 +29,7 @@ describe('<Unit Test>', function () {
                         type: 'has',
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         }
 
                     }]
@@ -46,7 +46,7 @@ describe('<Unit Test>', function () {
                     negative: true,
                     condition: {
                         type: 'completed',
-                        code: 'TEST'
+                        challengeCode: 'TEST'
                     }
 
                 }]);
@@ -62,7 +62,7 @@ describe('<Unit Test>', function () {
                     negative: true,
                     condition: {
                         type: 'completed',
-                        code: 'TEST'
+                        challengeCode: 'TEST'
                     },
                     occurrence_filter: {
                         type: 'less',
@@ -82,7 +82,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         period_filter: {
                             type: 'before',
@@ -104,7 +104,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         occurrence_filter: {
                             type: 'less',
@@ -129,7 +129,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'zone',
@@ -149,7 +149,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'zone',
@@ -169,7 +169,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'inRange',
@@ -189,7 +189,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'inRange',
@@ -209,7 +209,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'RSSI-over',
@@ -230,7 +230,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'RSSI-below',
@@ -251,7 +251,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         geo_filter: {
                             type: 'RSSI-between',
@@ -272,7 +272,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         occurrence_filter: {frequency: 4, type: 'least'},
                         moment_filter: {
@@ -293,7 +293,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         occurrence_filter: {frequency: 4, type: 'least'},
                         moment_filter: {
@@ -316,7 +316,7 @@ describe('<Unit Test>', function () {
                         negative: true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         occurrence_filter: {frequency: 4, type: 'least'},
                         moment_filter: {

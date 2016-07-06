@@ -483,7 +483,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {codes: ['montreal']},
+                            condition: {smartlistCodes: ['montreal']},
                             scope: 'member',
                             type: 'smartlist'
                         }
@@ -497,7 +497,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {codes: ['montreal', 'quebec', 'bob']},
+                            condition: {smartlistCodes: ['montreal', 'quebec', 'bob']},
                             scope: 'member',
                             type: 'smartlist'
                         }
@@ -513,7 +513,7 @@ describe('<Unit Test>', function () {
                         {
                             condition: {
                                 condition: {number: 4, timeframe: 'hour', type: 'since'},
-                                codes: ['montreal', 'bob']
+                                smartlistCodes: ['montreal', 'bob']
                             },
                             scope: 'member',
                             type: 'smartlist'
@@ -529,7 +529,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            condition: {codes: ['montreal']},
+                            condition: {smartlistCodes: ['montreal']},
                             negative: true,
                             scope: 'member',
                             type: 'smartlist'
@@ -545,7 +545,7 @@ describe('<Unit Test>', function () {
                     rules: [
                         {
                             negative: true,
-                            condition: {codes: ['montreal', 'quebec', 'bob']},
+                            condition: {smartlistCodes: ['montreal', 'quebec', 'bob']},
                             scope: 'member',
                             type: 'smartlist'
                         }
@@ -562,7 +562,7 @@ describe('<Unit Test>', function () {
                             negative: true,
                             condition: {
                                 condition: {number: 4, timeframe: 'hour', type: 'since'},
-                                codes: ['montreal', 'bob']
+                                smartlistCodes: ['montreal', 'bob']
                             },
                             scope: 'member',
                             type: 'smartlist'

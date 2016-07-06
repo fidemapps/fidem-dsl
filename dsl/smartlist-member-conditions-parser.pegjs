@@ -308,7 +308,7 @@ has_rule_completed
 {
     return {
         type:type,
-        code:challengeCode
+        challengeCode:challengeCode
     }
 }
 
@@ -325,7 +325,7 @@ has_rule_gained_lost
     var rule= Object.assign({type:type},object);
 
     if(number){
-        rule.number=number;
+        rule.quantity=number;
     }
 
     return rule;
@@ -597,9 +597,6 @@ tagClusterCode
 = code:code ":" { return code; }
 
 zoneCode "zoneCode"
-= code
-
-smartlistCode "smartlistCode"
 = code
 
 attributeName "attributeName"

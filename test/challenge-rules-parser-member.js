@@ -420,7 +420,7 @@ describe('<Unit Test>', function () {
                             type: 'has',
                             condition: {
                                 type: 'completed',
-                                code: 'TEST'
+                                challengeCode: 'TEST'
                             }
 
                         }],
@@ -441,7 +441,7 @@ describe('<Unit Test>', function () {
                             negative: true,
                             condition: {
                                 type: 'completed',
-                                code: 'TEST'
+                                challengeCode: 'TEST'
                             }
 
                         }],
@@ -462,7 +462,7 @@ describe('<Unit Test>', function () {
                             negative: true,
                             condition: {
                                 type: 'completed',
-                                code: 'TEST'
+                                challengeCode: 'TEST'
                             },
                             geo_filter: {
                                 type: 'zone',
@@ -487,7 +487,7 @@ describe('<Unit Test>', function () {
                             negative: true,
                             condition: {
                                 type: 'completed',
-                                code: 'TEST'
+                                challengeCode: 'TEST'
                             },
                             occurrence_filter: {
                                 type: 'less',
@@ -511,7 +511,7 @@ describe('<Unit Test>', function () {
                             negative: true,
                             condition: {
                                 type: 'completed',
-                                code: 'TEST'
+                                challengeCode: 'TEST'
                             },
                             period_filter: {
                                 type: 'before',
@@ -537,7 +537,7 @@ describe('<Unit Test>', function () {
                             negative: true,
                             condition: {
                                 type: 'completed',
-                                code: 'TEST'
+                                challengeCode: 'TEST'
                             },
                             occurrence_filter: {
                                 type: 'less',
@@ -597,7 +597,7 @@ describe('<Unit Test>', function () {
                                 scope: 'member',
                                 type: 'has',
                                 condition: {
-                                    number: 3,
+                                    quantity: 3,
                                     type: 'lost',
                                     tagCode: {
                                         tagClusterCode: null,
@@ -622,7 +622,7 @@ describe('<Unit Test>', function () {
                                         type: 'has',
                                         negative: true,
                                         condition: {
-                                            number: 3,
+                                            quantity: 3,
                                             type: 'gained',
                                             tagCode: {
                                                 tagClusterCode: null,
@@ -723,7 +723,7 @@ describe('<Unit Test>', function () {
                                 scope: 'member',
                                 type: 'has',
                                 condition: {
-                                    number: 3,
+                                    quantity: 3,
                                     type: 'lost',
                                     levelCode: 'bob'
                                 }
@@ -744,7 +744,7 @@ describe('<Unit Test>', function () {
                                         type: 'has',
                                         negative: true,
                                         condition: {
-                                            number: 3,
+                                            quantity: 3,
                                             type: 'gained',
                                             levelCode: 'bob'
                                         }
@@ -836,7 +836,7 @@ describe('<Unit Test>', function () {
                                 scope: 'member',
                                 type: 'has',
                                 condition: {
-                                    number: 3,
+                                    quantity: 3,
                                     type: 'lost',
                                     prizeCode: 'bob'
                                 }
@@ -857,7 +857,7 @@ describe('<Unit Test>', function () {
                                         type: 'has',
                                         negative: true,
                                         condition: {
-                                            number: 3,
+                                            quantity: 3,
                                             type: 'gained',
                                             prizeCode: 'bob'
                                         }

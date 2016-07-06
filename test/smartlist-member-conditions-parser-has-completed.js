@@ -30,7 +30,7 @@ describe('<Unit Test>', function () {
                             type: 'has',
                             condition: {
                                 type:'completed',
-                                code: 'TEST'
+                                challengeCode: 'TEST'
                             }
 
                         }]
@@ -48,7 +48,7 @@ describe('<Unit Test>', function () {
                         negative:true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         }
 
                     }]
@@ -66,7 +66,7 @@ describe('<Unit Test>', function () {
                         negative:true,
                         condition: {
                             type: 'completed',
-                            code: 'TEST'
+                            challengeCode: 'TEST'
                         },
                         occurrence_filter: {
                             type: 'less',
@@ -88,7 +88,7 @@ describe('<Unit Test>', function () {
                             negative:true,
                             condition: {
                                 type: 'completed',
-                                code: 'TEST'
+                                challengeCode: 'TEST'
                             },
                             period_filter: {
                                 type: 'before',
@@ -112,7 +112,7 @@ describe('<Unit Test>', function () {
                             negative:true,
                             condition: {
                                 type: 'completed',
-                                code: 'TEST'
+                                challengeCode: 'TEST'
                             },
                             occurrence_filter: {
                                 type: 'less',
@@ -138,7 +138,7 @@ describe('<Unit Test>', function () {
                             type: 'has',
                             negative:true,
                             condition: {
-                                code: 'TEST',
+                                challengeCode: 'TEST',
                                 type: 'completed'
                             },
                             occurrence_filter: {
@@ -170,7 +170,7 @@ describe('<Unit Test>', function () {
                             type: 'has',
                             negative:true,
                             condition: {
-                                code: 'TEST',
+                                challengeCode: 'TEST',
                                 type: 'completed'
                             },
                             occurrence_filter: {
@@ -199,7 +199,7 @@ describe('<Unit Test>', function () {
                             type: 'has',
                             negative:true,
                             condition: {
-                                code: 'TEST',
+                                challengeCode: 'TEST',
                                 type: 'completed'
                             },
                             occurrence_filter: {
@@ -230,7 +230,7 @@ describe('<Unit Test>', function () {
                             type: 'has',
                             negative:true,
                             condition: {
-                                code: 'TEST',
+                                challengeCode: 'TEST',
                                 type: 'completed'
                             },
                             occurrence_filter: {
@@ -261,7 +261,7 @@ describe('<Unit Test>', function () {
                             type: 'has',
                             negative:true,
                             condition: {
-                                code: 'TEST',
+                                challengeCode: 'TEST',
                                 type: 'completed'
                             },
                             occurrence_filter: {

@@ -51,7 +51,7 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     condition: {
-                                        number:3,
+                                        quantity:3,
                                         type:'lost',
                                         tagCode: {
                                             tagClusterCode: null,
@@ -74,7 +74,7 @@ describe('<Unit Test>', function () {
                                     type: 'has',
                                     negative:true,
                                     condition: {
-                                        number:3,
+                                        quantity:3,
                                         type:'gained',
                                         tagCode: {
                                             tagClusterCode: null,
@@ -346,7 +346,7 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     condition: {
-                                        number:3,
+                                        quantity:3,
                                         type:'lost',
                                         levelCode:'bob'
                                     }
@@ -366,7 +366,7 @@ describe('<Unit Test>', function () {
                                     type: 'has',
                                     negative:true,
                                     condition: {
-                                        number:3,
+                                        quantity:3,
                                         type:'gained',
                                         levelCode:'bob'
                                     }
@@ -607,7 +607,7 @@ describe('<Unit Test>', function () {
                                     scope: 'member',
                                     type: 'has',
                                     condition: {
-                                        number:3,
+                                        quantity:3,
                                         type:'lost',
                                         prizeCode:'bob'
                                     }
@@ -627,7 +627,7 @@ describe('<Unit Test>', function () {
                                     type: 'has',
                                     negative:true,
                                     condition: {
-                                        number:3,
+                                        quantity:3,
                                         type:'gained',
                                         prizeCode:'bob'
                                     }

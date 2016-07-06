@@ -26,7 +26,7 @@ describe('<Unit Test>', function () {
                     scope:'member',
                     type:'smartlist',
                     condition: {
-                        codes:['montreal']
+                        smartlistCodes:['montreal']
 
                     }
                 }]);
@@ -39,7 +39,7 @@ describe('<Unit Test>', function () {
                     type:'smartlist',
                     condition: {
 
-                        codes:['montreal','quebec','bob']
+                        smartlistCodes:['montreal','quebec','bob']
 
                     }
                 }]);
@@ -51,7 +51,7 @@ describe('<Unit Test>', function () {
                     scope:'member',
                     type:'smartlist',
                     condition: {
-                        codes:['montreal','bob'],
+                        smartlistCodes:['montreal','bob'],
                         condition:{
                             type:'since',
                             number:4,
@@ -69,7 +69,7 @@ describe('<Unit Test>', function () {
                     type:'smartlist',
                     negative:true,
                     condition: {
-                        codes:['montreal']
+                        smartlistCodes:['montreal']
                     }
                 }]);
             });
@@ -81,7 +81,7 @@ describe('<Unit Test>', function () {
                     type:'smartlist',
                     negative:true,
                     condition: {
-                        codes:['montreal','quebec','bob']
+                        smartlistCodes:['montreal','quebec','bob']
                     }
                 }]);
             });
@@ -93,7 +93,7 @@ describe('<Unit Test>', function () {
                     type:'smartlist',
                     negative:true,
                     condition: {
-                        codes:['montreal','bob'],
+                        smartlistCodes:['montreal','bob'],
                         condition:{
                             type:'since',
                             number:4,

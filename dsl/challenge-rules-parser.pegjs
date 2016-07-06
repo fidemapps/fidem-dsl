@@ -100,7 +100,7 @@ simple_rule
         scope:scope,
         type: "smartlist",
         condition:{
-            codes: buildList(firstCode, codes, 3)
+            smartlistCodes: buildList(firstCode, codes, 3)
         }
     };
 
@@ -120,7 +120,7 @@ simple_rule
         type: "smartlist",
         negative:true,
         condition:{
-            codes: buildList(firstCode, codes, 3)
+            smartlistCodes: buildList(firstCode, codes, 3)
         }
     };
 
@@ -457,7 +457,7 @@ has_rule_gained_lost
     var rule= Object.assign({type:type},object);
 
     if(number){
-        rule.number=number;
+        rule.quantity=number;
     }
 
     return rule;
@@ -518,7 +518,7 @@ has_rule_completed
 {
     return {
         type:type,
-        code:challengeCode
+        challengeCode:challengeCode
     }
 }
 
