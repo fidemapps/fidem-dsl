@@ -305,7 +305,6 @@ describe('<Unit Test>', function () {
                                     },
                                     period_filter: {
                                         type:'since-received',
-                                        target:'prize',
                                         prizeCode:'points'
                                     }
 
@@ -567,7 +566,6 @@ describe('<Unit Test>', function () {
                                     },
                                     period_filter: {
                                         type:'since-received',
-                                        target:'prize',
                                         prizeCode:'points'
                                     }
 
@@ -828,7 +826,6 @@ describe('<Unit Test>', function () {
                                     },
                                     period_filter: {
                                         type:'since-received',
-                                        target:'prize',
                                         prizeCode:'prize'
                                     }
 

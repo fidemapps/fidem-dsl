@@ -349,7 +349,6 @@ describe('<Unit Test>', function () {
                             },
                             period_filter: {
                                 type: 'since-received',
-                                target:'prize',
                                 prizeCode:'bob'
                             },
                             geo_filter:{

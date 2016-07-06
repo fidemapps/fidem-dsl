@@ -112,7 +112,7 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
 
-                            period_filter: { prizeCode: 'points', type: 'since-received',target:'prize' },
+                            period_filter: { prizeCode: 'points', type: 'since-received' },
                             scope: 'member',
                             type: 'created'
                         }

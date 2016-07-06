@@ -108,7 +108,6 @@ describe('<Unit Test>', function () {
                     type:'created',
                     period_filter: {
                         prizeCode: 'PRIZECODE',
-                        target:'prize',
                         type: 'since-received'
                     }
                 }]);

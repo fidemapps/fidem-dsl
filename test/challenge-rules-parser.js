@@ -132,7 +132,7 @@ describe('<Unit Test>', function () {
                     rewards: [{code: 'points', quantity: 1}],
                     rules: [
                         {
-                            period_filter: {type: 'since-received', target: 'prize', prizeCode: 'prizeCode'},
+                            period_filter: {type: 'since-received', prizeCode: 'prizeCode'},
                             scope: 'member',
                             type: 'created'
                         }
@@ -147,7 +147,7 @@ describe('<Unit Test>', function () {
                     rules: [
                         {
                             moment_filter: {type: 'on', days: {list: ['monday'], type: 'days'}},
-                            period_filter: {type: 'since-received', target: 'prize', prizeCode: 'prizeCode'},
+                            period_filter: {type: 'since-received',  prizeCode: 'prizeCode'},
                             scope: 'member',
                             type: 'created'
                         }
@@ -168,7 +168,7 @@ describe('<Unit Test>', function () {
                                 type: 'on',
                                 years: {list: ['2016'], type: 'in'}
                             },
-                            period_filter: {prizeCode: 'prizeCode', target: 'prize', type: 'since-received'},
+                            period_filter: {prizeCode: 'prizeCode',  type: 'since-received'},
                             scope: 'member',
                             type: 'created'
                         }
@@ -188,7 +188,7 @@ describe('<Unit Test>', function () {
                                 time: {list: ['10:00'], type: 'before'},
                                 type: 'onThe'
                             },
-                            period_filter: {prizeCode: 'prizeCode', target: 'prize', type: 'since-received'},
+                            period_filter: {prizeCode: 'prizeCode',  type: 'since-received'},
                             scope: 'member',
                             type: 'created'
                         }
@@ -207,7 +207,7 @@ describe('<Unit Test>', function () {
                                 time: {list: ['5:00', '10:00'], type: 'between'},
                                 type: 'onDate'
                             },
-                            period_filter: {prizeCode: 'prizeCode', target: 'prize', type: 'since-received'},
+                            period_filter: {prizeCode: 'prizeCode',  type: 'since-received'},
                             scope: 'member',
                             type: 'created'
                         }

@@ -521,7 +521,6 @@ period_filter
 {
     return {
         type:"since-"+type,
-        target:target,
         prizeCode:prizeCode
     }
 }
