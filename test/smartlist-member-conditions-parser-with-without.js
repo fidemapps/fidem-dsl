@@ -93,6 +93,20 @@ describe('<Unit Test>', function () {
                     });
                 });
 
+                it('member without points levelCode < 10',function(){
+                    var condition = parser.parse('member without points levelCode < 10');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'points',levelCode: 'levelCode', operator:'<',value:10 },
+                                negative:true,
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
                 it('member without points levelCode <= 10',function(){
                     var condition = parser.parse('member without points levelCode <= 10');
                     should(condition).eql({

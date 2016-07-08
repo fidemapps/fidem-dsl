@@ -47,74 +47,7 @@ describe('<Unit Test>', function () {
                 });
                 done();
             });
-
-            it('member is in range of beacon bob',function(){
-                var condition = parser.parse("member is in range of beacon bob");
-                should(condition).eql({
-                    conditions: [
-                        {
-                            geoFilter: { type: 'inRange', beaconCodes: [ 'bob' ] },
-                            scope: 'member',
-                            type: 'is'
-                        }
-                    ]
-                });
-            });
-
-            it('member is in range of beacon bob,tom',function(){
-                var condition = parser.parse("member is in range of beacon bob,tom");
-                should(condition).eql({
-                    conditions: [
-                        {
-
-                            geoFilter: { type: 'inRange', beaconCodes: [ 'bob' ,'tom'] },
-                            scope: 'member',
-                            type: 'is'
-                        }
-                    ]
-                });
-            });
-
-            it('member is with RSSI over 4 from beacon bob,tom',function(){
-                var condition = parser.parse("member is with RSSI over 4 from beacon bob,tom");
-                should(condition).eql({
-                    conditions: [
-                        {
-
-                            geoFilter: { type: 'RSSI_over', rssiValue:4, beaconCodes: [ 'bob' ,'tom'] },
-                            scope: 'member',
-                            type: 'is'
-                        }
-                    ]
-                });
-            });
-
-            it('member is with RSSI below 4 from beacon bob,tom',function(){
-                var condition = parser.parse("member is with RSSI below 4 from beacon bob,tom");
-                should(condition).eql({
-                    conditions: [
-                        {
-                            geoFilter: { type: 'RSSI_below',rssiValue :4 , beaconCodes: [ 'bob' ,'tom'] },
-                            scope: 'member',
-                            type: 'is'
-                        }
-                    ]
-                });
-            });
-
-            it('member is with RSSI between 4  and 5 from beacon bob,tom',function(){
-                var condition = parser.parse("member is with RSSI between 4  and 5 from beacon bob,tom");
-                should(condition).eql({
-                    conditions: [
-                        {
-                            geoFilter: { type: 'RSSI_between', rssiValues:[4,5], beaconCodes: [ 'bob' ,'tom'] },
-                            scope: 'member',
-                            type: 'is'
-                        }
-                    ]
-                });
-            });
-
+            
         });
 
  

@@ -299,7 +299,7 @@ member_condition
 
     return rule;
 }
-/scope:"member" S* type:"is" S* geo:geoFilter
+/scope:"member" S* type:"is" S* geo:geoFilterIsLite
 {
     var rule= {
         scope:scope,
@@ -579,6 +579,15 @@ beacon_list
 = "beacon" S* first:beaconCode reminders:(S* "," S* beaconCode:beaconCode)*
 {
     return buildList(first,reminders,3);
+}
+
+/*geoFilterIsLite*/
+geoFilterIsLite="in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
+{
+    return {
+        type: 'zone',
+        zoneCodes: buildList(first, reminders, 3)
+    };
 }
 
 /*OTHER*/
