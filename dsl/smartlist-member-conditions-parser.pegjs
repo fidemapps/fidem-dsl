@@ -712,10 +712,8 @@ NUMBER "number"
 }
 
 PERCENT "percentage"
-=  ( "1" DIGIT DIGIT/(DIGIT? DIGIT) "." DIGIT+ /( DIGIT) "." DIGIT+ /(DIGIT? DIGIT)/DIGIT) S* "%"
+=  ( "100"/(DIGIT? DIGIT) "." DIGIT+ /( DIGIT) "." DIGIT+ /(DIGIT? DIGIT)/DIGIT) S* "%"
 {
-
-    console.log(text())
     return parseFloat(text());
 }
 
