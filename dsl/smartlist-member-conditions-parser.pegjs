@@ -383,7 +383,7 @@ has_rule_been
 }
 
 with_condition
-=condition:object_rule_tag S* value:operator_number?
+=condition:object_rule_tag S* value:(operator_percent/operator_number)?
 {
     return Object.assign(condition,value);
 }
@@ -603,9 +603,18 @@ attribute_operator_value
 }
 
 operator_number
-= operator:OPERATOR S* value: NUMBER
+= (operator:OPERATOR S* value: NUMBER)
 {
     return {
+        operator: operator,
+        value: value
+    };
+}
+operator_percent
+= operator:OPERATOR S* value:PERCENT
+{
+    return {
+        relative:true,
         operator: operator,
         value: value
     };
@@ -699,6 +708,14 @@ attributeName "attributeName"
 NUMBER "number"
 = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)
 {
+    return parseFloat(text());
+}
+
+PERCENT "percentage"
+=  ( "1" DIGIT DIGIT/(DIGIT? DIGIT) "." DIGIT+ /( DIGIT) "." DIGIT+ /(DIGIT? DIGIT)/DIGIT) S* "%"
+{
+
+    console.log(text())
     return parseFloat(text());
 }
 

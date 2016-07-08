@@ -8,7 +8,7 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-    describe('Auto-Complete List Member Conditions "is":', function () {
+    describe('Auto-Complete List Member Conditions "with":', function () {
         var literalChoices;
         var otherChoices;
         beforeEach(function (done) {
@@ -78,15 +78,27 @@ describe('<Unit Test>', function () {
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
-                        should(err.expected.length).equal(2);
+                        should(err.expected.length).equal(3);
                         should(literalChoices).eql([]);
-                        should(otherChoices).eql(['number','whitespace']);
+                        should(otherChoices).eql(['number','percentage','whitespace']);
                     }
                 });
 
                 it('member with tag bob >= 4',function(){
                     try {
-                        parser.parse('member with tag bob >= 4');
+                        parser.parse('member with tag bob >= 4 s');
+                    } catch (err) {
+                        var literalChoices = helper.extractLiterals(err);
+                        var otherChoices = helper.extractOthers(err);
+                        should(err.expected.length).equal(3);
+                        should(literalChoices).eql(['and']);
+                        should(otherChoices).eql(['whitespace']);
+                    }
+                });
+
+                it('member with tag bob >= 4%',function(){
+                    try {
+                        parser.parse('member with tag bob = 4% s');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);

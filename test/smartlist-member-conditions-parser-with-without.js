@@ -48,6 +48,45 @@ describe('<Unit Test>', function () {
                     });
                 });
 
+                it('member with tag bob = 3.3%',function(){
+                    var condition = parser.parse('member with tag bob = 3.3 %');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:3.3 },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member with tag bob = 40%',function(){
+                    var condition = parser.parse('member with tag bob = 40 %');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:40 },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member with tag bob = 100%',function(){
+                    var condition = parser.parse('member with tag bob = 100 %');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:100 },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
                 it('member without tag bob',function(){
                     var condition = parser.parse('member without tag bob ');
                     should(condition).eql({
