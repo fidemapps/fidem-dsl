@@ -63,7 +63,6 @@ describe('<Unit Test>', function () {
                 });
             });
 
-
             it('member created between 2014-01-01T10:10:10 and 2015-01-01T08:08:08', function (done) {
                 var condition = parser.parse('member created between 2014-01-01T10:10:10 and 2015-01-01T08:08:08');
                 should(condition).eql({
