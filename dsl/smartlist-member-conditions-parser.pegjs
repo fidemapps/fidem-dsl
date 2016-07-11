@@ -615,7 +615,7 @@ operator_percent
 {
     return {
         relative:true,
-        scope:'total',
+        relativeScope:'total',
         operator: operator,
         value: value
     };
@@ -625,7 +625,7 @@ operator_percent
     return {
         relative:true,
         operator: operator,
-        scope:'member',
+        relativeScope:'member',
         value: value
     };
 }

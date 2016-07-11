@@ -66,7 +66,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:3.3,scope:'member' },
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:3.3,relativeScope:'member' },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -79,7 +79,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:40 ,scope:'member'},
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:40 ,relativeScope:'member'},
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -92,7 +92,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:100 ,scope:'member'},
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:100 ,relativeScope:'member'},
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -105,7 +105,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:3.3,scope:'total' },
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:3.3,relativeScope:'total' },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -118,7 +118,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:40 ,scope:'total'},
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:40 ,relativeScope:'total'},
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -131,7 +131,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:100 ,scope:'total'},
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:100 ,relativeScope:'total'},
                                 scope: 'member',
                                 type: 'with'
                             }

@@ -22513,7 +22513,7 @@ module.exports = (function() {
         peg$c137 = function(operator, value) {
             return {
                 relative:true,
-                scope:'total',
+                relativeScope:'total',
                 operator: operator,
                 value: value
             };
@@ -22522,7 +22522,7 @@ module.exports = (function() {
             return {
                 relative:true,
                 operator: operator,
-                scope:'member',
+                relativeScope:'member',
                 value: value
             };
         },
