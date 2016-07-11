@@ -611,11 +611,21 @@ operator_number
     };
 }
 operator_percent
-= operator:OPERATOR S* value:PERCENT
+= operator:OPERATOR S* value:PERCENT S* "of total"
+{
+    return {
+        relative:true,
+        scope:'total',
+        operator: operator,
+        value: value
+    };
+}
+/operator:OPERATOR S* value:PERCENT
 {
     return {
         relative:true,
         operator: operator,
+        scope:'member',
         value: value
     };
 }
