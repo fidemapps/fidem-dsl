@@ -53,8 +53,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(14);
-                    should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'in range of', 'in zone', 'in', 'less', 'since', 'with RSSI']);
+                    should(error.expected.length).equal(11);
+                    should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'in', 'less', 'since']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -90,8 +90,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(14);
-                    should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'in range of', 'in zone', 'in', 'less', 'since', 'with RSSI']);
+                    should(error.expected.length).equal(11);
+                    should(literalChoices).eql(['after', 'and', 'at', 'before', 'between', 'exactly', 'in', 'less', 'since']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });

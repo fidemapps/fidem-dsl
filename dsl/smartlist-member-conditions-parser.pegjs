@@ -188,7 +188,7 @@ member_condition
 
     return rule;
 }
-/scope:"member" S* type:"has" S* conditions:has_rule_completed S* occurrence:occurrenceFilter?  S* geo:geoFilter? S* period:periodFilter?
+/scope:"member" S* type:"has" S* conditions:has_rule_completed S* occurrence:occurrenceFilter?   S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -200,9 +200,6 @@ member_condition
         rule.periodFilter=period;
     }
 
-    if(geo){
-        rule.geoFilter=geo;
-    }
 
     if(occurrence){
         rule.occurrenceFilter = occurrence;
@@ -210,7 +207,7 @@ member_condition
 
     return rule;
 }
-/scope:"member" S* type:"has" S* "not" S* conditions:has_rule_completed S* occurrence:occurrenceFilter?  S* geo:geoFilter? S* period:periodFilter?
+/scope:"member" S* type:"has" S* "not" S* conditions:has_rule_completed S* occurrence:occurrenceFilter?   S* period:periodFilter?
 {
     var rule= {
         scope:scope,
@@ -223,9 +220,6 @@ member_condition
         rule.periodFilter=period;
     }
 
-    if(geo){
-        rule.geoFilter=geo;
-    }
 
     if(occurrence){
         rule.occurrenceFilter = occurrence;
