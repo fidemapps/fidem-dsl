@@ -29,8 +29,8 @@ describe('<Unit Test>', function () {
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(4);
-                    should(literalChoices).eql(['points','prize','tag']);
+                    should(err.expected.length).equal(5);
+                    should(literalChoices).eql(['level','points','prize','tag']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -41,8 +41,8 @@ describe('<Unit Test>', function () {
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(4);
-                    should(literalChoices).eql(['points','prize','tag']);
+                    should(err.expected.length).equal(5);
+                    should(literalChoices).eql(['level','points','prize','tag']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -102,23 +102,12 @@ describe('<Unit Test>', function () {
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
-                        should(err.expected.length).equal(4);
-                        should(literalChoices).eql(['and','of total']);
-                        should(otherChoices).eql(['whitespace']);
-                    }
-                });
-
-                it('member with tag bob >= 4%',function(){
-                    try {
-                        parser.parse('member with tag bob = 4% of total s');
-                    } catch (err) {
-                        var literalChoices = helper.extractLiterals(err);
-                        var otherChoices = helper.extractOthers(err);
                         should(err.expected.length).equal(3);
                         should(literalChoices).eql(['and']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
+
             });
 
             describe('points',function(){
@@ -140,8 +129,8 @@ describe('<Unit Test>', function () {
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
-                        should(err.expected.length).equal(6);
-                        should(literalChoices).eql(['<', '<=', '=', '>', '>=' ]);
+                        should(err.expected.length).equal(8);
+                        should(literalChoices).eql(['<', '<=', '=', '>', '>=','and' ]);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });

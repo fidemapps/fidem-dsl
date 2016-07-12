@@ -99,45 +99,7 @@ describe('<Unit Test>', function () {
                         ]
                     });
                 });
-
-                it('member with tag bob = 3.3% of total',function(){
-                    var condition = parser.parse('member with tag bob = 3.3 % of total');
-                    should(condition).eql({
-                        conditions: [
-                            {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:3.3,relativeScope:'total' },
-                                scope: 'member',
-                                type: 'with'
-                            }
-                        ]
-                    });
-                });
-
-                it('member with tag bob = 40% of total',function(){
-                    var condition = parser.parse('member with tag bob = 40 % of total');
-                    should(condition).eql({
-                        conditions: [
-                            {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:40 ,relativeScope:'total'},
-                                scope: 'member',
-                                type: 'with'
-                            }
-                        ]
-                    });
-                });
-
-                it('member with tag bob = 100% of total',function(){
-                    var condition = parser.parse('member with tag bob = 100 %of total');
-                    should(condition).eql({
-                        conditions: [
-                            {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:100 ,relativeScope:'total'},
-                                scope: 'member',
-                                type: 'with'
-                            }
-                        ]
-                    });
-                });
+                
 
                 it('member without tag bob',function(){
                     var condition = parser.parse('member without tag bob ');
@@ -170,6 +132,33 @@ describe('<Unit Test>', function () {
             });
 
             describe('points',function(){
+
+                it('member with points levelCode',function(){
+                    var condition = parser.parse('member with points levelCode');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'points',levelCode: 'levelCode' },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member without points levelCode',function(){
+                    var condition = parser.parse('member without points levelCode');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                negative:true,
+                                query: { type:'points',levelCode: 'levelCode' },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
 
                 it('member with points levelCode < 10',function(){
                     var condition = parser.parse('member with points levelCode < 10');
@@ -212,6 +201,77 @@ describe('<Unit Test>', function () {
                     });
                 });
 
+            });
+            
+            describe('level',function(){
+
+                it('member with level levelCode',function(){
+                    var condition = parser.parse('member with level levelCode');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'level',levelCode: 'levelCode' },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member without level levelCode',function(){
+                    var condition = parser.parse('member without level levelCode');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                negative:true,
+                                query: { type:'level',levelCode: 'levelCode' },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member with level levelCode < 10',function(){
+                    var condition = parser.parse('member with level levelCode < 10');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'level',levelCode: 'levelCode', operator:'<',value:10 },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member without level levelCode < 10',function(){
+                    var condition = parser.parse('member without level levelCode < 10');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'level',levelCode: 'levelCode', operator:'<',value:10 },
+                                negative:true,
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member without level levelCode <= 10',function(){
+                    var condition = parser.parse('member without level levelCode <= 10');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'level',levelCode: 'levelCode', operator:'<=',value:10 },
+                                negative:true,
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
             });
 
             describe('prize',function(){

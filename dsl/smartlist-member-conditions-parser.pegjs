@@ -387,13 +387,17 @@ with_condition
 {
     return Object.assign(condition,value);
 }
-/condition:object_rule_points S* value:operator_number
+/condition:object_rule_points S* value:operator_number?
 {
     return Object.assign(condition,value);
 }
 /condition:object_rule_prize
 {
     return condition;
+}
+/condition:object_rule_level S* value:operator_number?
+{
+    return Object.assign(condition,value);
 }
 
 object_rule
@@ -415,6 +419,15 @@ object_rule_points
         type:'points',
         levelCode:levelCode
 
+    }
+}
+
+object_rule_level
+="level" S* levelCode:levelCode
+{
+    return {
+        type:'level',
+        levelCode:levelCode
     }
 }
 
@@ -611,16 +624,7 @@ operator_number
     };
 }
 operator_percent
-= operator:OPERATOR S* value:PERCENT S* "of total"
-{
-    return {
-        relative:true,
-        relativeScope:'total',
-        operator: operator,
-        value: value
-    };
-}
-/operator:OPERATOR S* value:PERCENT
+= operator:OPERATOR S* value:PERCENT
 {
     return {
         relative:true,
