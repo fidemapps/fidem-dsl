@@ -19651,7 +19651,7 @@ module.exports = (function() {
           s3 = peg$parseS();
         }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsename();
+          s3 = peg$parseSTRING();
           if (s3 !== peg$FAILED) {
             peg$savedPos = s0;
             s1 = peg$c18(s3);
@@ -19685,7 +19685,7 @@ module.exports = (function() {
             s3 = peg$parseS();
           }
           if (s2 !== peg$FAILED) {
-            s3 = peg$parsename();
+            s3 = peg$parseSTRING();
             if (s3 !== peg$FAILED) {
               peg$savedPos = s0;
               s1 = peg$c21(s3);
@@ -19719,7 +19719,7 @@ module.exports = (function() {
               s3 = peg$parseS();
             }
             if (s2 !== peg$FAILED) {
-              s3 = peg$parsename();
+              s3 = peg$parseSTRING();
               if (s3 !== peg$FAILED) {
                 peg$savedPos = s0;
                 s1 = peg$c24(s3);
@@ -19753,7 +19753,7 @@ module.exports = (function() {
                 s3 = peg$parseS();
               }
               if (s2 !== peg$FAILED) {
-                s3 = peg$parsename();
+                s3 = peg$parseSTRING();
                 if (s3 !== peg$FAILED) {
                   peg$savedPos = s0;
                   s1 = peg$c27(s3);

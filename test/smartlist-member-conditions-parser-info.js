@@ -22,7 +22,7 @@ describe('<Unit Test>', function () {
         describe('Should parse member city/state/country/zip conditions', function () {
 
             it('member lives in city test', function (done) {
-                var condition = parser.parse('member lives in city test');
+                var condition = parser.parse('member lives in city "test"');
                 should(condition).eql({
                     conditions: [
                         {
@@ -36,7 +36,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member lives in state test', function (done) {
-                var condition = parser.parse('member lives in state test');
+                var condition = parser.parse('member lives in state "test"');
                 should(condition).eql({
                     conditions: [
                         {
@@ -50,7 +50,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member lives in country test', function (done) {
-                var condition = parser.parse('member lives in country test');
+                var condition = parser.parse('member lives in country "test"');
                 should(condition).eql({
                     conditions: [
                         {
@@ -64,7 +64,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member lives in zip test', function (done) {
-                var condition = parser.parse('member lives in zip test');
+                var condition = parser.parse('member lives in zip "test"');
                 should(condition).eql({
                     conditions: [
                         {
@@ -78,7 +78,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member lives not in city test', function (done) {
-                var condition = parser.parse('member lives not in city test');
+                var condition = parser.parse('member lives not in city "test"');
                 should(condition).eql({
                     conditions: [
                         {
@@ -93,7 +93,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member lives not in state test', function (done) {
-                var condition = parser.parse('member lives not in state test');
+                var condition = parser.parse('member lives not in state "test"');
                 should(condition).eql({
                     conditions: [
                         {
@@ -108,7 +108,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member lives not in country  "test"', function (done) {
-                var condition = parser.parse('member lives not in country test');
+                var condition = parser.parse('member lives not in country "test"');
                 should(condition).eql({
                     conditions: [
                         {
@@ -123,7 +123,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member live not in zip test', function (done) {
-                var condition = parser.parse('member lives not in zip test');
+                var condition = parser.parse('member lives not in zip "test"');
                 should(condition).eql({
                     conditions: [
                         {

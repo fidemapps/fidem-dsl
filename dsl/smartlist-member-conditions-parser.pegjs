@@ -87,28 +87,28 @@ member_scope_rule
 
 /*LIVE CONDITION*/
 live_condition
-= "city"  S* value:name
+= "city"  S* value:STRING
 {
     return {
         type:'city',
         cityName: value
     }
 }
-/ "state"  S* value:name
+/ "state"  S* value:STRING
 {
     return {
         type:'state',
         stateName: value
     }
 }
-/ "country" S* value:name
+/ "country" S* value:STRING
 {
     return {
         type:'country',
         countryName: value
     }
 }
-/ "zip"  S* value:name
+/ "zip"  S* value:STRING
 {
     return {
         type:'zip',
