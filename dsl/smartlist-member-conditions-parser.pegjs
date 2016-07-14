@@ -574,14 +574,14 @@ geoFilter
 / "in range of" S* beacons:beacon_list
 {
     return {
-        type: 'inRange',
+        type: 'in_range',
         beaconCodes:beacons
     }
 }
 / "with RSSI" S* type:("over"/"below") S* number:NUMBER S* "from" S* beacons:beacon_list
 {
     return{
-        type:type=='over'? "rssiOver":"rssiBelow",
+        type:type=='over'? "rssi_over":"rssi_below",
         rssiValue:number,
         beaconCodes:beacons
     }
@@ -589,7 +589,7 @@ geoFilter
 / "with RSSI" S* type:"between" S* start:NUMBER S* "and" S* end:NUMBER S* "from" S* beacons:beacon_list
 {
     return{
-        type:"rssiBetween",
+        type:"rssi_between",
         rssiValues:[start,end],
         beaconCodes:beacons
     }

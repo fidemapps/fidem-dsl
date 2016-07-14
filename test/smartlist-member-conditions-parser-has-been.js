@@ -73,7 +73,7 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'inRange',
+                                type:'in_range',
                                 beaconCodes:['bob']
                             }
                         }]
@@ -94,7 +94,7 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'inRange',
+                                type:'in_range',
                                 beaconCodes:['bob','tom']
                             }
                         }]
@@ -114,7 +114,7 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'rssiOver',
+                                type:'rssi_over',
                                 rssiValue:310,
                                 beaconCodes:['bob']
                             }
@@ -136,7 +136,7 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'rssiOver',
+                                type:'rssi_over',
                                 rssiValue:310,
                                 beaconCodes:['bob','tom','carl']
                             }
@@ -157,7 +157,7 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'rssiBelow',
+                                type:'rssi_below',
                                 rssiValue:4,
                                 beaconCodes:['bob']
                             }
@@ -179,7 +179,7 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'rssiBelow',
+                                type:'rssi_below',
                                 rssiValue:4,
                                 beaconCodes:['bob','eric','jean']
                             }
@@ -200,7 +200,7 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'rssiBetween',
+                                type:'rssi_between',
                                 rssiValues:[4,6],
                                 beaconCodes:['bob']
                             }
@@ -221,7 +221,7 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'rssiBetween',
+                                type:'rssi_between',
                                 rssiValues:[6,4],
                                 beaconCodes:['bob','norbert']
                             }

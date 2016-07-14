@@ -243,7 +243,7 @@ describe('<Unit Test>', function () {
                                 actionCode:'eat'
                             },
                             geoFilter:{
-                                type:'inRange',
+                                type:'in_range',
                                 beaconCodes:['BEACON1','BEACON2']
                             }
                         }
@@ -280,7 +280,7 @@ describe('<Unit Test>', function () {
                                 actionCode:'eat'
                             },
                             geoFilter:{
-                                type:'rssiBelow',
+                                type:'rssi_below',
                                 rssiValue:3,
                                 beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
@@ -318,7 +318,7 @@ describe('<Unit Test>', function () {
                                 actionCode:'eat'
                             },
                             geoFilter:{
-                                type:'rssiOver',
+                                type:'rssi_over',
                                 rssiValue:3,
                                 beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
@@ -355,7 +355,7 @@ describe('<Unit Test>', function () {
                                 prizeCode:'bob'
                             },
                             geoFilter:{
-                                type:'rssiBetween',
+                                type:'rssi_between',
                                 rssiValues:[3,4],
                                 beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }

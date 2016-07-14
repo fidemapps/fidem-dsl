@@ -18893,7 +18893,7 @@ module.exports = (function() {
         peg$c126 = { type: "literal", value: "in range of", description: "\"in range of\"" },
         peg$c127 = function(beacons) {
             return {
-                type: 'inRange',
+                type: 'in_range',
                 beaconCodes:beacons
             }
         },
@@ -18907,14 +18907,14 @@ module.exports = (function() {
         peg$c135 = { type: "literal", value: "from", description: "\"from\"" },
         peg$c136 = function(type, number, beacons) {
             return{
-                type:type=='over'? "rssiOver":"rssiBelow",
+                type:type=='over'? "rssi_over":"rssi_below",
                 rssiValue:number,
                 beaconCodes:beacons
             }
         },
         peg$c137 = function(type, start, end, beacons) {
             return{
-                type:"rssiBetween",
+                type:"rssi_between",
                 rssiValues:[start,end],
                 beaconCodes:beacons
             }
