@@ -29,8 +29,8 @@ describe('<Unit Test>', function () {
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(5);
-                    should(literalChoices).eql(['level','points','prize','tag']);
+                    should(err.expected.length).equal(6);
+                    should(literalChoices).eql(['level','points','prize','tag','tagCluster']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -41,8 +41,8 @@ describe('<Unit Test>', function () {
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(5);
-                    should(literalChoices).eql(['level','points','prize','tag']);
+                    should(err.expected.length).equal(6);
+                    should(literalChoices).eql(['level','points','prize','tag','tagCluster']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });

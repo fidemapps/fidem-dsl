@@ -114,9 +114,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < 2 before 2016-03-03T04:40:40', function (done) {
+            it('member did not TEST with jean < 2 before 2016-03-03 04:40', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < 2 before 2016-03-03T04:40:40');
+                var rule = parser.parse('member did not TEST with jean < 2 before 2016-03-03  04:40');
                 should(rule).eql({
                     conditions: [
                         {
@@ -136,7 +136,7 @@ describe('<Unit Test>', function () {
                             },
                             periodFilter: {
                                 type: 'before',
-                                date: '2016-03-03 04:40:40'
+                                date: '2016-03-03 04:40'
                             }
                         }
                     ]
@@ -144,9 +144,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 times before 2016-03-03T04:40:40', function (done) {
+            it('member did not TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40 pm', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times before 2016-03-03T04:40:40');
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40 pm');
                 should(rule).eql({
                     conditions: [
                         {
@@ -170,7 +170,7 @@ describe('<Unit Test>', function () {
                             },
                             periodFilter: {
                                 type: 'before',
-                                date: '2016-03-03 04:40:40'
+                                date: '2016-03-03 16:40'
                             }
                         }
                     ]
@@ -178,8 +178,8 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 time in zone montreal,laval after 2016-03-03T04:40:40',function(){
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time in zone montreal,laval after 2016-03-03T04:40:40');
+            it('member did not TEST with jean < "thomas" less than 3 time in zone montreal,laval after 2016-03-03 4:40',function(){
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time in zone montreal,laval after 2016-03-03 4:40');
                 should(rule).eql({
                     conditions: [
                         {
@@ -203,7 +203,7 @@ describe('<Unit Test>', function () {
                             },
                             periodFilter: {
                                 type: 'after',
-                                date: '2016-03-03 04:40:40'
+                                date: '2016-03-03 04:40'
                             },
                             geoFilter:{
                                 type:'zone',
@@ -280,7 +280,7 @@ describe('<Unit Test>', function () {
                                 actionCode:'eat'
                             },
                             geoFilter:{
-                                type:'RSSI_below',
+                                type:'rssiBelow',
                                 rssiValue:3,
                                 beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
@@ -318,7 +318,7 @@ describe('<Unit Test>', function () {
                                 actionCode:'eat'
                             },
                             geoFilter:{
-                                type:'RSSI_over',
+                                type:'rssiOver',
                                 rssiValue:3,
                                 beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }
@@ -355,7 +355,7 @@ describe('<Unit Test>', function () {
                                 prizeCode:'bob'
                             },
                             geoFilter:{
-                                type:'RSSI_between',
+                                type:'rssiBetween',
                                 rssiValues:[3,4],
                                 beaconCodes:['BEACON1','BEACON2','BEACON3']
                             }

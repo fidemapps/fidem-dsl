@@ -137,8 +137,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob before 2016-04-04T10:10:10',function(done){
-                    var rule = parser.parse('member has gained tag bob before 2016-04-04T10:10:10');
+                it('member has gained tag bob before 2016-04-04 10:10',function(done){
+                    var rule = parser.parse('member has gained tag bob before 2016-04-04 10:10');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -153,7 +153,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'before',
-                                        date:'2016-04-04 10:10:10'
+                                        date:'2016-04-04 10:10'
                                     }
 
                                 }]
@@ -162,8 +162,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob after 2016-04-04T10:10:10',function(done){
-                    var rule = parser.parse('member has gained tag bob after 2016-04-04T10:10:10');
+                it('member has gained tag bob after 2016-04-04 10:10 pm',function(done){
+                    var rule = parser.parse('member has gained tag bob after 2016-04-04 10:10 pm');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -178,7 +178,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'after',
-                                        date:'2016-04-04 10:10:10'
+                                        date:'2016-04-04 22:10'
                                     }
 
                                 }]
@@ -187,8 +187,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10',function(done){
-                    var rule = parser.parse('member has gained tag bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10');
+                it('member has gained tag bob between  2016-04-04   10:10 and  2016-04-05 10:10',function(done){
+                    var rule = parser.parse('member has gained tag bob between  2016-04-04 10:10 and  2016-04-05 10:10 pm');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -203,7 +203,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'between',
-                                        dates:['2016-04-04 10:10:10','2016-04-05 10:10:10']
+                                        dates:['2016-04-04 10:10','2016-04-05 22:10']
                                     }
 
                                 }]
@@ -419,8 +419,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained points bob before 2016-04-04T10:10:10',function(done){
-                    var rule = parser.parse('member has gained points bob before 2016-04-04T10:10:10');
+                it('member has gained points bob before 2016-04-04 10:10',function(done){
+                    var rule = parser.parse('member has gained points bob before 2016-04-04 10:10');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -432,7 +432,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'before',
-                                        date:'2016-04-04 10:10:10'
+                                        date:'2016-04-04 10:10'
                                     }
 
                                 }]
@@ -441,8 +441,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained points bob after 2016-04-04T10:10:10',function(done){
-                    var rule = parser.parse('member has gained points bob after 2016-04-04T10:10:10');
+                it('member has gained points bob after 2016-04-04 10:10',function(done){
+                    var rule = parser.parse('member has gained points bob after 2016-04-04 10:10');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -454,7 +454,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'after',
-                                        date:'2016-04-04 10:10:10'
+                                        date:'2016-04-04 10:10'
                                     }
 
                                 }]
@@ -463,8 +463,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained points bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10',function(done){
-                    var rule = parser.parse('member has gained points bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10');
+                it('member has gained points bob between  2016-04-04 10:10 and  2016-04-05 10:10',function(done){
+                    var rule = parser.parse('member has gained points bob between  2016-04-04 10:10 and  2016-04-05 10:10');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -476,7 +476,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'between',
-                                        dates:['2016-04-04 10:10:10','2016-04-05 10:10:10']
+                                        dates:['2016-04-04 10:10','2016-04-05 10:10']
                                     }
 
                                 }]
@@ -679,8 +679,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained prize bob before 2016-04-04T10:10:10',function(done){
-                    var rule = parser.parse('member has gained prize bob before 2016-04-04T10:10:10');
+                it('member has gained prize bob before 2016-04-04 10:10',function(done){
+                    var rule = parser.parse('member has gained prize bob before 2016-04-04 10:10');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -692,7 +692,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'before',
-                                        date:'2016-04-04 10:10:10'
+                                        date:'2016-04-04 10:10'
                                     }
 
                                 }]
@@ -701,8 +701,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained prize bob after 2016-04-04T10:10:10',function(done){
-                    var rule = parser.parse('member has gained prize bob after 2016-04-04T10:10:10');
+                it('member has gained prize bob after 2016-04-04 10:10',function(done){
+                    var rule = parser.parse('member has gained prize bob after 2016-04-04 10:10');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -714,7 +714,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'after',
-                                        date:'2016-04-04 10:10:10'
+                                        date:'2016-04-04 10:10'
                                     }
 
                                 }]
@@ -723,8 +723,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained prize bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10',function(done){
-                    var rule = parser.parse('member has gained prize bob between  2016-04-04T10:10:10 and  2016-04-05T10:10:10');
+                it('member has gained prize bob between  2016-04-04  10:10 and  2016-04-05  10:10',function(done){
+                    var rule = parser.parse('member has gained prize bob between  2016-04-04 09:10 and  2016-04-05 09:10 pm');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -736,7 +736,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'between',
-                                        dates:['2016-04-04 10:10:10','2016-04-05 10:10:10']
+                                        dates:['2016-04-04 09:10','2016-04-05 21:10']
                                     }
 
                                 }]

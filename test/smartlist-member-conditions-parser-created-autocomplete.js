@@ -30,7 +30,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['datetime', 'whitespace']);
+                    should(otherChoices).eql(['date', 'whitespace']);
                 }
             });
 
@@ -41,13 +41,13 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['datetime', 'whitespace']);
+                    should(otherChoices).eql(['date', 'whitespace']);
                 }
             });
 
             it('member created after/before datetime', function () {
                 try {
-                    parser.parse('member created after 2016-03-04T23:20:20 2');
+                    parser.parse('member created after 2016-03-04 23:20:20 2');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -65,13 +65,13 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['datetime', 'whitespace']);
+                    should(otherChoices).eql(['date', 'whitespace']);
                 }
             });
 
             it('member created between datetime', function () {
                 try {
-                    parser.parse('member created between 2016-03-04T23:20:20');
+                    parser.parse('member created between 2016-03-04 11:20 pm');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -84,18 +84,18 @@ describe('<Unit Test>', function () {
 
             it('member created between datetime and', function () {
                 try {
-                    parser.parse('member created between 2016-03-04T23:20:20 and');
+                    parser.parse('member created between 2016-03-04 3:20 and');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['datetime', 'whitespace']);
+                    should(otherChoices).eql(['date', 'whitespace']);
                 }
             });
 
             it('member created between datetime and datetime', function () {
                 try {
-                    parser.parse('member created between 2016-03-04T23:20:20 and 2016-03-04T23:20:21 4');
+                    parser.parse('member created between 2016-03-04 03:20 and 2016-03-04 23:20 4');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);

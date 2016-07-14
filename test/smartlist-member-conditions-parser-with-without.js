@@ -27,7 +27,20 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' } },
+                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },operator:'>',value:0 },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member with tag bob:boby',function(){
+                    var condition = parser.parse('member with tag bob:boby');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tag',tagCode: { tagClusterCode: 'bob', tagCode: 'boby' },operator:'>',value:0 },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -106,7 +119,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag', tagCode: { tagClusterCode: null, tagCode: 'bob' } },
+                                query: { type:'tag', tagCode: { tagClusterCode: null, tagCode: 'bob' },operator:'>',value:0 },
                                 negative:true,
                                 scope: 'member',
                                 type: 'with'
@@ -131,6 +144,77 @@ describe('<Unit Test>', function () {
 
             });
 
+            describe('tagCluster',function(){
+
+                it('member with tagCluster bob',function(){
+                    var condition = parser.parse('member with tagCluster bob');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tagCluster', tagClusterCode:'bob',operator:'>',value:0 },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member with tagCluster bob = 3',function(){
+                    var condition = parser.parse('member with tagCluster bob =3');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tagCluster',tagClusterCode: 'bob' , operator:'=',value:3 },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member with tagCluster bob = 3.5',function(){
+                    var condition = parser.parse('member with tagCluster bob =3.5');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tagCluster',tagClusterCode:  'bob' , operator:'=',value:3.5 },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member without tagCluster bob',function(){
+                    var condition = parser.parse('member without tagCluster bob ');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tagCluster',  tagClusterCode:  'bob' ,operator:'>',value:0 },
+                                negative:true,
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+                it('member without tagCluster bob > 3',function(){
+                    var condition = parser.parse('member without tagCluster bob > 3');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tagCluster', tagClusterCode:  'bob' ,operator:'>',value:3 },
+                                negative:true,
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
+            });
+
             describe('points',function(){
 
                 it('member with points levelCode',function(){
@@ -138,7 +222,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'points',levelCode: 'levelCode' },
+                                query: { type:'points',levelCode: 'levelCode',operator:'>',value:0 },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -152,7 +236,7 @@ describe('<Unit Test>', function () {
                         conditions: [
                             {
                                 negative:true,
-                                query: { type:'points',levelCode: 'levelCode' },
+                                query: { type:'points',levelCode: 'levelCode',operator:'>',value:0 },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -210,7 +294,7 @@ describe('<Unit Test>', function () {
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'level',levelCode: 'levelCode' },
+                                query: { operator: '>', type: 'level', value: 0,levelCode: 'levelCode' },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -224,7 +308,7 @@ describe('<Unit Test>', function () {
                         conditions: [
                             {
                                 negative:true,
-                                query: { type:'level',levelCode: 'levelCode' },
+                                query: {operator: '>', type: 'level', value: 0,levelCode: 'levelCode' },
                                 scope: 'member',
                                 type: 'with'
                             }

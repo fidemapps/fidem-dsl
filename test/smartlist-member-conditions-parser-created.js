@@ -35,13 +35,13 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member created after 2014-01-01T10:10:10',function(){
-                var condition = parser.parse("member created after 2014-01-01T10:10:10");
+            it('member created after 2014-01-01 10:10',function(){
+                var condition = parser.parse("member created after 2014-01-01 10:10");
                 should(condition).eql({
                     conditions: [
                         {
 
-                            periodFilter: { date: '2014-01-01 10:10:10', type: 'after' },
+                            periodFilter: { date: '2014-01-01 10:10', type: 'after' },
                             scope: 'member',
                             type: 'created'
                         }
@@ -49,13 +49,13 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member created before 2014-01-01T10:10:10',function(){
-                var condition = parser.parse("member created before 2014-01-01T10:10:10");
+            it('member created before 2014-01-01 10:10 pm',function(){
+                var condition = parser.parse("member created before 2014-01-01 10:10 pm");
                 should(condition).eql({
                     conditions: [
                         {
 
-                            periodFilter: { date: '2014-01-01 10:10:10', type: 'before' },
+                            periodFilter: { date: '2014-01-01 22:10', type: 'before' },
                             scope: 'member',
                             type: 'created'
                         }
@@ -63,14 +63,14 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member created between 2014-01-01T10:10:10 and 2015-01-01T08:08:08', function (done) {
-                var condition = parser.parse('member created between 2014-01-01T10:10:10 and 2015-01-01T08:08:08');
+            it('member created between 2014-01-01 8:10 and 2015-01-01 08:08', function (done) {
+                var condition = parser.parse('member created between 2014-01-01 08:10 and 2015-01-01 08:08');
                 should(condition).eql({
                     conditions: [
                         {
 
                             periodFilter: {
-                                dates: [ '2014-01-01 10:10:10', '2015-01-01 08:08:08' ],
+                                dates: [ '2014-01-01 08:10', '2015-01-01 08:08' ],
                                 type: 'between'
                             },
                             scope: 'member',

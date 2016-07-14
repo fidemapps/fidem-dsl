@@ -377,13 +377,17 @@ has_rule_been
 }
 
 with_condition
-=condition:object_rule_tag S* value:(operator_percent/operator_number)?
+=condition:object_rule_tagCluster S* value:operator_number?
 {
-    return Object.assign(condition,value);
+    return value ? Object.assign(condition,value):Object.assign(condition,{operator:'>',value:0});
+}
+/condition:object_rule_tag S* value:(operator_percent/operator_number)?
+{
+    return value ? Object.assign(condition,value):Object.assign(condition,{operator:'>',value:0});
 }
 /condition:object_rule_points S* value:operator_number?
 {
-    return Object.assign(condition,value);
+    return value ? Object.assign(condition,value):Object.assign(condition,{operator:'>',value:0});
 }
 /condition:object_rule_prize
 {
@@ -391,7 +395,7 @@ with_condition
 }
 /condition:object_rule_level S* value:operator_number?
 {
-    return Object.assign(condition,value);
+    return value ? Object.assign(condition,value):Object.assign(condition,{operator:'>',value:0});
 }
 
 object_rule
@@ -403,6 +407,15 @@ object_rule_tag
     return {
         type:'tag',
         tagCode:tagCode
+    }
+}
+
+object_rule_tagCluster
+="tagCluster" S* tagClusterCode:tagClusterCode
+{
+    return {
+        type:'tagCluster',
+        tagClusterCode:tagClusterCode
     }
 }
 
@@ -568,7 +581,7 @@ geoFilter
 / "with RSSI" S* type:("over"/"below") S* number:NUMBER S* "from" S* beacons:beacon_list
 {
     return{
-        type:"RSSI_"+type,
+        type:type=='over'? "rssiOver":"rssiBelow",
         rssiValue:number,
         beaconCodes:beacons
     }
@@ -576,7 +589,7 @@ geoFilter
 / "with RSSI" S* type:"between" S* start:NUMBER S* "and" S* end:NUMBER S* "from" S* beacons:beacon_list
 {
     return{
-        type:"RSSI_"+type,
+        type:"rssiBetween",
         rssiValues:[start,end],
         beaconCodes:beacons
     }
@@ -696,7 +709,7 @@ levelCode "levelCode"
 
 
 tagCode "tagCode"
-= tagClusterCode:tagClusterCode? code:code
+= tagClusterCode:tagClusterCodeForTag? code:code
 {
     return {
         tagCode: code,
@@ -704,8 +717,12 @@ tagCode "tagCode"
     }
 }
 
-tagClusterCode
-= code:code ":" { return code; }
+tagClusterCodeForTag
+=tagClusterCode:tagClusterCode ":" {return tagClusterCode}
+
+
+tagClusterCode "tagClusterCode"
+= code:code { return code; }
 
 zoneCode "zoneCode"
 = code
@@ -747,7 +764,7 @@ time_hour_12
 = $([0] DIGIT) / $([1] [0-2]) / $(DIGIT)
 
 time_hour_24
-=$([0-1] DIGIT) / $([2][0-3])
+=$([0-1] DIGIT) / $([2][0-3]) / $(DIGIT)
 
 time_minute
 = $([0-5] DIGIT)
@@ -757,14 +774,29 @@ time_second
 
 
 TIME_24 "time"
-= hour:time_hour_24 ":" minute:time_minute second:(":" time_second)?
+= hour:time_hour_24 ":" minute:time_minute
 {
     return {
         hour: hour,
-        minute: minute,
-        second: second ? second[1] : "00"
+        minute: minute
     }
 }
+
+TIME_CHOICE
+    = time:TIME_12 S* choice:("am"/"pm")
+     {
+        if(choice=="pm"){
+            time.hour=parseInt(time.hour)+12;
+        }
+        return time.hour+":"+time.minute;
+    }
+
+TIME_12 "time"
+    = hour:time_hour_12 ":" minute:time_minute
+    {
+
+        return {hour: hour.length === 1? "0"+hour:hour,minute:minute};
+    }
 
 DATE "date"
 = year:date_full_year "-" month:date_month "-" day:date_day
@@ -772,11 +804,16 @@ DATE "date"
     return year + "-" + month + "-" + day;
 }
 
-DATE_TIME "datetime"
-= year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
+DATE_TIME
+= date:DATE S* time:TIME_CHOICE
 {
-    return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+    return date+ " " + time;
 }
+/ date:DATE S* time:TIME_24
+{
+    return date+ " " + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute;
+}
+
 
 OPERATOR
 = op:(">=" / "<=" / "=" / ">" / "<")

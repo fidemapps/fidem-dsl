@@ -77,9 +77,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member has not completed TEST before 2016-03-03T04:40:40', function (done) {
+            it('member has not completed TEST before 2016-03-03 04:40 am', function (done) {
 
-                var rule = parser.parse('member has not completed TEST before 2016-03-03T04:40:40');
+                var rule = parser.parse('member has not completed TEST before 2016-03-03 04:40 am');
                 should(rule).eql({
                     conditions: [
                         {
@@ -92,16 +92,16 @@ describe('<Unit Test>', function () {
                             },
                             periodFilter: {
                                 type: 'before',
-                                date: '2016-03-03 04:40:40'
+                                date: '2016-03-03 04:40'
                             }
                         }]
                 });
                 done();
             });
 
-            it('member has not completed TEST less than 3 times after 2016-03-03T04:40:40', function (done) {
+            it('member has not completed TEST less than 3 times after 2016-03-03 4:40 am', function (done) {
 
-                var rule = parser.parse('member has not completed TEST less than 3 times after 2016-03-03T04:40:40');
+                var rule = parser.parse('member has not completed TEST less than 3 times after 2016-03-03 4:40 am');
                 should(rule).eql({
                     conditions: [
                         {
@@ -118,7 +118,7 @@ describe('<Unit Test>', function () {
                             },
                             periodFilter: {
                                 type: 'after',
-                                date: '2016-03-03 04:40:40'
+                                date: '2016-03-03 04:40'
                             }
                         }]
                 });
