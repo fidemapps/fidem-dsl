@@ -13,6 +13,10 @@ var literals = fidemdsl.challengeRules.literals;
 
 ## Release a version
 
+1. Change the parser.
+2. Change the test.
+3. Update in lib the literals list.
+
 ```
 grunt
 ```
