@@ -144,10 +144,10 @@ describe('<Unit Test>', function () {
 
             });
 
-            describe('tagCluster',function(){
+            describe('tag cluster',function(){
 
-                it('member with tagCluster bob',function(){
-                    var condition = parser.parse('member with tagCluster bob');
+                it('member with tag cluster bob',function(){
+                    var condition = parser.parse('member with tag cluster bob');
                     should(condition).eql({
                         conditions: [
                             {
@@ -159,8 +159,8 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member with tagCluster bob = 3',function(){
-                    var condition = parser.parse('member with tagCluster bob =3');
+                it('member with tag cluster bob = 3',function(){
+                    var condition = parser.parse('member with tag cluster bob =3');
                     should(condition).eql({
                         conditions: [
                             {
@@ -172,8 +172,8 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member with tagCluster bob = 3.5',function(){
-                    var condition = parser.parse('member with tagCluster bob =3.5');
+                it('member with tag cluster bob = 3.5',function(){
+                    var condition = parser.parse('member with tag cluster bob =3.5');
                     should(condition).eql({
                         conditions: [
                             {
@@ -185,8 +185,8 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member without tagCluster bob',function(){
-                    var condition = parser.parse('member without tagCluster bob ');
+                it('member without tag cluster bob',function(){
+                    var condition = parser.parse('member without tag cluster bob ');
                     should(condition).eql({
                         conditions: [
                             {
@@ -199,8 +199,8 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member without tagCluster bob > 3',function(){
-                    var condition = parser.parse('member without tagCluster bob > 3');
+                it('member without tag cluster bob > 3',function(){
+                    var condition = parser.parse('member without tag cluster bob > 3');
                     should(condition).eql({
                         conditions: [
                             {

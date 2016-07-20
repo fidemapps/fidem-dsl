@@ -411,7 +411,7 @@ object_rule_tag
 }
 
 object_rule_tagCluster
-="tagCluster" S* tagClusterCode:tagClusterCode
+="tag cluster" S* tagClusterCode:tagClusterCode
 {
     return {
         type:'tagCluster',
