@@ -17,7 +17,7 @@
     "url": "https://github.com/fidemapps/fidem-dsl/issues"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "devDependencies": {
     "chai": "^1.9.2",

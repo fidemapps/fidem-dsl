@@ -19,3 +19,6 @@ module.exports.smartListMemberConditions.literals = require('./lib/smartlist-mem
 
 module.exports.smartListLimit = require('./lib/smartlist-limit-parser');
 module.exports.smartListLimit.literals = require('./lib/smartlist-limit').literals;
+
+module.exports.contentMemberConditions = require('./lib/content-member-conditions-parser');
+module.exports.contentMemberConditions.literals = require('./lib/content-member-conditions').literals;
