@@ -9,8 +9,7 @@ var parser;
 
 describe('<Unit Test>', function () {
     describe('Auto-Complete Content Member Conditions "belongs to smartlist":', function () {
-        var literalChoices;
-        var otherChoices;
+
         beforeEach(function (done) {
             fs.readFile(__dirname + '/../dsl/content-member-conditions-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
@@ -22,8 +21,7 @@ describe('<Unit Test>', function () {
         });
 
         describe('belongs to smartlist rule',function(){
-            var literalChoices;
-            var otherChoices;
+
 
             it('member belongs to smartlist',function(){
                 try {
