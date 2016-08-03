@@ -803,7 +803,7 @@ date_month
 = ($([0] [1-9]) / $([1] [0-2]))
 
 date_day
-= ($([0-2] [1-9]) / $([3] [0-1]))
+= ($([0-2] DIGIT) / $([3] [0-1]))
 
 time_hour_12
 = $([0] DIGIT) / $([1] [0-2]) / $(DIGIT)
@@ -871,7 +871,11 @@ DATE_AFTER "date (YYYY-MM-DD)"
 }
 
 DATE_TIME
-= date:DATE S* time:TIME_CHOICE
+= date:DATE
+{
+    return date + " " + "00:00";
+}
+/date:DATE S* time:TIME_CHOICE
 {
     return date + " " + time;
 }
@@ -879,10 +883,7 @@ DATE_TIME
 {
     return date + " " + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute;
 }
-/date:DATE
-{
-    return date + " " + "00:00";
-}
+
 
 DATE_TIME_AFTER
 = date:DATE S* time:TIME_CHOICE
