@@ -871,11 +871,7 @@ DATE_AFTER "date (YYYY-MM-DD)"
 }
 
 DATE_TIME
-= date:DATE
-{
-    return date + " " + "00:00";
-}
-/date:DATE S* time:TIME_CHOICE
+= date:DATE S* time:TIME_CHOICE
 {
     return date + " " + time;
 }
@@ -883,6 +879,10 @@ DATE_TIME
 {
     return date + " " + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute;
 }
+/date:DATE
+ {
+     return date + " " + "00:00";
+ }
 
 
 DATE_TIME_AFTER
