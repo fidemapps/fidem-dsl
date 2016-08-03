@@ -23,26 +23,16 @@ describe('<Unit Test>', function () {
 
         describe('should auto-complete the occurrence filter', function () {
 
-            it('member did something at', function () {
-                try {
-                    parser.parse('member did something at');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(literalChoices).eql(['least']);
-                    should(otherChoices).eql(['whitespace']);
-                }
-            });
 
             it('member did something at least', function () {
                 try {
                     parser.parse('member did something at least');
                 } catch (error) {
+                    literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
+                    should(error.expected.length).equal(3);
+                    should(literalChoices).eql(['once']);
                     should(otherChoices).eql(['number', 'whitespace']);
                 }
             });
@@ -54,8 +44,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['time', 'times']);
+                    should(error.expected.length).equal(2);
+                    should(literalChoices).eql(['times']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -68,33 +58,20 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(11);
-                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in range of', 'in zone', 'in', 'since', 'with RSSI']);
+                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in last','in range of', 'in zone',  'since', 'with RSSI']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
 
             it('member did something at least number time', function () {
                 try {
-                    parser.parse('member did something at least 1 time 3');
+                    parser.parse('member did something at least 1 times 3');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(11);
-                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in range of', 'in zone', 'in', 'since', 'with RSSI']);
-                    should(otherChoices).eql(['whitespace']);
-                }
-            });
-
-            it('member did something less', function () {
-                try {
-                    parser.parse('member did something less');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(literalChoices).eql(['than']);
+                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in last', 'in range of', 'in zone', 'since', 'with RSSI']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -131,7 +108,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(11);
-                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in range of', 'in zone', 'in', 'since', 'with RSSI']);
+                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in last','in range of',  'in zone' ,'since', 'with RSSI']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -144,7 +121,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(11);
-                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in range of', 'in zone', 'in', 'since', 'with RSSI']);
+                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in last','in range of', 'in zone',  'since', 'with RSSI']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -181,7 +158,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(11);
-                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in range of', 'in zone', 'in', 'since', 'with RSSI']);
+                    should(literalChoices).eql([  'after', 'and', 'before', 'between','in last', 'in range of', 'in zone',  'since', 'with RSSI']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -194,7 +171,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(11);
-                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in range of', 'in zone', 'in', 'since', 'with RSSI']);
+                    should(literalChoices).eql([  'after', 'and', 'before', 'between', 'in last','in range of', 'in zone',  'since', 'with RSSI']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });

@@ -55,7 +55,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member belongs to smartlist bob since 1 minute',function(done){
-                var condition = parser.parse('member belongs to smartlist bob since 1 minute');
+                var condition = parser.parse('member belongs to smartlist bob since one minute');
                 should(condition).eql({
                     conditions: [
                         {
@@ -121,7 +121,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member belongs to smartlist bob,steve since 30 hour',function(done){
-                var condition = parser.parse('member belongs to smartlist bob,steve since 30 hour');
+                var condition = parser.parse('member belongs to smartlist bob,steve since 30 hours');
                 should(condition).eql({
                     conditions: [
                         {
@@ -165,7 +165,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member belongs to smartlist bob,steve,mike since 3000 day',function(done){
-                var condition = parser.parse('member belongs to smartlist bob,steve,mike since 3000 day');
+                var condition = parser.parse('member belongs to smartlist bob,steve,mike since 3000 days');
                 should(condition).eql({
                     conditions: [
                         {
@@ -187,7 +187,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member belongs to smartlist bob since 2 week',function(done){
-                var condition = parser.parse('member belongs to smartlist bob since 2 week');
+                var condition = parser.parse('member belongs to smartlist bob since 2 weeks');
                 should(condition).eql({
                     conditions: [
                         {
@@ -231,7 +231,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member belongs to smartlist bob since 6 month',function(done){
-                var condition = parser.parse('member belongs to smartlist bob since 6 month');
+                var condition = parser.parse('member belongs to smartlist bob since 6 months');
                 should(condition).eql({
                     conditions: [
                         {
@@ -275,7 +275,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member belongs to smartlist bob since 8 year',function(done){
-                var condition = parser.parse('member belongs to smartlist bob since 8 year');
+                var condition = parser.parse('member belongs to smartlist bob since 8 years');
                 should(condition).eql({
                     conditions: [
                         {
@@ -360,7 +360,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member does not belong to smartlist bob since 1 minute',function(done){
-                var condition = parser.parse('member does not belong to smartlist bob since 1 minute');
+                var condition = parser.parse('member does not belong to smartlist bob since one minute');
                 should(condition).eql({
                     conditions: [
                         {
@@ -429,7 +429,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member does not belong to smartlist bob,steve since 30 hour',function(done){
-                var condition = parser.parse('member does not belong to smartlist bob,steve since 30 hour');
+                var condition = parser.parse('member does not belong to smartlist bob,steve since 30 hours');
                 should(condition).eql({
                     conditions: [
                         {
@@ -475,7 +475,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member does not belong to smartlist bob,steve,mike since 3000 day',function(done){
-                var condition = parser.parse('member does not belong to smartlist bob,steve,mike since 3000 day');
+                var condition = parser.parse('member does not belong to smartlist bob,steve,mike since 3000 days');
                 should(condition).eql({
                     conditions: [
                         {
@@ -498,7 +498,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member does not belong to smartlist bob since 2 week',function(done){
-                var condition = parser.parse('member does not belong to smartlist bob since 2 week');
+                var condition = parser.parse('member does not belong to smartlist bob since 2 weeks');
                 should(condition).eql({
                     conditions: [
                         {
@@ -544,7 +544,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member does not belong to smartlist bob since 6 month',function(done){
-                var condition = parser.parse('member does not belong to smartlist bob since 6 month');
+                var condition = parser.parse('member does not belong to smartlist bob since 6 months');
                 should(condition).eql({
                     conditions: [
                         {
@@ -590,7 +590,7 @@ describe('<Unit Test>', function () {
             });
 
             it('member does not belong to smartlist bob since 8 year',function(done){
-                var condition = parser.parse('member does not belong to smartlist bob since 8 year');
+                var condition = parser.parse('member does not belong to smartlist bob since 8 years');
                 should(condition).eql({
                     conditions: [
                         {

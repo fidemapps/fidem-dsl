@@ -46,7 +46,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(9);
-                    should(literalChoices).eql([',','after','and','before','between','in','since']);
+                    should(literalChoices).eql([',','after','and','before','between','in last','since']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -72,7 +72,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(9);
-                    should(literalChoices).eql([',','after','and','before','between','in','since']);
+                    should(literalChoices).eql([',','after','and','before','between','in last','since']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -111,7 +111,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(9);
-                    should(literalChoices).eql([',','after','and','before','between','in','since']);
+                    should(literalChoices).eql([',','after','and','before','between','in last','since']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -137,7 +137,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(9);
-                    should(literalChoices).eql([',','after','and','before','between','in','since']);
+                    should(literalChoices).eql([',','after','and','before','between','in last','since']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });

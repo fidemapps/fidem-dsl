@@ -82,8 +82,8 @@ describe('<Unit Test>', function () {
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(2);
-                    should(literalChoices).eql([]);
+                    should(err.expected.length).equal(8);
+                    should(literalChoices).eql([ 'one day',  'one hour',  'one minute', 'one month', 'one week',  'one year']);
                     should(otherChoices).eql(['number','whitespace']);
                 }
             });
@@ -95,15 +95,15 @@ describe('<Unit Test>', function () {
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(13);
-                    should(literalChoices).eql([ 'day', 'days', 'hour', 'hours', 'minute', 'minutes', 'month', 'months', 'week', 'weeks', 'year', 'years']);
+                    should(err.expected.length).equal(7);
+                    should(literalChoices).eql([  'days',  'hours',  'minutes',  'months',  'weeks',  'years']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
 
             it('member belongs to smartlist bob,dan since 3 day',function(){
                 try {
-                    parser.parse("member belongs to smartlist bob,dan since 3 day d");
+                    parser.parse("member belongs to smartlist bob,dan since 3 days d");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -180,8 +180,8 @@ describe('<Unit Test>', function () {
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(2);
-                    should(literalChoices).eql([]);
+                    should(err.expected.length).equal(8);
+                    should(literalChoices).eql([ 'one day',  'one hour',  'one minute', 'one month', 'one week',  'one year']);
                     should(otherChoices).eql(['number','whitespace']);
                 }
             });
@@ -193,15 +193,15 @@ describe('<Unit Test>', function () {
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(13);
-                    should(literalChoices).eql([ 'day', 'days', 'hour', 'hours', 'minute', 'minutes', 'month', 'months', 'week', 'weeks', 'year', 'years']);
+                    should(err.expected.length).equal(7);
+                    should(literalChoices).eql([  'days',  'hours',  'minutes',  'months',  'weeks',  'years']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
 
             it('member does not belong to smartlist bob,dan since 3 day',function(){
                 try {
-                    parser.parse("member does not belong to smartlist bob,dan since 3 day d");
+                    parser.parse("member does not belong to smartlist bob,dan since 3 days d");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);

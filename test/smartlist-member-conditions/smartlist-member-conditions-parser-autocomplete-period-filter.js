@@ -31,7 +31,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['date', 'whitespace']);
+                    should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                 }
             });
 
@@ -42,7 +42,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['date', 'whitespace']);
+                    should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                 }
             });
 
@@ -66,7 +66,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['date', 'whitespace']);
+                    should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                 }
             });
 
@@ -90,7 +90,7 @@ describe('<Unit Test>', function () {
                     otherChoices = helper.extractOthers(error);
 
                     should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['date', 'whitespace']);
+                    should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                 }
             });
 
@@ -107,26 +107,16 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something in', function () {
-                try {
-                    parser.parse('member did something in');
-                } catch (error) {
-                    literalChoices = helper.extractLiterals(error);
-                    otherChoices = helper.extractOthers(error);
-
-                    should(error.expected.length).equal(2);
-                    should(literalChoices).eql(['last']);
-                    should(otherChoices).eql(['whitespace']);
-                }
-            });
 
             it('member did something in last', function () {
                 try {
                     parser.parse('member did something in last');
                 } catch (error) {
+                    literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
+                    should(error.expected.length).equal(8);
+                    should(literalChoices).eql(['day', 'hour',  'minute',  'month', 'week',  'year']);
                     should(otherChoices).eql(['number', 'whitespace']);
                 }
             });
@@ -138,8 +128,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(13);
-                    should(literalChoices).eql(['day', 'days', 'hour', 'hours', 'minute', 'minutes', 'month', 'months', 'week', 'weeks', 'year', 'years']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql([ 'days',  'hours',  'minutes',  'months',  'weeks',  'years']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });

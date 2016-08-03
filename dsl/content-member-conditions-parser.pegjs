@@ -424,7 +424,7 @@ smartlist_condition
 }
 
 smartlist_condition_condition
-= type:'since' S* duration:NUMBER S* durationScope:timeframe
+= type:'since' S* duration:NUMBER S* durationScope:timeframes
 {
     return {
         condition:{
@@ -434,6 +434,16 @@ smartlist_condition_condition
         }
     }
 }
+/type:'since' S* durationScope:one_timeframe
+ {
+     return {
+         condition:{
+             type:type,
+             duration: 1,
+             durationScope: durationScope
+         }
+     }
+ }
 
 object_rule
 =(object_rule_tag / object_rule_points / object_rule_prize)
@@ -487,17 +497,24 @@ object_rule_prize
 /*OCCURRENCE FILTER*/
 
 occurrenceFilter
-= "at" S* type:"least" S* number:NUMBER S* ("times" / "time")
+= "at least" S* number:NUMBER S* "times"
 {
     return {
-        type:type,
+        type:"least",
         frequency:number
     }
 }
-/type:"less" S* "than" S* number:NUMBER S* ("times" / "time")
+/ "at least" S* "once"
+ {
+     return {
+         type:"least",
+         frequency:1
+     }
+ }
+/"less than" S* number:NUMBER S* ("times" / "time")
 {
     return {
-        type:type,
+        type:"less",
         frequency:number
     }
 }
@@ -522,25 +539,33 @@ periodFilterCreatedLite
         date:date
     }
 }
-/type:"after" S* date:DATE_TIME
+/type:"after" S* date:DATE_TIME_AFTER
 {
     return {
         type:type,
         date:date
     }
 }
-/type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
+/type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME_AFTER
 {
     return {
         type:type,
         dates:[start,end]
     }
 }
-/"in" S* type:"last" S* duration:NUMBER S* durationScope:timeframe
+/"in last" S* duration:NUMBER S* durationScope:timeframes
 {
     return {
-        type:type,
+        type:"last",
         duration: duration,
+        durationScope: durationScope
+    }
+}
+/"in last" S* durationScope:timeframe
+{
+    return {
+        type:"last",
+        duration: 1,
         durationScope: durationScope
     }
 }
@@ -556,25 +581,33 @@ periodFilter
         date:date
     }
 }
-/type:"after" S* date:DATE_TIME
+/type:"after" S* date:DATE_TIME_AFTER
 {
     return {
         type:type,
         date:date
     }
 }
-/type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME
+/type:"between" S* start:DATE_TIME S* "and" S* end:DATE_TIME_AFTER
 {
     return {
         type:type,
         dates:[start,end]
     }
 }
-/"in" S* type:"last" S* duration:NUMBER S* durationScope:timeframe
+/"in last" S* duration:NUMBER S* durationScope:timeframes
 {
     return {
-        type:type,
+        type:"last",
         duration: duration,
+        durationScope: durationScope
+    }
+}
+/"in last" S* durationScope:timeframe
+{
+    return {
+        type:"last",
+        duration: 1,
         durationScope: durationScope
     }
 }
@@ -683,10 +716,21 @@ operator_percent
 /*PRIMARY*/
 
 timeframe
-= value:("minutes" / "minute" / "hours" / "hour" / "days" / "day" / "weeks" / "week" / "months" / "month" / "years" / "year" )
+ = value:( "minute" /  "hour" /  "day" /  "week" / "month" /  "year" )
+ {
+     return value.replace(/s/g,'');
+ }
+one_timeframe
+=value:( "one minute" /  "one hour" /  "one day" /  "one week" / "one month" /  "one year" )
 {
-    return value.replace(/s/g,'');
+   return (value.replace(/s/g,'')).replace(/one /g,'');
 }
+
+ timeframes
+ = value:("minutes" /"hours" / "days"  / "weeks"  / "months" / "years"  )
+ {
+     return value.replace(/s/g,'');
+ }
 
 string1
 = '"' chars:([^\n\r\f\\"] / "\\" )* '"'
@@ -836,20 +880,59 @@ TIME_12 "time"
         return {hour: hour.length === 1? "0"+hour:hour,minute:minute};
     }
 
-DATE "date"
+DATE "date (YYYY-MM-DD)"
 = year:date_full_year "-" month:date_month "-" day:date_day
 {
     return year + "-" + month + "-" + day;
 }
 
+DATE_AFTER "date (YYYY-MM-DD)"
+= year:date_full_year "-" month:date_month "-" day:date_day
+{
+    var d=parseInt(day);
+    var m=parseInt(month);
+    var y=parseInt(year);
+
+    if(d >= 31){
+        d="01";
+        m++;
+    }else{
+        d++;
+    }
+    if(m >= 12){
+        m="01"
+        y++;
+    }
+
+    return y + "-" + (m.toString().length === 1? "0"+m:m) + "-" + (d.toString().length === 1? "0"+d:d);
+}
+
 DATE_TIME
 = date:DATE S* time:TIME_CHOICE
 {
-    return date+ " " + time;
+    return date + " " + time;
 }
 / date:DATE S* time:TIME_24
 {
-    return date+ " " + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute;
+    return date + " " + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute;
+}
+/date:DATE
+{
+    return date + " " + "00:00";
+}
+
+DATE_TIME_AFTER
+= date:DATE S* time:TIME_CHOICE
+{
+    return date + " " + time;
+}
+/ date:DATE S* time:TIME_24
+{
+    return date + " " + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute;
+}
+/date:DATE_AFTER
+{
+    return date + " " + "00:00";
 }
 
 

@@ -114,6 +114,66 @@ describe('<Unit Test>', function () {
                 done();
             });
 
+            it('member did not TEST with jean < 2 at least once', function (done) {
+
+                var rule = parser.parse('member did not TEST with jean < 2 at least once');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'did',
+                            negative:true,
+                            query: {
+                                type:'action',
+                                actionCode: 'TEST',
+                                conditions: [
+                                    {
+                                        operator: '<',
+                                        name: 'jean',
+                                        value: 2
+                                    }
+                                ]
+                            },
+                            occurrenceFilter: {
+                                type: 'least',
+                                frequency: 1
+                            }
+                        }
+                    ]
+                });
+                done();
+            });
+
+            it('member did not TEST with jean < 2 at least 3 times', function (done) {
+
+                var rule = parser.parse('member did not TEST with jean < 2 at least 3 times');
+                should(rule).eql({
+                    conditions: [
+                        {
+                            scope: 'member',
+                            type: 'did',
+                            negative:true,
+                            query: {
+                                type:'action',
+                                actionCode: 'TEST',
+                                conditions: [
+                                    {
+                                        operator: '<',
+                                        name: 'jean',
+                                        value: 2
+                                    }
+                                ]
+                            },
+                            occurrenceFilter: {
+                                type: 'least',
+                                frequency: 3
+                            }
+                        }
+                    ]
+                });
+                done();
+            });
+
             it('member did not TEST with jean < 2 before 2016-03-03 04:40', function (done) {
 
                 var rule = parser.parse('member did not TEST with jean < 2 before 2016-03-03  04:40');
