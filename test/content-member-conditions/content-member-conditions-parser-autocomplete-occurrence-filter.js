@@ -80,9 +80,12 @@ describe('<Unit Test>', function () {
                 try {
                     parser.parse('member did something less than');
                 } catch (error) {
+                    literalChoices = helper.extractLiterals(error);
+
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
+                    should(error.expected.length).equal(3);
+                    should(literalChoices).eql(['once']);
                     should(otherChoices).eql(['number', 'whitespace']);
                 }
             });
@@ -94,8 +97,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['time', 'times']);
+                    should(error.expected.length).equal(2);
+                    should(literalChoices).eql([ 'times']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -115,7 +118,7 @@ describe('<Unit Test>', function () {
 
             it('member did something less than number time', function () {
                 try {
-                    parser.parse('member did something less than 1 time 3');
+                    parser.parse('member did something less than 1 times 3');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -130,9 +133,11 @@ describe('<Unit Test>', function () {
                 try {
                     parser.parse('member did something exactly');
                 } catch (error) {
+                    literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
+                    should(error.expected.length).equal(3);
+                    should(literalChoices).eql(['once']);
                     should(otherChoices).eql(['number', 'whitespace']);
                 }
             });
@@ -144,8 +149,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['time', 'times']);
+                    should(error.expected.length).equal(2);
+                    should(literalChoices).eql([ 'times']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -165,7 +170,7 @@ describe('<Unit Test>', function () {
 
             it('member did something exactly number time', function () {
                 try {
-                    parser.parse('member did something exactly 1 time 3');
+                    parser.parse('member did something exactly once 3');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);

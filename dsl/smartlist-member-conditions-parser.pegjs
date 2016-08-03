@@ -464,18 +464,32 @@ occurrenceFilter
         frequency:1
     }
 }
-/"less than" S* number:NUMBER S* ("times" / "time")
+/"less than" S* number:NUMBER S* "times"
 {
     return {
         type:"less",
         frequency:number
     }
 }
-/type:"exactly" S* number:NUMBER S* ("times" / "time")
+/"less than" S* "once"
+{
+    return {
+        type:"less",
+        frequency:1
+    }
+}
+/type:"exactly" S* number:NUMBER S* "times"
 {
     return {
         type:type,
         frequency:number
+    }
+}
+/type:"exactly" S* "once"
+{
+    return {
+        type:type,
+        frequency:1
     }
 }
 

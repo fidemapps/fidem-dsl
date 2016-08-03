@@ -238,8 +238,8 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 time in zone montreal,laval after 2016-03-03 4:40',function(){
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time in zone montreal,laval after 2016-03-03 4:40');
+            it('member did not TEST with jean < "thomas" less than 3 times in zone montreal,laval after 2016-03-03 4:40',function(){
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times in zone montreal,laval after 2016-03-03 4:40');
                 should(rule).eql({
                     conditions: [
                         {
@@ -274,9 +274,9 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 time in range of beacon BEACON1,BEACON2 since did eat',function(){
+            it('member did not TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat',function(){
 
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time in range of beacon BEACON1,BEACON2 since did eat');
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat');
                 should(rule).eql({
                     conditions: [
                         {
@@ -311,8 +311,8 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 time with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat',function(){
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat');
+            it('member did not TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat',function(){
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat');
                 should(rule).eql({
                     conditions: [
                         {
@@ -349,8 +349,8 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 time with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat',function(){
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat');
+            it('member did not TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat',function(){
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat');
                 should(rule).eql({
                     conditions: [
                         {
@@ -387,8 +387,8 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 time with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since recieved prize bob',function(){
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 time with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since received prize bob');
+            it('member did not TEST with jean < "thomas" less than 3 times with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since recieved prize bob',function(){
+                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since received prize bob');
                 should(rule).eql({
                     conditions: [
                         {
