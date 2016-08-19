@@ -2,11 +2,9 @@
   "name": "fidem-dsl",
   "version": "1.2.7",
   "description": "Fidem DSL and language parsers.",
-  "keywords": [
-    "fidem",
-    "dsl"
-  ],
-  "author": "Sébastien Guimont <sebastieng@sympatico.ca> (http://sebastienguimont.com/)",
+  "private": true,
+  "author": "Lune Rouge 360 Inc.",
+  "license": "UNLICENSED",
   "main": "index.js",
   "repository": {
     "type": "git",
