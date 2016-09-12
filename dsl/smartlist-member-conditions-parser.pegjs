@@ -323,15 +323,42 @@ member_condition
 
 
 did_rule
-=actionCode:actionCode S* condition:member_action_condition?
+=type:"action" S* actionCode:actionCode S* condition:member_action_condition?
 {
     var rule= {
-        type:'action',
+        type:type,
         actionCode:actionCode
     };
 
     if(condition){
         rule.conditions=condition;
+    }
+
+    return rule;
+}
+/type:"check-in" S* checkinCode:checkinCode S* condition:member_action_condition?
+{
+    var rule= {
+        type:"action",
+        actionCode:"check-in"
+    };
+
+    if(condition){
+        rule.conditions = condition.concat([
+            {
+                "operator": "=",
+                "name": "data.checkin_code",
+                "value": checkinCode
+            }
+        ]);
+    }else{
+    	rule.conditions = [
+    	    {
+                "operator": "=",
+                "name": "data.checkin_code",
+                "value": checkinCode
+            }
+        ];
     }
 
     return rule;
@@ -751,7 +778,8 @@ beaconCode "beaconCode"
 levelCode "levelCode"
 = code
 
-
+checkinCode "checkinCode"
+= code
 
 tagCode "tagCode"
 = tagClusterCode:tagClusterCodeForTag? code:code

@@ -7,7 +7,7 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-    describe('SmartList Member Conditions did:', function () {
+    describe('SmartList Member Conditions did action:', function () {
         beforeEach(function (done) {
             fs.readFile(__dirname + '/../../dsl/smartlist-member-conditions-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
@@ -54,9 +54,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did  TEST with jean < 2 & bob = 3', function (done) {
+            it('member did check-in TEST with jean < 2 & bob = 3', function (done) {
 
-                var rule = parser.parse('member did  TEST with jean < 2& bob = 3');
+                var rule = parser.parse('member did check-in TEST with jean < 2& bob = 3');
                 should(rule).eql({
                     conditions: [
                         {
@@ -64,7 +64,7 @@ describe('<Unit Test>', function () {
                             type: 'did',
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
@@ -75,6 +75,11 @@ describe('<Unit Test>', function () {
                                         operator: '=',
                                         name: 'bob',
                                         value: 3
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             }
@@ -84,9 +89,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < 2 less than 3 times', function (done) {
+            it('member did not check-in TEST with jean < 2 less than 3 times', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < 2 less than 3 times');
+                var rule = parser.parse('member did not check-in TEST with jean < 2 less than 3 times');
                 should(rule).eql({
                     conditions: [
                         {
@@ -95,12 +100,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: 2
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },
@@ -114,9 +124,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < 2 at least once', function (done) {
+            it('member did not check-in TEST with jean < 2 at least once', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < 2 at least once');
+                var rule = parser.parse('member did not check-in TEST with jean < 2 at least once');
                 should(rule).eql({
                     conditions: [
                         {
@@ -125,12 +135,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: 2
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },
@@ -144,9 +159,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < 2 at least 3 times', function (done) {
+            it('member did not check-in TEST with jean < 2 at least 3 times', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < 2 at least 3 times');
+                var rule = parser.parse('member did not check-in TEST with jean < 2 at least 3 times');
                 should(rule).eql({
                     conditions: [
                         {
@@ -155,12 +170,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: 2
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },
@@ -174,9 +194,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < 2 before 2016-03-03 04:40', function (done) {
+            it('member did not check-in TEST with jean < 2 before 2016-03-03 04:40', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < 2 before 2016-03-03  04:40');
+                var rule = parser.parse('member did not check-in TEST with jean < 2 before 2016-03-03  04:40');
                 should(rule).eql({
                     conditions: [
                         {
@@ -185,12 +205,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: 2
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },
@@ -204,9 +229,9 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40 pm', function (done) {
+            it('member did not check-in TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40 pm', function (done) {
 
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40 pm');
+                var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40 pm');
                 should(rule).eql({
                     conditions: [
                         {
@@ -215,12 +240,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: "thomas"
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },
@@ -238,8 +268,8 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 times in zone montreal,laval after 2016-03-03 4:40',function(){
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times in zone montreal,laval after 2016-03-03 4:40');
+            it('member did not check-in TEST with jean < "thomas" less than 3 times in zone montreal,laval after 2016-03-03 4:40',function(){
+                var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times in zone montreal,laval after 2016-03-03 4:40');
                 should(rule).eql({
                     conditions: [
                         {
@@ -248,12 +278,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: "thomas"
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },
@@ -274,9 +309,9 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat',function(){
+            it('member did not check-in TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat',function(){
 
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat');
+                var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat');
                 should(rule).eql({
                     conditions: [
                         {
@@ -285,12 +320,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: "thomas"
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },
@@ -311,8 +351,8 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat',function(){
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat');
+            it('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat',function(){
+                var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat');
                 should(rule).eql({
                     conditions: [
                         {
@@ -321,12 +361,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: "thomas"
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },
@@ -349,8 +394,8 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat',function(){
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat');
+            it('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat',function(){
+                var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat');
                 should(rule).eql({
                     conditions: [
                         {
@@ -359,12 +404,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: "thomas"
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },
@@ -387,8 +437,8 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            it('member did not TEST with jean < "thomas" less than 3 times with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since recieved prize bob',function(){
-                var rule = parser.parse('member did not TEST with jean < "thomas" less than 3 times with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since received prize bob');
+            it('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since recieved prize bob',function(){
+                var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI between 3  and 4 from beacon BEACON1,BEACON2,BEACON3 since received prize bob');
                 should(rule).eql({
                     conditions: [
                         {
@@ -397,12 +447,17 @@ describe('<Unit Test>', function () {
                             negative:true,
                             query: {
                                 type:'action',
-                                actionCode: 'TEST',
+                                actionCode: 'check-in',
                                 conditions: [
                                     {
                                         operator: '<',
                                         name: 'jean',
                                         value: "thomas"
+                                    },
+                                    {
+                                        name: 'data.checkin_code',
+                                        operator: '=',
+                                        value: 'TEST'
                                     }
                                 ]
                             },

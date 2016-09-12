@@ -521,8 +521,6 @@ untilDate
         };
     }
 
-DIGIT "digit"
-    = [0-9]
 
 date_full_year
     = $(DIGIT DIGIT DIGIT DIGIT)
