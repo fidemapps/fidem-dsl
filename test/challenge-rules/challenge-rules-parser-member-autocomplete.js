@@ -46,116 +46,215 @@ describe('<Unit Test>', function () {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(5);
-                        should(literalChoices).eql(['not','nothing','something']);
-                        should(otherChoices).eql([ 'actionCode','whitespace']);
+                        should(error.expected.length).equal(6);
+                        should(literalChoices).eql(['action','check-in','not','nothing','something']);
+                        should(otherChoices).eql([ 'whitespace']);
                     }
                 });
                 
                 it('member did not',function(){
-                    //This happen because the parser don't know yet that the word 'not' is a token and not an actionCode
                     try {
                         parser.parse('member did not');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(12);
-                        should(literalChoices).eql(['after','and','at','before','between','exactly','give','in','less','with']);
-                        should(otherChoices).eql([ 'actionCode','whitespace']);
-                    }
-                });
-                
-                it('member did actionCode',function(){
-                    try {
-                        parser.parse('member did eat 3');
-                    } catch (error) {
-                        literalChoices = helper.extractLiterals(error);
-                        otherChoices = helper.extractOthers(error);
-
-                        should(error.expected.length).equal(11);
-                        should(literalChoices).eql(['after','and','at','before','between','exactly','give','in','less','with']);
-
-                        should(otherChoices).eql([ 'whitespace']);
-                    }
-                });
-
-                it('member did actionCode with',function(){
-                    try {
-                        parser.parse('member did eat with');
-                    } catch (error) {
-                        otherChoices = helper.extractOthers(error);
-
-                        should(error.expected.length).equal(2);
-                        should(otherChoices).eql([ 'attributeName','whitespace']);
-                    }
-                });
-
-                it('member did actionCode with attributeName',function(){
-                    try {
-                        parser.parse('member did eat with bob');
-                    } catch (error) {
-                        literalChoices = helper.extractLiterals(error);
-                        otherChoices = helper.extractOthers(error);
-
-                        should(error.expected.length).equal(6);
-                        should(literalChoices).eql(['<','<=','=','>','>=']);
-                        should(otherChoices).eql([ 'whitespace']);
-                    }
-                });
-                
-                it('member did actionCode with attributeName =',function(){
-                    try {
-                        parser.parse('member did eat with bob =');
-                    } catch (error) {
-                        otherChoices = helper.extractOthers(error);
-                        literalChoices = helper.extractLiterals(error);
-
-
-                        should(error.expected.length).equal(4);
-                        should(literalChoices).eql(["'",'\"']);
-                        should(otherChoices).eql([ 'number','whitespace']);
-                    }
-                });
-
-                it('member did actionCode with attributeName = \"',function(){
-                    try {
-                        parser.parse('member did eat with bob = \"');
-                    } catch (error) {
-                        otherChoices = helper.extractOthers(error);
-                        literalChoices = helper.extractLiterals(error);
-
-
                         should(error.expected.length).equal(3);
-                        should(literalChoices).eql(['\"','\\']);
-                        should(otherChoices).eql([]);
+                        should(literalChoices).eql(['action','check-in']);
+                        should(otherChoices).eql(['whitespace']);
                     }
                 });
-                
-                it('member did actionCode with attributeName = \"attributeValue\"',function(){
-                    try {
-                        parser.parse('member did eat with bob = \"bob\" 3');
-                    } catch (error) {
-                        literalChoices = helper.extractLiterals(error);
-                        otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(11);
-                        should(literalChoices).eql([',','after','and','at','before','between','exactly','give','in','less']);
+                describe('action',function(){
 
-                        should(otherChoices).eql([ 'whitespace']);
-                    }
+                    it('member did action actionCode',function(){
+                        try {
+                            parser.parse('member did action eat 3');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(11);
+                            should(literalChoices).eql(['after','and','at','before','between','exactly','give','in','less','with']);
+
+                            should(otherChoices).eql([ 'whitespace']);
+                        }
+                    });
+
+                    it('member did action actionCode with',function(){
+                        try {
+                            parser.parse('member did action eat with');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql([ 'attributeName','whitespace']);
+                        }
+                    });
+
+                    it('member did action actionCode with attributeName',function(){
+                        try {
+                            parser.parse('member did action eat with bob');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(6);
+                            should(literalChoices).eql(['<','<=','=','>','>=']);
+                            should(otherChoices).eql([ 'whitespace']);
+                        }
+                    });
+
+                    it('member did action actionCode with attributeName =',function(){
+                        try {
+                            parser.parse('member did action eat with bob =');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+                            literalChoices = helper.extractLiterals(error);
+
+
+                            should(error.expected.length).equal(4);
+                            should(literalChoices).eql(["'",'\"']);
+                            should(otherChoices).eql([ 'number','whitespace']);
+                        }
+                    });
+
+                    it('member did action actionCode with attributeName = \"',function(){
+                        try {
+                            parser.parse('member did action eat with bob = \"');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+                            literalChoices = helper.extractLiterals(error);
+
+
+                            should(error.expected.length).equal(3);
+                            should(literalChoices).eql(['\"','\\']);
+                            should(otherChoices).eql([]);
+                        }
+                    });
+
+                    it('member did action actionCode with attributeName = \"attributeValue\"',function(){
+                        try {
+                            parser.parse('member did action eat with bob = \"bob\" 3');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(11);
+                            should(literalChoices).eql(['&','after','and','at','before','between','exactly','give','in','less']);
+
+                            should(otherChoices).eql([ 'whitespace']);
+                        }
+                    });
+
+                    it('member did action actionCode with attributeName = \"attributeValue\",',function(){
+                        try {
+                            parser.parse('member did action eat with bob = \"bob\"&');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql([ 'attributeName','whitespace']);
+                        }
+                    });
+                    
                 });
-                
-                it('member did actionCode with attributeName = \"attributeValue\",',function(){
-                    try {
-                        parser.parse('member did eat with bob = \"bob\",');
-                    } catch (error) {
-                        otherChoices = helper.extractOthers(error);
 
-                        should(error.expected.length).equal(2);
-                        should(otherChoices).eql([ 'attributeName','whitespace']);
-                    }
+                describe('check-in',function(){
+
+                    it('member did check-in checkinCode',function(){
+                        try {
+                            parser.parse('member did check-in eat 3');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(11);
+                            should(literalChoices).eql(['after','and','at','before','between','exactly','give','in','less','with']);
+
+                            should(otherChoices).eql([ 'whitespace']);
+                        }
+                    });
+
+                    it('member did check-in checkinCode with',function(){
+                        try {
+                            parser.parse('member did check-in eat with');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql([ 'attributeName','whitespace']);
+                        }
+                    });
+
+                    it('member did check-in checkinCode with attributeName',function(){
+                        try {
+                            parser.parse('member did check-in eat with bob');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(6);
+                            should(literalChoices).eql(['<','<=','=','>','>=']);
+                            should(otherChoices).eql([ 'whitespace']);
+                        }
+                    });
+
+                    it('member did check-in checkinCode with attributeName =',function(){
+                        try {
+                            parser.parse('member did check-in eat with bob =');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+                            literalChoices = helper.extractLiterals(error);
+
+
+                            should(error.expected.length).equal(4);
+                            should(literalChoices).eql(["'",'\"']);
+                            should(otherChoices).eql([ 'number','whitespace']);
+                        }
+                    });
+
+                    it('member did check-in checkinCode with attributeName = \"',function(){
+                        try {
+                            parser.parse('member did check-in eat with bob = \"');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+                            literalChoices = helper.extractLiterals(error);
+
+
+                            should(error.expected.length).equal(3);
+                            should(literalChoices).eql(['\"','\\']);
+                            should(otherChoices).eql([]);
+                        }
+                    });
+
+                    it('member did check-in checkinCode with attributeName = \"attributeValue\"',function(){
+                        try {
+                            parser.parse('member did check-in eat with bob = \"bob\" 3');
+                        } catch (error) {
+                            literalChoices = helper.extractLiterals(error);
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(11);
+                            should(literalChoices).eql(['&','after','and','at','before','between','exactly','give','in','less']);
+
+                            should(otherChoices).eql([ 'whitespace']);
+                        }
+                    });
+
+                    it('member did check-in checkinCode with attributeName = \"attributeValue\",',function(){
+                        try {
+                            parser.parse('member did check-in eat with bob = \"bob\"&');
+                        } catch (error) {
+                            otherChoices = helper.extractOthers(error);
+
+                            should(error.expected.length).equal(2);
+                            should(otherChoices).eql([ 'attributeName','whitespace']);
+                        }
+                    });
+
                 });
+
                 
                 it('member did nothing',function(){
                     try {
