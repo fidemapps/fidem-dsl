@@ -341,7 +341,7 @@ member_condition
 
 
 did_rule
-=actionCode:actionCode S* condition:member_action_condition?
+="action" S* actionCode:actionCode S* condition:member_action_condition?
 {
     var rule= {
         type:'action',
@@ -350,6 +350,33 @@ did_rule
 
     if(condition){
         rule.conditions=condition;
+    }
+
+    return rule;
+}
+/type:"check-in" S* checkinCode:checkinCode S* condition:member_action_condition?
+{
+    var rule= {
+        type:"action",
+        actionCode:"check-in"
+    };
+
+    if(condition){
+        rule.conditions = condition.concat([
+            {
+                "operator": "=",
+                "name": "data.checkin_code",
+                "value": checkinCode
+            }
+        ]);
+    }else{
+    	rule.conditions = [
+    	    {
+                "operator": "=",
+                "name": "data.checkin_code",
+                "value": checkinCode
+            }
+        ];
     }
 
     return rule;
@@ -787,19 +814,19 @@ code
 }
 
 challengeCode "challengeCode"
-= code
+    = code
 
 actionCode "actionCode"
-= code
+    = code
 
 prizeCode "prizeCode"
-= code
+    = code
 
 beaconCode "beaconCode"
-= code
+    = code
 
 levelCode "levelCode"
-= code
+    = code
 
 smartlistCode "smartlistCode"
     = code
@@ -814,17 +841,20 @@ tagCode "tagCode"
 }
 
 tagClusterCodeForTag
-=tagClusterCode:tagClusterCode ":" {return tagClusterCode}
+    =tagClusterCode:tagClusterCode ":" {return tagClusterCode}
 
 
 tagClusterCode "tagClusterCode"
-= code:code { return code; }
+    = code:code { return code; }
 
 zoneCode "zoneCode"
-= code
+    = code
 
 attributeName "attributeName"
-= code
+    = code
+
+checkinCode "checkinCode"
+    = code
 
 NUMBER "number"
 = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)
