@@ -153,7 +153,7 @@ member_condition
 
 
 member_action_condition
-    = "with" S* first:attribute_operator_value remainders:(S* "," S* attribute_operator_value)*
+    = "with" S* first:attribute_operator_value remainders:(S* "&" S* attribute_operator_value)*
     {
         return buildList(first,remainders,3);
     }
@@ -165,7 +165,7 @@ did_rule
         return {
              type:type
         }
-    }/type:"not" S* actionCode:actionCode S* condition:member_action_condition?
+    }/type:"not" S* "action" S* actionCode:actionCode S* condition:member_action_condition?
     {
         return {
             type:type,
@@ -173,18 +173,45 @@ did_rule
             conditions:condition
         }
     }
-
+    /type:"not" S* "check-in" s* checkinCode:checkinCode S* condition:member_action_condition?
+    {
+        return {
+            type:type,
+            code:"check-in",
+            conditions: condition ? condition.concat({
+            	"operator": "=",
+                 "name": "data.checkin_code",
+                 "value": checkinCode}):
+                 [{"operator": "=",
+                 "name": "data.checkin_code",
+                 "value": checkinCode}]
+        }
+    }
     /type:"something"
     {
         return {
             type:type
         }
-    }/actionCode:actionCode S* condition:member_action_condition?
+    }/"action" S* actionCode:actionCode S* condition:member_action_condition?
     {
     	return {
         	type:null,
             code:actionCode,
-            condition:condition
+            conditions:condition
+        }
+    }
+    /"check-in" S* checkinCode:checkinCode S* condition:member_action_condition?
+    {
+    	return {
+        	type:null,
+            code:'check-in',
+            conditions: condition ? condition.concat({
+            	"operator": "=",
+                 "name": "data.checkin_code",
+                 "value": checkinCode}):
+                 [{"operator": "=",
+                 "name": "data.checkin_code",
+                 "value": checkinCode}]
         }
     }
 
@@ -400,6 +427,9 @@ segmentCode "segmentCode"
 
 smartlistCode "smartlistCode"
     = code
+
+checkinCode "checkinCode"
+	= code
 
 tagCode "tagCode"
     = tagClusterCode:tagClusterCode? code:code
