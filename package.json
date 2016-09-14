@@ -1,6 +1,6 @@
 {
   "name": "fidem-dsl",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Fidem DSL and language parsers.",
   "private": true,
   "author": "Lune Rouge 360 Inc.",
