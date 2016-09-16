@@ -453,7 +453,7 @@ describe('<Unit Test>', function () {
 											value: 3
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -484,7 +484,7 @@ describe('<Unit Test>', function () {
 											value: 2
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -519,7 +519,7 @@ describe('<Unit Test>', function () {
 											value: 2
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -554,7 +554,7 @@ describe('<Unit Test>', function () {
 											value: 2
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -589,7 +589,7 @@ describe('<Unit Test>', function () {
 											value: 2
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -624,7 +624,7 @@ describe('<Unit Test>', function () {
 											value: "thomas"
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -662,7 +662,7 @@ describe('<Unit Test>', function () {
 											value: "thomas"
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -704,7 +704,7 @@ describe('<Unit Test>', function () {
 											value: "thomas"
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -745,7 +745,7 @@ describe('<Unit Test>', function () {
 											value: "thomas"
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -788,7 +788,7 @@ describe('<Unit Test>', function () {
 											value: "thomas"
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}
@@ -831,7 +831,7 @@ describe('<Unit Test>', function () {
 											value: "thomas"
 										},
 										{
-											name: 'data.checkin_code',
+											name: 'checkin_code',
 											operator: '=',
 											value: 'TEST'
 										}

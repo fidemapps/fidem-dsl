@@ -8,7 +8,7 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-	describe.only('Auto-Complete Content Member Conditions did:', function () {
+	describe('Auto-Complete Content Member Conditions did:', function () {
 		var literalChoices;
 		var otherChoices;
 		beforeEach(function (done) {
