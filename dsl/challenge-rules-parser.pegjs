@@ -268,7 +268,7 @@ did_rule
     	return {
         	type:null,
             code:"check-in",
-             condition: condition ? condition.concat({
+             conditions: condition ? condition.concat({
             	"operator": "=",
                  "name": "checkin_code",
                  "value": checkinCode}):
