@@ -180,10 +180,10 @@ did_rule
             code:"check-in",
             conditions: condition ? condition.concat({
             	"operator": "=",
-                 "name": "data.checkin_code",
+                 "name": "checkin_code",
                  "value": checkinCode}):
                  [{"operator": "=",
-                 "name": "data.checkin_code",
+                 "name": "checkin_code",
                  "value": checkinCode}]
         }
     }
@@ -207,10 +207,10 @@ did_rule
             code:'check-in',
             conditions: condition ? condition.concat({
             	"operator": "=",
-                 "name": "data.checkin_code",
+                 "name": "checkin_code",
                  "value": checkinCode}):
                  [{"operator": "=",
-                 "name": "data.checkin_code",
+                 "name": "checkin_code",
                  "value": checkinCode}]
         }
     }

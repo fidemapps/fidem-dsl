@@ -365,7 +365,7 @@ did_rule
         rule.conditions = condition.concat([
             {
                 "operator": "=",
-                "name": "data.checkin_code",
+                "name": "checkin_code",
                 "value": checkinCode
             }
         ]);
@@ -373,7 +373,7 @@ did_rule
     	rule.conditions = [
     	    {
                 "operator": "=",
-                "name": "data.checkin_code",
+                "name": "checkin_code",
                 "value": checkinCode
             }
         ];

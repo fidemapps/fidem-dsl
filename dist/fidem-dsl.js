@@ -221,10 +221,10 @@ module.exports = (function() {
                     code:"check-in",
                     conditions: condition ? condition.concat({
                     	"operator": "=",
-                         "name": "data.checkin_code",
+                         "name": "checkin_code",
                          "value": checkinCode}):
                          [{"operator": "=",
-                         "name": "data.checkin_code",
+                         "name": "checkin_code",
                          "value": checkinCode}]
                 }
             },
@@ -248,10 +248,10 @@ module.exports = (function() {
                     code:'check-in',
                     conditions: condition ? condition.concat({
                     	"operator": "=",
-                         "name": "data.checkin_code",
+                         "name": "checkin_code",
                          "value": checkinCode}):
                          [{"operator": "=",
-                         "name": "data.checkin_code",
+                         "name": "checkin_code",
                          "value": checkinCode}]
                 }
             },
@@ -6652,10 +6652,10 @@ module.exports = (function() {
                     code:'check-in',
                      conditions: condition ? condition.concat({
                     	"operator": "=",
-                         "name": "data.checkin_code",
+                         "name": "checkin_code",
                          "value": checkinCode}):
                          [{"operator": "=",
-                         "name": "data.checkin_code",
+                         "name": "checkin_code",
                          "value": checkinCode}]
                 }
             },
@@ -6679,10 +6679,10 @@ module.exports = (function() {
                     code:"check-in",
                      condition: condition ? condition.concat({
                     	"operator": "=",
-                         "name": "data.checkin_code",
+                         "name": "checkin_code",
                          "value": checkinCode}):
                          [{"operator": "=",
-                         "name": "data.checkin_code",
+                         "name": "checkin_code",
                          "value": checkinCode}]
                 }
             },
@@ -14488,7 +14488,7 @@ module.exports = (function() {
                 rule.conditions = condition.concat([
                     {
                         "operator": "=",
-                        "name": "data.checkin_code",
+                        "name": "checkin_code",
                         "value": checkinCode
                     }
                 ]);
@@ -14496,7 +14496,7 @@ module.exports = (function() {
             	rule.conditions = [
             	    {
                         "operator": "=",
-                        "name": "data.checkin_code",
+                        "name": "checkin_code",
                         "value": checkinCode
                     }
                 ];
@@ -26745,7 +26745,7 @@ module.exports = (function() {
                 rule.conditions = condition.concat([
                     {
                         "operator": "=",
-                        "name": "data.checkin_code",
+                        "name": "checkin_code",
                         "value": checkinCode
                     }
                 ]);
@@ -26753,7 +26753,7 @@ module.exports = (function() {
             	rule.conditions = [
             	    {
                         "operator": "=",
-                        "name": "data.checkin_code",
+                        "name": "checkin_code",
                         "value": checkinCode
                     }
                 ];
