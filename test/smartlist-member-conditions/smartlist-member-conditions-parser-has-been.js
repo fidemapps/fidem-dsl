@@ -8,7 +8,7 @@ var parser;
 
 describe('<Unit Test>', function () {
     describe('SmartList Member Conditions has been:', function () {
-        beforeEach(function (done) {
+        before(function (done) {
             fs.readFile(__dirname + '/../../dsl/smartlist-member-conditions-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
                     return done(err);
@@ -20,9 +20,9 @@ describe('<Unit Test>', function () {
 
         describe('has been',function(){
 
-            it('member has been in zone',function(){
+            it('member has been in geofence',function(){
 
-                var rule = parser.parse('member has been in zone bob');
+                var rule = parser.parse('member has been in geofence bob');
                 should(rule).eql({
                     conditions:[
                         {
@@ -32,17 +32,17 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'zone',
-                                zoneCodes:['bob']
+                                type:'geofence',
+                                geofenceCodes:['bob']
                             }
                         }]
                 });
 
             });
 
-            it('member has not been in zone',function(){
+            it('member has not been in geofence',function(){
 
-                var rule = parser.parse('member has not been in zone bob');
+                var rule = parser.parse('member has not been in geofence bob');
                 should(rule).eql({
                     conditions:[
                         {
@@ -53,8 +53,8 @@ describe('<Unit Test>', function () {
                                 type:'been'
                             },
                             geoFilter:{
-                                type:'zone',
-                                zoneCodes:['bob']
+                                type:'geofence',
+                                geofenceCodes:['bob']
                             }
                         }]
                 });

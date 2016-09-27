@@ -8,7 +8,7 @@ var parser;
 
 describe('<Unit Test>', function () {
     describe('Content Member Conditions has completed:', function () {
-        beforeEach(function (done) {
+        before(function (done) {
             fs.readFile(__dirname + '/../../dsl/content-member-conditions-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
                     return done(err);
@@ -125,8 +125,8 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it.skip('member has not completed TEST less than 3 time in zone montreal,laval after 2016-03-03T04:40:40',function(){
-                var rule = parser.parse('member has not completed TEST less than 3 time in zone montreal,laval after 2016-03-03T04:40:40');
+            it.skip('member has not completed TEST less than 3 time in geofence montreal,laval after 2016-03-03T04:40:40',function(){
+                var rule = parser.parse('member has not completed TEST less than 3 time in geofence montreal,laval after 2016-03-03T04:40:40');
                 should(rule).eql({
                     conditions: [
                         {
@@ -146,8 +146,8 @@ describe('<Unit Test>', function () {
                                 date: '2016-03-03 04:40:40'
                             },
                             geoFilter:{
-                                type:'zone',
-                                zoneCodes:['montreal','laval']
+                                type:'geofence',
+                                geofenceCodes:['montreal','laval']
                             }
                         }
                     ]

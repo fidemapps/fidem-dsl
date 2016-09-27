@@ -8,7 +8,7 @@ var parser;
 
 describe('<Unit Test>', function () {
   describe('Availability Rules:', function () {
-    beforeEach(function (done) {
+    before(function (done) {
       fs.readFile(__dirname + '/../../dsl/challenge-availability-rules-parser.pegjs', 'utf8', function (err, data) {
         if (err) {
           return done(err);
@@ -77,12 +77,12 @@ describe('<Unit Test>', function () {
       });
     });
 
-    describe('Should parse zone rules', function () {
-      it('in zone CODE1', function (done) {
+    describe('Should parse geofence rules', function () {
+      it('in geofence CODE1', function (done) {
 
-        var rule = parser.parse("in zone CODE1");
+        var rule = parser.parse("in geofence CODE1");
         should(rule).eql([{
-          scope: 'zone',
+          scope: 'geofence',
           codes: ['CODE1'],
           duration: null,
           timeframe: null
@@ -91,11 +91,11 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('in zone CODE1,CODE2', function (done) {
+      it('in geofence CODE1,CODE2', function (done) {
 
-        var rule = parser.parse("in zone CODE1,CODE2");
+        var rule = parser.parse("in geofence CODE1,CODE2");
         should(rule).eql([{
-          scope: 'zone',
+          scope: 'geofence',
           codes: ['CODE1', 'CODE2'],
           duration: null,
           timeframe: null
@@ -104,11 +104,11 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('in zone CODE1 for 3 hours', function (done) {
+      it('in geofence CODE1 for 3 hours', function (done) {
 
-        var rule = parser.parse("in zone CODE1 for 3 hours");
+        var rule = parser.parse("in geofence CODE1 for 3 hours");
         should(rule).eql([{
-          scope: 'zone',
+          scope: 'geofence',
           codes: ['CODE1'],
           duration: 3,
           timeframe: 'hour'
@@ -117,11 +117,11 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('in zone CODE1,CODE2 for 5 minutes', function (done) {
+      it('in geofence CODE1,CODE2 for 5 minutes', function (done) {
 
-        var rule = parser.parse("in zone CODE1,CODE2 for 5 minutes");
+        var rule = parser.parse("in geofence CODE1,CODE2 for 5 minutes");
         should(rule).eql([{
-          scope: 'zone',
+          scope: 'geofence',
           codes: ['CODE1', 'CODE2'],
           duration: 5,
           timeframe: 'minute'

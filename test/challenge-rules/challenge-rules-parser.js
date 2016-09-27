@@ -8,7 +8,7 @@ var parser;
 
 describe('<Unit Test>', function () {
   describe('Rules:', function () {
-    beforeEach(function (done) {
+    before(function (done) {
       fs.readFile(__dirname + '/../../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
         if (err) {
           return done(err);
@@ -18,16 +18,16 @@ describe('<Unit Test>', function () {
       });
     });
 
-    describe('Should parse zone rules', function () {
-      it('action TEST in zone CODE1 give 1 points', function (done) {
+    describe('Should parse geofence rules', function () {
+      it('action TEST in geofence CODE1 give 1 points', function (done) {
 
-        var rule = parser.parse("action TEST in zone CODE1 give 1 points");
+        var rule = parser.parse("action TEST in geofence CODE1 give 1 points");
         should(rule).eql({
           rules: [{
             scope: 'action', code: 'TEST',
             conditions: [],
             filters: [
-              {type: 'zone', zones: ['CODE1']}
+              {type: 'geofence', geofences: ['CODE1']}
             ]
           }],
           rewards: [
@@ -37,15 +37,15 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('action TEST in zone CODE1,CODE2 give 1 points', function (done) {
+      it('action TEST in geofence CODE1,CODE2 give 1 points', function (done) {
 
-        var rule = parser.parse("action TEST in zone CODE1,CODE2 give 1 points");
+        var rule = parser.parse("action TEST in geofence CODE1,CODE2 give 1 points");
         should(rule).eql({
           rules: [{
             scope: 'action', code: 'TEST',
             conditions: [],
             filters: [
-              {type: 'zone', zones: ['CODE1', 'CODE2']}
+              {type: 'geofence', geofences: ['CODE1', 'CODE2']}
             ]
           }],
           rewards: [
@@ -519,14 +519,14 @@ describe('<Unit Test>', function () {
 
     });
 
-    describe('Should parse member zone rules', function () {
-      it('member in zone CODE1 give 1 point', function (done) {
+    describe('Should parse member geofence rules', function () {
+      it('member in geofence CODE1 give 1 point', function (done) {
 
-        var rule = parser.parse("member in zone CODE1 give 1 points");
+        var rule = parser.parse("member in geofence CODE1 give 1 points");
         should(rule).eql({
           rules: [{
             scope: 'member',
-            type: 'zone',
+            type: 'geofence',
             codes: ['CODE1'],
             duration: null,
             timeframe: null
@@ -539,13 +539,13 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('member in zone CODE1,CODE2 give 1 point', function (done) {
+      it('member in geofence CODE1,CODE2 give 1 point', function (done) {
 
-        var rule = parser.parse("member in zone CODE1,CODE2 give 1 points");
+        var rule = parser.parse("member in geofence CODE1,CODE2 give 1 points");
         should(rule).eql({
           rules: [{
             scope: 'member',
-            type: 'zone',
+            type: 'geofence',
             codes: ['CODE1', 'CODE2'],
             duration: null,
             timeframe: null
@@ -558,13 +558,13 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('member in zone CODE1 for 10 minutes give 1 point', function (done) {
+      it('member in geofence CODE1 for 10 minutes give 1 point', function (done) {
 
-        var rule = parser.parse("member in zone CODE1 for 10 minutes give 1 points");
+        var rule = parser.parse("member in geofence CODE1 for 10 minutes give 1 points");
         should(rule).eql({
           rules: [{
             scope: 'member',
-            type: 'zone',
+            type: 'geofence',
             codes: ['CODE1'],
             duration: 10,
             timeframe: 'minute'

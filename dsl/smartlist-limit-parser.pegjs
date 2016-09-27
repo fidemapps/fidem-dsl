@@ -113,7 +113,7 @@ tagCode "tagCode"
 tagClusterCode
     = code:code ":" { return code; }
 
-zoneCode "zoneCode"
+geofenceCode "geofenceCode"
     = code
 
 smartlistCode "smartlistCode"

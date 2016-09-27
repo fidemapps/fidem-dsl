@@ -102,15 +102,15 @@ module.exports = (function() {
                     value: value
                 };
             },
-        peg$c20 = "in zone",
-        peg$c21 = { type: "literal", value: "in zone", description: "\"in zone\"" },
+        peg$c20 = "in geofence",
+        peg$c21 = { type: "literal", value: "in geofence", description: "\"in geofence\"" },
         peg$c22 = ",",
         peg$c23 = { type: "literal", value: ",", description: "\",\"" },
         peg$c24 = "for",
         peg$c25 = { type: "literal", value: "for", description: "\"for\"" },
         peg$c26 = function(first, reminders, durationOption) {
                 return {
-                    scope: "zone",
+                    scope: "geofence",
                     codes: buildList(first, reminders, 3),
                     duration: (durationOption) ? durationOption[3] : null,
                     timeframe: (durationOption) ? durationOption[5] : null
@@ -441,7 +441,7 @@ module.exports = (function() {
         peg$c150 = ":",
         peg$c151 = { type: "literal", value: ":", description: "\":\"" },
         peg$c152 = function(code) { return code; },
-        peg$c153 = { type: "other", description: "zoneCode" },
+        peg$c153 = { type: "other", description: "geofenceCode" },
         peg$c154 = { type: "other", description: "number" },
         peg$c155 = /^[+\-]/,
         peg$c156 = { type: "class", value: "[+-]", description: "[+-]" },
@@ -1196,9 +1196,9 @@ module.exports = (function() {
         }
         if (s0 === peg$FAILED) {
           s0 = peg$currPos;
-          if (input.substr(peg$currPos, 7) === peg$c20) {
+          if (input.substr(peg$currPos, 11) === peg$c20) {
             s1 = peg$c20;
-            peg$currPos += 7;
+            peg$currPos += 11;
           } else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) { peg$fail(peg$c21); }
@@ -1211,7 +1211,7 @@ module.exports = (function() {
               s3 = peg$parseS();
             }
             if (s2 !== peg$FAILED) {
-              s3 = peg$parsezoneCode();
+              s3 = peg$parsegeofenceCode();
               if (s3 !== peg$FAILED) {
                 s4 = [];
                 s5 = peg$currPos;
@@ -1237,7 +1237,7 @@ module.exports = (function() {
                       s9 = peg$parseS();
                     }
                     if (s8 !== peg$FAILED) {
-                      s9 = peg$parsezoneCode();
+                      s9 = peg$parsegeofenceCode();
                       if (s9 !== peg$FAILED) {
                         s6 = [s6, s7, s8, s9];
                         s5 = s6;
@@ -1282,7 +1282,7 @@ module.exports = (function() {
                         s9 = peg$parseS();
                       }
                       if (s8 !== peg$FAILED) {
-                        s9 = peg$parsezoneCode();
+                        s9 = peg$parsegeofenceCode();
                         if (s9 !== peg$FAILED) {
                           s6 = [s6, s7, s8, s9];
                           s5 = s6;
@@ -4281,7 +4281,7 @@ module.exports = (function() {
       return s0;
     }
 
-    function peg$parsezoneCode() {
+    function peg$parsegeofenceCode() {
       var s0, s1;
 
       peg$silentFails++;
@@ -6563,8 +6563,8 @@ module.exports = (function() {
 
                 return theRule;
             },
-        peg$c20 = "in zone",
-        peg$c21 = { type: "literal", value: "in zone", description: "\"in zone\"" },
+        peg$c20 = "in geofence",
+        peg$c21 = { type: "literal", value: "in geofence", description: "\"in geofence\"" },
         peg$c22 = ",",
         peg$c23 = { type: "literal", value: ",", description: "\",\"" },
         peg$c24 = "for",
@@ -6572,7 +6572,7 @@ module.exports = (function() {
         peg$c26 = function(scope, first, reminders, durationOption) {
                 var theRule = {
                     scope: scope,
-                    type: "zone",
+                    type: "geofence",
                     codes: buildList(first, reminders, 3),
                     duration: (durationOption) ? durationOption[3] : null,
                     timeframe: (durationOption) ? durationOption[5] : null
@@ -6913,8 +6913,8 @@ module.exports = (function() {
             },
         peg$c135 = function(first, reminders) {
                 return {
-                    type: 'zone',
-                    zones: buildList(first, reminders, 3)
+                    type: 'geofence',
+                    geofences: buildList(first, reminders, 3)
                 };
             },
         peg$c136 = "near",
@@ -7007,7 +7007,7 @@ module.exports = (function() {
         peg$c177 = ":",
         peg$c178 = { type: "literal", value: ":", description: "\":\"" },
         peg$c179 = function(code) { return code; },
-        peg$c180 = { type: "other", description: "zoneCode" },
+        peg$c180 = { type: "other", description: "geofenceCode" },
         peg$c181 = { type: "other", description: "beaconCode" },
         peg$c182 = { type: "other", description: "number" },
         peg$c183 = /^[+\-]/,
@@ -8162,9 +8162,9 @@ module.exports = (function() {
                   s3 = peg$parseS();
                 }
                 if (s2 !== peg$FAILED) {
-                  if (input.substr(peg$currPos, 7) === peg$c20) {
+                  if (input.substr(peg$currPos, 11) === peg$c20) {
                     s3 = peg$c20;
-                    peg$currPos += 7;
+                    peg$currPos += 11;
                   } else {
                     s3 = peg$FAILED;
                     if (peg$silentFails === 0) { peg$fail(peg$c21); }
@@ -8177,7 +8177,7 @@ module.exports = (function() {
                       s5 = peg$parseS();
                     }
                     if (s4 !== peg$FAILED) {
-                      s5 = peg$parsezoneCode();
+                      s5 = peg$parsegeofenceCode();
                       if (s5 !== peg$FAILED) {
                         s6 = [];
                         s7 = peg$currPos;
@@ -8203,7 +8203,7 @@ module.exports = (function() {
                               s11 = peg$parseS();
                             }
                             if (s10 !== peg$FAILED) {
-                              s11 = peg$parsezoneCode();
+                              s11 = peg$parsegeofenceCode();
                               if (s11 !== peg$FAILED) {
                                 s8 = [s8, s9, s10, s11];
                                 s7 = s8;
@@ -8248,7 +8248,7 @@ module.exports = (function() {
                                 s11 = peg$parseS();
                               }
                               if (s10 !== peg$FAILED) {
-                                s11 = peg$parsezoneCode();
+                                s11 = peg$parsegeofenceCode();
                                 if (s11 !== peg$FAILED) {
                                   s8 = [s8, s9, s10, s11];
                                   s7 = s8;
@@ -10018,7 +10018,7 @@ module.exports = (function() {
       if (s0 === peg$FAILED) {
         s0 = peg$parsewithData();
         if (s0 === peg$FAILED) {
-          s0 = peg$parseinZoneAction();
+          s0 = peg$parseinGeoFenceAction();
           if (s0 === peg$FAILED) {
             s0 = peg$parsenearBeaconAction();
           }
@@ -11392,13 +11392,13 @@ module.exports = (function() {
       return s0;
     }
 
-    function peg$parseinZoneAction() {
+    function peg$parseinGeoFenceAction() {
       var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 7) === peg$c20) {
+      if (input.substr(peg$currPos, 11) === peg$c20) {
         s1 = peg$c20;
-        peg$currPos += 7;
+        peg$currPos += 11;
       } else {
         s1 = peg$FAILED;
         if (peg$silentFails === 0) { peg$fail(peg$c21); }
@@ -11411,7 +11411,7 @@ module.exports = (function() {
           s3 = peg$parseS();
         }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsezoneCode();
+          s3 = peg$parsegeofenceCode();
           if (s3 !== peg$FAILED) {
             s4 = [];
             s5 = peg$currPos;
@@ -11437,7 +11437,7 @@ module.exports = (function() {
                   s9 = peg$parseS();
                 }
                 if (s8 !== peg$FAILED) {
-                  s9 = peg$parsezoneCode();
+                  s9 = peg$parsegeofenceCode();
                   if (s9 !== peg$FAILED) {
                     s6 = [s6, s7, s8, s9];
                     s5 = s6;
@@ -11482,7 +11482,7 @@ module.exports = (function() {
                     s9 = peg$parseS();
                   }
                   if (s8 !== peg$FAILED) {
-                    s9 = peg$parsezoneCode();
+                    s9 = peg$parsegeofenceCode();
                     if (s9 !== peg$FAILED) {
                       s6 = [s6, s7, s8, s9];
                       s5 = s6;
@@ -12434,7 +12434,7 @@ module.exports = (function() {
       return s0;
     }
 
-    function peg$parsezoneCode() {
+    function peg$parsegeofenceCode() {
       var s0, s1;
 
       peg$silentFails++;
@@ -14717,12 +14717,12 @@ module.exports = (function() {
                 prizeCode:prizeCode
             }
         },
-        peg$c140 = "in zone",
-        peg$c141 = { type: "literal", value: "in zone", description: "\"in zone\"" },
+        peg$c140 = "in geofence",
+        peg$c141 = { type: "literal", value: "in geofence", description: "\"in geofence\"" },
         peg$c142 = function(first, reminders) {
             return {
-                type: 'zone',
-                zoneCodes: buildList(first, reminders, 3)
+                type: 'geofence',
+                geofenceCodes: buildList(first, reminders, 3)
             };
         },
         peg$c143 = "in range of",
@@ -14863,7 +14863,7 @@ module.exports = (function() {
         peg$c228 = function(tagClusterCode) {return tagClusterCode},
         peg$c229 = { type: "other", description: "tagClusterCode" },
         peg$c230 = function(code) { return code; },
-        peg$c231 = { type: "other", description: "zoneCode" },
+        peg$c231 = { type: "other", description: "geofenceCode" },
         peg$c232 = { type: "other", description: "attributeName" },
         peg$c233 = { type: "other", description: "checkinCode" },
         peg$c234 = { type: "other", description: "number" },
@@ -18891,9 +18891,9 @@ module.exports = (function() {
       var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 7) === peg$c140) {
+      if (input.substr(peg$currPos, 11) === peg$c140) {
         s1 = peg$c140;
-        peg$currPos += 7;
+        peg$currPos += 11;
       } else {
         s1 = peg$FAILED;
         if (peg$silentFails === 0) { peg$fail(peg$c141); }
@@ -18906,7 +18906,7 @@ module.exports = (function() {
           s3 = peg$parseS();
         }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsezoneCode();
+          s3 = peg$parsegeofenceCode();
           if (s3 !== peg$FAILED) {
             s4 = [];
             s5 = peg$currPos;
@@ -18932,7 +18932,7 @@ module.exports = (function() {
                   s9 = peg$parseS();
                 }
                 if (s8 !== peg$FAILED) {
-                  s9 = peg$parsezoneCode();
+                  s9 = peg$parsegeofenceCode();
                   if (s9 !== peg$FAILED) {
                     s6 = [s6, s7, s8, s9];
                     s5 = s6;
@@ -18977,7 +18977,7 @@ module.exports = (function() {
                     s9 = peg$parseS();
                   }
                   if (s8 !== peg$FAILED) {
-                    s9 = peg$parsezoneCode();
+                    s9 = peg$parsegeofenceCode();
                     if (s9 !== peg$FAILED) {
                       s6 = [s6, s7, s8, s9];
                       s5 = s6;
@@ -19441,9 +19441,9 @@ module.exports = (function() {
       var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 7) === peg$c140) {
+      if (input.substr(peg$currPos, 11) === peg$c140) {
         s1 = peg$c140;
-        peg$currPos += 7;
+        peg$currPos += 11;
       } else {
         s1 = peg$FAILED;
         if (peg$silentFails === 0) { peg$fail(peg$c141); }
@@ -19456,7 +19456,7 @@ module.exports = (function() {
           s3 = peg$parseS();
         }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsezoneCode();
+          s3 = peg$parsegeofenceCode();
           if (s3 !== peg$FAILED) {
             s4 = [];
             s5 = peg$currPos;
@@ -19482,7 +19482,7 @@ module.exports = (function() {
                   s9 = peg$parseS();
                 }
                 if (s8 !== peg$FAILED) {
-                  s9 = peg$parsezoneCode();
+                  s9 = peg$parsegeofenceCode();
                   if (s9 !== peg$FAILED) {
                     s6 = [s6, s7, s8, s9];
                     s5 = s6;
@@ -19527,7 +19527,7 @@ module.exports = (function() {
                     s9 = peg$parseS();
                   }
                   if (s8 !== peg$FAILED) {
-                    s9 = peg$parsezoneCode();
+                    s9 = peg$parsegeofenceCode();
                     if (s9 !== peg$FAILED) {
                       s6 = [s6, s7, s8, s9];
                       s5 = s6;
@@ -20331,7 +20331,7 @@ module.exports = (function() {
       return s0;
     }
 
-    function peg$parsezoneCode() {
+    function peg$parsegeofenceCode() {
       var s0, s1;
 
       peg$silentFails++;
@@ -24982,7 +24982,7 @@ module.exports = (function() {
         peg$c31 = ":",
         peg$c32 = { type: "literal", value: ":", description: "\":\"" },
         peg$c33 = function(code) { return code; },
-        peg$c34 = { type: "other", description: "zoneCode" },
+        peg$c34 = { type: "other", description: "geofenceCode" },
         peg$c35 = { type: "other", description: "smartlistCode" },
         peg$c36 = { type: "other", description: "attributeName" },
         peg$c37 = { type: "other", description: "number" },
@@ -25765,7 +25765,7 @@ module.exports = (function() {
       return s0;
     }
 
-    function peg$parsezoneCode() {
+    function peg$parsegeofenceCode() {
       var s0, s1;
 
       peg$silentFails++;
@@ -26950,14 +26950,14 @@ module.exports = (function() {
                 prizeCode:prizeCode
             }
         },
-        peg$c129 = "in zone",
-        peg$c130 = { type: "literal", value: "in zone", description: "\"in zone\"" },
+        peg$c129 = "in geofence",
+        peg$c130 = { type: "literal", value: "in geofence", description: "\"in geofence\"" },
         peg$c131 = ",",
         peg$c132 = { type: "literal", value: ",", description: "\",\"" },
         peg$c133 = function(first, reminders) {
             return {
-                type: 'zone',
-                zoneCodes: buildList(first, reminders, 3)
+                type: 'geofence',
+                geofenceCodes: buildList(first, reminders, 3)
             };
         },
         peg$c134 = "in range of",
@@ -27083,7 +27083,7 @@ module.exports = (function() {
         peg$c206 = function(tagClusterCode) {return tagClusterCode},
         peg$c207 = { type: "other", description: "tagClusterCode" },
         peg$c208 = function(code) { return code; },
-        peg$c209 = { type: "other", description: "zoneCode" },
+        peg$c209 = { type: "other", description: "geofenceCode" },
         peg$c210 = { type: "other", description: "attributeName" },
         peg$c211 = { type: "other", description: "number" },
         peg$c212 = /^[+\-]/,
@@ -30787,9 +30787,9 @@ module.exports = (function() {
       var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 7) === peg$c129) {
+      if (input.substr(peg$currPos, 11) === peg$c129) {
         s1 = peg$c129;
-        peg$currPos += 7;
+        peg$currPos += 11;
       } else {
         s1 = peg$FAILED;
         if (peg$silentFails === 0) { peg$fail(peg$c130); }
@@ -30802,7 +30802,7 @@ module.exports = (function() {
           s3 = peg$parseS();
         }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsezoneCode();
+          s3 = peg$parsegeofenceCode();
           if (s3 !== peg$FAILED) {
             s4 = [];
             s5 = peg$currPos;
@@ -30828,7 +30828,7 @@ module.exports = (function() {
                   s9 = peg$parseS();
                 }
                 if (s8 !== peg$FAILED) {
-                  s9 = peg$parsezoneCode();
+                  s9 = peg$parsegeofenceCode();
                   if (s9 !== peg$FAILED) {
                     s6 = [s6, s7, s8, s9];
                     s5 = s6;
@@ -30873,7 +30873,7 @@ module.exports = (function() {
                     s9 = peg$parseS();
                   }
                   if (s8 !== peg$FAILED) {
-                    s9 = peg$parsezoneCode();
+                    s9 = peg$parsegeofenceCode();
                     if (s9 !== peg$FAILED) {
                       s6 = [s6, s7, s8, s9];
                       s5 = s6;
@@ -31337,9 +31337,9 @@ module.exports = (function() {
       var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9;
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 7) === peg$c129) {
+      if (input.substr(peg$currPos, 11) === peg$c129) {
         s1 = peg$c129;
-        peg$currPos += 7;
+        peg$currPos += 11;
       } else {
         s1 = peg$FAILED;
         if (peg$silentFails === 0) { peg$fail(peg$c130); }
@@ -31352,7 +31352,7 @@ module.exports = (function() {
           s3 = peg$parseS();
         }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsezoneCode();
+          s3 = peg$parsegeofenceCode();
           if (s3 !== peg$FAILED) {
             s4 = [];
             s5 = peg$currPos;
@@ -31378,7 +31378,7 @@ module.exports = (function() {
                   s9 = peg$parseS();
                 }
                 if (s8 !== peg$FAILED) {
-                  s9 = peg$parsezoneCode();
+                  s9 = peg$parsegeofenceCode();
                   if (s9 !== peg$FAILED) {
                     s6 = [s6, s7, s8, s9];
                     s5 = s6;
@@ -31423,7 +31423,7 @@ module.exports = (function() {
                     s9 = peg$parseS();
                   }
                   if (s8 !== peg$FAILED) {
-                    s9 = peg$parsezoneCode();
+                    s9 = peg$parsegeofenceCode();
                     if (s9 !== peg$FAILED) {
                       s6 = [s6, s7, s8, s9];
                       s5 = s6;
@@ -32162,7 +32162,7 @@ module.exports = (function() {
       return s0;
     }
 
-    function peg$parsezoneCode() {
+    function peg$parsegeofenceCode() {
       var s0, s1;
 
       peg$silentFails++;

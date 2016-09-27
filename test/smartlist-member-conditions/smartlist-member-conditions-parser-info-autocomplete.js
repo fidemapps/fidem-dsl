@@ -12,7 +12,7 @@ var literalChoices;
 
 describe('<Unit Test>', function () {
     describe('Auto-Complete List Member Conditions info:', function () {
-        beforeEach(function (done) {
+        before(function (done) {
             fs.readFile(__dirname + '/../../dsl/smartlist-member-conditions-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
                     return done(err);

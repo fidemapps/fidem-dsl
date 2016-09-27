@@ -8,7 +8,7 @@ var parser;
 
 describe('<Unit Test>', function () {
     describe('Content Member Conditions "belongs to smartlist":', function () {
-        beforeEach(function (done) {
+        before(function (done) {
             fs.readFile(__dirname + '/../../dsl/content-member-conditions-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
                     return done(err);

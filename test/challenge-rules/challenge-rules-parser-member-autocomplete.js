@@ -12,7 +12,7 @@ describe('<Unit Test>', function () {
         var literalChoices;
         var otherChoices;
 
-        beforeEach(function (done) {
+        before(function (done) {
             fs.readFile(__dirname + '/../../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
                     return done(err);
@@ -30,7 +30,7 @@ describe('<Unit Test>', function () {
                 otherChoices = helper.extractOthers(error);
 
                 should(error.expected.length).equal(7);
-                should(literalChoices).eql(['did', 'has', 'in zone', 'level', 'point', 'tag']);
+                should(literalChoices).eql(['did', 'has', 'in geofence', 'level', 'point', 'tag']);
                 should(otherChoices).eql([ 'whitespace']);
             }
         });

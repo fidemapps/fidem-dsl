@@ -13,12 +13,12 @@
 
   challenge CHALLENGE_CODE [x times][within x timeframe]
 
-  action ACTION_CODE [x times][within x timeframe]  [with TAG 'TAG_NAME' [= x]][in zone ZONE_CODE[,ZONE_CODE]][near X of beacon BEACON_CODE[,BEACON_CODE]] system_condition
+  action ACTION_CODE [x times][within x timeframe]  [with TAG 'TAG_NAME' [= x]][in geofence GEOFENCE_CODE[,GEOFENCE_CODE]][near X of beacon BEACON_CODE[,BEACON_CODE]] system_condition
 
   member level LEVEL_LIST [operator] x [with TAG 'TAG_NAME' [= x]]
   member points LEVEL_LIST [operator] x [with TAG 'TAG_NAME' [= x]]
   member tag TAG_NAME  [operator] x [with TAG 'TAG_NAME' [= x]]
-  member in zone ZONE_CODE[,ZONE_CODE] [for x timeframe]
+  member in geofence GEOFENCE_CODE[,GEOFENCE_CODE] [for x timeframe]
 
   member did nothing [occurence_filter,period_filter]
   member did something [occurence_filter,period_filter]
@@ -43,8 +43,8 @@
 
   // NOT IMPLEMENTED YET
   member new level LEVEL_CODE [x times][within x timeframe]  [with TAG TAG_NAME [= x]]
-  zone enter CODE
-  zone exit CODE
+  geofence enter CODE
+  geofence exit CODE
 */
 
 /*HELPER FUNCTIONS*/
@@ -140,11 +140,11 @@ simple_rule
 
         return theRule;
     }
-    / scope:"member" S* "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
+    / scope:"member" S* "in geofence" S* first:geofenceCode reminders:(S* "," S* geofenceCode:geofenceCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
     {
         var theRule = {
             scope: scope,
-            type: "zone",
+            type: "geofence",
             codes: buildList(first, reminders, 3),
             duration: (durationOption) ? durationOption[3] : null,
             timeframe: (durationOption) ? durationOption[5] : null
@@ -405,7 +405,7 @@ condition
     = (withinTimeframe / numberOfTimes)
 
 filter
-    = (withTag / withData / inZoneAction / nearBeaconAction)
+    = (withTag / withData / inGeoFenceAction / nearBeaconAction)
 
 on_rule
     = "on" S* rule:( on_date / on_the )
@@ -550,12 +550,12 @@ untilDate
 
 /*MIX*/
 
-inZoneAction
-    = "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
+inGeoFenceAction
+    = "in geofence" S* first:geofenceCode reminders:(S* "," S* geofenceCode:geofenceCode)*
     {
         return {
-            type: 'zone',
-            zones: buildList(first, reminders, 3)
+            type: 'geofence',
+            geofences: buildList(first, reminders, 3)
         };
     }
 
@@ -693,7 +693,7 @@ tagCode "tagCode"
 tagClusterCode
     = code:code ":" { return code; }
 
-zoneCode "zoneCode"
+geofenceCode "geofenceCode"
     = code
 
 beaconCode "beaconCode"

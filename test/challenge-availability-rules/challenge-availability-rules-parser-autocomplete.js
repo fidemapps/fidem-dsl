@@ -9,7 +9,7 @@ var parser;
 
 describe('<Unit Test>', function () {
     describe('Auto-Complete Challenge Availability Rules:', function () {
-        beforeEach(function (done) {
+        before(function (done) {
             fs.readFile(__dirname + '/../../dsl/challenge-availability-rules-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
                     return done(err);
@@ -28,7 +28,7 @@ describe('<Unit Test>', function () {
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     should(err.expected.length).equal(8);
-                    should(literalChoices).eql(['belongs to smartlist', 'challenge', 'every', 'in zone', 'level', 'member', 'on', 'tag']);
+                    should(literalChoices).eql(['belongs to smartlist', 'challenge', 'every', 'in geofence', 'level', 'member', 'on', 'tag']);
                 }
 
                 done();
@@ -73,27 +73,27 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('Missing zone code', function (done) {
+            it('Missing geofence code', function (done) {
 
                 try {
-                    parser.parse("in zone ");
+                    parser.parse("in geofence ");
                 }
                 catch (err) {
                     should(err.expected.length).equal(2);
-                    should(err.expected[1].description).equal('zoneCode');
+                    should(err.expected[0].description).equal('geofenceCode');
                 }
 
                 done();
             });
 
-            it('Missing zone code, after first code', function (done) {
+            it('Missing geofence code, after first code', function (done) {
 
                 try {
-                    parser.parse("in zone CODE1,");
+                    parser.parse("in geofence CODE1,");
                 }
                 catch (err) {
                     should(err.expected.length).equal(2);
-                    should(err.expected[1].description).equal('zoneCode');
+                    should(err.expected[0].description).equal('geofenceCode');
                 }
 
                 done();
@@ -112,10 +112,10 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('Missing number after in zone X for', function (done) {
+            it('Missing number after in geofence X for', function (done) {
 
                 try {
-                    parser.parse("in zone CODE1 for ");
+                    parser.parse("in geofence CODE1 for ");
                 }
                 catch (err) {
                     should(err.expected.length).equal(2);
@@ -125,10 +125,10 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('Invalid number after in zone X for', function (done) {
+            it('Invalid number after in geofence X for', function (done) {
 
                 try {
-                    parser.parse("in zone CODE1 for X");
+                    parser.parse("in geofence CODE1 for X");
                 }
                 catch (err) {
                     should(err.expected.length).equal(2);
@@ -138,10 +138,10 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('Missing timeframe after in zone X for', function (done) {
+            it('Missing timeframe after in geofence X for', function (done) {
 
                 try {
-                    parser.parse("in zone CODE1 for 3 ");
+                    parser.parse("in geofence CODE1 for 3 ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);

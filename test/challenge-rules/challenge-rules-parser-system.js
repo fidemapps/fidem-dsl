@@ -8,7 +8,7 @@ var parser;
 
 describe('<Unit Test>', function () {
     describe('Rules:', function () {
-        beforeEach(function (done) {
+        before(function (done) {
             fs.readFile(__dirname + '/../../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
                     return done(err);
@@ -19,15 +19,15 @@ describe('<Unit Test>', function () {
         });
 
         describe('Should parse rules with system condition', function () {
-            it('action TEST in zone CODE1,CODE2 on 2016-04-04 give 1 points', function (done) {
+            it('action TEST in geofence CODE1,CODE2 on 2016-04-04 give 1 points', function (done) {
 
-                var rule = parser.parse('action TEST in zone CODE1,CODE2 on 2016-04-04 give 1 points');
+                var rule = parser.parse('action TEST in geofence CODE1,CODE2 on 2016-04-04 give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'action', code: 'TEST',
                         conditions: [],
                         filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
+                            {type: 'geofence', geofences: ['CODE1', 'CODE2']}
                         ],
                         system: {type: 'on', date: [new Date(2016, 4 - 1, 4)], time: null}
 
@@ -39,14 +39,14 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('action TEST in zone CODE1,CODE2 every sunday,monday give 1 points', function (done) {
-                var rule = parser.parse('action TEST in zone CODE1,CODE2 every sunday,monday give 1 points');
+            it('action TEST in geofence CODE1,CODE2 every sunday,monday give 1 points', function (done) {
+                var rule = parser.parse('action TEST in geofence CODE1,CODE2 every sunday,monday give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'action', code: 'TEST',
                         conditions: [],
                         filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
+                            {type: 'geofence', geofences: ['CODE1', 'CODE2']}
                         ],
                         system: {
                             type: 'every',
@@ -64,14 +64,14 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('action TEST in zone CODE1,CODE2 every sunday,monday of march give 1 points', function (done) {
-                var rule = parser.parse('action TEST in zone CODE1,CODE2 every sunday,monday of march give 1 points');
+            it('action TEST in geofence CODE1,CODE2 every sunday,monday of march give 1 points', function (done) {
+                var rule = parser.parse('action TEST in geofence CODE1,CODE2 every sunday,monday of march give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'action', code: 'TEST',
                         conditions: [],
                         filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
+                            {type: 'geofence', geofences: ['CODE1', 'CODE2']}
                         ],
                         system: {
                             type: 'every',
@@ -89,14 +89,14 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('action TEST in zone CODE1,CODE2 every sunday of march,january in 1959 give 1 points', function (done) {
-                var rule = parser.parse('action TEST in zone CODE1,CODE2 every sunday of march,january in 1959 give 1 points');
+            it('action TEST in geofence CODE1,CODE2 every sunday of march,january in 1959 give 1 points', function (done) {
+                var rule = parser.parse('action TEST in geofence CODE1,CODE2 every sunday of march,january in 1959 give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'action', code: 'TEST',
                         conditions: [],
                         filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
+                            {type: 'geofence', geofences: ['CODE1', 'CODE2']}
                         ],
                         system: {
                             type: 'every',
@@ -114,14 +114,14 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('action TEST in zone CODE1,CODE2 every day of march,january from 1959-12-10 to 1960-03-10 give 1 points', function (done) {
-                var rule = parser.parse('action TEST in zone CODE1,CODE2 every day of march,january from 1959-12-10 to 1960-03-10 give 1 points');
+            it('action TEST in geofence CODE1,CODE2 every day of march,january from 1959-12-10 to 1960-03-10 give 1 points', function (done) {
+                var rule = parser.parse('action TEST in geofence CODE1,CODE2 every day of march,january from 1959-12-10 to 1960-03-10 give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'action', code: 'TEST',
                         conditions: [],
                         filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
+                            {type: 'geofence', geofences: ['CODE1', 'CODE2']}
                         ],
                         system: {
                             type: 'every',
@@ -139,14 +139,14 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('action TEST in zone CODE1,CODE2 every day of march,january from 1959-12-10 to 1960-03-10 before 04:00 am give 1 points', function (done) {
-                var rule = parser.parse('action TEST in zone CODE1,CODE2 every day of march,january until 1960-03-10 before 04:00 am give 1 points');
+            it('action TEST in geofence CODE1,CODE2 every day of march,january from 1959-12-10 to 1960-03-10 before 04:00 am give 1 points', function (done) {
+                var rule = parser.parse('action TEST in geofence CODE1,CODE2 every day of march,january until 1960-03-10 before 04:00 am give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'action', code: 'TEST',
                         conditions: [],
                         filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
+                            {type: 'geofence', geofences: ['CODE1', 'CODE2']}
                         ],
                         system: {
                             type: 'every',
@@ -164,15 +164,15 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('action TEST in zone CODE1,CODE2 on 2016-04-04,2015-03-03 between 05:30 am and 06:30 pm give 1 points', function (done) {
+            it('action TEST in geofence CODE1,CODE2 on 2016-04-04,2015-03-03 between 05:30 am and 06:30 pm give 1 points', function (done) {
 
-                var rule = parser.parse('action TEST in zone CODE1,CODE2 on 2016-04-04,2015-03-03 between 05:30 am and 06:30 pm give 1 points');
+                var rule = parser.parse('action TEST in geofence CODE1,CODE2 on 2016-04-04,2015-03-03 between 05:30 am and 06:30 pm give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'action', code: 'TEST',
                         conditions: [],
                         filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
+                            {type: 'geofence', geofences: ['CODE1', 'CODE2']}
                         ],
                         system: {
                             type: 'on',
@@ -188,14 +188,14 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('action TEST in zone CODE1,CODE2 every day of march,january starting at 1959-12-10 after 04:00 am give 1 points', function (done) {
-                var rule = parser.parse('action TEST in zone CODE1,CODE2 every day of march,january starting at 1959-12-10 after 04:00 am give 1 points');
+            it('action TEST in geofence CODE1,CODE2 every day of march,january starting at 1959-12-10 after 04:00 am give 1 points', function (done) {
+                var rule = parser.parse('action TEST in geofence CODE1,CODE2 every day of march,january starting at 1959-12-10 after 04:00 am give 1 points');
                 should(rule).eql({
                     rules: [{
                         scope: 'action', code: 'TEST',
                         conditions: [],
                         filters: [
-                            {type: 'zone', zones: ['CODE1', 'CODE2']}
+                            {type: 'geofence', geofences: ['CODE1', 'CODE2']}
                         ],
                         system: {
                             type: 'every',

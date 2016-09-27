@@ -630,11 +630,11 @@ periodFilter
 
 /*GEO FILTER*/
 geoFilter
-= "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
+= "in geofence" S* first:geofenceCode reminders:(S* "," S* geofenceCode:geofenceCode)*
 {
     return {
-        type: 'zone',
-        zoneCodes: buildList(first, reminders, 3)
+        type: 'geofence',
+        geofenceCodes: buildList(first, reminders, 3)
     };
 }
 / "in range of" S* beacons:beacon_list
@@ -668,11 +668,11 @@ beacon_list
 }
 
 /*geoFilterIsLite*/
-geoFilterIsLite="in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)*
+geoFilterIsLite="in geofence" S* first:geofenceCode reminders:(S* "," S* geofenceCode:geofenceCode)*
 {
     return {
-        type: 'zone',
-        zoneCodes: buildList(first, reminders, 3)
+        type: 'geofence',
+        geofenceCodes: buildList(first, reminders, 3)
     };
 }
 
@@ -797,7 +797,7 @@ tagClusterCodeForTag
 tagClusterCode "tagClusterCode"
 = code:code { return code; }
 
-zoneCode "zoneCode"
+geofenceCode "geofenceCode"
 = code
 
 attributeName "attributeName"

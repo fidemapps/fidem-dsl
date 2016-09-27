@@ -8,7 +8,7 @@ var parser;
 
 describe('<Unit Test>', function () {
     describe('SmartList Member Conditions did action:', function () {
-        beforeEach(function (done) {
+        before(function (done) {
             fs.readFile(__dirname + '/../../dsl/smartlist-member-conditions-parser.pegjs', 'utf8', function (err, data) {
                 if (err) {
                     return done(err);
@@ -268,8 +268,8 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member did not check-in TEST with jean < "thomas" less than 3 times in zone montreal,laval after 2016-03-03 4:40',function(){
-                var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times in zone montreal,laval after 2016-03-03 4:40');
+            it('member did not check-in TEST with jean < "thomas" less than 3 times in geofence montreal,laval after 2016-03-03 4:40',function(){
+                var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times in geofence montreal,laval after 2016-03-03 4:40');
                 should(rule).eql({
                     conditions: [
                         {
@@ -301,8 +301,8 @@ describe('<Unit Test>', function () {
                                 date: '2016-03-03 04:40'
                             },
                             geoFilter:{
-                                type:'zone',
-                                zoneCodes:['montreal','laval']
+                                type:'geofence',
+                                geofenceCodes:['montreal','laval']
                             }
                         }
                     ]

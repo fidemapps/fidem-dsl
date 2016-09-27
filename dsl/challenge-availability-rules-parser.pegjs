@@ -8,11 +8,11 @@
   tag TAGCODE >= 10
   //segment SEGMENTCODE >= 1 --> Not supported right now
   challenge CHALLENGECODE
-  in zone ZONECODE[,ZONECODE][for x time_period]
+  in geofence GEOFENCECODE[,GEOFENCECODE][for x time_period]
 
   // NOT IMPLEMENTED YET
-  zone enter ZONECODE
-  zone exit ZONECODE
+  geofence enter GEOFENCECODE
+  geofence exit GEOFENCECODE
  */
 {
     function extractOptional(optional, index) {
@@ -70,10 +70,10 @@ simple_rule
             value: value
         };
     }
-    / "in zone" S* first:zoneCode reminders:(S* "," S* zoneCode:zoneCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
+    / "in geofence" S* first:geofenceCode reminders:(S* "," S* geofenceCode:geofenceCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
     {
         return {
-            scope: "zone",
+            scope: "geofence",
             codes: buildList(first, reminders, 3),
             duration: (durationOption) ? durationOption[3] : null,
             timeframe: (durationOption) ? durationOption[5] : null
@@ -443,7 +443,7 @@ tagCode "tagCode"
 tagClusterCode
     = code:code ":" { return code; }
 
-zoneCode "zoneCode"
+geofenceCode "geofenceCode"
     = code
 
 NUMBER "number"
