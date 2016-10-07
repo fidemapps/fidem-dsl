@@ -22,19 +22,6 @@ describe('<Unit Test>', function () {
 
             describe('tag',function(){
 
-                it('member with tag bob',function(){
-                    var condition = parser.parse('member with tag bob');
-                    should(condition).eql({
-                        conditions: [
-                            {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },operator:'>',value:0 },
-                                scope: 'member',
-                                type: 'with'
-                            }
-                        ]
-                    });
-                });
-
                 it('member with tag bob:boby',function(){
                     var condition = parser.parse('member with tag bob:boby');
                     should(condition).eql({
@@ -48,12 +35,12 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member with tag bob = 3',function(){
-                    var condition = parser.parse('member with tag bob =3');
+                it('member with tag bob:bob = 3',function(){
+                    var condition = parser.parse('member with tag bob:bob =3');
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' }, operator:'=',value:3 },
+                                query: { type:'tag',tagCode: { tagClusterCode: 'bob', tagCode: 'bob' }, operator:'=',value:3 },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -61,12 +48,12 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member with tag bob = 3.5',function(){
-                    var condition = parser.parse('member with tag bob =3.5');
+                it('member with tag bob:bob = 3.5',function(){
+                    var condition = parser.parse('member with tag bob:bob =3.5');
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' }, operator:'=',value:3.5 },
+                                query: { type:'tag',tagCode: { tagClusterCode: 'bob', tagCode: 'bob' }, operator:'=',value:3.5 },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -74,12 +61,12 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member with tag bob = 3.3%',function(){
-                    var condition = parser.parse('member with tag bob = 3.3 %');
+                it('member with tag bob:bob = 3.3%',function(){
+                    var condition = parser.parse('member with tag bob:bob = 3.3 %');
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:3.3,relativeScope:'member' },
+                                query: { type:'tag',tagCode: { tagClusterCode: 'bob', tagCode: 'bob' },relative:true, operator:'=',value:3.3,relativeScope:'member' },
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -87,12 +74,12 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member with tag bob = 40%',function(){
-                    var condition = parser.parse('member with tag bob = 40 %');
+                it('member with tag bob:bob = 40%',function(){
+                    var condition = parser.parse('member with tag bob:bob = 40 %');
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:40 ,relativeScope:'member'},
+                                query: { type:'tag',tagCode: { tagClusterCode: 'bob', tagCode: 'bob' },relative:true, operator:'=',value:40 ,relativeScope:'member'},
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -100,12 +87,12 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member with tag bob = 100%',function(){
-                    var condition = parser.parse('member with tag bob = 100 %');
+                it('member with tag bob:bob = 100%',function(){
+                    var condition = parser.parse('member with tag bob:bob = 100 %');
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag',tagCode: { tagClusterCode: null, tagCode: 'bob' },relative:true, operator:'=',value:100 ,relativeScope:'member'},
+                                query: { type:'tag',tagCode: { tagClusterCode: 'bob', tagCode: 'bob' },relative:true, operator:'=',value:100 ,relativeScope:'member'},
                                 scope: 'member',
                                 type: 'with'
                             }
@@ -113,13 +100,12 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-
-                it('member without tag bob',function(){
-                    var condition = parser.parse('member without tag bob ');
+                it('member without tag bob:bob',function(){
+                    var condition = parser.parse('member without tag bob:bob ');
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag', tagCode: { tagClusterCode: null, tagCode: 'bob' },operator:'>',value:0 },
+                                query: { type:'tag', tagCode: { tagClusterCode: 'bob', tagCode: 'bob' },operator:'>',value:0 },
                                 negative:true,
                                 scope: 'member',
                                 type: 'with'
@@ -129,11 +115,11 @@ describe('<Unit Test>', function () {
                 });
 
                 it('member without tag bob > 3',function(){
-                    var condition = parser.parse('member without tag bob > 3');
+                    var condition = parser.parse('member without tag bob:bob > 3');
                     should(condition).eql({
                         conditions: [
                             {
-                                query: { type:'tag', tagCode: { tagClusterCode: null, tagCode: 'bob' },operator:'>',value:3 },
+                                query: { type:'tag', tagCode: { tagClusterCode: 'bob', tagCode: 'bob' },operator:'>',value:3 },
                                 negative:true,
                                 scope: 'member',
                                 type: 'with'

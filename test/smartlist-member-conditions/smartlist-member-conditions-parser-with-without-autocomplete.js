@@ -60,9 +60,9 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member with tag bob',function(){
+                it('member with tag bob:bob',function(){
                     try {
-                        parser.parse('member with tag bob d');
+                        parser.parse('member with tag bob:bob d');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
@@ -72,9 +72,9 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member with tag bob >=',function(){
+                it('member with tag bob:bob >=',function(){
                     try {
-                        parser.parse('member with tag bob >=');
+                        parser.parse('member with tag bob:bob >=');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
@@ -84,9 +84,9 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member with tag bob >= 4',function(){
+                it('member with tag bob:bob >= 4',function(){
                     try {
-                        parser.parse('member with tag bob >= 4 s');
+                        parser.parse('member with tag bob:bob >= 4 s');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
@@ -96,9 +96,9 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member with tag bob >= 4%',function(){
+                it('member with tag bob:bob >= 4%',function(){
                     try {
-                        parser.parse('member with tag bob = 4% s');
+                        parser.parse('member with tag bob:bob = 4% s');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);

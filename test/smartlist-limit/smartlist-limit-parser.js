@@ -33,13 +33,13 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('only top 100 by member points TestLevel1', function (done) {
-                var condition = parser.parse("only top 100 by member tag TEST");
+            it('only top 100 by member tag TEST:TEST', function (done) {
+                var condition = parser.parse("only top 100 by member tag TEST:TEST");
                 should(condition).eql({
                       filter: {
                           quantity: 100,
                           type: 'tag',
-                          tagClusterCode: null,
+                          tagClusterCode: 'TEST',
                           code: 'TEST'
                       }
                   }

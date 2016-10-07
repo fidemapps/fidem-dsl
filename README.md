@@ -16,6 +16,7 @@ var literals = fidemdsl.challengeRules.literals;
 1. Change the parser.
 2. Change the test.
 3. Update in lib the literals list.
+4. (Optional) Update the .ebnf in the doc folder.
 
 ```
 grunt

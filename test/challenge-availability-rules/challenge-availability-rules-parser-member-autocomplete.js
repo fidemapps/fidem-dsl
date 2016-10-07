@@ -395,9 +395,9 @@ describe('<Unit Test>', function () {
 					}
 				});
 
-				it('member has not lost tag bob', function () {
+				it('member has not lost tag bob:asdfasdf', function () {
 					try {
-						parser.parse('member has not lost tag bob d');
+						parser.parse('member has not lost tag bob:asdfasdf d');
 					} catch (error) {
 						literalChoices = helper.extractLiterals(error);
 						otherChoices = helper.extractOthers(error);

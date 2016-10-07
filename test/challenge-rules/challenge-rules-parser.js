@@ -184,27 +184,6 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('action BrowseTicket with tag Patate give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
       it('action BrowseTicket with tag CLUSTER:Patate give 1 points', function (done) {
 
         var rule = parser.parse("action BrowseTicket with tag CLUSTER:Patate give 1 points");
@@ -289,28 +268,6 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('action BrowseTicket 3 times with tag Patate give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 3 times with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [
-                {type: 'times', value: 3}
-              ],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
 
       it('action BrowseTicket 3 times with tag CLUSTER:Patate give 1 points', function (done) {
 
@@ -335,28 +292,6 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('action BrowseTicket with tag Patate 3 times within 2 months give 1 points', function (done) {
-
-        var rule = parser.parse("action BrowseTicket 3 times within 2 months with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'action', code: 'BrowseTicket',
-              conditions: [
-                {type: 'times_within_timeframe', value: 3, duration: 2, durationScope: 'month'}
-              ],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
 
       it('action BrowseTicket with tag CLUSTER:Patate 3 times within 2 months give 1 points', function (done) {
 
@@ -475,26 +410,6 @@ describe('<Unit Test>', function () {
       });
 
       // FIXME (SG) : May not need the tag condition for challenge scope
-      it('challenge ChallengeCode with tag Patate give 1 points', function (done) {
-
-        var rule = parser.parse("challenge ChallengeCode with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'challenge', code: 'ChallengeCode',
-              conditions: [],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
 
       it('challenge ChallengeCode with tag CLUSTER:Patate give 1 points', function (done) {
 
@@ -600,28 +515,6 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('member level LevelListCode 2 with tag Patate give 1 points', function (done) {
-
-        var rule = parser.parse("member level LevelListCode 2 with tag Patate give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'level', levelCode: 'LevelListCode',
-              conditions: [
-                {operator: '>=', type: 'level', value: 2}
-              ],
-              filters: [
-                {type: 'tag', tagClusterCode: null, tag: 'Patate'}
-              ]
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
 
       it('member level LevelListCode 2 with tag CLUSTER:Patate give 1 points', function (done) {
 
@@ -655,27 +548,6 @@ describe('<Unit Test>', function () {
               scope: 'member', type: 'point', levelCode: 'LevelListCode',
               conditions: [
                 {operator: '>=', type: 'point', value: 100}
-              ],
-              filters: []
-            }
-          ],
-          rewards: [
-            {quantity: 1, code: 'points'}
-          ]
-        });
-
-        done();
-      });
-
-      it('member tag TagCode 20 give 1 points', function (done) {
-
-        var rule = parser.parse("member tag TagCode 20 give 1 points");
-        should(rule).eql({
-          rules: [
-            {
-              scope: 'member', type: 'tag', tagClusterCode: null, levelCode: 'TagCode',
-              conditions: [
-                {operator: '>=', type: 'tag', value: 20}
               ],
               filters: []
             }
@@ -810,9 +682,9 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('action BrowseTicket 5 times and action CoolThing with tag Patate and challenge Boule 8 times and member level LevelCode 5 give 1 points', function (done) {
+      it('action BrowseTicket 5 times and action CoolThing with tag Patate:Patate and challenge BouleCode 8 times within 6 years and member level LevelCode 5 with tag Cool:Cool give 1 points give 8 ballouns', function (done) {
 
-        var rule = parser.parse("action BrowseTicket 5 times and action CoolThing with tag Patate and challenge BouleCode 8 times within 6 years and member level LevelCode 5 with tag Cool give 1 points give 8 ballouns");
+        var rule = parser.parse("action BrowseTicket 5 times and action CoolThing with tag Patate:Patate and challenge BouleCode 8 times within 6 years and member level LevelCode 5 with tag Cool:Cool give 1 points give 8 ballouns");
         should(rule).eql({
           rules: [
             {
@@ -822,7 +694,7 @@ describe('<Unit Test>', function () {
             },
             {
               scope: 'action', code: 'CoolThing', conditions: [], filters: [
-              {type: 'tag', tagClusterCode: null, tag: 'Patate'}
+              {type: 'tag', tagClusterCode: 'Patate', tag: 'Patate'}
             ]
             },
             {
@@ -834,7 +706,7 @@ describe('<Unit Test>', function () {
               scope: 'member', type: 'level', levelCode: 'LevelCode', conditions: [
               {operator: '>=', type: 'level', value: 5}
             ], filters: [
-              {type: 'tag', tagClusterCode: null, tag: 'Cool'}
+              {type: 'tag', tagClusterCode: 'Cool', tag: 'Cool'}
             ]
             }
           ],

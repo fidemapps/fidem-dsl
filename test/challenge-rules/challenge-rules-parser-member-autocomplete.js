@@ -404,7 +404,7 @@ describe('<Unit Test>', function () {
 
                 it('member has not lost tag bob',function(){
                     try {
-                        parser.parse('member has not lost tag bob x');
+                        parser.parse('member has not lost tag bob:bob x');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);

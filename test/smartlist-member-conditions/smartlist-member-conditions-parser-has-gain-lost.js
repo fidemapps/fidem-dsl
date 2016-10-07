@@ -21,8 +21,8 @@ describe('<Unit Test>', function () {
 
             describe('tag',function(){
 
-                it('member has gained tag bob',function(done){
-                    var rule = parser.parse('member has gained tag bob');
+                it('member has gained tag bob:bob',function(done){
+                    var rule = parser.parse('member has gained tag bob:bob');
                     should(rule).eql({
                             conditions: [
                                 {
@@ -31,7 +31,7 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type: 'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
 
@@ -43,8 +43,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has lost 3 tag bob',function(done){
-                    var rule = parser.parse('member has lost 3 tag bob');
+                it('member has lost 3 tag bob:bob',function(done){
+                    var rule = parser.parse('member has lost 3 tag bob:bob');
                     should(rule).eql({
                             conditions: [
                                 {
@@ -54,7 +54,7 @@ describe('<Unit Test>', function () {
                                         quantity:3,
                                         type:'lost_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     }
@@ -65,8 +65,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has not gained 3 tag bob',function(done){
-                    var rule = parser.parse('member has not gained 3 tag bob');
+                it('member has not gained 3 tag bob:bob',function(done){
+                    var rule = parser.parse('member has not gained 3 tag bob:bob');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -77,7 +77,7 @@ describe('<Unit Test>', function () {
                                         quantity:3,
                                         type:'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     }
@@ -88,8 +88,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has not lost tag bob',function(done){
-                    var rule = parser.parse('member has not lost tag bob');
+                it('member has not lost tag bob:bob',function(done){
+                    var rule = parser.parse('member has not lost tag bob:bob');
                     should(rule).eql({
                             conditions: [
                                 {
@@ -99,7 +99,7 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type:'lost_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     }
@@ -110,8 +110,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob in last 3 days ',function(done){
-                    var rule = parser.parse('member has gained tag bob in last 3 days');
+                it('member has gained tag bob:bob in last 3 days ',function(done){
+                    var rule = parser.parse('member has gained tag bob:bob in last 3 days');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -120,7 +120,7 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type:'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     },
@@ -137,8 +137,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob before 2016-04-04 10:10',function(done){
-                    var rule = parser.parse('member has gained tag bob before 2016-04-04 10:10');
+                it('member has gained tag bob:bob before 2016-04-04 10:10',function(done){
+                    var rule = parser.parse('member has gained tag bob:bob before 2016-04-04 10:10');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -147,7 +147,7 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type:'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     },
@@ -162,8 +162,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob after 2016-04-04 10:10 pm',function(done){
-                    var rule = parser.parse('member has gained tag bob after 2016-04-04 10:10 pm');
+                it('member has gained tag bob:bob after 2016-04-04 10:10 pm',function(done){
+                    var rule = parser.parse('member has gained tag bob:bob after 2016-04-04 10:10 pm');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -172,7 +172,7 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type:'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     },
@@ -187,8 +187,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob between  2016-04-04   10:10 and  2016-04-05 10:10',function(done){
-                    var rule = parser.parse('member has gained tag bob between  2016-04-04 10:10 and  2016-04-05 10:10 pm');
+                it('member has gained tag bob:bob between  2016-04-04   10:10 and  2016-04-05 10:10',function(done){
+                    var rule = parser.parse('member has gained tag bob:bob between  2016-04-04 10:10 and  2016-04-05 10:10 pm');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -197,7 +197,7 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type:'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     },
@@ -212,8 +212,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob since did eat',function(done){
-                    var rule = parser.parse('member has gained tag bob since did eat');
+                it('member has gained tag bob:bob since did action eat',function(done){
+                    var rule = parser.parse('member has gained tag bob:bob since did action eat');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -222,12 +222,13 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type:'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     },
                                     periodFilter: {
                                         type:'since_did',
+                                        scope:'action',
                                         actionCode:'eat'
                                     }
 
@@ -237,8 +238,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob since did first eat',function(done){
-                    var rule = parser.parse('member has gained tag bob since did first eat');
+                it('member has gained tag bob:bob since did first action eat',function(done){
+                    var rule = parser.parse('member has gained tag bob:bob since did first action eat');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -247,12 +248,13 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type:'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     },
                                     periodFilter: {
                                         type:'since_did',
+                                        scope:'action',
                                         position:'first',
                                         actionCode:'eat'
                                     }
@@ -263,8 +265,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob since did last eat',function(done){
-                    var rule = parser.parse('member has gained tag bob since did last eat');
+                it('member has gained tag bob:bob since did last action eat',function(done){
+                    var rule = parser.parse('member has gained tag bob:bob since did last action eat');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -273,12 +275,13 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type:'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     },
                                     periodFilter: {
                                         type:'since_did',
+                                        scope:'action',
                                         position:'last',
                                         actionCode:'eat'
                                     }
@@ -289,8 +292,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob since received prize points',function(done){
-                    var rule = parser.parse('member has gained tag bob since received prize points');
+                it('member has gained tag bob:bob since received prize points',function(done){
+                    var rule = parser.parse('member has gained tag bob:bob since received prize points');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -299,12 +302,13 @@ describe('<Unit Test>', function () {
                                     query: {
                                         type:'gained_tag',
                                         tagCode: {
-                                            tagClusterCode: null,
+                                            tagClusterCode: 'bob',
                                             tagCode: 'bob'
                                         }
                                     },
                                     periodFilter: {
                                         type:'since_received',
+                                        scope:'prize',
                                         prizeCode:'points'
                                     }
 
@@ -485,8 +489,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained points bob since did eat',function(done){
-                    var rule = parser.parse('member has gained points bob since did eat');
+                it('member has gained points bob since did action eat',function(done){
+                    var rule = parser.parse('member has gained points bob since did action eat');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -498,6 +502,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'since_did',
+                                        scope:'action',
                                         actionCode:'eat'
                                     }
 
@@ -507,8 +512,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained points bob since did first eat',function(done){
-                    var rule = parser.parse('member has gained points bob since did first eat');
+                it('member has gained points bob since did first action eat',function(done){
+                    var rule = parser.parse('member has gained points bob since did first action eat');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -521,6 +526,7 @@ describe('<Unit Test>', function () {
                                     periodFilter: {
                                         type:'since_did',
                                         position:'first',
+                                        scope:'action',
                                         actionCode:'eat'
                                     }
 
@@ -530,8 +536,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained points bob since did last eat',function(done){
-                    var rule = parser.parse('member has gained points bob since did last eat');
+                it('member has gained points bob since did last action eat',function(done){
+                    var rule = parser.parse('member has gained points bob since did last action eat');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -544,7 +550,79 @@ describe('<Unit Test>', function () {
                                     periodFilter: {
                                         type:'since_did',
                                         position:'last',
+                                        scope:'action',
                                         actionCode:'eat'
+                                    }
+
+                                }]
+                        }
+                    );
+                    done();
+                });
+
+                it('member has gained points bob since did check-in eat',function(done){
+                    var rule = parser.parse('member has gained points bob since did check-in eat');
+                    should(rule).eql({
+                            conditions:[
+                                {
+                                    scope: 'member',
+                                    type: 'has',
+                                    query: {
+                                        type:'gained_points',
+                                        levelCode:'bob'
+                                    },
+                                    periodFilter: {
+                                        type:'since_did',
+                                        scope:'check-in',
+                                        checkinCode:'eat'
+                                    }
+
+                                }]
+                        }
+                    );
+                    done();
+                });
+
+                it('member has gained points bob since did first check-in eat',function(done){
+                    var rule = parser.parse('member has gained points bob since did first check-in eat');
+                    should(rule).eql({
+                            conditions:[
+                                {
+                                    scope: 'member',
+                                    type: 'has',
+                                    query: {
+                                        type:'gained_points',
+                                        levelCode:'bob'
+                                    },
+                                    periodFilter: {
+                                        type:'since_did',
+                                        position:'first',
+                                        scope:'check-in',
+                                        checkinCode:'eat'
+                                    }
+
+                                }]
+                        }
+                    );
+                    done();
+                });
+
+                it('member has gained points bob since did last check-in eat',function(done){
+                    var rule = parser.parse('member has gained points bob since did last check-in eat');
+                    should(rule).eql({
+                            conditions:[
+                                {
+                                    scope: 'member',
+                                    type: 'has',
+                                    query: {
+                                        type:'gained_points',
+                                        levelCode:'bob'
+                                    },
+                                    periodFilter: {
+                                        type:'since_did',
+                                        position:'last',
+                                        scope:'check-in',
+                                        checkinCode:'eat'
                                     }
 
                                 }]
@@ -566,6 +644,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'since_received',
+                                        scope:'prize',
                                         prizeCode:'points'
                                     }
 
@@ -745,8 +824,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained prize bob since did eat',function(done){
-                    var rule = parser.parse('member has gained prize bob since did eat');
+                it('member has gained prize bob since did action eat',function(done){
+                    var rule = parser.parse('member has gained prize bob since did action eat');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -758,6 +837,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'since_did',
+                                        scope:'action',
                                         actionCode:'eat'
                                     }
 
@@ -767,8 +847,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained prize bob since did first eat',function(done){
-                    var rule = parser.parse('member has gained prize bob since did first eat');
+                it('member has gained prize bob since did first action eat',function(done){
+                    var rule = parser.parse('member has gained prize bob since did first action eat');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -781,6 +861,7 @@ describe('<Unit Test>', function () {
                                     periodFilter: {
                                         type:'since_did',
                                         position:'first',
+                                        scope:'action',
                                         actionCode:'eat'
                                     }
 
@@ -790,8 +871,8 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained prize bob since did last eat',function(done){
-                    var rule = parser.parse('member has gained prize bob since did last eat');
+                it('member has gained prize bob since did last action eat',function(done){
+                    var rule = parser.parse('member has gained prize bob since did last action eat');
                     should(rule).eql({
                             conditions:[
                                 {
@@ -803,6 +884,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'since_did',
+                                        scope:'action',
                                         position:'last',
                                         actionCode:'eat'
                                     }
@@ -826,6 +908,7 @@ describe('<Unit Test>', function () {
                                     },
                                     periodFilter: {
                                         type:'since_received',
+                                        scope:'prize',
                                         prizeCode:'prize'
                                     }
 

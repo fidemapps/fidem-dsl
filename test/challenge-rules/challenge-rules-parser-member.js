@@ -474,8 +474,8 @@ describe('<Unit Test>', function () {
 
 				describe('tag', function () {
 
-					it('member has gained tag bob give 1 points', function (done) {
-						var rule = parser.parse('member has gained tag bob give 1 points');
+					it('member has gained tag bob:bob give 1 points', function (done) {
+						var rule = parser.parse('member has gained tag bob:bob give 1 points');
 						should(rule).eql({
 							rules: [{
 								scope: 'member',
@@ -487,7 +487,7 @@ describe('<Unit Test>', function () {
 									object: {
 										type: 'tag',
 										tagCode: {
-											tagClusterCode: null,
+											tagClusterCode: 'bob',
 											tagCode: 'bob'
 										}
 									}
@@ -504,8 +504,8 @@ describe('<Unit Test>', function () {
 						done();
 					});
 
-					it('member has lost 3 tag bob give 1 points', function (done) {
-						var rule = parser.parse('member has lost 3 tag bob give 1 points');
+					it('member has lost 3 tag bob:bob give 1 points', function (done) {
+						var rule = parser.parse('member has lost 3 tag bob:bob give 1 points');
 						should(rule).eql({
 							rules: [{
 								scope: 'member',
@@ -517,7 +517,7 @@ describe('<Unit Test>', function () {
 									object: {
 										type: 'tag',
 										tagCode: {
-											tagClusterCode: null,
+											tagClusterCode: 'bob',
 											tagCode: 'bob'
 										}
 									}
@@ -532,8 +532,8 @@ describe('<Unit Test>', function () {
 						done();
 					});
 
-					it('member has not gained 3 tag bob give 1 points', function (done) {
-						var rule = parser.parse('member has not gained 3 tag bob give 1 points');
+					it('member has not gained 3 tag bob:bob give 1 points', function (done) {
+						var rule = parser.parse('member has not gained 3 tag bob:bob give 1 points');
 						should(rule).eql({
 								rules: [
 									{
@@ -546,7 +546,7 @@ describe('<Unit Test>', function () {
 											object: {
 												type: 'tag',
 												tagCode: {
-													tagClusterCode: null,
+													tagClusterCode: 'bob',
 													tagCode: 'bob'
 												}
 											}
@@ -563,8 +563,8 @@ describe('<Unit Test>', function () {
 						done();
 					});
 
-					it('member has not lost tag bob give 1 points', function (done) {
-						var rule = parser.parse('member has not lost tag bob give 1 points');
+					it('member has not lost tag bob:bob give 1 points', function (done) {
+						var rule = parser.parse('member has not lost tag bob:bob give 1 points');
 						should(rule).eql({
 								rules: [
 									{
@@ -577,7 +577,7 @@ describe('<Unit Test>', function () {
 											object: {
 												type: 'tag',
 												tagCode: {
-													tagClusterCode: null,
+													tagClusterCode: 'bob',
 													tagCode: 'bob'
 												}
 											}
@@ -594,8 +594,8 @@ describe('<Unit Test>', function () {
 						done();
 					});
 
-					it('member has gained tag bob in last 3 days give 1 points', function (done) {
-						var rule = parser.parse('member has gained tag bob in last 3 days give 1 points');
+					it('member has gained tag bob:bob in last 3 days give 1 points', function (done) {
+						var rule = parser.parse('member has gained tag bob:bob in last 3 days give 1 points');
 						should(rule).eql({
 								rules: [
 									{
@@ -608,7 +608,7 @@ describe('<Unit Test>', function () {
 											object: {
 												type: 'tag',
 												tagCode: {
-													tagClusterCode: null,
+													tagClusterCode: 'bob',
 													tagCode: 'bob'
 												}
 											}

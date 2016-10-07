@@ -432,11 +432,11 @@ checkinCode "checkinCode"
 	= code
 
 tagCode "tagCode"
-    = tagClusterCode:tagClusterCode? code:code
+    = tagClusterCode:tagClusterCode code:code
     {
         return {
             tagCode: code,
-            tagClusterCode: tagClusterCode ? tagClusterCode : null
+            tagClusterCode: tagClusterCode
         }
     }
 

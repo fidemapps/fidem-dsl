@@ -276,9 +276,9 @@ describe('<Unit Test>', function () {
 					});
 				});
 
-				it('member did not action TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat', function () {
+				it('member did not action TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did action eat', function () {
 
-					var rule = parser.parse('member did not action TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat');
+					var rule = parser.parse('member did not action TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did action eat');
 					should(rule).eql({
 						conditions: [
 							{
@@ -302,6 +302,7 @@ describe('<Unit Test>', function () {
 								},
 								periodFilter: {
 									type: 'since_did',
+									scope: 'action',
 									actionCode: 'eat'
 								},
 								geoFilter: {
@@ -313,8 +314,8 @@ describe('<Unit Test>', function () {
 					});
 				});
 
-				it('member did not action TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat', function () {
-					var rule = parser.parse('member did not action TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat');
+				it('member did not action TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last check-in eat', function () {
+					var rule = parser.parse('member did not action TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last check-in eat');
 					should(rule).eql({
 						conditions: [
 							{
@@ -339,7 +340,8 @@ describe('<Unit Test>', function () {
 								periodFilter: {
 									type: 'since_did',
 									position: 'last',
-									actionCode: 'eat'
+									scope: 'check-in',
+									checkinCode: 'eat'
 								},
 								geoFilter: {
 									type: 'rssi_below',
@@ -351,8 +353,8 @@ describe('<Unit Test>', function () {
 					});
 				});
 
-				it('member did not action TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat', function () {
-					var rule = parser.parse('member did not action TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat');
+				it('member did not action TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first action eat', function () {
+					var rule = parser.parse('member did not action TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first action eat');
 					should(rule).eql({
 						conditions: [
 							{
@@ -377,6 +379,7 @@ describe('<Unit Test>', function () {
 								periodFilter: {
 									type: 'since_did',
 									position: 'first',
+									scope: 'action',
 									actionCode: 'eat'
 								},
 								geoFilter: {
@@ -414,6 +417,7 @@ describe('<Unit Test>', function () {
 								},
 								periodFilter: {
 									type: 'since_received',
+									scope: 'prize',
 									prizeCode: 'bob'
 								},
 								geoFilter: {
@@ -685,9 +689,9 @@ describe('<Unit Test>', function () {
 					});
 				});
 
-				it('member did not check-in TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat', function () {
+				it('member did not check-in TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did action eat', function () {
 
-					var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did eat');
+					var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times in range of beacon BEACON1,BEACON2 since did action eat');
 					should(rule).eql({
 						conditions: [
 							{
@@ -716,6 +720,7 @@ describe('<Unit Test>', function () {
 								},
 								periodFilter: {
 									type: 'since_did',
+									scope: 'action',
 									actionCode: 'eat'
 								},
 								geoFilter: {
@@ -727,8 +732,8 @@ describe('<Unit Test>', function () {
 					});
 				});
 
-				it('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat', function () {
-					var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last eat');
+				it('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last action eat', function () {
+					var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI below 3 from beacon BEACON1,BEACON2,BEACON3 since did last action eat');
 					should(rule).eql({
 						conditions: [
 							{
@@ -758,6 +763,7 @@ describe('<Unit Test>', function () {
 								periodFilter: {
 									type: 'since_did',
 									position: 'last',
+									scope: 'action',
 									actionCode: 'eat'
 								},
 								geoFilter: {
@@ -770,8 +776,8 @@ describe('<Unit Test>', function () {
 					});
 				});
 
-				it('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat', function () {
-					var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first eat');
+				it('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first check-in eat', function () {
+					var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times with RSSI over 3 from beacon BEACON1,BEACON2,BEACON3 since did first check-in eat');
 					should(rule).eql({
 						conditions: [
 							{
@@ -801,7 +807,8 @@ describe('<Unit Test>', function () {
 								periodFilter: {
 									type: 'since_did',
 									position: 'first',
-									actionCode: 'eat'
+									scope: 'check-in',
+									checkinCode: 'eat'
 								},
 								geoFilter: {
 									type: 'rssi_over',
@@ -843,6 +850,7 @@ describe('<Unit Test>', function () {
 								},
 								periodFilter: {
 									type: 'since_received',
+									scope: 'prize',
 									prizeCode: 'bob'
 								},
 								geoFilter: {

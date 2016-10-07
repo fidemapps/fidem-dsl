@@ -652,10 +652,11 @@ periodFilter
         durationScope: durationScope
     }
 }
-/"since" S* type:"did" S* position:("first"/"last")? S* actionCode:actionCode
+/"since" S* type:"did" S* position:("first"/"last")? S* scope:"action" S* actionCode:actionCode
 {
     var rule = {
         type:"since_"+type,
+        scope:scope,
         actionCode:actionCode
     };
 
@@ -665,10 +666,25 @@ periodFilter
 
     return rule;
 }
-/"since" S* type:"received" S* target:"prize" S* prizeCode:prizeCode
+/"since" S* type:"did" S* position:("first"/"last")? S* scope:"check-in" S* checkinCode:checkinCode
+{
+    var rule = {
+        type:"since_"+type,
+        scope:scope,
+        checkinCode:checkinCode
+    };
+
+    if(position){
+        rule.position=position;
+    }
+
+    return rule;
+}
+/"since" S* type:"received" S* scope:"prize" S* prizeCode:prizeCode
 {
     return {
         type:"since_"+type,
+        scope:scope,
         prizeCode:prizeCode
     }
 }
@@ -832,11 +848,11 @@ smartlistCode "smartlistCode"
     = code
 
 tagCode "tagCode"
-= tagClusterCode:tagClusterCodeForTag? code:code
+= tagClusterCode:tagClusterCodeForTag code:code
 {
     return {
         tagCode: code,
-        tagClusterCode: tagClusterCode ? tagClusterCode : null
+        tagClusterCode: tagClusterCode
     }
 }
 

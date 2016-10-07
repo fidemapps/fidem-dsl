@@ -167,15 +167,54 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(4);
-                    should(literalChoices).eql(['first','last']);
+                    should(error.expected.length).equal(5);
+                    should(literalChoices).eql(['action','check-in','first','last']);
+                    should(otherChoices).eql(['whitespace']);
+                }
+            });
+
+            it('member did something since did action',function(){
+                try {
+                    parser.parse('member did something since did action');
+                } catch (error) {
+                    literalChoices = helper.extractLiterals(error);
+                    otherChoices = helper.extractOthers(error);
+
+                    should(error.expected.length).equal(2);
+                    should(literalChoices).eql([]);
                     should(otherChoices).eql(['actionCode','whitespace']);
                 }
             });
 
-            it('member did something since did eat',function(){
+            it('member did something since did check-in',function(){
                 try {
-                    parser.parse('member did something since did eat s');
+                    parser.parse('member did something since did check-in');
+                } catch (error) {
+                    literalChoices = helper.extractLiterals(error);
+                    otherChoices = helper.extractOthers(error);
+
+                    should(error.expected.length).equal(2);
+                    should(literalChoices).eql([]);
+                    should(otherChoices).eql(['checkinCode','whitespace']);
+                }
+            });
+
+            it('member did something since did check-in eat',function(){
+                try {
+                    parser.parse('member did something since did check-in eat s');
+                } catch (error) {
+                    literalChoices = helper.extractLiterals(error);
+                    otherChoices = helper.extractOthers(error);
+
+                    should(error.expected.length).equal(3);
+                    should(literalChoices).eql(['and']);
+                    should(otherChoices).eql(['whitespace']);
+                }
+            });
+
+            it('member did something since did action eat',function(){
+                try {
+                    parser.parse('member did something since did action eat s');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -193,9 +232,9 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
-                    should(literalChoices).eql([]);
-                    should(otherChoices).eql(['actionCode','whitespace']);
+                    should(error.expected.length).equal(3);
+                    should(literalChoices).eql(['action','check-in']);
+                    should(otherChoices).eql(['whitespace']);
                 }
             });
 
@@ -206,15 +245,15 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
-                    should(literalChoices).eql([]);
-                    should(otherChoices).eql(['actionCode','whitespace']);
+                    should(error.expected.length).equal(3);
+                    should(literalChoices).eql(['action','check-in']);
+                    should(otherChoices).eql(['whitespace']);
                 }
             });
 
-            it('member did something since did first eat',function(){
+            it('member did something since did first action eat',function(){
                 try {
-                    parser.parse('member did something since did first eat s');
+                    parser.parse('member did something since did first action eat s');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -225,9 +264,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something since did last eat',function(){
+            it('member did something since did last action eat',function(){
                 try {
-                    parser.parse('member did something since did last eat s');
+                    parser.parse('member did something since did last action eat s');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
