@@ -278,7 +278,7 @@ did_rule
         }
     }
 has_rule_gained_lost
-    =type:"not" S+ subType:("gained"/"lost") S* number:NUMBER? S+ object:object_rule
+    =type:"not" S+ subType:("gained"/"lost") S+ number:NUMBER? S* object:object_rule
     {
         return {
             type:type,
@@ -287,7 +287,7 @@ has_rule_gained_lost
             object:object
         }
     }
-    /subType:("gained"/"lost") S* number:NUMBER? S+ object:object_rule
+    /subType:("gained"/"lost") S+ number:NUMBER? S* object:object_rule
     {
         return {
             type:null,
@@ -348,10 +348,10 @@ occurence_filter
             number:number
         }
     }
-    /type:"less" S+ "than" S+ number:NUMBER S+ ("times" / "time")
+    /type:"less than" S+ number:NUMBER S+ ("times" / "time")
     {
         return {
-          type:type,
+          type:'less',
           number:number
         }
     }

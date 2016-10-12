@@ -132,7 +132,7 @@ describe('<Unit Test>', function () {
       it('Missing time number', function (done) {
 
         try {
-          parser.parse("challenge CODE 3 times within");
+          parser.parse("challenge CODE 3 times within ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -142,10 +142,10 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing time period', function (done) {
+      it('Missing time period ', function (done) {
 
         try {
-          parser.parse("challenge CODE 3 times within 3");
+          parser.parse("challenge CODE 3 times within 3 ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -195,10 +195,10 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing reward quantity', function (done) {
+      it('Missing reward quantity ', function (done) {
 
         try {
-          parser.parse("challenge CODE give");
+          parser.parse("challenge CODE give ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -208,10 +208,10 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing reward code', function (done) {
+      it('Missing reward code' , function (done) {
 
         try {
-          parser.parse("challenge CODE give 3");
+          parser.parse("challenge CODE give 3 ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -342,10 +342,10 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('beaon Missing of beacon', function (done) {
+      it('beaon Missing of beacon ', function (done) {
 
         try {
-          parser.parse("action TEST near 1");
+          parser.parse("action TEST near 1 ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -356,10 +356,10 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('beaon Missing beacon code', function (done) {
+      it('beaon Missing beacon code ', function (done) {
 
         try {
-          parser.parse("action TEST near 1 of beacon");
+          parser.parse("action TEST near 1 of beacon ");
         }
         catch (err) {
           should(err.expected.length).equal(2);

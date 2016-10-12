@@ -43,7 +43,7 @@ describe('<Unit Test>', function () {
 
                     it('should auto-complete the day correctly', function () {
                         try {
-                            parser.parse('action TEST every');
+                            parser.parse('action TEST every ');
                         } catch (error) {
                             literalChoices = helper.extractLiterals(error);
                             otherChoices = helper.extractOthers(error);
@@ -100,7 +100,7 @@ describe('<Unit Test>', function () {
 
                     it('should auto-complete after the keyword of', function () {
                         try {
-                            parser.parse('action TEST every day of');
+                            parser.parse('action TEST every day of ');
                         } catch (error) {
                             literalChoices = helper.extractLiterals(error);
                             otherChoices = helper.extractOthers(error);
@@ -145,7 +145,7 @@ describe('<Unit Test>', function () {
                     describe('in', function () {
                         it('before the year', function () {
                             try {
-                                parser.parse('action TEST every day of december,march in');
+                                parser.parse('action TEST every day of december,march in ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -188,7 +188,7 @@ describe('<Unit Test>', function () {
 
                         it('before year', function () {
                             try {
-                                parser.parse('action TEST every day of december,march starting at');
+                                parser.parse('action TEST every day of december,march starting at ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -218,7 +218,7 @@ describe('<Unit Test>', function () {
 
                         it('before year', function () {
                             try {
-                                parser.parse('action TEST every day of december,march until');
+                                parser.parse('action TEST every day of december,march until ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -248,7 +248,7 @@ describe('<Unit Test>', function () {
 
                         it('before the first time', function () {
                             try {
-                                parser.parse('action TEST every day of december,march from');
+                                parser.parse('action TEST every day of december,march from ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -260,7 +260,7 @@ describe('<Unit Test>', function () {
 
                         it('after the first time', function () {
                             try {
-                                parser.parse('action TEST every day of december,march from 2003-04-06');
+                                parser.parse('action TEST every day of december,march from 2003-04-06 ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -274,7 +274,7 @@ describe('<Unit Test>', function () {
 
                         it('before the second time', function () {
                             try {
-                                parser.parse('action TEST every day of december,march from 2003-04-06 to');
+                                parser.parse('action TEST every day of december,march from 2003-04-06 to ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -308,7 +308,7 @@ describe('<Unit Test>', function () {
                     describe('before', function () {
                         it('before time', function () {
                             try {
-                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 before');
+                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 before ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -339,7 +339,7 @@ describe('<Unit Test>', function () {
                     describe('after', function () {
                         it('before time', function () {
                             try {
-                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 after');
+                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 after ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -371,7 +371,7 @@ describe('<Unit Test>', function () {
 
                         it('before first time', function () {
                             try {
-                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between');
+                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -384,7 +384,7 @@ describe('<Unit Test>', function () {
 
                         it('after first time', function () {
                             try {
-                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between 01:30 am');
+                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between 01:30 am ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -399,7 +399,7 @@ describe('<Unit Test>', function () {
 
                         it('before second time', function () {
                             try {
-                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between 01:30 am and');
+                                parser.parse('action TEST every day of december,march from 2003-04-06 to 2006-05-04 between 01:30 am and ');
 
                             } catch (error) {
                                 otherChoices = helper.extractOthers(error);
@@ -440,7 +440,7 @@ describe('<Unit Test>', function () {
 
                 it('before first date', function () {
                     try {
-                        parser.parse('action TEST on');
+                        parser.parse('action TEST on ');
 
                     } catch (error) {
                         otherChoices = helper.extractOthers(error);
@@ -488,7 +488,7 @@ describe('<Unit Test>', function () {
                 describe('before', function () {
                     it('before time', function () {
                         try {
-                            parser.parse('action TEST on 2016-03-05 before');
+                            parser.parse('action TEST on 2016-03-05 before ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -519,7 +519,7 @@ describe('<Unit Test>', function () {
                 describe('after', function () {
                     it('before time', function () {
                         try {
-                            parser.parse('action TEST on 2016-03-05 after');
+                            parser.parse('action TEST on 2016-03-05 after ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -551,7 +551,7 @@ describe('<Unit Test>', function () {
 
                     it('before first time', function () {
                         try {
-                            parser.parse('action TEST on 2016-03-05 between');
+                            parser.parse('action TEST on 2016-03-05 between ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -564,7 +564,7 @@ describe('<Unit Test>', function () {
 
                     it('after first time', function () {
                         try {
-                            parser.parse('action TEST on 2016-03-05 between 01:30 am');
+                            parser.parse('action TEST on 2016-03-05 between 01:30 am ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -579,7 +579,7 @@ describe('<Unit Test>', function () {
 
                     it('before second time', function () {
                         try {
-                            parser.parse('action TEST on 2016-03-05 between 01:30 am and');
+                            parser.parse('action TEST on 2016-03-05 between 01:30 am and ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -616,7 +616,7 @@ describe('<Unit Test>', function () {
             describe('should auto-complete the position',function(){
                 it('before the position',function(){
                     try {
-                        parser.parse('action TEST on the');
+                        parser.parse('action TEST on the ');
 
                     } catch (error) {
                         otherChoices = helper.extractOthers(error);
@@ -656,7 +656,7 @@ describe('<Unit Test>', function () {
 
                 it('after the position',function(){
                     try {
-                        parser.parse('action TEST on the 4th');
+                        parser.parse('action TEST on the 4th ');
 
                     } catch (error) {
                         otherChoices = helper.extractOthers(error);
@@ -671,7 +671,7 @@ describe('<Unit Test>', function () {
 
                 it('after day',function(){
                     try {
-                        parser.parse('action TEST on the 4th day');
+                        parser.parse('action TEST on the 4th day ');
 
                     } catch (error) {
                         otherChoices = helper.extractOthers(error);
@@ -690,7 +690,7 @@ describe('<Unit Test>', function () {
 
                 it('should auto-complete after the keyword of', function () {
                     try {
-                        parser.parse('action TEST on the 4th day of');
+                        parser.parse('action TEST on the 4th day of ');
                     } catch (error) {
                         literalChoices = helper.extractLiterals(error);
                         otherChoices = helper.extractOthers(error);
@@ -735,7 +735,7 @@ describe('<Unit Test>', function () {
                 describe('in', function () {
                     it('before the year', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of december,march in');
+                            parser.parse('action TEST on the 1st day of december,march in ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -778,7 +778,7 @@ describe('<Unit Test>', function () {
 
                     it('before year', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of december,march starting at');
+                            parser.parse('action TEST on the 1st day of december,march starting at ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -808,7 +808,7 @@ describe('<Unit Test>', function () {
 
                     it('before year', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of december,march until');
+                            parser.parse('action TEST on the 1st day of december,march until ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -838,7 +838,7 @@ describe('<Unit Test>', function () {
 
                     it('before the first time', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of december,march  from');
+                            parser.parse('action TEST on the 1st day of december,march  from ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -850,7 +850,7 @@ describe('<Unit Test>', function () {
 
                     it('after the first time', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of december,march from 2003-04-06');
+                            parser.parse('action TEST on the 1st day of december,march from 2003-04-06 ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -864,7 +864,7 @@ describe('<Unit Test>', function () {
 
                     it('before the second time', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of december,march from 2003-04-06 to');
+                            parser.parse('action TEST on the 1st day of december,march from 2003-04-06 to ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -898,7 +898,7 @@ describe('<Unit Test>', function () {
                 describe('before', function () {
                     it('before time', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of month before');
+                            parser.parse('action TEST on the 1st day of month before ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -929,7 +929,7 @@ describe('<Unit Test>', function () {
                 describe('after', function () {
                     it('before time', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of month after');
+                            parser.parse('action TEST on the 1st day of month after ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -961,7 +961,7 @@ describe('<Unit Test>', function () {
 
                     it('before first time', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of month between');
+                            parser.parse('action TEST on the 1st day of month between ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -974,7 +974,7 @@ describe('<Unit Test>', function () {
 
                     it('after first time', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of month  between 01:30 am');
+                            parser.parse('action TEST on the 1st day of month  between 01:30 am ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);
@@ -989,7 +989,7 @@ describe('<Unit Test>', function () {
 
                     it('before second time', function () {
                         try {
-                            parser.parse('action TEST on the 1st day of month  between 01:30 am and');
+                            parser.parse('action TEST on the 1st day of month  between 01:30 am and ');
 
                         } catch (error) {
                             otherChoices = helper.extractOthers(error);

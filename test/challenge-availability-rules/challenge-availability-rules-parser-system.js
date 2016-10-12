@@ -22,7 +22,7 @@ describe('<Unit Test>', function () {
         describe('Should parse "every" rules', function () {
 
             it('every day', function (done) {
-                var rule = parser.parse('every day');
+                var rule = parser.parse('every day ');
                 should(rule).eql([{
                     scope: 'every',
                     days: {type: 'day', list: ['day']},
