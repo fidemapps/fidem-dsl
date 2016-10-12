@@ -34,10 +34,23 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing number for only top', function (done) {
+      it('Missing whitespace for only top', function (done) {
 
         try {
           parser.parse("only top");
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing number for only top', function (done) {
+
+        try {
+          parser.parse("only top ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -47,14 +60,42 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing only top "by member"', function (done) {
+      it('Missing whitespace before only top "by member"', function (done) {
 
         try {
           parser.parse("only top 3");
         }
         catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing only top "by member"', function (done) {
+
+        try {
+          parser.parse("only top 3 ");
+        }
+        catch (err) {
+          var literalChoices = helper.extractLiterals(err);
           should(err.expected.length).equal(2);
-          should(err.expected[0].value).equal('by member');
+          should(literalChoices).eql(['by member']);
+        }
+
+        done();
+      });
+
+      it('Missing only whitespace before top "tag" or "points"', function (done) {
+
+        try {
+          parser.parse("only top 3 by member");
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+
         }
 
         done();
@@ -63,7 +104,7 @@ describe('<Unit Test>', function () {
       it('Missing only top "tag" or "points"', function (done) {
 
         try {
-          parser.parse("only top 3 by member");
+          parser.parse("only top 3 by member ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);

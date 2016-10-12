@@ -35,7 +35,7 @@ start
     = conditions;
 
 conditions
-    = first:simple_condition reminders:(S* "and" S* simple_condition)* S* "of" S* eventCode:eventCode
+    = first:simple_condition reminders:(S+ "and" S+ simple_condition)* S+ "of" S+ eventCode:eventCode
     {
         return {
             eventCode: eventCode,
@@ -44,7 +44,7 @@ conditions
     }
 
 simple_condition
-    = duration:NUMBER S* durationScope:timeframe S* qualifier:("after" / "before") S* eventQualifier:("sales" / "curtain" / "start" / "end")
+    = duration:NUMBER S+ durationScope:timeframe S+ qualifier:("after" / "before") S+ eventQualifier:("sales" / "curtain" / "start" / "end")
     {
         return {
             type: "time",
@@ -54,7 +54,7 @@ simple_condition
             eventQualifier: eventQualifier
         };
     }
-    / "tier" S* tierCode:tierCode S* "ticket sales" S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER percent:"%"?
+    / "tier" S+ tierCode:tierCode S+ "ticket sales" S* operator:(">=" / "<=" / "=" / ">" / "<") S* value:NUMBER percent:"%"?
     {
         return {
             type: "tierSales",

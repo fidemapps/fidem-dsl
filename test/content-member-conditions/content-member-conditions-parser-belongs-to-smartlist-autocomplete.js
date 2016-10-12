@@ -23,9 +23,9 @@ describe('<Unit Test>', function () {
         describe('belongs to smartlist rule',function(){
 
 
-            it('member belongs to smartlist',function(){
+            it('member belongs to smartlist ',function(){
                 try {
-                    parser.parse("member belongs to smartlist");
+                    parser.parse("member belongs to smartlist ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -75,9 +75,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member belongs to smartlist bob,dan since',function(){
+            it('member belongs to smartlist bob,dan since ',function(){
                 try {
-                    parser.parse("member belongs to smartlist bob,dan since");
+                    parser.parse("member belongs to smartlist bob,dan since ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -88,9 +88,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member belongs to smartlist bob,dan since 3',function(){
+            it('member belongs to smartlist bob,dan since 3 ',function(){
                 try {
-                    parser.parse("member belongs to smartlist bob,dan since 3");
+                    parser.parse("member belongs to smartlist bob,dan since 3 ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -121,9 +121,9 @@ describe('<Unit Test>', function () {
             var literalChoices;
             var otherChoices;
 
-            it('member does not belong to smartlist',function(){
+            it('member does not belong to smartlist ',function(){
                 try {
-                    parser.parse("member does not belong to smartlist");
+                    parser.parse("member does not belong to smartlist ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -173,9 +173,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member does not belong to smartlist bob,dan since',function(){
+            it('member does not belong to smartlist bob,dan since ',function(){
                 try {
-                    parser.parse("member does not belong to smartlist bob,dan since");
+                    parser.parse("member does not belong to smartlist bob,dan since ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -186,9 +186,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member does not belong to smartlist bob,dan since 3',function(){
+            it('member does not belong to smartlist bob,dan since 3 ',function(){
                 try {
-                    parser.parse("member does not belong to smartlist bob,dan since 3");
+                    parser.parse("member does not belong to smartlist bob,dan since 3 ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);

@@ -23,9 +23,9 @@ describe('<Unit Test>', function () {
 
     describe('has been', function () {
 
-      it('member has been', function () {
+      it('member has been ', function () {
         try {
-          parser.parse('member has been');
+          parser.parse('member has been ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -36,9 +36,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has not been', function () {
+      it('member has not been ', function () {
         try {
-          parser.parse('member has not been');
+          parser.parse('member has not been ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -49,9 +49,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been in geofence', function () {
+      it('member has been in geofence ', function () {
         try {
-          parser.parse('member has been in geofence');
+          parser.parse('member has been in geofence ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -101,9 +101,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been in range of', function () {
+      it('member has been in range of ', function () {
         try {
-          parser.parse('member has been in range of');
+          parser.parse('member has been in range of ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -114,9 +114,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been in range of beacon', function () {
+      it('member has been in range of beacon ', function () {
         try {
-          parser.parse('member has been in range of beacon');
+          parser.parse('member has been in range of beacon ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -166,9 +166,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI over', function () {
+      it('member has been with RSSI over ', function () {
         try {
-          parser.parse('member has been with RSSI over');
+          parser.parse('member has been with RSSI over ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -179,9 +179,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI over 3', function () {
+      it('member has been with RSSI over 3 ', function () {
         try {
-          parser.parse('member has been with RSSI over 3');
+          parser.parse('member has been with RSSI over 3 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -192,9 +192,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI over 3 from', function () {
+      it('member has been with RSSI over 3 from ', function () {
         try {
-          parser.parse('member has been with RSSI over 3 from');
+          parser.parse('member has been with RSSI over 3 from ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -205,9 +205,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI over 3 from beacon', function () {
+      it('member has been with RSSI over 3 from beacon ', function () {
         try {
-          parser.parse('member has been with RSSI over 3 from beacon');
+          parser.parse('member has been with RSSI over 3 from beacon ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -244,9 +244,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI below', function () {
+      it('member has been with RSSI below ', function () {
         try {
-          parser.parse('member has been with RSSI over');
+          parser.parse('member has been with RSSI below ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -257,9 +257,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI below 3', function () {
+      it('member has been with RSSI below 3 ', function () {
         try {
-          parser.parse('member has been with RSSI below 3');
+          parser.parse('member has been with RSSI below 3 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -270,9 +270,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI below 3 from', function () {
+      it('member has been with RSSI below 3 from ', function () {
         try {
-          parser.parse('member has been with RSSI below 3 from');
+          parser.parse('member has been with RSSI below 3 from ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -283,9 +283,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI below 3 from beacon', function () {
+      it('member has been with RSSI below 3 from beacon ', function () {
         try {
-          parser.parse('member has been with RSSI below 3 from beacon');
+          parser.parse('member has been with RSSI below 3 from beacon ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -322,9 +322,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI between', function () {
+      it('member has been with RSSI between ', function () {
         try {
-          parser.parse('member has been with RSSI over');
+          parser.parse('member has been with RSSI between ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -335,9 +335,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI between 3', function () {
+      it('member has been with RSSI between 3 ', function () {
         try {
-          parser.parse('member has been with RSSI between 3');
+          parser.parse('member has been with RSSI between 3 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -348,9 +348,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI between 3 and', function () {
+      it('member has been with RSSI between 3 and ', function () {
         try {
-          parser.parse('member has been with RSSI between 3 and');
+          parser.parse('member has been with RSSI between 3 and ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -361,9 +361,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI between 3 and 4', function () {
+      it('member has been with RSSI between 3 and 4 ', function () {
         try {
-          parser.parse('member has been with RSSI between 3 and 4');
+          parser.parse('member has been with RSSI between 3 and 4 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -374,9 +374,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI between 3 and 4 from', function () {
+      it('member has been with RSSI between 3 and 4 from ', function () {
         try {
-          parser.parse('member has been with RSSI between 3 and 4 from');
+          parser.parse('member has been with RSSI between 3 and 4 from ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -387,9 +387,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member has been with RSSI between 3 and 4 from beacon', function () {
+      it('member has been with RSSI between 3 and 4 from beacon ', function () {
         try {
-          parser.parse('member has been with RSSI between 3 and 4 from beacon');
+          parser.parse('member has been with RSSI between 3 and 4 from beacon ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);

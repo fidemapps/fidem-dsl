@@ -92,7 +92,7 @@ rules
     }
 
 simple_rule
-    = scope:"action" S* actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* S* system:system_condition?
+    = scope:"action" S+ actionCode:actionCode conditions:(S* condition)* filters:(S* filter)* S* system:system_condition?
     {
 
         var theRule = {
@@ -106,7 +106,7 @@ simple_rule
         }
         return theRule
     }
-    / scope:"challenge" S* challengeCode:challengeCode conditions:(S* condition)* filters:(S* filter)*
+    / scope:"challenge" S+ challengeCode:challengeCode conditions:(S* condition)* filters:(S* filter)*
     {
         return {
             scope: scope,
@@ -115,7 +115,7 @@ simple_rule
             filters: buildList(null, filters, 1)
         };
     }
-    / scope:"member" S* type:("level" / "point") S* levelCode:levelCode S* operator:OPERATOR? S* value:NUMBER S* filter:withTag?
+    / scope:"member" S+ type:("level" / "point") S+ levelCode:levelCode S* operator:OPERATOR? S* value:NUMBER S* filter:withTag?
     {
         var theRule = {
             scope: scope,
@@ -127,7 +127,7 @@ simple_rule
 
         return theRule;
     }
-    / scope:"member" S* type:"tag" S* tagCode:tagCode S* operator:OPERATOR? S* value:NUMBER S* filter:withTag?
+    / scope:"member" S+ type:"tag" S+ tagCode:tagCode S* operator:OPERATOR? S* value:NUMBER S* filter:withTag?
     {
         var theRule = {
             scope: scope,
@@ -140,7 +140,7 @@ simple_rule
 
         return theRule;
     }
-    / scope:"member" S* "in geofence" S* first:geofenceCode reminders:(S* "," S* geofenceCode:geofenceCode)* durationOption:(S* "for" S* NUMBER S* timeframe)?
+    / scope:"member" S+ "in geofence" S+ first:geofenceCode reminders:(S* "," S* geofenceCode:geofenceCode)* durationOption:(S* "for" S+ NUMBER S+ timeframe)?
     {
         var theRule = {
             scope: scope,
@@ -167,7 +167,7 @@ simple_rule
 
 
 simple_reward
-    = "give" S* qty:NUMBER S* rewardCode:rewardCode
+    = "give" S+ qty:NUMBER S+ rewardCode:rewardCode
     {
         var theReward= {
             quantity: qty,
@@ -180,7 +180,7 @@ simple_reward
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S* type:"did" S* conditions:did_rule S* filter1:occurence_filter? S* filter2:period_filter?
+    = scope:"member" S+ type:"did" S+ conditions:did_rule S* filter1:occurence_filter? S* filter2:period_filter?
     {
         return {
             scope:scope,
@@ -190,7 +190,7 @@ member_condition
             period_filter:filter2
         };
     }
-    /scope:"member" S* type:"has" S* conditions:has_rule_completed S* filter1:occurence_filter? S* filter2:period_filter?
+    /scope:"member" S+ type:"has" S+ conditions:has_rule_completed S* filter1:occurence_filter? S* filter2:period_filter?
       {
           return {
               scope:scope,
@@ -200,7 +200,7 @@ member_condition
               period_filter:filter2
           };
       }
-      /scope:"member" S* type:"has" S* conditions:has_rule_gained_lost S* filter2:period_filter?
+      /scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* filter2:period_filter?
     {
          return {
              scope:scope,
@@ -214,7 +214,7 @@ member_condition
 
 
 member_action_condition
-    = "with" S* first:attribute_operator_value remainders:(S* "&" S* attribute_operator_value)*
+    = "with" S+ first:attribute_operator_value remainders:(S* "&" S* attribute_operator_value)*
     {
         return buildList(first,remainders,3);
     }
@@ -227,7 +227,7 @@ did_rule
              type:type
         }
     }
-    /type:"not" S* 'action' S* actionCode:actionCode S* condition:member_action_condition?
+    /type:"not" S+ 'action' S+ actionCode:actionCode S* condition:member_action_condition?
     {
         return {
             type:type,
@@ -235,7 +235,7 @@ did_rule
             conditions:condition
         }
     }
-	/type:"not" S* 'check-in' S* checkinCode:checkinCode S* condition:member_action_condition?
+	/type:"not" S+ 'check-in' S+ checkinCode:checkinCode S* condition:member_action_condition?
     {
         return {
             type:type,
@@ -255,7 +255,7 @@ did_rule
             type:type
         }
     }
-    /"action" S* actionCode:actionCode S* condition:member_action_condition?
+    /"action" S+ actionCode:actionCode S* condition:member_action_condition?
     {
     	return {
         	type:null,
@@ -263,7 +263,7 @@ did_rule
             conditions:condition
         }
     }
-    /"check-in" S* checkinCode:checkinCode S* condition:member_action_condition?
+    /"check-in" S+ checkinCode:checkinCode S* condition:member_action_condition?
     {
     	return {
         	type:null,
@@ -278,7 +278,7 @@ did_rule
         }
     }
 has_rule_gained_lost
-    =type:"not" S* subType:("gained"/"lost") S* number:NUMBER? S* object:object_rule
+    =type:"not" S+ subType:("gained"/"lost") S* number:NUMBER? S+ object:object_rule
     {
         return {
             type:type,
@@ -287,7 +287,7 @@ has_rule_gained_lost
             object:object
         }
     }
-    /subType:("gained"/"lost") S* number:NUMBER? S* object:object_rule
+    /subType:("gained"/"lost") S* number:NUMBER? S+ object:object_rule
     {
         return {
             type:null,
@@ -298,21 +298,21 @@ has_rule_gained_lost
     }
 
 object_rule
-    ="tag" S* tagCode:tagCode
+    ="tag" S+ tagCode:tagCode
     {
         return {
             type:"tag",
             tagCode:tagCode
         }
     }
-    /"points" S* levelCode:levelCode
+    /"points" S+ levelCode:levelCode
     {
         return {
             type:"points",
             levelCode:levelCode
         }
     }
-    /"prize" S* prizeCode:prizeCode
+    /"prize" S+ prizeCode:prizeCode
     {
         return {
             type:"prize",
@@ -321,14 +321,14 @@ object_rule
     }
 
 has_rule_completed
-    = type:"not" S* subType:"completed" S* challengeCode:challengeCode
+    = type:"not" S+ subType:"completed" S+ challengeCode:challengeCode
     {
         return {
             type:type,
             sub_type:subType,
             code:challengeCode
         }
-    }/ subType:"completed" S* challengeCode:challengeCode
+    }/ subType:"completed" S+ challengeCode:challengeCode
      {
          return {
              type:null,
@@ -341,21 +341,21 @@ has_rule_completed
 /*OCCURENCE FILTER*/
 
 occurence_filter
-    = "at" S* type:"least" S* number:NUMBER S* ("times" / "time")
+    = "at least" S+ number:NUMBER S+ ("times" / "time")
     {
         return {
-            type:type,
+            type:'least',
             number:number
         }
     }
-    /type:"less" S* "than" S* number:NUMBER S* ("times" / "time")
+    /type:"less" S+ "than" S+ number:NUMBER S+ ("times" / "time")
     {
         return {
           type:type,
           number:number
         }
     }
-    /type:"exactly" S* number:NUMBER S* ("times" / "time")
+    /type:"exactly" S+ number:NUMBER S+ ("times" / "time")
     {
         return {
           type:type,
@@ -366,28 +366,28 @@ occurence_filter
 /*PERIOD_FILTER*/
 
 period_filter
-    = type:"before" S* date:DATE_TIME_STRING
+    = type:"before" S+ date:DATE_TIME_STRING
     {
         return {
             type:type,
             date:[date]
         }
     }
-    /type:"after" S* date:DATE_TIME_STRING
+    /type:"after" S+ date:DATE_TIME_STRING
     {
         return {
             type:type,
             date:[date]
         }
     }
-    /type:"between" S* start:DATE_TIME_STRING S* "and" S* end:DATE_TIME_STRING
+    /type:"between" S+ start:DATE_TIME_STRING S+ "and" S+ end:DATE_TIME_STRING
     {
         return {
             type:type,
             date:[start,end]
         }
     }
-    /"in" S* type:"last" S* duration:NUMBER S* durationScope:timeframe
+    /"in" S+ type:"last" S+ duration:NUMBER S+ durationScope:timeframe
     {
         return {
             type:type,
@@ -408,7 +408,7 @@ filter
     = (withTag / withData / inGeoFenceAction / nearBeaconAction)
 
 on_rule
-    = "on" S* rule:( on_date / on_the )
+    = "on" S+ rule:( on_date / on_the )
     {
         return rule;
     }
@@ -424,7 +424,7 @@ on_date
     }
 
 on_the
-    = "the" S* first:POSITION remainders:(S* "," S* position:POSITION)* S* "day" S* months:(ofMonth/ "of" S* "month") S* years:(inYear / dateRules)? S* time:timeRule?
+    = "the" S+ first:POSITION remainders:(S* "," S* position:POSITION)* S+ "day" S+ months:(ofMonth/ "of" S+ "month") S* years:(inYear / dateRules)? S* time:timeRule?
     {
         var result={
            type: 'onThe',
@@ -442,7 +442,7 @@ on_the
     }
 
 every
-    ="every" S* first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
+    ="every" S+ first:WEEK_DAY remainders:(S* "," S* weekDays:WEEK_DAY)*  S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
     {
         return {
             type : 'every',
@@ -452,7 +452,7 @@ every
             time:time
         };
     }
-    / "every" S* "day" S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
+    / "every" S+ "day" S* months:ofMonth? S* years:(inYear / dateRules)? S* time:timeRule?
     {
         return {
             type : 'every',
@@ -470,7 +470,7 @@ timeRule
     = (beforeTime / afterTime / betweenTimes)
 
 beforeTime
-    = "before" S* time:TIME_CHOICE
+    = "before" S+ time:TIME_CHOICE
     {
         return {
             type:"before",
@@ -479,7 +479,7 @@ beforeTime
     }
 
 afterTime
-    = "after" S* time:TIME_CHOICE
+    = "after" S+ time:TIME_CHOICE
     {
         return {
             type:"after",
@@ -488,7 +488,7 @@ afterTime
     }
 
 betweenTimes
-    = "between" S* start:TIME_CHOICE S* "and" S* end:TIME_CHOICE
+    = "between" S+ start:TIME_CHOICE S+ "and" S+ end:TIME_CHOICE
     {
         return {
             type:"between",
@@ -499,7 +499,7 @@ betweenTimes
 /*SYSTEM CONDITION MONTH RELATED*/
 
 ofMonth
-    = "of" S* first:MONTHS remainders:(S* "," S* months:MONTHS)*
+    = "of" S+ first:MONTHS remainders:(S* "," S* months:MONTHS)*
     {
         return {
             type:"of",
@@ -510,7 +510,7 @@ ofMonth
 /*SYSTEM CONDITION YEAR RELATED*/
 
 inYear
-    = "in" S* first:YEARS remainders:(S* "," S* years:YEARS)*
+    = "in" S+ first:YEARS remainders:(S* "," S* years:YEARS)*
     {
         return {
             type:"in",
@@ -522,7 +522,7 @@ dateRules
     = (fromDate / startingDate / untilDate)
 
 fromDate
-    = "from" S* start:DATE S* "to" S* end:DATE
+    = "from" S+ start:DATE S+ "to" S+ end:DATE
     {
         return {
             type:"from",
@@ -531,7 +531,7 @@ fromDate
     }
 
 startingDate
-    = "starting at" S* year:DATE
+    = "starting at" S+ year:DATE
     {
         return {
             type:"starting",
@@ -540,7 +540,7 @@ startingDate
     }
 
 untilDate
-    = "until" S* year:DATE
+    = "until" S+ year:DATE
     {
         return {
             type:"until",
@@ -551,7 +551,7 @@ untilDate
 /*MIX*/
 
 inGeoFenceAction
-    = "in geofence" S* first:geofenceCode reminders:(S* "," S* geofenceCode:geofenceCode)*
+    = "in geofence" S+ first:geofenceCode reminders:(S* "," S* geofenceCode:geofenceCode)*
     {
         return {
             type: 'geofence',
@@ -560,7 +560,7 @@ inGeoFenceAction
     }
 
 nearBeaconAction
-    = "near" S* distance:NUMBER S* "of beacon" S* first:beaconCode reminders:(S* "," S* beaconCode:beaconCode)*
+    = "near" S+ distance:NUMBER S+ "of beacon" S+ first:beaconCode reminders:(S* "," S* beaconCode:beaconCode)*
     {
         return {
             type: 'beacon',
@@ -570,7 +570,7 @@ nearBeaconAction
     }
 
 withTag
-    = "with tag" S* tagCode:tagCode
+    = "with tag" S+ tagCode:tagCode
     {
         return {
             type: 'tag',
@@ -580,7 +580,7 @@ withTag
     }
 
 withData
-    = "with data" S* attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
+    = "with data" S+ attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
     {
         return {
             type: 'data',
@@ -591,7 +591,7 @@ withData
     }
 
 numberOfTimes
-    = value:NUMBER S* "times"
+    = value:NUMBER S+ "times"
     {
         return {
           type: 'times',
@@ -600,7 +600,7 @@ numberOfTimes
     }
 
 withinTimeframe
-    = value:NUMBER S* "times" S* "within" S* duration:NUMBER S* durationScope:timeframe
+    = value:NUMBER S+ "times" S+ "within" S+ duration:NUMBER S+ durationScope:timeframe
     {
         return {
           type: 'times_within_timeframe',

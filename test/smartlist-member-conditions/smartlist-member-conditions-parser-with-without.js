@@ -128,6 +128,20 @@ describe('<Unit Test>', function () {
                     });
                 });
 
+                it('member with tag cluster-1:Biok-et > 3',function(){
+
+                    var condition = parser.parse('member with tag cluster-1:Biok-et >3 ');
+                    should(condition).eql({
+                        conditions: [
+                            {
+                                query: { type:'tag', tagCode: { tagClusterCode: 'cluster-1', tagCode: 'Biok-et' },operator:'>',value:3 },
+                                scope: 'member',
+                                type: 'with'
+                            }
+                        ]
+                    });
+                });
+
             });
 
             describe('tag cluster',function(){

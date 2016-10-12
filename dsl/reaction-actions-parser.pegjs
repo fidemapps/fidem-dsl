@@ -36,7 +36,7 @@ start
     = simple_action;
 
 simple_action
-    = "give reward" S* quantity:NUMBER S* rewardCode:rewardCode S* "from program" S* programCode:programCode S* "to list" S* listCode:listCode
+    = "give reward" S+ quantity:NUMBER S+ rewardCode:rewardCode S+ "from program" S+ programCode:programCode S+ "to list" S+ listCode:listCode
     {
         return {
             action: "giveReward",
@@ -46,7 +46,7 @@ simple_action
             listCode: listCode
         };
     }
-    / "send message text" S* text:string S* "with subject" S* subject:string S* "to list" S* listCode:listCode
+    / "send message text" S+ text:string S+ "with subject" S+ subject:string S+ "to list" S+ listCode:listCode
     {
         return {
             action: "sendTextMessage",
@@ -55,7 +55,7 @@ simple_action
             listCode: listCode
         };
     }
-    / "send message text" S* text:string S* "with subject" S* subject:string S* "to emails" S* emailFirst:email emailReminders:(S* "," S* email)*
+    / "send message text" S+ text:string S+ "with subject" S+ subject:string S+ "to emails" S+ emailFirst:email emailReminders:(S* "," S* email)*
     {
         return {
             action: "sendTextMessage",
@@ -64,7 +64,7 @@ simple_action
             emails: buildList(emailFirst, emailReminders, 3)
         };
     }
-    / "send message template" S* templateMessageCode:templateMessageCode S* "to list" S* listCode:listCode
+    / "send message template" S+ templateMessageCode:templateMessageCode S+ "to list" S+ listCode:listCode
     {
         return {
             action: "sendTemplateMessage",
@@ -72,7 +72,7 @@ simple_action
             listCode: listCode
         };
     }
-    / "send message template" S* templateMessageCode:templateMessageCode S* "to emails" S* emailFirst:email emailReminders:(S* "," S* email)*
+    / "send message template" S+ templateMessageCode:templateMessageCode S+ "to emails" S+ emailFirst:email emailReminders:(S* "," S* email)*
     {
         return {
             action: "sendTemplateMessage",

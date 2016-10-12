@@ -24,7 +24,7 @@ describe('<Unit Test>', function () {
 
             it('member with ',function(){
                 try {
-                    parser.parse('member with');
+                    parser.parse('member with ');
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
@@ -34,9 +34,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member without',function(){
+            it('member without ',function(){
                 try {
-                    parser.parse('member without');
+                    parser.parse('member without ');
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
@@ -47,9 +47,9 @@ describe('<Unit Test>', function () {
             });
 
             describe('tag',function(){
-                it('member with tag',function(){
+                it('member with tag ',function(){
                     try {
-                        parser.parse('member with tag');
+                        parser.parse('member with tag ');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
@@ -110,9 +110,9 @@ describe('<Unit Test>', function () {
             });
 
             describe('points',function(){
-                it('member with points',function(){
+                it('member with points ',function(){
                     try {
-                        parser.parse('member with points');
+                        parser.parse('member with points ');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
@@ -161,9 +161,9 @@ describe('<Unit Test>', function () {
 
             describe('prize',function(){
 
-                it('member with prize',function(){
+                it('member with prize ',function(){
                     try {
-                        parser.parse('member with prize');
+                        parser.parse('member with prize ');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);

@@ -22,9 +22,9 @@ describe('<Unit Test>', function () {
     });
     describe('did', function () {
 
-      it('member did', function () {
+      it('member did ', function () {
         try {
-          parser.parse('member did');
+          parser.parse('member did ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -35,10 +35,10 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did not', function () {
+      it('member did not ', function () {
         //This happen because the parser don't know yet that the word 'not' is a token and not an actionCode
         try {
-          parser.parse('member did not');
+          parser.parse('member did not ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -51,9 +51,9 @@ describe('<Unit Test>', function () {
 
       describe('action', function () {
 
-        it('member did action', function () {
+        it('member did action ', function () {
           try {
-            parser.parse('member did action');
+            parser.parse('member did action ');
           } catch (error) {
             literalChoices = helper.extractLiterals(error);
             otherChoices = helper.extractOthers(error);
@@ -91,9 +91,9 @@ describe('<Unit Test>', function () {
           }
         });
 
-        it('member did action actionCode with', function () {
+        it('member did action actionCode with ', function () {
           try {
-            parser.parse('member did action eat with');
+            parser.parse('member did action eat with ');
           } catch (error) {
             otherChoices = helper.extractOthers(error);
 
@@ -171,9 +171,9 @@ describe('<Unit Test>', function () {
 
       describe('check-in', function () {
 
-        it('member did check-in', function () {
+        it('member did check-in ', function () {
           try {
-            parser.parse('member did check-in');
+            parser.parse('member did check-in ');
           } catch (error) {
             literalChoices = helper.extractLiterals(error);
             otherChoices = helper.extractOthers(error);
@@ -211,9 +211,9 @@ describe('<Unit Test>', function () {
           }
         });
 
-        it('member did check-in checkinCode with', function () {
+        it('member did check-in checkinCode with ', function () {
           try {
-            parser.parse('member did check-in eat with');
+            parser.parse('member did check-in eat with ');
           } catch (error) {
             otherChoices = helper.extractOthers(error);
 

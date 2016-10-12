@@ -8,7 +8,7 @@ var should = require('should'),
 var parser;
 
 describe('<Unit Test>', function () {
-  describe('Auto-Complete List Member Conditions Member:', function () {
+  describe('Auto-Complete List Member Conditions Member: OccurenceFilter', function () {
     var literalChoices;
     var otherChoices;
     before(function (done) {
@@ -24,9 +24,9 @@ describe('<Unit Test>', function () {
     describe('should auto-complete the occurrence filter', function () {
 
 
-      it('member did something at least', function () {
+      it('member did something at least ', function () {
         try {
-          parser.parse('member did something at least');
+          parser.parse('member did something at least ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
 
@@ -38,9 +38,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did something at least number', function () {
+      it('member did something at least number ', function () {
         try {
-          parser.parse('member did something at least 2');
+          parser.parse('member did something at least 2 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -51,9 +51,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did something at least number times', function () {
+      it('member did something at least number times ', function () {
         try {
-          parser.parse('member did something at least 2 times 3');
+          parser.parse('member did something at least 2 times 3 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -64,9 +64,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did something at least number time', function () {
+      it('member did something at least once', function () {
         try {
-          parser.parse('member did something at least 1 times 3');
+          parser.parse('member did something at least once');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -78,9 +78,9 @@ describe('<Unit Test>', function () {
       });
 
 
-      it('member did something less than', function () {
+      it('member did something less than ', function () {
         try {
-          parser.parse('member did something less than');
+          parser.parse('member did something less than ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
 
@@ -92,9 +92,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did something less than number', function () {
+      it('member did something less than number ', function () {
         try {
-          parser.parse('member did something less than 2');
+          parser.parse('member did something less than 2 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -105,9 +105,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did something less than number times', function () {
+      it('member did something less than number times ', function () {
         try {
-          parser.parse('member did something less than 2 times 3');
+          parser.parse('member did something less than 2 times 3 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -118,9 +118,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did something less than number time', function () {
+      it('member did something less than once ', function () {
         try {
-          parser.parse('member did something less than once 3');
+          parser.parse('member did something less than once 3 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -131,9 +131,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did something exactly', function () {
+      it('member did something exactly ', function () {
         try {
-          parser.parse('member did something exactly');
+          parser.parse('member did something exactly ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -144,9 +144,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did something exactly number', function () {
+      it('member did something exactly number ', function () {
         try {
-          parser.parse('member did something exactly 3');
+          parser.parse('member did something exactly 3 ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -170,7 +170,7 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did something exactly number time', function () {
+      it('member did something exactly once time', function () {
         try {
           parser.parse('member did something exactly once 3');
         } catch (error) {

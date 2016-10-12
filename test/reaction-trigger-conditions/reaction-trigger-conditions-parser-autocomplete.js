@@ -36,10 +36,26 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing timeframe', function (done) {
+      it('Missing withespace before timeframe', function (done) {
 
         try {
           parser.parse("1");
+        }
+        catch (err) {
+          var otherChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(otherChoices).eql([
+            'whitespace'
+          ]);
+        }
+
+        done();
+      });
+
+      it('Missing timeframe', function (done) {
+
+        try {
+          parser.parse("1 ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -63,10 +79,26 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing "after" or "before"', function (done) {
+      it('Missing withespace before "after" or "before"', function (done) {
 
         try {
           parser.parse("1 day");
+        }
+        catch (err) {
+          var otherChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(otherChoices).eql([
+            'whitespace'
+          ]);
+        }
+
+        done();
+      });
+
+      it('Missing "after" or "before"', function (done) {
+
+        try {
+          parser.parse("1 day ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -77,10 +109,26 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing "relative time"', function (done) {
+      it('Missing withespace before "relative time"', function (done) {
 
         try {
           parser.parse("1 day before");
+        }
+        catch (err) {
+          var otherChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(otherChoices).eql([
+            'whitespace'
+          ]);
+        }
+
+        done();
+      });
+
+      it('Missing "relative time"', function (done) {
+
+        try {
+          parser.parse("1 day before ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -91,10 +139,26 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing "of" or "and"', function (done) {
+      it('Missing withespace before "of" or "and"', function (done) {
 
         try {
           parser.parse("1 day before start");
+        }
+        catch (err) {
+          var otherChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(otherChoices).eql([
+            'whitespace'
+          ]);
+        }
+
+        done();
+      });
+
+      it('Missing "of" or "and"', function (done) {
+
+        try {
+          parser.parse("1 day before start ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -105,10 +169,26 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing event code', function (done) {
+      it('Missing withespace before event code', function (done) {
 
         try {
           parser.parse("1 day before start of");
+        }
+        catch (err) {
+          var otherChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(otherChoices).eql([
+            'whitespace'
+          ]);
+        }
+
+        done();
+      });
+
+      it('Missing event code', function (done) {
+
+        try {
+          parser.parse("1 day before start of ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -120,10 +200,25 @@ describe('<Unit Test>', function () {
     });
 
     describe('Should get exception for auto-complete : ticket sales', function () {
-      it('Missing tier code', function (done) {
+
+      it('Missing whitespace before tier code', function (done) {
 
         try {
           parser.parse("tier");
+        }
+        catch (err) {
+          var othersChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(othersChoices).eql(['whitespace']);
+        }
+
+        done();
+      });
+
+      it('Missing tier code', function (done) {
+
+        try {
+          parser.parse("tier ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -133,10 +228,24 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing "ticket sales"', function (done) {
+      it('Missing whitespace before "ticket sales"', function (done) {
 
         try {
           parser.parse("tier CODE");
+        }
+        catch (err) {
+          var othersChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(othersChoices).eql(['whitespace']);
+        }
+
+        done();
+      });
+
+      it('Missing "ticket sales"', function (done) {
+
+        try {
+          parser.parse("tier CODE ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -149,7 +258,7 @@ describe('<Unit Test>', function () {
       it('Missing "ticket sales" operator', function (done) {
 
         try {
-          parser.parse("tier CODE ticket sales");
+          parser.parse("tier CODE ticket sales ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -173,15 +282,18 @@ describe('<Unit Test>', function () {
         done();
       });
 
+
       it('Invalid percent sign og "ticket sales" number', function (done) {
 
         try {
           parser.parse("tier CODE ticket sales > 50:");
         }
         catch (err) {
-          should(err.expected.length).equal(4);
+          should(err.expected.length).equal(2);
           var literalChoices = helper.extractLiterals(err);
-          should(literalChoices).eql(['%', 'and', 'of']);
+          var othersChoices = helper.extractOthers(err);
+          should(literalChoices).eql(['%']);
+          should(othersChoices).eql(['whitespace']);
         }
 
         done();

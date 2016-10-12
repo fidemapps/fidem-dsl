@@ -36,7 +36,7 @@ describe('<Unit Test>', function () {
 
     it('should auto-complete when member', function () {
       try {
-        parser.parse('member');
+        parser.parse('member ');
       } catch (error) {
         literalChoices = helper.extractLiterals(error);
         otherChoices = helper.extractOthers(error);
@@ -49,9 +49,9 @@ describe('<Unit Test>', function () {
 
     describe('did', function () {
 
-      it('member did', function () {
+      it('member did ', function () {
         try {
-          parser.parse('member did');
+          parser.parse('member did ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -62,9 +62,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member did not', function () {
+      it('member did not ', function () {
         try {
-          parser.parse('member did not');
+          parser.parse('member did not ');
         } catch (error) {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
@@ -104,9 +104,9 @@ describe('<Unit Test>', function () {
           }
         });
 
-        it('member did action actionCode with', function () {
+        it('member did action actionCode with ', function () {
           try {
-            parser.parse('member did action eat with');
+            parser.parse('member did action eat with ');
           } catch (error) {
             otherChoices = helper.extractOthers(error);
 
@@ -211,9 +211,9 @@ describe('<Unit Test>', function () {
           }
         });
 
-        it('member did check-in checkinCode with', function () {
+        it('member did check-in checkinCode with ', function () {
           try {
-            parser.parse('member did check-in eat with');
+            parser.parse('member did check-in eat with ');
           } catch (error) {
             otherChoices = helper.extractOthers(error);
 

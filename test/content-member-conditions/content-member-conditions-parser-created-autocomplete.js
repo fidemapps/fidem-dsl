@@ -23,9 +23,9 @@ describe('<Unit Test>', function () {
 
         describe('created rule',function(){
 
-            it('member created before', function () {
+            it('member created before ', function () {
                 try {
-                    parser.parse('member created before');
+                    parser.parse('member created before ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -34,9 +34,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member created after', function () {
+            it('member created after ', function () {
                 try {
-                    parser.parse('member created after');
+                    parser.parse('member created after ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -58,9 +58,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member created between', function () {
+            it('member created between ', function () {
                 try {
-                    parser.parse('member created between');
+                    parser.parse('member created between ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -69,9 +69,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member created between datetime', function () {
+            it('member created between datetime ', function () {
                 try {
-                    parser.parse('member created between 2016-03-04 11:20 pm');
+                    parser.parse('member created between 2016-03-04 11:20 pm ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -82,9 +82,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member created between datetime and', function () {
+            it('member created between datetime and ', function () {
                 try {
-                    parser.parse('member created between 2016-03-04 3:20 and');
+                    parser.parse('member created between 2016-03-04 3:20 and ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -106,9 +106,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member created in last', function () {
+            it('member created in last ', function () {
                 try {
-                    parser.parse('member created in last');
+                    parser.parse('member created in last ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -119,9 +119,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member created in last number', function () {
+            it('member created in last number ', function () {
                 try {
-                    parser.parse('member created in last 3');
+                    parser.parse('member created in last 3 ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);

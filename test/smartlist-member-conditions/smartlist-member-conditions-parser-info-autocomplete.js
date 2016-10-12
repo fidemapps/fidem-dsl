@@ -24,7 +24,7 @@ describe('<Unit Test>', function () {
 
         it('member lives',function(){
             try {
-                parser.parse("member lives");
+                parser.parse("member lives ");
             }
             catch (err) {
                 var literalChoices = helper.extractLiterals(err);
@@ -37,7 +37,7 @@ describe('<Unit Test>', function () {
 
         it('member lives in',function(){
             try {
-                parser.parse("member lives in");
+                parser.parse("member lives in ");
             }
             catch (err) {
                 var literalChoices = helper.extractLiterals(err);
@@ -48,9 +48,9 @@ describe('<Unit Test>', function () {
             }
         });
 
-        it('member lives not in',function(){
+        it('member lives not in ',function(){
             try {
-                parser.parse("member lives not in");
+                parser.parse("member lives not in ");
             }
             catch (err) {
                 var literalChoices = helper.extractLiterals(err);
@@ -63,9 +63,9 @@ describe('<Unit Test>', function () {
 
         describe('city rule',function(){
 
-            it('member lives in city',function(){
+            it('member lives in city ',function(){
                 try {
-                    parser.parse("member lives in city");
+                    parser.parse("member lives in city ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -76,9 +76,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member lives not in city',function(){
+            it('member lives not in city ',function(){
                 try {
-                    parser.parse("member lives not in city");
+                    parser.parse("member lives not in city ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -120,9 +120,9 @@ describe('<Unit Test>', function () {
 
         describe('state rule',function(){
 
-            it('member lives in state',function(){
+            it('member lives in state ',function(){
                 try {
-                    parser.parse("member lives in state");
+                    parser.parse("member lives in state ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -133,9 +133,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member lives not in state',function(){
+            it('member lives not in state ',function(){
                 try {
-                    parser.parse("member lives not in state");
+                    parser.parse("member lives not in state ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -175,9 +175,9 @@ describe('<Unit Test>', function () {
 
         describe('zip rule',function(){
 
-            it('member lives in zip',function(){
+            it('member lives in zip ',function(){
                 try {
-                    parser.parse("member lives in zip");
+                    parser.parse("member lives in zip ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -188,9 +188,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member lives not in zip',function(){
+            it('member lives not in zip ',function(){
                 try {
-                    parser.parse("member lives not in zip");
+                    parser.parse("member lives not in zip ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -231,9 +231,9 @@ describe('<Unit Test>', function () {
 
         describe('country rule',function(){
 
-            it('member lives in country',function(){
+            it('member lives in country ',function(){
                 try {
-                    parser.parse("member lives in country");
+                    parser.parse("member lives in country ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
@@ -244,9 +244,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member lives not in country',function(){
+            it('member lives not in country ',function(){
                 try {
-                    parser.parse("member lives not in country");
+                    parser.parse("member lives not in country ");
                 }
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);

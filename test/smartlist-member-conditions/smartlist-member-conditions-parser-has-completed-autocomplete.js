@@ -22,9 +22,9 @@ describe('<Unit Test>', function () {
         });
         describe('completed', function () {
 
-            it('member has', function () {
+            it('member has ', function () {
                 try {
-                    parser.parse('member has');
+                    parser.parse('member has ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -35,9 +35,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has completed', function () {
+            it('member has completed ', function () {
                 try {
-                    parser.parse('member has completed');
+                    parser.parse('member has completed ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -59,9 +59,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not', function () {
+            it('member has not ', function () {
                 try {
-                    parser.parse('member has not');
+                    parser.parse('member has not ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -72,9 +72,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not completed', function () {
+            it('member has not completed ', function () {
                 try {
-                    parser.parse('member has not completed');
+                    parser.parse('member has not completed ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 

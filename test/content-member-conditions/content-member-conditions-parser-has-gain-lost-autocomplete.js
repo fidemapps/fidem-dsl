@@ -23,9 +23,9 @@ describe('<Unit Test>', function () {
 
         describe('gain/lost', function () {
 
-            it('member has not gained', function () {
+            it('member has not gained ', function () {
                 try {
-                    parser.parse('member has not gained');
+                    parser.parse('member has not gained ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -36,9 +36,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not lost', function () {
+            it('member has not lost ', function () {
                 try {
-                    parser.parse('member has not lost');
+                    parser.parse('member has not lost ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -49,9 +49,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not gained 3', function () {
+            it('member has not gained 3 ', function () {
                 try {
-                    parser.parse('member has not gained 3');
+                    parser.parse('member has not gained 3 ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -62,9 +62,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not lost tag', function () {
+            it('member has not lost tag ', function () {
                 try {
-                    parser.parse('member has not lost tag');
+                    parser.parse('member has not lost tag ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -73,9 +73,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not gained 3 tag', function () {
+            it('member has not gained 3 tag ', function () {
                 try {
-                    parser.parse('member has not gained 3 tag');
+                    parser.parse('member has not gained 3 tag ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -97,9 +97,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not lost points', function () {
+            it('member has not lost points ', function () {
                 try {
-                    parser.parse('member has not lost points');
+                    parser.parse('member has not lost points ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -108,9 +108,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not gained 3 points', function () {
+            it('member has not gained 3 points ', function () {
                 try {
-                    parser.parse('member has not gained 3 points');
+                    parser.parse('member has not gained 3 points ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -132,9 +132,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not lost prize', function () {
+            it('member has not lost prize ', function () {
                 try {
-                    parser.parse('member has not lost prize');
+                    parser.parse('member has not lost prize ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -143,9 +143,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member has not gained 3 prize', function () {
+            it('member has not gained 3 prize ', function () {
                 try {
-                    parser.parse('member has not gained 3 prize');
+                    parser.parse('member has not gained 3 prize ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 

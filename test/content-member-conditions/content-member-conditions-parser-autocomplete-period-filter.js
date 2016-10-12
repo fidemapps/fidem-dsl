@@ -24,9 +24,9 @@ describe('<Unit Test>', function () {
 
         describe('should auto-complete the period filter', function () {
 
-            it('member did something before', function () {
+            it('member did something before ', function () {
                 try {
-                    parser.parse('member did something before');
+                    parser.parse('member did something before ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -35,9 +35,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something after', function () {
+            it('member did something after ', function () {
                 try {
-                    parser.parse('member did something after');
+                    parser.parse('member did something after ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -59,9 +59,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something between', function () {
+            it('member did something between ', function () {
                 try {
-                    parser.parse('member did something between');
+                    parser.parse('member did something between ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -70,9 +70,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something between datetime', function () {
+            it('member did something between datetime ', function () {
                 try {
-                    parser.parse('member did something between 2016-03-04 23:20');
+                    parser.parse('member did something between 2016-03-04 23:20 ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -83,9 +83,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something between datetime and', function () {
+            it('member did something between datetime and ', function () {
                 try {
-                    parser.parse('member did something between 2016-03-04 03:20 and');
+                    parser.parse('member did something between 2016-03-04 03:20 and ');
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
@@ -108,9 +108,9 @@ describe('<Unit Test>', function () {
             });
 
 
-            it('member did something in last', function () {
+            it('member did something in last ', function () {
                 try {
-                    parser.parse('member did something in last');
+                    parser.parse('member did something in last ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -121,9 +121,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something in last number', function () {
+            it('member did something in last number ', function () {
                 try {
-                    parser.parse('member did something in last 3');
+                    parser.parse('member did something in last 3 ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -147,9 +147,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something since',function(){
+            it('member did something since ',function(){
                 try {
-                    parser.parse('member did something since');
+                    parser.parse('member did something since ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -160,9 +160,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something since did',function(){
+            it('member did something since did ',function(){
                 try {
-                    parser.parse('member did something since did');
+                    parser.parse('member did something since did ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -173,9 +173,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something since did action',function(){
+            it('member did something since did action ',function(){
                 try {
-                    parser.parse('member did something since did action');
+                    parser.parse('member did something since did action ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -186,9 +186,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something since did check-in',function(){
+            it('member did something since did check-in ',function(){
                 try {
-                    parser.parse('member did something since did check-in');
+                    parser.parse('member did something since did check-in ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -277,9 +277,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something since received',function(){
+            it('member did something since received ',function(){
                 try {
-                    parser.parse('member did something since received');
+                    parser.parse('member did something since received ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
@@ -290,9 +290,9 @@ describe('<Unit Test>', function () {
                 }
             });
 
-            it('member did something since received prize',function(){
+            it('member did something since received prize ',function(){
                 try {
-                    parser.parse('member did something since received prize');
+                    parser.parse('member did something since received prize ');
                 } catch (error) {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);

@@ -23,9 +23,9 @@ describe('<Unit Test>', function () {
     describe('is rule', function () {
 
 
-      it('member is', function () {
+      it('member is ', function () {
         try {
-          parser.parse("member is");
+          parser.parse("member is ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -36,9 +36,9 @@ describe('<Unit Test>', function () {
         }
       });
 
-      it('member is in geofence', function () {
+      it('member is in geofence ', function () {
         try {
-          parser.parse("member is in geofence");
+          parser.parse("member is in geofence ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);

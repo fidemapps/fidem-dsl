@@ -47,10 +47,24 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing reward code', function (done) {
+
+      it('Missing whitespace before reward code', function (done) {
 
         try {
           parser.parse("give reward 1");
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing reward code', function (done) {
+
+        try {
+          parser.parse("give reward 1 ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -60,10 +74,23 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing reward "from program"', function (done) {
+      it('Missing whitespace before reward "from program"', function (done) {
 
         try {
           parser.parse("give reward 1 CODE");
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing reward "from program"', function (done) {
+
+        try {
+          parser.parse("give reward 1 CODE ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -73,10 +100,23 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing reward program code', function (done) {
+      it('Missing before reward program code', function (done) {
 
         try {
           parser.parse("give reward 1 CODE from program");
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing reward program code', function (done) {
+
+        try {
+          parser.parse("give reward 1 CODE from program ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -86,10 +126,23 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing reward "to"', function (done) {
+      it('Missing whitespace before reward "to"', function (done) {
 
         try {
           parser.parse("give reward 1 CODE from program CODE");
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing reward "to"', function (done) {
+
+        try {
+          parser.parse("give reward 1 CODE from program CODE ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -99,10 +152,23 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing reward listCode', function (done) {
+      it('Missing before reward listCode', function (done) {
 
         try {
           parser.parse("give reward 1 CODE from program CODE to list");
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing reward listCode', function (done) {
+
+        try {
+          parser.parse("give reward 1 CODE from program CODE to list ");
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -114,10 +180,24 @@ describe('<Unit Test>', function () {
     });
 
     describe('Should get exception for auto-complete of send message', function () {
-      it('Missing starting quotes/double quotes', function (done) {
+      it('Missing whitespace before starting quotes/double quotes', function (done) {
 
         try {
           parser.parse("send message text");
+        }
+        catch (err) {
+          var otherChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(otherChoices).eql(['whitespace']);
+        }
+
+        done();
+      });
+
+      it('Missing starting quotes/double quotes', function (done) {
+
+        try {
+          parser.parse("send message text ");
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -173,10 +253,24 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing starting quotes of subject', function (done) {
+      it('Missing whitespace before starting quotes of subject', function (done) {
 
         try {
           parser.parse('send message text "TEXT" with subject');
+        }
+        catch (err) {
+          var otherChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(otherChoices).eql(['whitespace']);
+        }
+
+        done();
+      });
+
+      it('Missing starting quotes of subject', function (done) {
+
+        try {
+          parser.parse('send message text "TEXT" with subject ');
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -219,10 +313,24 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing "to list" or "to emails"', function (done) {
+      it('Missing whitespace before "to list" or "to emails"', function (done) {
 
         try {
           parser.parse('send message text "TEXT" with subject "TEST"');
+        }
+        catch (err) {
+          var otherChoices = helper.extractOthers(err);
+          should(err.expected.length).equal(1);
+          should(otherChoices).eql(['whitespace']);
+        }
+
+        done();
+      });
+
+      it('Missing "to list" or "to emails"', function (done) {
+
+        try {
+          parser.parse('send message text "TEXT" with subject "TEST" ');
         }
         catch (err) {
           var literalChoices = helper.extractLiterals(err);
@@ -233,10 +341,23 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing "to list" list code', function (done) {
+      it('Missing whitespace before "to list" list code', function (done) {
 
         try {
           parser.parse('send message text "TEXT" with subject "TEST" to list');
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing "to list" list code', function (done) {
+
+        try {
+          parser.parse('send message text "TEXT" with subject "TEST" to list ');
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -246,10 +367,23 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing "to emails" email', function (done) {
+      it('Missing whitespace before "to emails" email', function (done) {
 
         try {
           parser.parse('send message text "TEXT" with subject "TEST" to emails');
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing "to emails" email', function (done) {
+
+        try {
+          parser.parse('send message text "TEXT" with subject "TEST" to emails ');
         }
         catch (err) {
           should(err.expected.length).equal(2);
@@ -272,10 +406,23 @@ describe('<Unit Test>', function () {
         done();
       });
 
-      it('Missing template code', function (done) {
+      it('Missing whitespace before template code', function (done) {
 
         try {
           parser.parse('send message template');
+        }
+        catch (err) {
+          should(err.expected.length).equal(1);
+          should(err.expected[0].description).equal('whitespace');
+        }
+
+        done();
+      });
+
+      it('Missing template code', function (done) {
+
+        try {
+          parser.parse('send message template ');
         }
         catch (err) {
           should(err.expected.length).equal(2);

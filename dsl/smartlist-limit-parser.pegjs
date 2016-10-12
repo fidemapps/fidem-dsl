@@ -38,7 +38,7 @@ start
     }
 
 filter
-    = "only top" S* quantity:NUMBER S* "by member" S* rule:(("points") S* levelCode / "tag" S* tagCode)
+    = "only top" S+ quantity:NUMBER S+ "by member" S+ rule:(("points") S+ levelCode / "tag" S+ tagCode)
     {
         return {
             quantity: quantity,
@@ -64,9 +64,6 @@ string
 
 stringOrNumber
   = string / NUMBER
-
-string
-    = string1 / string2
 
 path_start
     = [_a-z]i
@@ -172,7 +169,7 @@ TIME "time"
     }
 
 DATE_TIME "datetime"
-    = year:date_full_year "-" month:date_month "-" day:date_day S* time:TIME?
+    = year:date_full_year "-" month:date_month "-" day:date_day S+ time:TIME?
     {
         if(time){
             //return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(time.hour), parseInt(time.minute), parseInt(time.second), 0);
