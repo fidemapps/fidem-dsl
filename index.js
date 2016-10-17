@@ -23,4 +23,4 @@ module.exports.smartListLimit.literals = require('./lib/smartlist-limit').litera
 module.exports.contentMemberConditions = require('./lib/content-member-conditions-parser');
 module.exports.contentMemberConditions.literals = require('./lib/content-member-conditions').literals;
 
-module.exports.findAutocompleteSuggestions = require('./lib/autocomplete/autocomplete-suggestion').options;
+module.exports.findAutocompleteSuggestions = require('./lib/autocomplete/autocomplete-suggestions');

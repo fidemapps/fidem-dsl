@@ -24,9 +24,9 @@ module.exports.smartListLimit.literals = require('./lib/smartlist-limit').litera
 module.exports.contentMemberConditions = require('./lib/content-member-conditions-parser');
 module.exports.contentMemberConditions.literals = require('./lib/content-member-conditions').literals;
 
-module.exports.findAutocompleteSuggestions = require('./lib/autocomplete/autocomplete-suggestion').options;
+module.exports.findAutocompleteSuggestions = require('./lib/autocomplete/autocomplete-suggestions');
 
-},{"./lib/autocomplete/autocomplete-suggestion":2,"./lib/challenge-availability-rules":4,"./lib/challenge-availability-rules-parser":3,"./lib/challenge-rules":6,"./lib/challenge-rules-parser":5,"./lib/content-member-conditions":8,"./lib/content-member-conditions-parser":7,"./lib/reaction-actions":10,"./lib/reaction-actions-parser":9,"./lib/reaction-trigger-conditions":12,"./lib/reaction-trigger-conditions-parser":11,"./lib/smartlist-limit":14,"./lib/smartlist-limit-parser":13,"./lib/smartlist-member-conditions":16,"./lib/smartlist-member-conditions-parser":15}],2:[function(require,module,exports){
+},{"./lib/autocomplete/autocomplete-suggestions":2,"./lib/challenge-availability-rules":4,"./lib/challenge-availability-rules-parser":3,"./lib/challenge-rules":6,"./lib/challenge-rules-parser":5,"./lib/content-member-conditions":8,"./lib/content-member-conditions-parser":7,"./lib/reaction-actions":10,"./lib/reaction-actions-parser":9,"./lib/reaction-trigger-conditions":12,"./lib/reaction-trigger-conditions-parser":11,"./lib/smartlist-limit":14,"./lib/smartlist-limit-parser":13,"./lib/smartlist-member-conditions":16,"./lib/smartlist-member-conditions-parser":15}],2:[function(require,module,exports){
 "use strict";
 var Promise = require('bluebird');
 var _ = require('lodash');

@@ -7,7 +7,7 @@ var should = require('should'),
 var Promise = require('bluebird');
 
 var parser;
-var autocompleteOption = require('./../../lib/autocomplete/autocomplete-suggestion');
+var autocompleteOption = require('./../../lib/autocomplete/autocomplete-suggestions');
 
 describe('<Unit Test>', function () {
 	let test = function (parser, string, cursorPosition, expected) {
@@ -16,7 +16,7 @@ describe('<Unit Test>', function () {
 		})
 	};
 
-	describe.only('Autocomplete options', function () {
+	describe('Autocomplete options', function () {
 
 		describe('findBreak', function () {
 
