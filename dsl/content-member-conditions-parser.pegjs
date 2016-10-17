@@ -444,7 +444,7 @@ with_condition
 }
 
 smartlist_condition
-= firstCode:smartlistCode S*  codes:("," S* code:smartlistCode)* S* condition:smartlist_condition_condition?
+= firstCode:smartlistCode S*  codes:("," S* code:smartlistCode S*)* S* condition:smartlist_condition_condition?
 {
     var query=Object.assign({type:'smartlist',smartlistCodes: buildList(firstCode, codes, 2),},condition);
     return query;

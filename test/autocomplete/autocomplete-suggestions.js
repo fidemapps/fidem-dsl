@@ -10,8 +10,8 @@ var parser;
 var autocompleteOption = require('./../../lib/autocomplete/autocomplete-suggestions');
 
 describe('<Unit Test>', function () {
-	let test = function (parser, string, cursorPosition, expected) {
-		return autocompleteOption.options(parser, string, cursorPosition).then((result)=> {
+	var test = function (parser, string, cursorPosition, expected) {
+		return autocompleteOption.options(parser, string, cursorPosition).then(function (result) {
 			result.should.eql(expected);
 		})
 	};
@@ -22,35 +22,35 @@ describe('<Unit Test>', function () {
 
 			it('should find [0,0] if passed the empty string', function () {
 				return autocompleteOption.findBreakPositions('', 0)
-					.then((positions)=> {
+					.then(function(positions){
 						positions.should.eql([0, 0])
 					});
 			});
 
 			it('should find [0,10] if only one word of length 10', function () {
 				return autocompleteOption.findBreakPositions('abcdqeushe', 10)
-					.then((positions)=> {
+					.then(function(positions) {
 						positions.should.eql([0, 10])
 					});
 			});
 
 			it('should find [2,10] if two word separated by a whitespace', function () {
 				return autocompleteOption.findBreakPositions('a slkjhfsd', 10)
-					.then((positions)=> {
+					.then(function(positions){
 						positions.should.eql([2, 10])
 					});
 			});
 
 			it('should find [5,10] if three word separated by a whitespace', function () {
 				return autocompleteOption.findBreakPositions('a ds slkjhfsd', 10)
-					.then((positions)=> {
+					.then(function(positions){
 						positions.should.eql([5, 10])
 					});
 			});
 
 			it('should find the last space before the current position', function () {
 				return autocompleteOption.findBreakPositions('a ds slkjhfsd askdjfh asdkfjh  aalskdjfh asdkfjhas dflaksjdfh asdfk', 10)
-					.then((positions)=> {
+					.then(function(positions) {
 						positions.should.eql([5, 10])
 					});
 			});

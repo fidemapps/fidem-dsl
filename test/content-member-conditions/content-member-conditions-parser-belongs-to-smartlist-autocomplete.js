@@ -69,8 +69,8 @@ describe('<Unit Test>', function () {
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(4);
-                    should(literalChoices).eql(['and','since']);
+                    should(err.expected.length).equal(5);
+                    should(literalChoices).eql([',','and','since']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -167,8 +167,8 @@ describe('<Unit Test>', function () {
                 catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(4);
-                    should(literalChoices).eql(['and','since']);
+                    should(err.expected.length).equal(5);
+                    should(literalChoices).eql([',','and','since']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
