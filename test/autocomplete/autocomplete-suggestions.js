@@ -62,25 +62,25 @@ describe('<Unit Test>', function () {
 			it('should handle empty position', function () {
 
 				return autocompleteOption.setBreaksInString("asdlkfjhaskdjfh askdjfha lsjdfh askjfhalks ", [])
-					.then((parsingString) => {
+					.then(function(parsingString) {
 						parsingString.should.eql([]);
 					})
 			});
 
 			it('should put the "#" at the end if the position is way over the string length', function () {
-				return autocompleteOption.setBreaksInString('this is a random string', [300]).then((parsingString)=> {
+				return autocompleteOption.setBreaksInString('this is a random string', [300]).then(function(parsingString){
 					parsingString[0].should.equal('this is a random string#');
 				});
 			});
 
 			it('should put the "#" at the start if the position is negative', function () {
-				return autocompleteOption.setBreaksInString('this is a random string', [-2]).then((parsingString)=> {
+				return autocompleteOption.setBreaksInString('this is a random string', [-2]).then(function(parsingString) {
 					parsingString[0].should.equal('#this is a random string');
 				});
 			});
 
 			it('should set the break exactly where I say so without loosing nothing of the original string', function () {
-				return autocompleteOption.setBreaksInString('this is a random string', [3]).then((parsingString)=> {
+				return autocompleteOption.setBreaksInString('this is a random string', [3]).then(function(parsingString) {
 					parsingString[0].should.equal('thi#s is a random string');
 				});
 			});
@@ -88,7 +88,7 @@ describe('<Unit Test>', function () {
 			it('should support multiple position and produce multiple string with "#" at the corresponding position', function () {
 
 				return autocompleteOption.setBreaksInString("member did action ea,askdjfh", [2, 5, 11])
-					.then((parsingStrings) => {
+					.then(function(parsingStrings) {
 						parsingStrings[0].should.equal("me#mber did action ea,askdjfh");
 						parsingStrings[1].should.equal("membe#r did action ea,askdjfh");
 						parsingStrings[2].should.equal("member did #action ea,askdjfh");
@@ -111,42 +111,42 @@ describe('<Unit Test>', function () {
 
 			it('should return that it need to load the action code for the autocomplete action', function () {
 
-				return autocompleteOption.parseStrings(parser, ["member did action #eat", "member did action eat#"], 'eat').then((suggestion)=> {
+				return autocompleteOption.parseStrings(parser, ["member did action #eat", "member did action eat#"], 'eat').then(function(suggestion){
 					suggestion.should.eql({codeToLoad: ['actionCode'], literal: []});
 				})
 			});
 
 			it('should return the current word if the word is completed', function () {
 
-				return autocompleteOption.parseStrings(parser, ["member did action eat #and", "member did action eat and#"], 'and').then((suggestion)=> {
+				return autocompleteOption.parseStrings(parser, ["member did action eat #and", "member did action eat and#"], 'and').then(function(suggestion) {
 					suggestion.should.eql({codeToLoad: [], literal: ['and']});
 				})
 			});
 
 			it('should only return the word being completed when the full word is entered', function () {
 
-				return autocompleteOption.parseStrings(parser, ["every monday,#firday", "every monday,friday#"], 'friday').then((suggestion)=> {
+				return autocompleteOption.parseStrings(parser, ["every monday,#firday", "every monday,friday#"], 'friday').then(function(suggestion) {
 					suggestion.should.eql({codeToLoad: [], literal: ['friday']});
 				})
 			});
 
 			it('should return the the word being completed if not finish', function () {
 
-				return autocompleteOption.parseStrings(parser, ["every #monday,#firday", "every mond#"], 'monday').then((suggestion)=> {
+				return autocompleteOption.parseStrings(parser, ["every #monday,#firday", "every mond#"], 'monday').then(function(suggestion) {
 					suggestion.should.eql({codeToLoad: [], literal: ['monday']});
 				})
 			});
 
 			it('will return the composed word even if half way thought', function () {
 
-				return autocompleteOption.parseStrings(parser, ["member did something at #l", "member did something at l#"], 'l').then((suggestion)=> {
+				return autocompleteOption.parseStrings(parser, ["member did something at #l", "member did something at l#"], 'l').then(function(suggestion) {
 					suggestion.should.eql({codeToLoad: [], literal: ['at least', 'exactly', 'less than']});
 				})
 			});
 
 			it('will return the composed word even if almost at the end', function () {
 
-				return autocompleteOption.parseStrings(parser, ["member did something at #lea", "member did something at lea#"], 'lea').then((suggestion)=> {
+				return autocompleteOption.parseStrings(parser, ["member did something at #lea", "member did something at lea#"], 'lea').then(function(suggestion){
 					suggestion.should.eql({codeToLoad: [], literal: ['at least']});
 				})
 			});
