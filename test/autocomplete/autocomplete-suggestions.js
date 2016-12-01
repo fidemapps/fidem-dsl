@@ -89,9 +89,9 @@ describe('<Unit Test>', function () {
         });
       });
    
-      it('should not throw error when current word contains regex special characters', function () {
+      it.only('should not throw error when current word contains regex special characters', function () {
         should(function () {
-          autocompleteOption.parseStrings(parser, ["#", "#"], ')(');
+          autocompleteOption.parseStrings(parser, ["#", "#"], ' .*+?^$}{)(|][');
         }).not.throw()
       });
 
