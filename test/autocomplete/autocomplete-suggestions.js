@@ -88,6 +88,12 @@ describe('<Unit Test>', function () {
           done();
         });
       });
+   
+      it('should not throw error when current word contains regex special characters', function () {
+        should(function () {
+          autocompleteOption.parseStrings(parser, ["#", "#"], ')(');
+        }).not.throw()
+      });
 
       it('should return that it need to load the action code for the autocomplete action', function () {
         var suggestion = autocompleteOption.parseStrings(parser, ["member did action #eat", "member did action eat#"], 'eat');
