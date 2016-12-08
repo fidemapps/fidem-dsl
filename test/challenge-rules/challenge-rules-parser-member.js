@@ -31,7 +31,7 @@ describe('<Unit Test>', function () {
 						condition: {
 							type: 'nothing'
 						},
-						occurence_filter: null,
+						occurrence_filter: null,
 						period_filter: null
 
 					}],
@@ -66,7 +66,7 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: null
 						}],
 						rewards: [
@@ -94,7 +94,7 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
@@ -125,7 +125,7 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: {
 								type: 'before',
 								date: [
@@ -158,7 +158,7 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
@@ -207,7 +207,7 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: null
 						}],
 						rewards: [
@@ -240,7 +240,7 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
@@ -276,7 +276,7 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: {
 								type: 'before',
 								date: [
@@ -314,7 +314,7 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
@@ -352,7 +352,7 @@ describe('<Unit Test>', function () {
 								sub_type: 'completed',
 								code: 'TEST'
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: null
 
 						}],
@@ -375,7 +375,7 @@ describe('<Unit Test>', function () {
 								sub_type: 'completed',
 								code: 'TEST'
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: null
 
 						}],
@@ -398,7 +398,7 @@ describe('<Unit Test>', function () {
 								sub_type: 'completed',
 								code: 'TEST'
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
@@ -423,7 +423,7 @@ describe('<Unit Test>', function () {
 								sub_type: 'completed',
 								code: 'TEST'
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: {
 								type: 'before',
 								date: [
@@ -450,7 +450,7 @@ describe('<Unit Test>', function () {
 								sub_type: 'completed',
 								code: 'TEST'
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
@@ -493,7 +493,7 @@ describe('<Unit Test>', function () {
 									}
 
 								},
-								occurence_filter: null,
+								occurrence_filter: null,
 								period_filter: null
 
 							}],
@@ -522,7 +522,7 @@ describe('<Unit Test>', function () {
 										}
 									}
 								},
-								occurence_filter: null,
+								occurrence_filter: null,
 								period_filter: null
 							}],
 							rewards: [
@@ -551,7 +551,7 @@ describe('<Unit Test>', function () {
 												}
 											}
 										},
-										occurence_filter: null,
+										occurrence_filter: null,
 										period_filter: null
 
 									}],
@@ -582,7 +582,7 @@ describe('<Unit Test>', function () {
 												}
 											}
 										},
-										occurence_filter: null,
+										occurrence_filter: null,
 										period_filter: null
 
 									}],
@@ -613,7 +613,7 @@ describe('<Unit Test>', function () {
 												}
 											}
 										},
-										occurence_filter: null,
+										occurrence_filter: null,
 										period_filter: {
 											type: 'last',
 											duration: 3,
@@ -648,7 +648,7 @@ describe('<Unit Test>', function () {
 									}
 
 								},
-								occurence_filter: null,
+								occurrence_filter: null,
 								period_filter: null
 
 							}],
@@ -674,7 +674,7 @@ describe('<Unit Test>', function () {
 										levelCode: 'bob'
 									}
 								},
-								occurence_filter: null,
+								occurrence_filter: null,
 								period_filter: null
 							}],
 							rewards: [
@@ -700,7 +700,7 @@ describe('<Unit Test>', function () {
 												levelCode: 'bob'
 											}
 										},
-										occurence_filter: null,
+										occurrence_filter: null,
 										period_filter: null
 
 									}],
@@ -728,7 +728,7 @@ describe('<Unit Test>', function () {
 												levelCode: 'bob'
 											}
 										},
-										occurence_filter: null,
+										occurrence_filter: null,
 										period_filter: null
 
 									}],
@@ -756,7 +756,7 @@ describe('<Unit Test>', function () {
 												levelCode: 'bob'
 											}
 										},
-										occurence_filter: null,
+										occurrence_filter: null,
 										period_filter: {
 											type: 'last',
 											duration: 3,
@@ -790,7 +790,7 @@ describe('<Unit Test>', function () {
 									}
 
 								},
-								occurence_filter: null,
+								occurrence_filter: null,
 								period_filter: null
 
 							}],
@@ -816,7 +816,7 @@ describe('<Unit Test>', function () {
 										prizeCode: 'bob'
 									}
 								},
-								occurence_filter: null,
+								occurrence_filter: null,
 								period_filter: null
 							}],
 							rewards: [
@@ -842,7 +842,7 @@ describe('<Unit Test>', function () {
 												prizeCode: 'bob'
 											}
 										},
-										occurence_filter: null,
+										occurrence_filter: null,
 										period_filter: null
 
 									}],
@@ -870,7 +870,7 @@ describe('<Unit Test>', function () {
 												prizeCode: 'bob'
 											}
 										},
-										occurence_filter: null,
+										occurrence_filter: null,
 										period_filter: null
 
 									}],
@@ -898,7 +898,7 @@ describe('<Unit Test>', function () {
 												prizeCode: 'bob'
 											}
 										},
-										occurence_filter: null,
+										occurrence_filter: null,
 										period_filter: {
 											type: 'last',
 											duration: 3,

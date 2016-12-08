@@ -20,12 +20,12 @@
   member tag TAG_NAME  [operator] x [with TAG 'TAG_NAME' [= x]]
   member in geofence GEOFENCE_CODE[,GEOFENCE_CODE] [for x timeframe]
 
-  member did nothing [occurence_filter,period_filter]
-  member did something [occurence_filter,period_filter]
-  member did not ACTION_CODE [occurence_filter,period_filter]
-  member did not ACTION_CODE with [attribute_name OPERATOR value][occurence_filter,period_filter]
-  member has completed CHALLENGE_CODE [occurence_filter,period_filter]
-  member has not completed CHALLENGE_CODE [occurence_filter,period_filter]
+  member did nothing [occurrence_filter,period_filter]
+  member did something [occurrence_filter,period_filter]
+  member did not ACTION_CODE [occurrence_filter,period_filter]
+  member did not ACTION_CODE with [attribute_name OPERATOR value][occurrence_filter,period_filter]
+  member has completed CHALLENGE_CODE [occurrence_filter,period_filter]
+  member has not completed CHALLENGE_CODE [occurrence_filter,period_filter]
 
   occurece_filter
     at least x time
@@ -180,23 +180,23 @@ simple_reward
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S+ type:"did" S+ conditions:did_rule S* filter1:occurence_filter? S* filter2:period_filter?
+    = scope:"member" S+ type:"did" S+ conditions:did_rule S* filter1:occurrence_filter? S* filter2:period_filter?
     {
         return {
             scope:scope,
             type:type,
             condition:conditions,
-            occurence_filter:filter1,
+            occurrence_filter:filter1,
             period_filter:filter2
         };
     }
-    /scope:"member" S+ type:"has" S+ conditions:has_rule_completed S* filter1:occurence_filter? S* filter2:period_filter?
+    /scope:"member" S+ type:"has" S+ conditions:has_rule_completed S* filter1:occurrence_filter? S* filter2:period_filter?
       {
           return {
               scope:scope,
               type:type,
               condition:conditions,
-              occurence_filter:filter1,
+              occurrence_filter:filter1,
               period_filter:filter2
           };
       }
@@ -206,7 +206,7 @@ member_condition
              scope:scope,
              type:type,
              condition:conditions,
-             occurence_filter:null,
+             occurrence_filter:null,
              period_filter:filter2
          };
     }
@@ -340,7 +340,7 @@ has_rule_completed
 
 /*OCCURENCE FILTER*/
 
-occurence_filter
+occurrence_filter
     = "at least" S+ number:NUMBER S+ ("times" / "time")
     {
         return {
