@@ -178,6 +178,7 @@ describe('<Unit Test>', function () {
             'at least',
             'before',
             'between',
+            'during the',
             'exactly',
             'in',
             'less than',

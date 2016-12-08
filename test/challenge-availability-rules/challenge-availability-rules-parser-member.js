@@ -30,8 +30,9 @@ describe('<Unit Test>', function () {
 						condition: {
 							type: 'nothing'
 						},
-						occurence_filter: null,
-						period_filter: null
+						occurrence_filter: null,
+						period_filter: null,
+						moment_filter: null
 
 					}
 				]);
@@ -48,8 +49,9 @@ describe('<Unit Test>', function () {
 						condition: {
 							type: 'something'
 						},
-						occurence_filter: null,
-						period_filter: null
+						occurrence_filter: null,
+						period_filter: null,
+						moment_filter:null
 
 					}
 				]);
@@ -70,8 +72,9 @@ describe('<Unit Test>', function () {
 								code: 'TEST',
 								conditions: null
 							},
-							occurence_filter: null,
-							period_filter: null
+							occurrence_filter: null,
+							period_filter: null,
+							moment_filter:null
 						}
 					]);
 					done();
@@ -100,8 +103,9 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: null,
-							period_filter: null
+							occurrence_filter: null,
+							period_filter: null,
+							moment_filter:null
 						}
 					]);
 					done();
@@ -125,19 +129,20 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
-							period_filter: null
+							period_filter: null,
+							moment_filter:null
 						}
 					]);
 					done();
 				});
 
-				it('member did not action TEST with jean < 2 before 2016-03-03T04:40:40', function (done) {
+				it('member did not action TEST with jean < 2 before 2016-03-03 04:40', function (done) {
 
-					var rule = parser.parse('member did not action TEST with jean < 2 before 2016-03-03T04:40:40');
+					var rule = parser.parse('member did not action TEST with jean < 2 before 2016-03-03 04:40');
 					should(rule).eql([
 						{
 							scope: 'member',
@@ -153,21 +158,22 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: {
 								type: 'before',
-								date: [
-									'2016-03-03T04:40:40'
+								dates: [
+									'2016-03-03T04:40:00'
 								]
-							}
+							},
+							moment_filter:null
 						}
 					]);
 					done();
 				});
 
-				it('member did not action TEST with jean < "thomas" less than 3 times before 2016-03-03T04:40:40', function (done) {
+				it('member did not action TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40', function (done) {
 
-					var rule = parser.parse('member did not action TEST with jean < "thomas" less than 3 times before 2016-03-03T04:40:40');
+					var rule = parser.parse('member did not action TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40');
 					should(rule).eql([
 						{
 							scope: 'member',
@@ -183,16 +189,17 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
 							period_filter: {
 								type: 'before',
-								date: [
-									'2016-03-03T04:40:40'
+								dates: [
+									'2016-03-03T04:40:00'
 								]
-							}
+							},
+							moment_filter:null
 						}
 					]);
 					done();
@@ -219,8 +226,9 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: null,
-							period_filter: null
+							occurrence_filter: null,
+							period_filter: null,
+							moment_filter:null
 						}
 					]);
 					done();
@@ -254,8 +262,9 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: null,
-							period_filter: null
+							occurrence_filter: null,
+							period_filter: null,
+							moment_filter:null
 						}
 					]);
 					done();
@@ -283,19 +292,20 @@ describe('<Unit Test>', function () {
 										value: 'TEST'}
 								]
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
-							period_filter: null
+							period_filter: null,
+							moment_filter:null
 						}
 					]);
 					done();
 				});
 
-				it('member did not check-in TEST with jean < 2 before 2016-03-03T04:40:40', function (done) {
+				it('member did not check-in TEST with jean < 2 before 2016-03-03 04:40', function (done) {
 
-					var rule = parser.parse('member did not check-in TEST with jean < 2 before 2016-03-03T04:40:40');
+					var rule = parser.parse('member did not check-in TEST with jean < 2 before 2016-03-03 04:40');
 					should(rule).eql([
 						{
 							scope: 'member',
@@ -316,21 +326,22 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: {
 								type: 'before',
-								date: [
-									'2016-03-03T04:40:40'
+								dates: [
+									'2016-03-03T04:40:00'
 								]
-							}
+							},
+							moment_filter:null
 						}
 					]);
 					done();
 				});
 
-				it('member did not check-in TEST with jean < "thomas" less than 3 times before 2016-03-03T04:40:40', function (done) {
+				it('member did not check-in TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40', function (done) {
 
-					var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times before 2016-03-03T04:40:40');
+					var rule = parser.parse('member did not check-in TEST with jean < "thomas" less than 3 times before 2016-03-03 04:40');
 					should(rule).eql([
 						{
 							scope: 'member',
@@ -351,16 +362,17 @@ describe('<Unit Test>', function () {
 									}
 								]
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
 							period_filter: {
 								type: 'before',
-								date: [
-									'2016-03-03T04:40:40'
+								dates: [
+									'2016-03-03T04:40:00'
 								]
-							}
+							},
+							moment_filter:null
 						}
 					]);
 					done();
@@ -384,8 +396,9 @@ describe('<Unit Test>', function () {
 								sub_type: 'completed',
 								code: 'TEST'
 							},
-							occurence_filter: null,
-							period_filter: null
+							occurrence_filter: null,
+							period_filter: null,
+							moment_filter:null
 
 						}]
 					);
@@ -403,8 +416,9 @@ describe('<Unit Test>', function () {
 							sub_type: 'completed',
 							code: 'TEST'
 						},
-						occurence_filter: null,
-						period_filter: null
+						occurrence_filter: null,
+						period_filter: null,
+						moment_filter:null
 
 					}]);
 					done();
@@ -421,18 +435,19 @@ describe('<Unit Test>', function () {
 							sub_type: 'completed',
 							code: 'TEST'
 						},
-						occurence_filter: {
+						occurrence_filter: {
 							type: 'less',
 							number: 3
 						},
-						period_filter: null
+						period_filter: null,
+						moment_filter:null
 					}]);
 					done();
 				});
 
-				it('member has not completed TEST before 2016-03-03T04:40:40', function (done) {
+				it('member has not completed TEST before 2016-03-03 04:40', function (done) {
 
-					var rule = parser.parse('member has not completed TEST before 2016-03-03T04:40:40');
+					var rule = parser.parse('member has not completed TEST before 2016-03-03 04:40');
 					should(rule).eql([
 						{
 							scope: 'member',
@@ -442,20 +457,21 @@ describe('<Unit Test>', function () {
 								sub_type: 'completed',
 								code: 'TEST'
 							},
-							occurence_filter: null,
+							occurrence_filter: null,
 							period_filter: {
 								type: 'before',
-								date: [
-									'2016-03-03T04:40:40'
+								dates: [
+									'2016-03-03T04:40:00'
 								]
-							}
+							},
+							moment_filter:null
 						}]);
 					done();
 				});
 
-				it('member has not completed TEST less than 3 times before 2016-03-03T04:40:40', function (done) {
+				it('member has not completed TEST less than 3 times before 2016-03-03 04:40', function (done) {
 
-					var rule = parser.parse('member has not completed TEST less than 3 times before 2016-03-03T04:40:40');
+					var rule = parser.parse('member has not completed TEST less than 3 times before 2016-03-03 04:40');
 					should(rule).eql([
 						{
 							scope: 'member',
@@ -465,16 +481,17 @@ describe('<Unit Test>', function () {
 								sub_type: 'completed',
 								code: 'TEST'
 							},
-							occurence_filter: {
+							occurrence_filter: {
 								type: 'less',
 								number: 3
 							},
 							period_filter: {
 								type: 'before',
-								date: [
-									'2016-03-03T04:40:40'
+								dates: [
+									'2016-03-03T04:40:00'
 								]
-							}
+							},
+							moment_filter:null
 						}]);
 					done();
 				});
@@ -502,8 +519,9 @@ describe('<Unit Test>', function () {
 										}
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -528,8 +546,9 @@ describe('<Unit Test>', function () {
 										}
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -554,8 +573,9 @@ describe('<Unit Test>', function () {
 										}
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -580,8 +600,9 @@ describe('<Unit Test>', function () {
 										}
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -606,12 +627,13 @@ describe('<Unit Test>', function () {
 										}
 									}
 								},
-								occurence_filter: null,
+								occurrence_filter: null,
 								period_filter: {
 									type: 'last',
 									duration: 3,
 									durationScope: 'day'
-								}
+								},
+								moment_filter:null
 
 							}]
 						);
@@ -637,8 +659,9 @@ describe('<Unit Test>', function () {
 										levelCode: 'bob'
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -660,8 +683,9 @@ describe('<Unit Test>', function () {
 										levelCode: 'bob'
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -683,8 +707,9 @@ describe('<Unit Test>', function () {
 										levelCode: 'bob'
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -706,8 +731,9 @@ describe('<Unit Test>', function () {
 										levelCode: 'bob'
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -729,12 +755,13 @@ describe('<Unit Test>', function () {
 										levelCode: 'bob'
 									}
 								},
-								occurence_filter: null,
+								occurrence_filter: null,
 								period_filter: {
 									type: 'last',
 									duration: 3,
 									durationScope: 'day'
-								}
+								},
+								moment_filter:null
 
 							}]
 						);
@@ -758,8 +785,9 @@ describe('<Unit Test>', function () {
 										prizeCode: 'bob'
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -781,8 +809,9 @@ describe('<Unit Test>', function () {
 										prizeCode: 'bob'
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -804,8 +833,9 @@ describe('<Unit Test>', function () {
 										prizeCode: 'bob'
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -827,8 +857,9 @@ describe('<Unit Test>', function () {
 										prizeCode: 'bob'
 									}
 								},
-								occurence_filter: null,
-								period_filter: null
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter:null
 
 							}]
 						);
@@ -850,12 +881,13 @@ describe('<Unit Test>', function () {
 										prizeCode: 'bob'
 									}
 								},
-								occurence_filter: null,
+								occurrence_filter: null,
 								period_filter: {
 									type: 'last',
 									duration: 3,
 									durationScope: 'day'
-								}
+								},
+								moment_filter:null
 
 							}]
 						);

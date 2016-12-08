@@ -120,34 +120,37 @@ simple_rule
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S+ type:"did" S+ conditions:did_rule S* filter1:occurence_filter? S* filter2:period_filter?
+    = scope:"member" S+ type:"did" S+ conditions:did_rule S* filter1:occurrence_filter? S* filter2:period_filter? S* filter3:momentFilter?
     {
         return {
             scope:scope,
             type:type,
             condition:conditions,
-            occurence_filter:filter1,
-            period_filter:filter2
+            occurrence_filter:filter1,
+            period_filter:filter2,
+            moment_filter:filter3
         };
     }
-    /scope:"member" S+ type:"has" S+ conditions:has_rule_completed S* filter1:occurence_filter? S* filter2:period_filter?
+    /scope:"member" S+ type:"has" S+ conditions:has_rule_completed S* filter1:occurrence_filter? S* filter2:period_filter? S* filter3:momentFilter?
       {
           return {
               scope:scope,
               type:type,
               condition:conditions,
-              occurence_filter:filter1,
-              period_filter:filter2
+              occurrence_filter:filter1,
+              period_filter:filter2,
+              moment_filter:filter3
           };
       }
-    /scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* filter2:period_filter?
+    /scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* filter2:period_filter? S* filter3:momentFilter?
         {
            return {
                scope:scope,
                type:type,
                condition:conditions,
-               occurence_filter:null,
-               period_filter:filter2
+               occurrence_filter:null,
+               period_filter:filter2,
+               moment_filter:filter3
            };
         }
 
@@ -277,9 +280,9 @@ has_rule_completed
 
 
 
-/*OCCURENCE FILTER*/
+/*OCCURRENCE FILTER*/
 
-occurence_filter
+occurrence_filter
     = "at least" S+ number:NUMBER S+ ("times" / "time")
     {
         return {
@@ -305,25 +308,25 @@ occurence_filter
 /*PERIOD_FILTER*/
 
 period_filter
-    = type:"before" S+ date:DATE_TIME_STRING
+    = type:"before" S+ date:DATE_TIME
     {
         return {
             type:type,
-            date:[date]
+            dates:[date]
         }
     }
-    /type:"after" S+ date:DATE_TIME_STRING
+    /type:"after" S+ date:DATE_TIME_AFTER
     {
         return {
             type:type,
-            date:[date]
+            dates:[date]
         }
     }
-    /type:"between" S+ start:DATE_TIME_STRING S+ "and" S+ end:DATE_TIME_STRING
+    /type:"between" S+ start:DATE_TIME S+ "and" S+ end:DATE_TIME_AFTER
     {
         return {
             type:type,
-            date:[start,end]
+            dates:[start,end]
         }
     }
     /"in" S+ type:"last" S+ duration:NUMBER S+ durationScope:timeframe
@@ -334,6 +337,38 @@ period_filter
             durationScope: durationScope
         }
     }
+
+/*MOMENT FILTER*/
+momentFilter
+= type:"before" S+ time:TIME
+{
+    return {
+        type: type,
+        times: [time]
+    }
+}
+/ type:"after" S+ time:TIME
+{
+    return {
+        type: type,
+        times: [time]
+    }
+}
+/ type:"between" S+ time1:TIME S+ "and" S+ time2:TIME
+{
+    return {
+        type: type,
+        times: [time1,time2]
+    }
+}
+/"during the" S+ moment:DAY_MOMENTS
+{
+    return {
+        type: "during",
+        moment: moment
+    }
+}
+
 
 
 /*SYSTEM CONDITION*/
@@ -477,7 +512,7 @@ timeRule
     = (beforeTime / afterTime / betweenTimes)
 
 beforeTime
-    = "before" S+ time:TIME_CHOICE
+    = "before" S+ time:TIME
     {
         return {
             type:"before",
@@ -486,7 +521,7 @@ beforeTime
     }
 
 afterTime
-    = "after" S+ time:TIME_CHOICE
+    = "after" S+ time:TIME
     {
         return {
             type:"after",
@@ -495,7 +530,7 @@ afterTime
     }
 
 betweenTimes
-    = "between" S+ start:TIME_CHOICE S+ "and" S+ end:TIME_CHOICE
+    = "between" S+ start:TIME S+ "and" S+ end:TIME
     {
         return {
             type:"between",
@@ -573,23 +608,24 @@ time_minute
 time_second
     = $([0-5] DIGIT)
 
-DATE "date"
-    = year:date_full_year "-" month:date_month "-" day:date_day
-    {
-        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-    }
+TIME
+= time:TIME_CHOICE
+{
+    return  time;
+}
+/ time:TIME_24
+{
+    return  (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute;
+}
 
-DATE_TIME_STRING "datetime"
-    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
-    {
-        return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
+TIME_24 "24h time (hh:mm)"
+= hour:time_hour_24 ":" minute:time_minute
+{
+    return {
+        hour: hour,
+        minute: minute
     }
-
-DATE_TIME "datetime"
-    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
-    {
-        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
-    }
+}
 
 TIME_CHOICE
     = time:TIME_12 S* choice:("am"/"pm")
@@ -600,12 +636,68 @@ TIME_CHOICE
         return time.hour+":"+time.minute;
     }
 
-TIME_12 "time"
+TIME_12 "12h time (hh:mm am/pm)"
     = hour:time_hour_12 ":" minute:time_minute
     {
 
-        return {hour:hour,minute:minute};
+        return {hour: hour.length === 1? "0"+hour:hour,minute:minute};
     }
+
+DATE "date (YYYY-MM-DD)"
+= year:date_full_year "-" month:date_month "-" day:date_day
+{
+    return year + "-" + month + "-" + day;
+}
+
+DATE_AFTER "date (YYYY-MM-DD)"
+= year:date_full_year "-" month:date_month "-" day:date_day
+{
+    var d=parseInt(day);
+    var m=parseInt(month);
+    var y=parseInt(year);
+
+    if(d >= 31){
+        d="01";
+        m++;
+    }else{
+        d++;
+    }
+    if(m >= 12){
+        m="01"
+        y++;
+    }
+
+    return y + "-" + (m.toString().length === 1? "0"+m:m) + "-" + (d.toString().length === 1? "0"+d:d);
+}
+
+DATE_TIME
+= date:DATE S+ time:TIME_CHOICE
+{
+    return date + "T" + time + ":00";
+}
+/ date:DATE S+ time:TIME_24
+{
+    return date + "T" + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute + ":00";
+}
+/date:DATE
+ {
+     return date + "T" + "00:00:00";
+ }
+
+
+DATE_TIME_AFTER
+= date:DATE S+ time:TIME_CHOICE
+{
+    return date + "T" + time + ":00";
+}
+/ date:DATE S+ time:TIME_24
+{
+    return date + "T" + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute + ":00";
+}
+/date:DATE_AFTER
+{
+    return date + "T" + "00:00:00";
+}
 
 WEEK_DAY
     = day:("sunday" / "monday" / "tuesday" / "wednesday" / "thursday" / "friday" / "saturday" / "weekday" / "weekend")
@@ -636,3 +728,6 @@ OPERATOR
     {
         return op;
     }
+
+DAY_MOMENTS
+    = moment:("night" / "morning" / "afternoon" / "evening")

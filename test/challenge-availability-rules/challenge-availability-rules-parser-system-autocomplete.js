@@ -180,7 +180,7 @@ describe('<Unit Test>', function () {
                                 otherChoices = helper.extractOthers(error);
 
                                 should(error.expected.length).equal(2);
-                                should(otherChoices).eql(['date', 'whitespace']);
+                                should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                             }
                         });
 
@@ -210,7 +210,7 @@ describe('<Unit Test>', function () {
                                 otherChoices = helper.extractOthers(error);
 
                                 should(error.expected.length).equal(2);
-                                should(otherChoices).eql(['date', 'whitespace']);
+                                should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                             }
                         });
 
@@ -240,7 +240,7 @@ describe('<Unit Test>', function () {
                                 otherChoices = helper.extractOthers(error);
 
                                 should(error.expected.length).equal(2);
-                                should(otherChoices).eql(['date', 'whitespace']);
+                                should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                             }
                         });
 
@@ -266,7 +266,7 @@ describe('<Unit Test>', function () {
                                 otherChoices = helper.extractOthers(error);
 
                                 should(error.expected.length).equal(2);
-                                should(otherChoices).eql(['date', 'whitespace']);
+                                should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                             }
                         });
 
@@ -301,8 +301,8 @@ describe('<Unit Test>', function () {
                                 otherChoices = helper.extractOthers(error);
 
 
-                                should(error.expected.length).equal(2);
-                                should(otherChoices).eql(['time', 'whitespace']);
+                                should(error.expected.length).equal(3);
+                                should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'whitespace']);
                             }
                         });
 
@@ -333,8 +333,8 @@ describe('<Unit Test>', function () {
                                 otherChoices = helper.extractOthers(error);
 
 
-                                should(error.expected.length).equal(2);
-                                should(otherChoices).eql(['time', 'whitespace']);
+                                should(error.expected.length).equal(3);
+                                should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'whitespace']);
                             }
                         });
 
@@ -365,8 +365,8 @@ describe('<Unit Test>', function () {
                                 otherChoices = helper.extractOthers(error);
 
 
-                                should(error.expected.length).equal(2);
-                                should(otherChoices).eql(['time', 'whitespace']);
+                                should(error.expected.length).equal(3);
+                                should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'whitespace']);
                             }
                         });
 
@@ -393,8 +393,8 @@ describe('<Unit Test>', function () {
                                 otherChoices = helper.extractOthers(error);
 
 
-                                should(error.expected.length).equal(2);
-                                should(otherChoices).eql(['time', 'whitespace']);
+                                should(error.expected.length).equal(3);
+                                should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'whitespace']);
                             }
                         });
 
@@ -436,7 +436,7 @@ describe('<Unit Test>', function () {
 
                         should(error.expected.length).equal(3);
                         should(literalChoices).eql(['the']);
-                        should(otherChoices).eql(['date', 'whitespace']);
+                        should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                     }
                 });
 
@@ -464,7 +464,7 @@ describe('<Unit Test>', function () {
 
 
                         should(error.expected.length).equal(2);
-                        should(otherChoices).eql(['date', 'whitespace']);
+                        should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                     }
                 });
 
@@ -481,8 +481,8 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
 
-                            should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['time', 'whitespace']);
+                            should(error.expected.length).equal(3);
+                            should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'whitespace']);
                         }
                     });
 
@@ -512,8 +512,8 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
 
-                            should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['time', 'whitespace']);
+                            should(error.expected.length).equal(3);
+                            should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'whitespace']);
                         }
                     });
 
@@ -543,8 +543,8 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
 
-                            should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['time', 'whitespace']);
+                            should(error.expected.length).equal(3);
+                            should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'whitespace']);
                         }
                     });
 
@@ -571,8 +571,8 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
 
-                            should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['time', 'whitespace']);
+                            should(error.expected.length).equal(3);
+                            should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'whitespace']);
                         }
                     });
 
@@ -771,7 +771,7 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
                             should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['date', 'whitespace']);
+                            should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                         }
                     });
 
@@ -801,7 +801,7 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
                             should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['date', 'whitespace']);
+                            should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                         }
                     });
 
@@ -831,7 +831,7 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
                             should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['date', 'whitespace']);
+                            should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                         }
                     });
 
@@ -857,7 +857,7 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
                             should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['date', 'whitespace']);
+                            should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
                         }
                     });
 
@@ -892,8 +892,8 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
 
-                            should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['time', 'whitespace']);
+                            should(error.expected.length).equal(3);
+                            should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)','whitespace']);
                         }
                     });
 
@@ -923,8 +923,8 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
 
-                            should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['time', 'whitespace']);
+                            should(error.expected.length).equal(3);
+                            should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)','whitespace']);
                         }
                     });
 
@@ -955,8 +955,8 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
 
-                            should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['time', 'whitespace']);
+                            should(error.expected.length).equal(3);
+                            should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)','whitespace']);
                         }
                     });
 
@@ -983,8 +983,8 @@ describe('<Unit Test>', function () {
                             otherChoices = helper.extractOthers(error);
 
 
-                            should(error.expected.length).equal(2);
-                            should(otherChoices).eql(['time', 'whitespace']);
+                            should(error.expected.length).equal(3);
+                            should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)','whitespace']);
                         }
                     });
 

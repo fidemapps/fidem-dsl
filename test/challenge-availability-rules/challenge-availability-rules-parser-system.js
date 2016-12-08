@@ -94,7 +94,7 @@ describe('<Unit Test>', function () {
                         scope: 'every',
                         days: {type: 'day', list: ['day']},
                         months: {type: 'of', list: ['march', 'january']},
-                        years: {type: 'from', list: [new Date(1959, 11, 10), new Date(1960, 2, 10)]},
+                        years: {type: 'from', list: ['1959-12-10', '1960-03-10']},
                         time: null
 
                     }
@@ -109,7 +109,7 @@ describe('<Unit Test>', function () {
                         scope: 'every',
                         days: {type: 'day', list: ['day']},
                         months: {type: 'of', list: ['march', 'january']},
-                        years: {type: 'until', list: [new Date(1960, 2, 10)]},
+                        years: {type: 'until', list: ['1960-03-10']},
                         time: {type: 'before', list: ['04:00']}
                     }
                 ]);
@@ -123,7 +123,7 @@ describe('<Unit Test>', function () {
                         scope: 'every',
                         days: {type: 'day', list: ['day']},
                         months: {type: 'of', list: ['march', 'january']},
-                        years: {type: 'starting', list: [new Date(1959, 11, 10)]},
+                        years: {type: 'starting', list: ['1959-12-10']},
                         time: {type: 'after', list: ['04:00']}
                     }
                 ]);
@@ -137,7 +137,7 @@ describe('<Unit Test>', function () {
                 var rule = parser.parse('on 1990-04-06');
                 should(rule).eql([{
                     scope: 'on',
-                    date: [new Date(1990, 4 - 1, 6)],
+                    date: ['1990-04-06'],
                     time: null
                 }]);
                 done();
@@ -147,7 +147,7 @@ describe('<Unit Test>', function () {
                 var rule = parser.parse('on 1990-04-06,2016-06-14');
                 should(rule).eql([{
                     scope: 'on',
-                    date: [new Date(1990, 4 - 1, 6), new Date(2016, 6 - 1, 14)],
+                    date: ['1990-04-06', '2016-06-14'],
                     time: null
                 }]);
                 done();
@@ -159,7 +159,7 @@ describe('<Unit Test>', function () {
                 should(rule).eql([
                     {
                         scope: 'on',
-                        date: [new Date(2016, 4 - 1, 4), new Date(2015, 3 - 1, 3)],
+                        date: ['2016-04-04', '2015-03-03'],
                         time: {type: 'between', list: ['05:30', '18:30']}
                     }
                 ]);
@@ -191,7 +191,7 @@ describe('<Unit Test>', function () {
                         scope: 'onThe',
                         days: {type:'position', list:['1st','4th']},
                         months: {type: 'of', list: ['march','may']},
-                        years:{type:'starting',list:[new Date(2016,4-1,5)]},
+                        years:{type:'starting',list:['2016-04-05']},
                         time:null
                     }
                 ]);
@@ -205,7 +205,7 @@ describe('<Unit Test>', function () {
                         scope: 'onThe',
                         days: {type:'position', list:['1st','4th']},
                         months: {type: 'of', list: ['march','may']},
-                        years:{type:'starting',list:[new Date(2016,4-1,5)]},
+                        years:{type:'starting',list:['2016-04-05']},
                         time:{type:'before',list:['14:00']}
                     }
                 ]);
