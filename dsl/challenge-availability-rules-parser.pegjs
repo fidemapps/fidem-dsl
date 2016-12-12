@@ -671,7 +671,11 @@ DATE_AFTER "date (YYYY-MM-DD)"
 }
 
 DATE_TIME
-= date:DATE S+ time:TIME_CHOICE
+= dateTime:DATE_TIME_STRING
+{
+	return dateTime;
+}
+/date:DATE S+ time:TIME_CHOICE
 {
     return date + "T" + time + ":00";
 }
@@ -680,13 +684,23 @@ DATE_TIME
     return date + "T" + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute + ":00";
 }
 /date:DATE
- {
-     return date + "T" + "00:00:00";
- }
+{
+	return date + "T" + "00:00:00";
+}
 
+
+DATE_TIME_STRING "datetime (YYYY-MM-DDThh:mm:ss)"
+    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
+    {
+        return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
+    }
 
 DATE_TIME_AFTER
-= date:DATE S+ time:TIME_CHOICE
+= dateTime:DATE_TIME_STRING
+{
+	return dateTime;
+}
+ /date:DATE S+ time:TIME_CHOICE
 {
     return date + "T" + time + ":00";
 }

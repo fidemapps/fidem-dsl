@@ -496,8 +496,8 @@ describe('<Unit Test>', function () {
 				} catch (error) {
 					otherChoices = helper.extractOthers(error);
 
-					should(error.expected.length).equal(4);
-					should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'date (YYYY-MM-DD)', 'whitespace']);
+					should(error.expected.length).equal(5);
+					should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'date (YYYY-MM-DD)', 'datetime (YYYY-MM-DDThh:mm:ss)', 'whitespace']);
 				}
 			});
 
@@ -507,8 +507,8 @@ describe('<Unit Test>', function () {
 				} catch (error) {
 					otherChoices = helper.extractOthers(error);
 
-					should(error.expected.length).equal(4);
-					should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'date (YYYY-MM-DD)', 'whitespace']);
+					should(error.expected.length).equal(5);
+					should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'date (YYYY-MM-DD)', 'datetime (YYYY-MM-DDThh:mm:ss)', 'whitespace']);
 				}
 			});
 
@@ -531,8 +531,8 @@ describe('<Unit Test>', function () {
 				} catch (error) {
 					otherChoices = helper.extractOthers(error);
 
-					should(error.expected.length).equal(4);
-					should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'date (YYYY-MM-DD)', 'whitespace']);
+					should(error.expected.length).equal(5);
+					should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'date (YYYY-MM-DD)', 'datetime (YYYY-MM-DDThh:mm:ss)', 'whitespace']);
 				}
 			});
 
@@ -555,8 +555,8 @@ describe('<Unit Test>', function () {
 				} catch (error) {
 					otherChoices = helper.extractOthers(error);
 
-					should(error.expected.length).equal(2);
-					should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
+					should(error.expected.length).equal(3);
+					should(otherChoices).eql(['date (YYYY-MM-DD)', 'datetime (YYYY-MM-DDThh:mm:ss)', 'whitespace']);
 				}
 			});
 

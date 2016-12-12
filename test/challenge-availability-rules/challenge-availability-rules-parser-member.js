@@ -469,6 +469,30 @@ describe('<Unit Test>', function () {
 					done();
 				});
 
+				it('member has not completed TEST before 2016-03-03T04:40:40', function (done) {
+
+					var rule = parser.parse('member has not completed TEST before 2016-03-03T04:40:40');
+					should(rule).eql([
+						{
+							scope: 'member',
+							type: 'has',
+							condition: {
+								type: 'not',
+								sub_type: 'completed',
+								code: 'TEST'
+							},
+							occurrence_filter: null,
+							period_filter: {
+								type: 'before',
+								dates: [
+									'2016-03-03T04:40:40'
+								]
+							},
+							moment_filter: null
+						}]);
+					done();
+				});
+
 				it('member has not completed TEST less than 3 times before 2016-03-03 04:40', function (done) {
 
 					var rule = parser.parse('member has not completed TEST less than 3 times before 2016-03-03 04:40');
