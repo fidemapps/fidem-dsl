@@ -30,8 +30,8 @@ describe('<Unit Test>', function () {
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
+                    should(error.expected.length).equal(4);
+                    should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'date (YYYY-MM-DD)', 'whitespace']);
                 }
             });
 
@@ -41,8 +41,8 @@ describe('<Unit Test>', function () {
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
+                    should(error.expected.length).equal(4);
+                    should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'date (YYYY-MM-DD)', 'whitespace']);
                 }
             });
 
@@ -53,8 +53,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -65,8 +65,8 @@ describe('<Unit Test>', function () {
                 } catch (error) {
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(2);
-                    should(otherChoices).eql(['date (YYYY-MM-DD)', 'whitespace']);
+                    should(error.expected.length).equal(4);
+                    should(otherChoices).eql(['12h time (hh:mm am/pm)', '24h time (hh:mm)', 'date (YYYY-MM-DD)', 'whitespace']);
                 }
             });
 
@@ -101,8 +101,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -141,8 +141,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -180,8 +180,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -193,8 +193,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -232,8 +232,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -245,8 +245,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -258,8 +258,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -271,8 +271,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -310,8 +310,8 @@ describe('<Unit Test>', function () {
                     literalChoices = helper.extractLiterals(error);
                     otherChoices = helper.extractOthers(error);
 
-                    should(error.expected.length).equal(3);
-                    should(literalChoices).eql(['and']);
+                    should(error.expected.length).equal(7);
+                    should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
