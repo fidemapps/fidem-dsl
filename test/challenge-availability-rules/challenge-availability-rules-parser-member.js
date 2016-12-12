@@ -544,8 +544,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
+								period_filter: null
 
 							}]
 						);
@@ -571,8 +570,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
+								period_filter: null
 
 							}]
 						);
@@ -598,8 +596,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
+								period_filter: null
 
 							}]
 						);
@@ -625,8 +622,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
+								period_filter: null
 
 							}]
 						);
@@ -656,9 +652,7 @@ describe('<Unit Test>', function () {
 									type: 'last',
 									duration: 3,
 									durationScope: 'day'
-								},
-								moment_filter:null
-
+								}
 							}]
 						);
 						done();
@@ -684,9 +678,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
-
+								period_filter: null
 							}]
 						);
 						done();
@@ -708,9 +700,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
-
+								period_filter: null
 							}]
 						);
 						done();
@@ -732,9 +722,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
-
+								period_filter: null
 							}]
 						);
 						done();
@@ -756,9 +744,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
-
+								period_filter: null
 							}]
 						);
 						done();
@@ -784,9 +770,7 @@ describe('<Unit Test>', function () {
 									type: 'last',
 									duration: 3,
 									durationScope: 'day'
-								},
-								moment_filter:null
-
+								}
 							}]
 						);
 						done();
@@ -810,9 +794,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
-
+								period_filter: null
 							}]
 						);
 						done();
@@ -834,9 +816,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
-
+								period_filter: null
 							}]
 						);
 						done();
@@ -858,9 +838,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
-
+								period_filter: null
 							}]
 						);
 						done();
@@ -882,9 +860,7 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null,
-								moment_filter:null
-
+								period_filter: null
 							}]
 						);
 						done();
@@ -910,9 +886,7 @@ describe('<Unit Test>', function () {
 									type: 'last',
 									duration: 3,
 									durationScope: 'day'
-								},
-								moment_filter:null
-
+								}
 							}]
 						);
 						done();
