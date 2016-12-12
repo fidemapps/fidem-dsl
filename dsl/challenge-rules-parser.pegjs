@@ -370,21 +370,21 @@ period_filter
     {
         return {
             type:type,
-            date:[date]
+            dates:[date]
         }
     }
     /type:"after" S+ date:DATE_TIME_STRING
     {
         return {
             type:type,
-            date:[date]
+            dates:[date]
         }
     }
     /type:"between" S+ start:DATE_TIME_STRING S+ "and" S+ end:DATE_TIME_STRING
     {
         return {
             type:type,
-            date:[start,end]
+            dates:[start,end]
         }
     }
     /"in" S+ type:"last" S+ duration:NUMBER S+ durationScope:timeframe

@@ -7664,7 +7664,7 @@ module.exports = (function() {
         peg$c88 = function(type, date) {
                 return {
                     type:type,
-                    date:[date]
+                    dates:[date]
                 }
             },
         peg$c89 = "after",
@@ -7674,7 +7674,7 @@ module.exports = (function() {
         peg$c93 = function(type, start, end) {
                 return {
                     type:type,
-                    date:[start,end]
+                    dates:[start,end]
                 }
             },
         peg$c94 = "in",
