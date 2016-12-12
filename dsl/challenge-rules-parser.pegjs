@@ -20,14 +20,14 @@
   member tag TAG_NAME  [operator] x [with TAG 'TAG_NAME' [= x]]
   member in geofence GEOFENCE_CODE[,GEOFENCE_CODE] [for x timeframe]
 
-  member did nothing [occurrence_filter,period_filter]
-  member did something [occurrence_filter,period_filter]
-  member did not ACTION_CODE [occurrence_filter,period_filter]
-  member did not ACTION_CODE with [attribute_name OPERATOR value][occurrence_filter,period_filter]
-  member has completed CHALLENGE_CODE [occurrence_filter,period_filter]
-  member has not completed CHALLENGE_CODE [occurrence_filter,period_filter]
+  member did nothing [occurrence_filter,period_filter,moment_filter]
+  member did something [occurrence_filter,period_filter,moment_filter]
+  member did not ACTION_CODE [occurrence_filter,period_filter,moment_filter]
+  member did not ACTION_CODE with [attribute_name OPERATOR value][occurrence_filter,period_filter,moment_filter]
+  member has completed CHALLENGE_CODE [occurrence_filter,period_filter,moment_filter]
+  member has not completed CHALLENGE_CODE [occurrence_filter,period_filter,moment_filter]
 
-  occurece_filter
+  occurrence_filter
     at least x time
     at least x times
     less than x time
@@ -40,6 +40,12 @@
     after TIME_DATE
     between TIME_DATE and TIME_DATE
     in last x timeframe
+
+  moment_filter
+    before TIME
+    after TIME
+    between TIME and TIME
+    during the [night/morning/afternoon/evening]
 
   // NOT IMPLEMENTED YET
   member new level LEVEL_CODE [x times][within x timeframe]  [with TAG TAG_NAME [= x]]
@@ -180,24 +186,26 @@ simple_reward
 /*MEMBER CONDITION*/
 
 member_condition
-    = scope:"member" S+ type:"did" S+ conditions:did_rule S* filter1:occurrence_filter? S* filter2:period_filter?
+    = scope:"member" S+ type:"did" S+ conditions:did_rule S* filter1:occurrence_filter? S* filter2:period_filter? S* filter3:momentFilter?
     {
         return {
             scope:scope,
             type:type,
             condition:conditions,
             occurrence_filter:filter1,
-            period_filter:filter2
+            period_filter:filter2,
+            moment_filter:filter3
         };
     }
-    /scope:"member" S+ type:"has" S+ conditions:has_rule_completed S* filter1:occurrence_filter? S* filter2:period_filter?
+    /scope:"member" S+ type:"has" S+ conditions:has_rule_completed S* filter1:occurrence_filter? S* filter2:period_filter? S* filter3:momentFilter?
       {
           return {
               scope:scope,
               type:type,
               condition:conditions,
               occurrence_filter:filter1,
-              period_filter:filter2
+              period_filter:filter2,
+              moment_filter:filter3
           };
       }
       /scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* filter2:period_filter?
@@ -366,21 +374,21 @@ occurrence_filter
 /*PERIOD_FILTER*/
 
 period_filter
-    = type:"before" S+ date:DATE_TIME_STRING
+    = type:"before" S+ date:DATE_TIME
     {
         return {
             type:type,
             dates:[date]
         }
     }
-    /type:"after" S+ date:DATE_TIME_STRING
+    /type:"after" S+ date:DATE_TIME_AFTER
     {
         return {
             type:type,
             dates:[date]
         }
     }
-    /type:"between" S+ start:DATE_TIME_STRING S+ "and" S+ end:DATE_TIME_STRING
+    /type:"between" S+ start:DATE_TIME S+ "and" S+ end:DATE_TIME_AFTER
     {
         return {
             type:type,
@@ -395,6 +403,39 @@ period_filter
             durationScope: durationScope
         }
     }
+
+
+/*MOMENT FILTER*/
+momentFilter
+= type:"before" S+ time:TIME
+{
+    return {
+        type: type,
+        times: [time]
+    }
+}
+/ type:"after" S+ time:TIME
+{
+    return {
+        type: type,
+        times: [time]
+    }
+}
+/ type:"between" S+ time1:TIME S+ "and" S+ time2:TIME
+{
+    return {
+        type: type,
+        times: [time1,time2]
+    }
+}
+/"during the" S+ moment:DAY_MOMENTS
+{
+    return {
+        type: "during",
+        moment: moment
+    }
+}
+
 
 /*SYSTEM CONDITION*/
 
@@ -414,7 +455,7 @@ on_rule
     }
 
 on_date
-    = first:DATE S* remainders:(S* "," S* DATE)* S* time:timeRule?
+    = first:DATE_SYSTEM_CONDITION S* remainders:(S* "," S* DATE_SYSTEM_CONDITION)* S* time:timeRule?
     {
         return {
             type: 'on',
@@ -522,7 +563,7 @@ dateRules
     = (fromDate / startingDate / untilDate)
 
 fromDate
-    = "from" S+ start:DATE S+ "to" S+ end:DATE
+    = "from" S+ start:DATE_SYSTEM_CONDITION S+ "to" S+ end:DATE_SYSTEM_CONDITION
     {
         return {
             type:"from",
@@ -531,7 +572,7 @@ fromDate
     }
 
 startingDate
-    = "starting at" S+ year:DATE
+    = "starting at" S+ year:DATE_SYSTEM_CONDITION
     {
         return {
             type:"starting",
@@ -540,7 +581,7 @@ startingDate
     }
 
 untilDate
-    = "until" S+ year:DATE
+    = "until" S+ year:DATE_SYSTEM_CONDITION
     {
         return {
             type:"until",
@@ -759,19 +800,78 @@ time_minute
 time_second
     = $([0-5] DIGIT)
 
-DATE "date"
-    = year:date_full_year "-" month:date_month "-" day:date_day
-    {
-        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+DATE_SYSTEM_CONDITION "date (YYYY-MM-DD)"
+= year:date_full_year "-" month:date_month "-" day:date_day
+{
+   return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+}
+
+
+DATE_TIME
+= dateTime:DATE_TIME_STRING
+{
+    return dateTime;
+}
+/date:DATE S+ time:TIME_CHOICE
+{
+    return date + "T" + time + ":00";
+}
+/ date:DATE S+ time:TIME_24
+{
+    return date + "T" + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute + ":00";
+}
+/date:DATE
+{
+    return date + "T" + "00:00:00";
+}
+
+DATE_TIME_AFTER
+= dateTime:DATE_TIME_STRING
+{
+	return dateTime;
+}
+ /date:DATE S+ time:TIME_CHOICE
+{
+    return date + "T" + time + ":00";
+}
+/ date:DATE S+ time:TIME_24
+{
+    return date + "T" + (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute + ":00";
+}
+/date:DATE_AFTER
+{
+    return date + "T" + "00:00:00";
+}
+
+DATE "date (YYYY-MM-DD)"
+= year:date_full_year "-" month:date_month "-" day:date_day
+{
+    return year + "-" + month + "-" + day;
+}
+
+DATE_AFTER "date (YYYY-MM-DD)"
+= year:date_full_year "-" month:date_month "-" day:date_day
+{
+    var d=parseInt(day);
+    var m=parseInt(month);
+    var y=parseInt(year);
+
+    if(d >= 31){
+        d="01";
+        m++;
+    }else{
+        d++;
+    }
+    if(m >= 12){
+        m="01"
+        y++;
     }
 
-DATE_TIME "datetime"
-    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
-    {
-        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hour), parseInt(minute), parseInt(second), 0);
-    }
+    return y + "-" + (m.toString().length === 1? "0"+m:m) + "-" + (d.toString().length === 1? "0"+d:d);
+}
 
-DATE_TIME_STRING "datetime"
+
+DATE_TIME_STRING "datetime (YYYY-MM-DDThh:mm:ss)"
     = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
     {
         return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
@@ -811,6 +911,26 @@ TIME_12 "time"
         return {hour:hour,minute:minute};
     }
 
+TIME
+= time:TIME_CHOICE
+{
+    return  time;
+}
+/ time:TIME_24
+{
+    return  (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute;
+}
+
+
+TIME_24 "24h time (hh:mm)"
+= hour:time_hour_24 ":" minute:time_minute
+{
+    return {
+        hour: hour,
+        minute: minute
+    }
+}
+
 POSITION
     = position:("1st" / "2nd" / "3rd" / $([4-9] "th") / $(DIGIT DIGIT "th")/ "last")
     {
@@ -828,3 +948,6 @@ timeframe
     {
         return value.replace(/s/g,'');
     }
+
+DAY_MOMENTS
+    = moment:("night" / "morning" / "afternoon" / "evening")

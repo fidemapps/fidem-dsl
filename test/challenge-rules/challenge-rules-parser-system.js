@@ -291,7 +291,7 @@ describe('<Unit Test>', function () {
                 try {
                     var rule = parser.parse('action TEST every day of may starting at 1995-13-10 give 1 points');
                 } catch (err) {
-                    err.message.should.equal('Expected date or whitespace but "1" found.');
+                    err.message.should.equal('Expected date (YYYY-MM-DD) or whitespace but "1" found.');
                 }
 
                 done();
@@ -302,7 +302,7 @@ describe('<Unit Test>', function () {
                 try {
                     var rule = parser.parse('action TEST every day of may starting at 1995-12-32 give 1 points');
                 } catch (err) {
-                    err.message.should.equal('Expected date or whitespace but "1" found.');
+                    err.message.should.equal('Expected date (YYYY-MM-DD) or whitespace but "1" found.');
                 }
 
                 done();

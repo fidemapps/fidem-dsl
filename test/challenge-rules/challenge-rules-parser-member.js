@@ -32,8 +32,8 @@ describe('<Unit Test>', function () {
 							type: 'nothing'
 						},
 						occurrence_filter: null,
-						period_filter: null
-
+						period_filter: null,
+						moment_filter: null
 					}],
 					rewards: [
 						{quantity: 1, code: 'points'}
@@ -67,7 +67,8 @@ describe('<Unit Test>', function () {
 								]
 							},
 							occurrence_filter: null,
-							period_filter: null
+							period_filter: null,
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -98,7 +99,8 @@ describe('<Unit Test>', function () {
 								type: 'less',
 								number: 3
 							},
-							period_filter: null
+							period_filter: null,
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -131,7 +133,8 @@ describe('<Unit Test>', function () {
 								dates: [
 									'2016-03-03T04:40:40'
 								]
-							}
+							},
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -167,7 +170,8 @@ describe('<Unit Test>', function () {
 								dates: [
 									'2016-03-03T04:40:40'
 								]
-							}
+							},
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -208,7 +212,8 @@ describe('<Unit Test>', function () {
 								]
 							},
 							occurrence_filter: null,
-							period_filter: null
+							period_filter: null,
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -244,7 +249,8 @@ describe('<Unit Test>', function () {
 								type: 'less',
 								number: 3
 							},
-							period_filter: null
+							period_filter: null,
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -282,7 +288,8 @@ describe('<Unit Test>', function () {
 								dates: [
 									'2016-03-03T04:40:40'
 								]
-							}
+							},
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -323,7 +330,8 @@ describe('<Unit Test>', function () {
 								dates: [
 									'2016-03-03T04:40:40'
 								]
-							}
+							},
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -353,8 +361,8 @@ describe('<Unit Test>', function () {
 								code: 'TEST'
 							},
 							occurrence_filter: null,
-							period_filter: null
-
+							period_filter: null,
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -376,8 +384,8 @@ describe('<Unit Test>', function () {
 								code: 'TEST'
 							},
 							occurrence_filter: null,
-							period_filter: null
-
+							period_filter: null,
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -402,7 +410,8 @@ describe('<Unit Test>', function () {
 								type: 'less',
 								number: 3
 							},
-							period_filter: null
+							period_filter: null,
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -429,7 +438,8 @@ describe('<Unit Test>', function () {
 								dates: [
 									'2016-03-03T04:40:40'
 								]
-							}
+							},
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -459,7 +469,8 @@ describe('<Unit Test>', function () {
 								dates: [
 									'2016-03-03T04:40:40'
 								]
-							}
+							},
+							moment_filter: null
 						}],
 						rewards: [
 							{quantity: 1, code: 'points'}
@@ -495,7 +506,6 @@ describe('<Unit Test>', function () {
 								},
 								occurrence_filter: null,
 								period_filter: null
-
 							}],
 							rewards: [
 								{quantity: 1, code: 'points'}
@@ -553,7 +563,6 @@ describe('<Unit Test>', function () {
 										},
 										occurrence_filter: null,
 										period_filter: null
-
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -584,7 +593,6 @@ describe('<Unit Test>', function () {
 										},
 										occurrence_filter: null,
 										period_filter: null
-
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -619,7 +627,6 @@ describe('<Unit Test>', function () {
 											duration: 3,
 											durationScope: 'day'
 										}
-
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -650,7 +657,6 @@ describe('<Unit Test>', function () {
 								},
 								occurrence_filter: null,
 								period_filter: null
-
 							}],
 							rewards: [
 								{quantity: 1, code: 'points'}
@@ -702,7 +708,6 @@ describe('<Unit Test>', function () {
 										},
 										occurrence_filter: null,
 										period_filter: null
-
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -730,7 +735,6 @@ describe('<Unit Test>', function () {
 										},
 										occurrence_filter: null,
 										period_filter: null
-
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -762,7 +766,6 @@ describe('<Unit Test>', function () {
 											duration: 3,
 											durationScope: 'day'
 										}
-
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -792,7 +795,6 @@ describe('<Unit Test>', function () {
 								},
 								occurrence_filter: null,
 								period_filter: null
-
 							}],
 							rewards: [
 								{quantity: 1, code: 'points'}
