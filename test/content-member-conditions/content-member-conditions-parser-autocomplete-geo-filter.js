@@ -44,8 +44,8 @@ describe('<Unit Test>', function () {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
 
-          should(error.expected.length).equal(9);
-          should(literalChoices).eql([',', 'after', 'and', 'before', 'between', 'in last', 'since']);
+          should(error.expected.length).equal(10);
+          should(literalChoices).eql([',', 'after', 'and', 'before', 'between', 'during the', 'in last', 'since']);
           should(otherChoices).eql(['whitespace']);
         }
       });
@@ -70,8 +70,8 @@ describe('<Unit Test>', function () {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
 
-          should(error.expected.length).equal(9);
-          should(literalChoices).eql([',', 'after', 'and', 'before', 'between', 'in last', 'since']);
+          should(error.expected.length).equal(10);
+          should(literalChoices).eql([',', 'after', 'and', 'before', 'between', 'during the', 'in last', 'since']);
           should(otherChoices).eql(['whitespace']);
         }
       });
@@ -109,8 +109,8 @@ describe('<Unit Test>', function () {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
 
-          should(error.expected.length).equal(9);
-          should(literalChoices).eql([',', 'after', 'and', 'before', 'between', 'in last', 'since']);
+          should(error.expected.length).equal(10);
+          should(literalChoices).eql([',', 'after', 'and', 'before', 'between', 'during the', 'in last', 'since']);
           should(otherChoices).eql(['whitespace']);
         }
       });
@@ -135,8 +135,8 @@ describe('<Unit Test>', function () {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
 
-          should(error.expected.length).equal(9);
-          should(literalChoices).eql([',', 'after', 'and', 'before', 'between', 'in last', 'since']);
+          should(error.expected.length).equal(10);
+          should(literalChoices).eql([',', 'after', 'and', 'before', 'between', 'during the', 'in last', 'since']);
           should(otherChoices).eql(['whitespace']);
         }
       });

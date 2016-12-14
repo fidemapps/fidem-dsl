@@ -84,13 +84,14 @@ describe('<Unit Test>', function () {
             literalChoices = helper.extractLiterals(error);
             otherChoices = helper.extractOthers(error);
 
-            should(error.expected.length).equal(15);
+            should(error.expected.length).equal(16);
             should(literalChoices).eql([
               'after',
               'and',
               'at least',
               'before',
               'between',
+              'during the',
               'exactly',
               'in geofence',
               'in last',
@@ -161,8 +162,8 @@ describe('<Unit Test>', function () {
             literalChoices = helper.extractLiterals(error);
             otherChoices = helper.extractOthers(error);
 
-            should(error.expected.length).equal(15);
-            should(literalChoices).eql(['&', 'after', 'and', 'at least', 'before', 'between', 'exactly', 'in geofence', 'in last', 'in range of', 'less than', 'since', 'with RSSI']);
+            should(error.expected.length).equal(16);
+            should(literalChoices).eql(['&', 'after', 'and', 'at least', 'before', 'between', 'during the', 'exactly', 'in geofence', 'in last', 'in range of', 'less than', 'since', 'with RSSI']);
 
             should(otherChoices).eql(['whitespace']);
           }
@@ -191,13 +192,14 @@ describe('<Unit Test>', function () {
             literalChoices = helper.extractLiterals(error);
             otherChoices = helper.extractOthers(error);
 
-            should(error.expected.length).equal(15);
+            should(error.expected.length).equal(16);
             should(literalChoices).eql([
               'after',
               'and',
               'at least',
               'before',
               'between',
+              'during the',
               'exactly',
               'in geofence',
               'in last',
@@ -268,8 +270,8 @@ describe('<Unit Test>', function () {
             literalChoices = helper.extractLiterals(error);
             otherChoices = helper.extractOthers(error);
 
-            should(error.expected.length).equal(15);
-            should(literalChoices).eql(['&', 'after', 'and', 'at least', 'before', 'between', 'exactly', 'in geofence', 'in last', 'in range of', 'less than', 'since', 'with RSSI']);
+            should(error.expected.length).equal(16);
+            should(literalChoices).eql(['&', 'after', 'and', 'at least', 'before', 'between', 'during the', 'exactly', 'in geofence', 'in last', 'in range of', 'less than', 'since', 'with RSSI']);
 
             should(otherChoices).eql(['whitespace']);
           }
@@ -295,8 +297,8 @@ describe('<Unit Test>', function () {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
 
-          should(error.expected.length).equal(14);
-          should(literalChoices).eql(['after', 'and', 'at least', 'before', 'between', 'exactly', 'in geofence', 'in last', 'in range of', 'less than', 'since', 'with RSSI']);
+          should(error.expected.length).equal(15);
+          should(literalChoices).eql(['after', 'and', 'at least', 'before', 'between', 'during the', 'exactly', 'in geofence', 'in last', 'in range of', 'less than', 'since', 'with RSSI']);
           should(otherChoices).eql(['whitespace']);
         }
       });
@@ -308,8 +310,8 @@ describe('<Unit Test>', function () {
           literalChoices = helper.extractLiterals(error);
           otherChoices = helper.extractOthers(error);
 
-          should(error.expected.length).equal(14);
-          should(literalChoices).eql(['after', 'and', 'at least', 'before', 'between', 'exactly', 'in geofence', 'in last', 'in range of', 'less than', 'since', 'with RSSI']);
+          should(error.expected.length).equal(15);
+          should(literalChoices).eql(['after', 'and', 'at least', 'before', 'between', 'during the', 'exactly', 'in geofence', 'in last', 'in range of', 'less than', 'since', 'with RSSI']);
           should(otherChoices).eql(['whitespace']);
         }
       });

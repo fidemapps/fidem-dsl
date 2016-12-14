@@ -119,7 +119,7 @@ live_condition
 /*MEMBER CONDITION*/
 
 member_condition
-=scope:"member" S+ type:"did" S+ conditionType:("nothing" / "something")  S* occurrence:occurrenceFilter? S* geo:geoFilter? S* period:periodFilter?
+=scope:"member" S+ type:"did" S+ conditionType:("nothing" / "something")  S* occurrence:occurrenceFilter? S* geo:geoFilter? S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -141,9 +141,14 @@ member_condition
     if(occurrence){
         rule.occurrenceFilter = occurrence;
     }
+
+    if(moment){
+        rule.momentFilter = moment;
+    }
+
     return rule;
 }
-/ scope:"member" S+ type:"did" S+ "not" S+ conditions:did_rule S* occurrence:occurrenceFilter? S* geo:geoFilter? S* period:periodFilter?
+/ scope:"member" S+ type:"did" S+ "not" S+ conditions:did_rule S* occurrence:occurrenceFilter? S* geo:geoFilter? S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -164,9 +169,13 @@ member_condition
         rule.occurrenceFilter = occurrence;
     }
 
+    if(moment){
+        rule.momentFilter = moment;
+    }
+
     return rule;
 }
-/ scope:"member" S+ type:"did" S+ conditions:did_rule S* occurrence:occurrenceFilter? S* geo:geoFilter? S* period:periodFilter?
+/ scope:"member" S+ type:"did" S+ conditions:did_rule S* occurrence:occurrenceFilter? S* geo:geoFilter? S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -186,9 +195,13 @@ member_condition
         rule.occurrenceFilter = occurrence;
     }
 
+    if(moment){
+        rule.momentFilter = moment;
+    }
+
     return rule;
 }
-/scope:"member" S+ type:"has" S+ conditions:has_rule_completed S* occurrence:occurrenceFilter?   S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ conditions:has_rule_completed S* occurrence:occurrenceFilter?   S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -205,9 +218,13 @@ member_condition
         rule.occurrenceFilter = occurrence;
     }
 
+    if(moment){
+        rule.momentFilter = moment;
+    }
+
     return rule;
 }
-/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_completed S* occurrence:occurrenceFilter?   S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_completed S* occurrence:occurrenceFilter?   S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -223,6 +240,10 @@ member_condition
 
     if(occurrence){
         rule.occurrenceFilter = occurrence;
+    }
+
+    if(moment){
+        rule.momentFilter = momentFilter;
     }
 
     return rule;
@@ -737,6 +758,38 @@ geoFilterIsLite="in geofence" S+ first:geofenceCode reminders:(S* "," S* geofenc
     };
 }
 
+
+/*MOMENT FILTER*/
+momentFilter
+= type:"before" S+ time:TIME
+{
+    return {
+        type: type,
+        times: [time]
+    }
+}
+/ type:"after" S+ time:TIME
+{
+    return {
+        type: type,
+        times: [time]
+    }
+}
+/ type:"between" S+ time1:TIME S+ "and" S+ time2:TIME
+{
+    return {
+        type: type,
+        times: [time1,time2]
+    }
+}
+/"during the" S+ moment:DAY_MOMENTS
+{
+    return {
+        type: "during",
+        moment: moment
+    }
+}
+
 /*OTHER*/
 
 attribute_operator_value
@@ -914,8 +967,17 @@ time_minute
 time_second
 = $([0-5] DIGIT)
 
+TIME
+= time:TIME_CHOICE
+{
+    return  time;
+}
+/ time:TIME_24
+{
+    return  (time.hour.length ===  1? "0"+time.hour :time.hour)  + ":" + time.minute;
+}
 
-TIME_24 "time"
+TIME_24 "24h time (hh:mm)"
 = hour:time_hour_24 ":" minute:time_minute
 {
     return {
@@ -933,7 +995,7 @@ TIME_CHOICE
         return time.hour+":"+time.minute;
     }
 
-TIME_12 "time"
+TIME_12 "12h time (hh:mm am/pm)"
     = hour:time_hour_12 ":" minute:time_minute
     {
 
@@ -995,9 +1057,11 @@ DATE_TIME_AFTER
     return date + " " + "00:00";
 }
 
-
 OPERATOR
 = op:(">=" / "<=" / "=" / ">" / "<")
 {
     return op;
 }
+
+DAY_MOMENTS
+    = moment:("night" / "morning" / "afternoon" / "evening")

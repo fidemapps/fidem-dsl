@@ -9,7 +9,7 @@ var parser;
 
 describe('<Unit Test>', function () {
 
-  describe.only('Auto-Complete List Member Conditions Member: MomentFilter:', function () {
+  describe('Auto-Complete List Member Conditions Member: MomentFilter:', function () {
     var literalChoices;
     var otherChoices;
     before(function (done) {
