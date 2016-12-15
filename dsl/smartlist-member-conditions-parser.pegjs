@@ -408,6 +408,10 @@ with_condition
 {
     return value ? Object.assign(condition,value):Object.assign(condition,{operator:'>',value:0});
 }
+/condition:object_rule_tag S* value:operator_position
+{
+    return Object.assign(condition,value);
+}
 /condition:object_rule_tag S* value:(operator_percent/operator_number)?
 {
     return value ? Object.assign(condition,value):Object.assign(condition,{operator:'>',value:0});
@@ -723,6 +727,15 @@ operator_percent
     };
 }
 
+operator_position
+= operator:POSITION S* value:NUMBER
+{
+    return {
+        type:"tag",
+        operator: operator,
+        value: value
+    };
+}
 
 
 /*PRIMARY*/
@@ -947,4 +960,10 @@ OPERATOR
 = op:(">=" / "<=" / "=" / ">" / "<")
 {
     return op;
+}
+
+POSITION
+= pos:("top")
+{
+    return pos;
 }
