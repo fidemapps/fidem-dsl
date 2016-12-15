@@ -3,6 +3,7 @@ challenge_reward_rules
            | 'challenge'  '{challenge code}' (  'NUMBER' 'times' ( 'within' 'NUMBER' ('minutes, hours, days, weeks, months, years') )? )* ( 'in zone'  '{zone code}' (  ','  '{zone code}' )* | 'near'  'NUMBER'  'of beacon'  '{beacon code}' (  ','  '{beacon code}' )* )*
            | 'member'  ( 'level' | 'point' )  '{level code}'  ('>=, <=, =, >, <')  'NUMBER'
            | 'member'  'tag'  '{tag code}'  ( '>=, <=, =, >, <' )  'NUMBER'
-           | 'member' ( 'did' ('not'? ( 'action' '{action code}' | 'check-in'  '{check-in code}') (( 'with' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<' ) '{attribute value}' ) ( '&' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<') '{attribute value}' )*)? |'something'|'nothing') ) occurrence? period?
-           | 'member' 'has' 'not'? ('completed' '{challenge code}' | ('gained' | 'lost') 'NUMBER'?  ('points' '{level code}' | 'prize' '{prize code}'|'tag' '{tag code}') ) occurrence? period?
+           | 'member' ( 'did' ('not'? ( 'action' '{action code}' | 'check-in'  '{check-in code}') (( 'with' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<' ) '{attribute value}' ) ( '&' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<') '{attribute value}' )*)? |'something'|'nothing') ) occurrence? period? moment?
+           | 'member' 'has' 'not'? ( ('gained' | 'lost') 'NUMBER'?  ('points' '{level code}' | 'prize' '{prize code}'|'tag' '{tag code}') ) occurrence? period?
+           | 'member' 'has' 'not'? 'completed' '{challenge code}' occurrence? period? moment?
            | 'member'  'in zone'  '{zone code}' (  ','  '{zone code}' )* (  'for'  'NUMBER'  ('minutes, hours, days, weeks, months, years') )?)+ ( 'give'  'NUMBER'  '{reward code}')+

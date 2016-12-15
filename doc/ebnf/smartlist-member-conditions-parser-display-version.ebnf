@@ -1,6 +1,6 @@
 smartlist_condition_doc
-         ::= 'member' (('did' ('not'? ('action' '{action code}'|'check-in' '{check-in code}') (( 'with' '{attribute name}' '>=,<=,=,>,<' '{attribute value}' ) ( '&' '{attribute name}' '>=,<=,=,>,<' '{attribute value}' )*)? | ('nothing' | 'something'))) ) occurrence? geolocation? period?
-           | 'member'  ('has' 'not'? (('completed' '{challenge code}')))  occurrence? period?
+         ::= 'member' (('did' ('not'? ('action' '{action code}'|'check-in' '{check-in code}') (( 'with' '{attribute name}' '>=,<=,=,>,<' '{attribute value}' ) ( '&' '{attribute name}' '>=,<=,=,>,<' '{attribute value}' )*)? | ('nothing' | 'something'))) ) occurrence? geolocation? period? moment?
+           | 'member'  ('has' 'not'? (('completed' '{challenge code}')))  occurrence? period? moment?
            | 'member' 'is' geolocation
            | 'member' 'has' 'not'? 'been' geolocation period?
            | 'member' 'created' period

@@ -1,0 +1,7 @@
+Moment Filter
+::= (
+'before' (('hh:mm' | 'h:mm') ('am'|'pm')?)?
+|'after' (('hh:mm' | 'h:mm') ('am'|'pm')?)?
+|'between' (('hh:mm' | 'h:mm') ('am'|'pm')?)? 'and' (('hh:mm' | 'h:mm') ('am'|'pm')?)?
+|'during the' ('night'|'morning'|'afternoon'|'evening')
+)
