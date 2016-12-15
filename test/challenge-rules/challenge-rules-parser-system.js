@@ -313,7 +313,7 @@ describe('<Unit Test>', function () {
                 try {
                     var rule = parser.parse('action TEST every day of may starting at 1995-12-31 after 13:00 am give 1 points');
                 } catch (err) {
-                    err.message.should.equal('Expected time or whitespace but "1" found.');
+                    err.message.should.equal('Expected 12h time (hh:mm am/pm) or whitespace but "1" found.');
                 }
 
                 done();
@@ -324,7 +324,7 @@ describe('<Unit Test>', function () {
                 try {
                     var rule = parser.parse('action TEST every day of may starting at 1995-12-31 after 02:60 am give 1 points');
                 } catch (err) {
-                    err.message.should.equal('Expected time or whitespace but "0" found.');
+                    err.message.should.equal('Expected 12h time (hh:mm am/pm) or whitespace but "0" found.');
                 }
 
                 done();

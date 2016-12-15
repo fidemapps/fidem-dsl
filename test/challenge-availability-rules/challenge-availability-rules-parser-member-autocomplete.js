@@ -412,7 +412,7 @@ describe('<Unit Test>', function () {
 
 		});
 
-		describe('should auto-complete the occurence filter', function () {
+		describe('should auto-complete the occurrence filter', function () {
 
 			it('member did something at least ', function () {
 				try {

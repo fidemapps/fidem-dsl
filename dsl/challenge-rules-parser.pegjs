@@ -904,7 +904,7 @@ TIME_CHOICE
         return time.hour+":"+time.minute;
     }
 
-TIME_12 "time"
+TIME_12 "12h time (hh:mm am/pm)"
     = hour:time_hour_12 ":" minute:time_minute
     {
 
