@@ -91,8 +91,8 @@ describe('<Unit Test>', function () {
 				should(rule.conditions[0].momentFilter).eql({times: ['23:00', '12:00'], type: 'between'});
 			});
 
-			it('member did something between 13:00 and 12:00 am', function () {
-				var rule = parser.parse('member did something between 13:00 and 12:00 am');
+			it('member did something between 13:00 and 12:00 pm', function () {
+				var rule = parser.parse('member did something between 13:00 and 12:00 pm');
 				should(rule.conditions[0].momentFilter).eql({times: ['13:00', '12:00'], type: 'between'});
 			});
 
@@ -135,8 +135,8 @@ describe('<Unit Test>', function () {
 			it('member did eat before 2012-10-10 12:00 pm before 12:00 pm', function () {
 
 				var rule = parser.parse('member did action eat before 2012-10-10 12:00 pm before 12:00 pm');
-				should(rule.conditions[0].periodFilter).eql({ date:  '2012-10-10 24:00' , type: 'before' });
-				should(rule.conditions[0].momentFilter).eql({times: ['24:00'], type: 'before'});
+				should(rule.conditions[0].periodFilter).eql({ date:  '2012-10-10 12:00' , type: 'before' });
+				should(rule.conditions[0].momentFilter).eql({times: ['12:00'], type: 'before'});
 
 
 			});
@@ -145,7 +145,7 @@ describe('<Unit Test>', function () {
 
 				var rule = parser.parse('member did action eat before 2012-10-10 before 12:00 pm');
 				should(rule.conditions[0].periodFilter).eql({ date: '2012-10-10 00:00' , type: 'before' });
-				should(rule.conditions[0].momentFilter).eql({times: ['24:00'], type: 'before'});
+				should(rule.conditions[0].momentFilter).eql({times: ['12:00'], type: 'before'});
 
 
 			});

@@ -161,8 +161,8 @@ describe('<Unit Test>', function () {
 				}])
 			});
 
-			it('member did something between 13:00 and 12:00 am', function () {
-				var rule = parser.parse('member did something between 13:00 and 12:00 am');
+			it('member did something between 13:00 and 12:00 pm', function () {
+				var rule = parser.parse('member did something between 13:00 and 12:00 pm');
 				should(rule).eql([{
 					scope: 'member',
 					type: 'did',
@@ -237,30 +237,30 @@ describe('<Unit Test>', function () {
 
 		describe('complex combination', function () {
 
-			it('member did eat before 2012-10-10 12:00 pm before 12:00 pm', function () {
+			it('member did eat before 2012-10-10 12:00 pm before 12:00 am', function () {
 
-				var rule = parser.parse('member did action eat before 2012-10-10 12:00 pm before 12:00 pm');
+				var rule = parser.parse('member did action eat before 2012-10-10 12:00 pm before 12:00 am');
 				should(rule).eql([{
 					scope: 'member',
 					type: 'did',
 					condition: { code: 'eat', conditions: null, type: null },
 					occurrence_filter: null,
-					period_filter:  { dates: [ '2012-10-10T24:00:00' ], type: 'before' },
-					moment_filter: {times: ['24:00'], type: 'before'},
+					period_filter:  { dates: [ '2012-10-10T12:00:00' ], type: 'before' },
+					moment_filter: {times: ['00:00'], type: 'before'},
 				}]);
 
 			});
 
-			it('member did eat before 2012-10-10 before 12:00 pm', function () {
+			it('member did eat before 2012-10-10 before 12:00 am', function () {
 
-				var rule = parser.parse('member did action eat before 2012-10-10 before 12:00 pm');
+				var rule = parser.parse('member did action eat before 2012-10-10 before 12:00 am');
 				should(rule).eql([{
 					scope: 'member',
 					type: 'did',
 					condition: { code: 'eat', conditions: null, type: null },
 					occurrence_filter: null,
 					period_filter:  { dates: [ '2012-10-10T00:00:00' ], type: 'before' },
-					moment_filter: {times: ['24:00'], type: 'before'},
+					moment_filter: {times: ['00:00'], type: 'before'},
 				}]);
 
 			});

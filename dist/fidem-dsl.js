@@ -692,9 +692,17 @@ module.exports = (function() {
         peg$c229 = "pm",
         peg$c230 = { type: "literal", value: "pm", description: "\"pm\"" },
         peg$c231 = function(time, choice) {
+                if(time.hour == '12'){
+                    if(choice=="pm"){
+                        return "12:"+time.minute;
+                    }else{
+                        return "00:"+time.minute;
+                    }
+                }
                 if(choice=="pm"){
                     time.hour=parseInt(time.hour)+12;
                 }
+
                 return time.hour+":"+time.minute;
             },
         peg$c232 = { type: "other", description: "12h time (hh:mm am/pm)" },
@@ -8058,9 +8066,17 @@ module.exports = (function() {
         peg$c291 = "pm",
         peg$c292 = { type: "literal", value: "pm", description: "\"pm\"" },
         peg$c293 = function(time, choice) {
+                if(time.hour == '12'){
+                    if(choice=="pm"){
+                        return "12:"+time.minute;
+                    }else{
+                        return "00:"+time.minute;
+                    }
+                }
                 if(choice=="pm"){
                     time.hour=parseInt(time.hour)+12;
                 }
+
                 return time.hour+":"+time.minute;
             },
         peg$c294 = { type: "other", description: "12h time (hh:mm am/pm)" },
@@ -16725,9 +16741,17 @@ module.exports = (function() {
         peg$c280 = "pm",
         peg$c281 = { type: "literal", value: "pm", description: "\"pm\"" },
         peg$c282 = function(time, choice) {
+                if(time.hour == '12'){
+                    if(choice=="pm"){
+                        return "12:"+time.minute;
+                    }else{
+                        return "00:"+time.minute;
+                    }
+                }
                 if(choice=="pm"){
                     time.hour=parseInt(time.hour)+12;
                 }
+
                 return time.hour+":"+time.minute;
             },
         peg$c283 = { type: "other", description: "12h time (hh:mm am/pm)" },
@@ -30124,9 +30148,17 @@ module.exports = (function() {
         peg$c257 = "pm",
         peg$c258 = { type: "literal", value: "pm", description: "\"pm\"" },
         peg$c259 = function(time, choice) {
+                if(time.hour == '12'){
+                    if(choice=="pm"){
+                        return "12:"+time.minute;
+                    }else{
+                        return "00:"+time.minute;
+                    }
+                }
                 if(choice=="pm"){
                     time.hour=parseInt(time.hour)+12;
                 }
+
                 return time.hour+":"+time.minute;
             },
         peg$c260 = { type: "other", description: "12h time (hh:mm am/pm)" },

@@ -91,8 +91,8 @@ describe('<Unit Test>', function () {
 				should(rule.rules[0].moment_filter).eql({times: ['23:00', '12:00'], type: 'between'});
 			});
 
-			it('member did something between 13:00 and 12:00 am give 1 point', function () {
-				var rule = parser.parse('member did something between 13:00 and 12:00 am give 1 point');
+			it('member did something between 13:00 and 12:00 pm give 1 point', function () {
+				var rule = parser.parse('member did something between 13:00 and 12:00 pm give 1 point');
 				should(rule.rules[0].moment_filter).eql({times: ['13:00', '12:00'], type: 'between'});
 			});
 
@@ -132,20 +132,20 @@ describe('<Unit Test>', function () {
 
 		describe('complex combination', function () {
 
-			it('member did eat before 2012-10-10 12:00 pm before 12:00 pm give 1 point', function () {
+			it('member did eat before 2012-10-10 23:00 before 23:00 give 1 point', function () {
 
-				var rule = parser.parse('member did action eat before 2012-10-10 12:00 pm before 12:00 pm give 1 point');
-				should(rule.rules[0].period_filter).eql({ dates: [ '2012-10-10T24:00:00' ], type: 'before' });
-				should(rule.rules[0].moment_filter).eql({times: ['24:00'], type: 'before'});
+				var rule = parser.parse('member did action eat before 2012-10-10 23:00 before 23:00 give 1 point');
+				should(rule.rules[0].period_filter).eql({ dates: [ '2012-10-10T23:00:00' ], type: 'before' });
+				should(rule.rules[0].moment_filter).eql({times: ['23:00'], type: 'before'});
 
 
 			});
 
-			it('member did eat before 2012-10-10 before 12:00 pm give 1 point', function () {
+			it('member did eat before 2012-10-10 before 23:00 give 1 point', function () {
 
-				var rule = parser.parse('member did action eat before 2012-10-10 before 12:00 pm give 1 point');
+				var rule = parser.parse('member did action eat before 2012-10-10 before 11:00 pm give 1 point');
 				should(rule.rules[0].period_filter).eql({ dates: [ '2012-10-10T00:00:00' ], type: 'before' });
-				should(rule.rules[0].moment_filter).eql({times: ['24:00'], type: 'before'});
+				should(rule.rules[0].moment_filter).eql({times: ['23:00'], type: 'before'});
 
 
 			});

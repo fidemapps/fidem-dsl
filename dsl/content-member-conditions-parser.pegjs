@@ -986,12 +986,21 @@ TIME_24 "24h time (hh:mm)"
     }
 }
 
+
 TIME_CHOICE
     = time:TIME_12 S* choice:("am"/"pm")
      {
+        if(time.hour == '12'){
+            if(choice=="pm"){
+                return "12:"+time.minute;
+            }else{
+                return "00:"+time.minute;
+            }
+        }
         if(choice=="pm"){
             time.hour=parseInt(time.hour)+12;
         }
+
         return time.hour+":"+time.minute;
     }
 
