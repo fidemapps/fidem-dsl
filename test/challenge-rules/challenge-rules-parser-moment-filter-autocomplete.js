@@ -332,9 +332,9 @@ describe('<Unit Test>', function () {
 				} catch (error) {
 					literalChoices = helper.extractLiterals(error);
 					otherChoices = helper.extractOthers(error);
-					should(error.expected.length).equal(3);
+					should(error.expected.length).equal(5);
 
-					should(literalChoices).eql(['am', 'pm']);
+					should(literalChoices).eql(['am', 'and', 'give', 'pm']);
 					should(otherChoices).eql(['whitespace']);
 				}
 			});

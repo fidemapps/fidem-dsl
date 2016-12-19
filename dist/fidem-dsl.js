@@ -6165,6 +6165,15 @@ module.exports = (function() {
         } else {
           s0 = s1;
         }
+        if (s0 === peg$FAILED) {
+          s0 = peg$currPos;
+          s1 = peg$parseDIGIT();
+          if (s1 !== peg$FAILED) {
+            s0 = input.substring(s0, peg$currPos);
+          } else {
+            s0 = s1;
+          }
+        }
       }
 
       return s0;
@@ -14546,6 +14555,15 @@ module.exports = (function() {
           s0 = input.substring(s0, peg$currPos);
         } else {
           s0 = s1;
+        }
+        if (s0 === peg$FAILED) {
+          s0 = peg$currPos;
+          s1 = peg$parseDIGIT();
+          if (s1 !== peg$FAILED) {
+            s0 = input.substring(s0, peg$currPos);
+          } else {
+            s0 = s1;
+          }
         }
       }
 

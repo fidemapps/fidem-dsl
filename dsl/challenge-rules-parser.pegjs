@@ -792,7 +792,7 @@ time_hour_12
     = $([0] DIGIT) / $([1] [0-2]) / $(DIGIT)
 
 time_hour_24
-    =$([0-1] DIGIT) / $([2] [0-3])
+    =$([0-1] DIGIT) / $([2][0-3]) / $(DIGIT)
 
 time_minute
     = $([0-5] DIGIT)
