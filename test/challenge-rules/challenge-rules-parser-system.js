@@ -29,7 +29,7 @@ describe('<Unit Test>', function () {
                         filters: [
                             {type: 'geofence', geofences: ['CODE1', 'CODE2']}
                         ],
-                        system: {type: 'on', date: [new Date(2016, 4 - 1, 4)], time: null}
+                        system: {type: 'on', date: ['2016-04-04'], time: null}
 
                     }],
                     rewards: [
@@ -127,7 +127,7 @@ describe('<Unit Test>', function () {
                             type: 'every',
                             days: {type: 'day', list: ['day']},
                             months: {type: 'of', list: ['march', 'january']},
-                            years: {type: 'from', list: [new Date(1959, 11, 10), new Date(1960, 2, 10)]},
+                            years: {type: 'from', list: ['1959-12-10', '1960-03-10']},
                             time: null
                         }
 
@@ -152,7 +152,7 @@ describe('<Unit Test>', function () {
                             type: 'every',
                             days: {type: 'day', list: ['day']},
                             months: {type: 'of', list: ['march', 'january']},
-                            years: {type: 'until', list: [new Date(1960, 2, 10)]},
+                            years: {type: 'until', list: ['1960-03-10']},
                             time: {type: 'before', list: ['04:00']}
                         }
 
@@ -176,7 +176,7 @@ describe('<Unit Test>', function () {
                         ],
                         system: {
                             type: 'on',
-                            date: [new Date(2016, 4 - 1, 4), new Date(2015, 3 - 1, 3)],
+                            date: ['2016-04-04', '2015-03-03' ],
                             time: {type: 'between', list: ['05:30', '18:30']}
                         }
 
@@ -201,7 +201,7 @@ describe('<Unit Test>', function () {
                             type: 'every',
                             days: {type: 'day', list: ['day']},
                             months: {type: 'of', list: ['march', 'january']},
-                            years: {type: 'starting', list: [new Date(1959, 11, 10)]},
+                            years: {type: 'starting', list: ['1959-12-10']},
                             time: {type: 'after', list: ['04:00']}
                         }
 
@@ -224,7 +224,7 @@ describe('<Unit Test>', function () {
                             type: 'every',
                             days: {type: 'day', list: ['day']},
                             months: {type: 'of', list: ['march', 'january']},
-                            years: {type: 'starting', list: [new Date(1959, 11, 10)]},
+                            years: {type: 'starting', list: ['1959-12-10']},
                             time: {type: 'after', list: ['04:00']}
                         }
 

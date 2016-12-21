@@ -455,7 +455,7 @@ on_rule
     }
 
 on_date
-    = first:DATE_SYSTEM_CONDITION S* remainders:(S* "," S* DATE_SYSTEM_CONDITION)* S* time:timeRule?
+    = first:DATE S* remainders:(S* "," S* DATE)* S* time:timeRule?
     {
         return {
             type: 'on',
@@ -563,7 +563,7 @@ dateRules
     = (fromDate / startingDate / untilDate)
 
 fromDate
-    = "from" S+ start:DATE_SYSTEM_CONDITION S+ "to" S+ end:DATE_SYSTEM_CONDITION
+    = "from" S+ start:DATE S+ "to" S+ end:DATE
     {
         return {
             type:"from",
@@ -572,7 +572,7 @@ fromDate
     }
 
 startingDate
-    = "starting at" S+ year:DATE_SYSTEM_CONDITION
+    = "starting at" S+ year:DATE
     {
         return {
             type:"starting",
@@ -581,7 +581,7 @@ startingDate
     }
 
 untilDate
-    = "until" S+ year:DATE_SYSTEM_CONDITION
+    = "until" S+ year:DATE
     {
         return {
             type:"until",
@@ -799,13 +799,6 @@ time_minute
 
 time_second
     = $([0-5] DIGIT)
-
-DATE_SYSTEM_CONDITION "date (YYYY-MM-DD)"
-= year:date_full_year "-" month:date_month "-" day:date_day
-{
-   return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-}
-
 
 DATE_TIME
 = dateTime:DATE_TIME_STRING
