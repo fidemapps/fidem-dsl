@@ -21,35 +21,35 @@ describe('<Unit Test>', function () {
             });
         });
 
-        describe('with/without rule',function(){
+        describe('with/without rule', function () {
 
-            it('member with ',function(){
+            it('member with ', function () {
                 try {
                     parser.parse('member with ');
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
                     should(err.expected.length).equal(6);
-                    should(literalChoices).eql(['level','points','prize','tag cluster','tag']);
+                    should(literalChoices).eql(['level', 'points', 'prize', 'tag cluster', 'tag']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
 
-            it('member without ',function(){
+            it('member without ', function () {
                 try {
                     parser.parse('member without ');
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
                     should(err.expected.length).equal(6);
-                    should(literalChoices).eql(['level','points','prize','tag cluster','tag']);
+                    should(literalChoices).eql(['level', 'points', 'prize', 'tag cluster', 'tag']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
 
-            describe('tag',function(){
+            describe('tag', function () {
 
-                it('member with tag',function(){
+                it('member with tag', function () {
                     try {
                         parser.parse('member with tag');
                     } catch (err) {
@@ -61,7 +61,7 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member with tag ',function(){
+                it('member with tag ', function () {
                     try {
                         parser.parse('member with tag ');
                     } catch (err) {
@@ -69,23 +69,23 @@ describe('<Unit Test>', function () {
                         var otherChoices = helper.extractOthers(err);
                         should(err.expected.length).equal(2);
                         should(literalChoices).eql([]);
-                        should(otherChoices).eql(['tagCode','whitespace']);
+                        should(otherChoices).eql(['tagCode', 'whitespace']);
                     }
                 });
 
-                it('member with tag bob:bob',function(){
+                it('member with tag bob:bob', function () {
                     try {
                         parser.parse('member with tag bob:bob d');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
-                        should(err.expected.length).equal(8);
-                        should(literalChoices).eql(['<', '<=', '=', '>', '>=', 'and' ]);
+                        should(err.expected.length).equal(9);
+                        should(literalChoices).eql(['<', '<=', '=', '>', '>=', 'and', 'in top']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
 
-                it('member with tag bob:bob >=',function(){
+                it('member with tag bob:bob >=', function () {
                     try {
                         parser.parse('member with tag bob:bob >=');
                     } catch (err) {
@@ -93,11 +93,11 @@ describe('<Unit Test>', function () {
                         var otherChoices = helper.extractOthers(err);
                         should(err.expected.length).equal(3);
                         should(literalChoices).eql([]);
-                        should(otherChoices).eql(['number','percentage','whitespace']);
+                        should(otherChoices).eql(['number', 'percentage', 'whitespace']);
                     }
                 });
 
-                it('member with tag bob:bob >= 4',function(){
+                it('member with tag bob:bob >= 4', function () {
                     try {
                         parser.parse('member with tag bob:bob >= 4 s');
                     } catch (err) {
@@ -109,7 +109,7 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member with tag bob:bob >= 4%',function(){
+                it('member with tag bob:bob >= 4%', function () {
                     try {
                         parser.parse('member with tag bob:bob = 4% s');
                     } catch (err) {
@@ -121,10 +121,34 @@ describe('<Unit Test>', function () {
                     }
                 });
 
+	            it('member with tag bob:bob in top', function () {
+		            try {
+			            parser.parse('member with tag bob:bob in top');
+		            } catch (err) {
+			            var literalChoices = helper.extractLiterals(err);
+			            var otherChoices = helper.extractOthers(err);
+			            should(err.expected.length).equal(2);
+			            should(literalChoices).eql([]);
+			            should(otherChoices).eql(['natural number','whitespace']);
+		            }
+	            });
+
+	            it('member with tag bob:bob in top 4 ', function () {
+		            try {
+			            parser.parse('member with tag bob:bob in top 4 s');
+		            } catch (err) {
+			            var literalChoices = helper.extractLiterals(err);
+			            var otherChoices = helper.extractOthers(err);
+			            should(err.expected.length).equal(3);
+			            should(literalChoices).eql(['and']);
+			            should(otherChoices).eql(['whitespace']);
+		            }
+	            });
+
             });
 
-            describe('points',function(){
-                it('member with points',function(){
+            describe('points', function () {
+                it('member with points', function () {
                     try {
                         parser.parse('member with points');
                     } catch (err) {
@@ -136,7 +160,7 @@ describe('<Unit Test>', function () {
                     }
                 });
 
-                it('member with points ',function(){
+                it('member with points ', function () {
                     try {
                         parser.parse('member with points ');
                     } catch (err) {
@@ -144,23 +168,23 @@ describe('<Unit Test>', function () {
                         var otherChoices = helper.extractOthers(err);
                         should(err.expected.length).equal(2);
                         should(literalChoices).eql([]);
-                        should(otherChoices).eql(['levelCode','whitespace']);
+                        should(otherChoices).eql(['levelCode', 'whitespace']);
                     }
                 });
 
-                it('member with points bob',function(){
+                it('member with points bob', function () {
                     try {
                         parser.parse('member with points bob d');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
                         should(err.expected.length).equal(8);
-                        should(literalChoices).eql(['<', '<=', '=', '>', '>=','and' ]);
+                        should(literalChoices).eql(['<', '<=', '=', '>', '>=', 'and']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
 
-                it('member with points bob >=',function(){
+                it('member with points bob >=', function () {
                     try {
                         parser.parse('member with points bob >=');
                     } catch (err) {
@@ -168,11 +192,11 @@ describe('<Unit Test>', function () {
                         var otherChoices = helper.extractOthers(err);
                         should(err.expected.length).equal(2);
                         should(literalChoices).eql([]);
-                        should(otherChoices).eql(['number','whitespace']);
+                        should(otherChoices).eql(['number', 'whitespace']);
                     }
                 });
 
-                it('member with points bob >= 4',function(){
+                it('member with points bob >= 4', function () {
                     try {
                         parser.parse('member with points bob >= 4');
                     } catch (err) {
@@ -185,9 +209,9 @@ describe('<Unit Test>', function () {
                 });
             });
 
-            describe('prize',function(){
+            describe('prize', function () {
 
-                it('member with prize ',function(){
+                it('member with prize ', function () {
                     try {
                         parser.parse('member with prize ');
                     } catch (err) {
@@ -195,18 +219,18 @@ describe('<Unit Test>', function () {
                         var otherChoices = helper.extractOthers(err);
                         should(err.expected.length).equal(2);
                         should(literalChoices).eql([]);
-                        should(otherChoices).eql(['prizeCode','whitespace']);
+                        should(otherChoices).eql(['prizeCode', 'whitespace']);
                     }
                 });
 
-                it('member with prize bob',function(){
+                it('member with prize bob', function () {
                     try {
                         parser.parse('member with prize bob d');
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
                         should(err.expected.length).equal(3);
-                        should(literalChoices).eql(['and' ]);
+                        should(literalChoices).eql(['and']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
