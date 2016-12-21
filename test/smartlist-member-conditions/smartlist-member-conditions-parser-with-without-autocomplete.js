@@ -79,9 +79,8 @@ describe('<Unit Test>', function () {
                     } catch (err) {
                         var literalChoices = helper.extractLiterals(err);
                         var otherChoices = helper.extractOthers(err);
-                        console.log(err);
                         should(err.expected.length).equal(9);
-                        should(literalChoices).eql(['<', '<=', '=', '>', '>=', 'and', 'top']);
+                        should(literalChoices).eql(['<', '<=', '=', '>', '>=', 'and', 'in top']);
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
@@ -121,6 +120,30 @@ describe('<Unit Test>', function () {
                         should(otherChoices).eql(['whitespace']);
                     }
                 });
+
+	            it('member with tag bob:bob in top', function () {
+		            try {
+			            parser.parse('member with tag bob:bob in top');
+		            } catch (err) {
+			            var literalChoices = helper.extractLiterals(err);
+			            var otherChoices = helper.extractOthers(err);
+			            should(err.expected.length).equal(2);
+			            should(literalChoices).eql([]);
+			            should(otherChoices).eql(['natural number','whitespace']);
+		            }
+	            });
+
+	            it('member with tag bob:bob in top 4 ', function () {
+		            try {
+			            parser.parse('member with tag bob:bob in top 4 s');
+		            } catch (err) {
+			            var literalChoices = helper.extractLiterals(err);
+			            var otherChoices = helper.extractOthers(err);
+			            should(err.expected.length).equal(3);
+			            should(literalChoices).eql(['and']);
+			            should(otherChoices).eql(['whitespace']);
+		            }
+	            });
 
             });
 

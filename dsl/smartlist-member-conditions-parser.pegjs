@@ -408,11 +408,7 @@ with_condition
 {
     return value ? Object.assign(condition,value):Object.assign(condition,{operator:'>',value:0});
 }
-/condition:object_rule_tag S* value:operator_position
-{
-    return Object.assign(condition,value);
-}
-/condition:object_rule_tag S* value:(operator_percent/operator_number)?
+/condition:object_rule_tag S* value:(operator_percent/operator_number/operator_position)?
 {
     return value ? Object.assign(condition,value):Object.assign(condition,{operator:'>',value:0});
 }
@@ -728,10 +724,9 @@ operator_percent
 }
 
 operator_position
-= operator:POSITION S* value:NUMBER
+= operator:POSITION S* value:NATURAL_NUMBER
 {
     return {
-        type:"tag",
         operator: operator,
         value: value
     };
@@ -836,6 +831,12 @@ NUMBER "number"
 = [+-]? (DIGIT* "." DIGIT+ / DIGIT+)
 {
     return parseFloat(text());
+}
+
+NATURAL_NUMBER "natural number"
+= (DIGIT+)
+{
+ return parseFloat(text());
 }
 
 PERCENT "percentage"
@@ -963,7 +964,7 @@ OPERATOR
 }
 
 POSITION
-= pos:("top")
+= pos:('in top')
 {
-    return pos;
+    return 'top';
 }

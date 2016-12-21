@@ -141,9 +141,10 @@ describe('<Unit Test>', function () {
                         ]
                     });
                 });
+
                 it('member with tag cluster-1:Biok-et top 3', function () {
 
-                    var condition = parser.parse('member with tag cluster-1:Biok-et top 3 ');
+                    var condition = parser.parse('member with tag cluster-1:Biok-et in top 3 ');
                     should(condition).eql({
                         conditions: [
                             {
@@ -154,6 +155,7 @@ describe('<Unit Test>', function () {
                         ]
                     });
                 });
+
             });
 
             describe('tag cluster', function () {
