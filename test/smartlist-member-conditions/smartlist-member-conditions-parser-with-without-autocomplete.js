@@ -127,9 +127,9 @@ describe('<Unit Test>', function () {
 		            } catch (err) {
 			            var literalChoices = helper.extractLiterals(err);
 			            var otherChoices = helper.extractOthers(err);
-			            should(err.expected.length).equal(2);
+			            should(err.expected.length).equal(3);
 			            should(literalChoices).eql([]);
-			            should(otherChoices).eql(['natural number','whitespace']);
+			            should(otherChoices).eql(['natural number', 'percentage','whitespace']);
 		            }
 	            });
 

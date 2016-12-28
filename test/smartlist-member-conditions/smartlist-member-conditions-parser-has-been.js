@@ -230,6 +230,33 @@ describe('<Unit Test>', function () {
 
             });
 
+
+	        it('member has not been with RSSI between + moment filter',function(){
+
+		        var rule = parser.parse('member has not been with RSSI between 6 and 4 from beacon bob,norbert after 13:00');
+		        should(rule).eql({
+			        conditions:[
+				        {
+					        scope: 'member',
+					        type: 'has',
+					        negative:true,
+					        query: {
+						        type:'been'
+					        },
+					        geoFilter:{
+						        type:'rssi_between',
+						        rssiValues:[6,4],
+						        beaconCodes:['bob','norbert']
+					        },
+                            momentFilter: {
+					            type: 'after',
+                                times: ['13:00']
+                            }
+				        }]
+		        });
+
+	        });
+
         });
 
     });

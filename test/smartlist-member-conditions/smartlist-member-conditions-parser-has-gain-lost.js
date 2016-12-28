@@ -212,7 +212,36 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
-                it('member has gained tag bob:bob since did action eat',function(done){
+	            it('member has gained tag bob:bob between  2016-04-04   10:10 and  2016-04-05 10:10 pm  before 8:00 pm',function(done){
+		            var rule = parser.parse('member has gained tag bob:bob between  2016-04-04 10:10 and  2016-04-05 10:10 pm  before 8:00 pm');
+		            should(rule).eql({
+				            conditions:[
+					            {
+						            scope: 'member',
+						            type: 'has',
+						            query: {
+							            type:'gained_tag',
+							            tagCode: {
+								            tagClusterCode: 'bob',
+								            tagCode: 'bob'
+							            }
+						            },
+						            periodFilter: {
+							            type:'between',
+							            dates:['2016-04-04 10:10','2016-04-05 22:10']
+						            },
+                                    momentFilter: {
+						                type: 'before',
+                                        times: ['20:00']
+                                    }
+
+					            }]
+			            }
+		            );
+		            done();
+	            });
+
+	            it('member has gained tag bob:bob since did action eat',function(done){
                     var rule = parser.parse('member has gained tag bob:bob since did action eat');
                     should(rule).eql({
                             conditions:[

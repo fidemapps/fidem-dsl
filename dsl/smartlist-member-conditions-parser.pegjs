@@ -248,7 +248,7 @@ member_condition
 
     return rule;
 }
-/scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -260,9 +260,13 @@ member_condition
         rule.periodFilter=period;
     }
 
+    if(moment){
+        rule.momentFilter=moment;
+    }
+
     return rule;
 }
-/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_gained_lost S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_gained_lost S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -275,9 +279,13 @@ member_condition
         rule.periodFilter=period;
     }
 
+    if(moment){
+        rule.momentFilter=moment;
+    }
+
     return rule;
 }
-/scope:"member" S+ type:"has" S+ conditions:has_rule_been S+ geo:geoFilter S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ conditions:has_rule_been S+ geo:geoFilter S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -293,9 +301,13 @@ member_condition
         rule.periodFilter=period;
     }
 
+    if(moment){
+        rule.momentFilter=moment;
+    }
+
     return rule;
 }
-/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_been S+ geo:geoFilter S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_been S+ geo:geoFilter S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -310,6 +322,11 @@ member_condition
 
     if(period){
         rule.periodFilter=period;
+    }
+
+
+    if(moment){
+        rule.momentFilter=moment;
     }
 
     return rule;
@@ -777,13 +794,23 @@ operator_percent
 }
 
 operator_position
-= operator:POSITION S* value:NATURAL_NUMBER
+= operator:POSITION S* value:PERCENT
+  {
+      return {
+          relative:true,
+          operator: operator,
+          value: value,
+          relativeScope: 'position'
+      };
+  }
+/ operator:POSITION S* value:NATURAL_NUMBER
 {
     return {
         operator: operator,
         value: value
     };
 }
+
 
 
 /*PRIMARY*/

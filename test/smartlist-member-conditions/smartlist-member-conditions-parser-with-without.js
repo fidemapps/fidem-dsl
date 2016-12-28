@@ -142,7 +142,7 @@ describe('<Unit Test>', function () {
                     });
                 });
 
-                it('member with tag cluster-1:Biok-et top 3', function () {
+                it('member with tag cluster-1:Biok-et in top 3', function () {
 
                     var condition = parser.parse('member with tag cluster-1:Biok-et in top 3 ');
                     should(condition).eql({
@@ -155,6 +155,20 @@ describe('<Unit Test>', function () {
                         ]
                     });
                 });
+
+	            it('member with tag cluster-1:Biok-et in top 3%', function () {
+
+		            var condition = parser.parse('member with tag cluster-1:Biok-et in top 3% ');
+		            should(condition).eql({
+			            conditions: [
+				            {
+					            query: { type: 'tag', tagCode: { tagClusterCode: 'cluster-1', tagCode: 'Biok-et' }, operator: 'top', value: 3, relative: true ,relativeScope: 'position'},
+					            scope: 'member',
+					            type: 'with'
+				            }
+			            ]
+		            });
+	            });
 
             });
 

@@ -1,4 +1,4 @@
 PERIODE
-::= ((('before' | 'after') 'YYYY-MM-DD' (('hh:mm' | 'h:mm') ('am'|'pm')?)?) | ('between' 'YYYY-MM-DD' (('hh:mm' | 'h:mm') ('am'|'pm')?)? 'and' 'YYYY-MM-DD' (('hh:mm' | 'h:mm') ('am'|'pm')?)?)
+::= ((('before' | 'after') 'YYYY-MM-DD' ('hh:mm'  ('am'|'pm')?)?) | ('between' 'YYYY-MM-DD' ('hh:mm'  ('am'|'pm')?)? 'and' 'YYYY-MM-DD' ('hh:mm' ('am'|'pm')?)?)
 | ('in last' (('minute' | 'hour' | 'day' | 'week' | 'month' | 'year')|'NUMBER' ('minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years')))
 | ('since' (('did' ('first' | 'last')? 'action' '{action code}') |('did' ('first' | 'last')? 'check-in' '{check-in code}')| 'received' 'prize' '{prize code}')))
