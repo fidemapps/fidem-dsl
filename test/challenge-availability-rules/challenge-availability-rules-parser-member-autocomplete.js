@@ -402,8 +402,8 @@ describe('<Unit Test>', function () {
 						literalChoices = helper.extractLiterals(error);
 						otherChoices = helper.extractOthers(error);
 
-						should(error.expected.length).equal(7);
-						should(literalChoices).eql(['after', 'and', 'before', 'between', 'in']);
+						should(error.expected.length).equal(8);
+						should(literalChoices).eql(['after', 'and', 'before', 'between', 'during the', 'in']);
 						should(otherChoices).eql(['whitespace']);
 					}
 				});

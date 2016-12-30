@@ -479,6 +479,40 @@ describe('<Unit Test>', function () {
 					done();
 				});
 
+				it('member has not completed TEST less than 3 times before 2016-03-03T04:40:40 after 5:00 give 1 points', function (done) {
+
+					var rule = parser.parse('member has not completed TEST less than 3 times before 2016-03-03T04:40:40  after 5:00 give 1 points');
+					should(rule).eql({
+						rules: [{
+							scope: 'member',
+							type: 'has',
+							condition: {
+								type: 'not',
+								sub_type: 'completed',
+								code: 'TEST'
+							},
+							occurrence_filter: {
+								type: 'less',
+								number: 3
+							},
+							period_filter: {
+								type: 'before',
+								dates: [
+									'2016-03-03T04:40:40'
+								]
+							},
+							moment_filter: {
+								type: 'after',
+								times: ['05:00']
+							}
+						}],
+						rewards: [
+							{quantity: 1, code: 'points'}
+						]
+					});
+					done();
+				});
+
 			});
 
 			describe('gained/lost', function () {
@@ -505,7 +539,8 @@ describe('<Unit Test>', function () {
 
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
 							}],
 							rewards: [
 								{quantity: 1, code: 'points'}
@@ -533,7 +568,8 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
 							}],
 							rewards: [
 								{quantity: 1, code: 'points'}
@@ -562,7 +598,8 @@ describe('<Unit Test>', function () {
 											}
 										},
 										occurrence_filter: null,
-										period_filter: null
+										period_filter: null,
+										moment_filter: null
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -592,7 +629,9 @@ describe('<Unit Test>', function () {
 											}
 										},
 										occurrence_filter: null,
-										period_filter: null
+										period_filter: null,
+										moment_filter: null
+
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -626,13 +665,53 @@ describe('<Unit Test>', function () {
 											type: 'last',
 											duration: 3,
 											durationScope: 'day'
-										}
+										},
+										moment_filter: null
+
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
 								]
 							}
 						);
+						done();
+					});
+
+					it('member has gained tag bob:bob in last 3 days before 2:00 pm give 1 points', function (done) {
+						var rule = parser.parse('member has gained tag bob:bob in last 3 days before 2:00 pm give 1 points');
+						should(rule).eql({
+								rules: [
+									{
+										scope: 'member',
+										type: 'has',
+										condition: {
+											number: null,
+											type: null,
+											sub_type: 'gained',
+											object: {
+												type: 'tag',
+												tagCode: {
+													tagClusterCode: 'bob',
+													tagCode: 'bob'
+												}
+											}
+										},
+										occurrence_filter: null,
+										period_filter: {
+											type: 'last',
+											duration: 3,
+											durationScope: 'day'
+										},
+										moment_filter: {
+											type: 'before',
+											times: ['14:00']
+										}
+
+									}],
+								rewards: [
+									{quantity: 1, code: 'points'}
+								]
+							});
 						done();
 					});
 
@@ -656,7 +735,9 @@ describe('<Unit Test>', function () {
 
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
+
 							}],
 							rewards: [
 								{quantity: 1, code: 'points'}
@@ -681,7 +762,9 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
+
 							}],
 							rewards: [
 								{quantity: 1, code: 'points'}
@@ -707,7 +790,9 @@ describe('<Unit Test>', function () {
 											}
 										},
 										occurrence_filter: null,
-										period_filter: null
+										period_filter: null,
+										moment_filter: null
+
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -734,7 +819,9 @@ describe('<Unit Test>', function () {
 											}
 										},
 										occurrence_filter: null,
-										period_filter: null
+										period_filter: null,
+										moment_filter: null
+
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -765,7 +852,45 @@ describe('<Unit Test>', function () {
 											type: 'last',
 											duration: 3,
 											durationScope: 'day'
+										},
+										moment_filter: null
+
+									}],
+								rewards: [
+									{quantity: 1, code: 'points'}
+								]
+							}
+						);
+						done();
+					});
+
+					it('member has gained points bob in last 3 days during the night give 1 points', function (done) {
+						var rule = parser.parse('member has gained points bob in last 3 days during the night give 1 points');
+						should(rule).eql({
+								rules: [
+									{
+										scope: 'member',
+										type: 'has',
+										condition: {
+											number: null,
+											type: null,
+											sub_type: 'gained',
+											object: {
+												type: 'points',
+												levelCode: 'bob'
+											}
+										},
+										occurrence_filter: null,
+										period_filter: {
+											type: 'last',
+											duration: 3,
+											durationScope: 'day'
+										},
+										moment_filter: {
+											type: 'during',
+											moment: 'night'
 										}
+
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -794,7 +919,9 @@ describe('<Unit Test>', function () {
 
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
+
 							}],
 							rewards: [
 								{quantity: 1, code: 'points'}
@@ -819,7 +946,9 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
+
 							}],
 							rewards: [
 								{quantity: 1, code: 'points'}
@@ -845,8 +974,8 @@ describe('<Unit Test>', function () {
 											}
 										},
 										occurrence_filter: null,
-										period_filter: null
-
+										period_filter: null,
+										moment_filter: null
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -873,8 +1002,8 @@ describe('<Unit Test>', function () {
 											}
 										},
 										occurrence_filter: null,
-										period_filter: null
-
+										period_filter: null,
+										moment_filter: null
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
@@ -905,14 +1034,44 @@ describe('<Unit Test>', function () {
 											type: 'last',
 											duration: 3,
 											durationScope: 'day'
-										}
-
+										},
+										moment_filter: null
 									}],
 								rewards: [
 									{quantity: 1, code: 'points'}
 								]
 							}
 						);
+						done();
+					});
+
+					it('member has gained points bob between 1:00 and 1:00 pm give 1 points', function (done) {
+						var rule = parser.parse('member has gained points bob between 1:00 and 1:00 pm give 1 points');
+						should(rule).eql({
+								rules: [
+									{
+										scope: 'member',
+										type: 'has',
+										condition: {
+											number: null,
+											type: null,
+											sub_type: 'gained',
+											object: {
+												type: 'points',
+												levelCode: 'bob'
+											}
+										},
+										occurrence_filter: null,
+										period_filter: null,
+										moment_filter: {
+											type: 'between',
+											times: ['01:00','13:00']
+										}
+									}],
+								rewards: [
+									{quantity: 1, code: 'points'}
+								]
+							});
 						done();
 					});
 				})

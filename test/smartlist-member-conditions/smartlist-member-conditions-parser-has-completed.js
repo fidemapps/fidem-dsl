@@ -99,31 +99,62 @@ describe('<Unit Test>', function () {
                 done();
             });
 
-            it('member has not completed TEST less than 3 times after 2016-03-03 4:40 am', function (done) {
+	        it('member has not completed TEST less than 3 times after 2016-03-03 4:40 am', function (done) {
 
-                var rule = parser.parse('member has not completed TEST less than 3 times after 2016-03-03 4:40 am');
-                should(rule).eql({
-                    conditions: [
-                        {
-                            scope: 'member',
-                            type: 'has',
-                            negative:true,
-                            query: {
-                                type: 'completed',
-                                challengeCode: 'TEST'
-                            },
-                            occurrenceFilter: {
-                                type: 'less',
-                                frequency: 3
-                            },
-                            periodFilter: {
-                                type: 'after',
-                                date: '2016-03-03 04:40'
+		        var rule = parser.parse('member has not completed TEST less than 3 times after 2016-03-03 4:40 am');
+		        should(rule).eql({
+			        conditions: [
+				        {
+					        scope: 'member',
+					        type: 'has',
+					        negative:true,
+					        query: {
+						        type: 'completed',
+						        challengeCode: 'TEST'
+					        },
+					        occurrenceFilter: {
+						        type: 'less',
+						        frequency: 3
+					        },
+					        periodFilter: {
+						        type: 'after',
+						        date: '2016-03-03 04:40'
+					        }
+				        }]
+		        });
+		        done();
+	        });
+
+
+	        it('member has not completed TEST less than 3 times after 2016-03-03 4:40 am after 2:00', function (done) {
+
+		        var rule = parser.parse('member has not completed TEST less than 3 times after 2016-03-03 4:40 am after 2:00');
+		        should(rule).eql({
+			        conditions: [
+				        {
+					        scope: 'member',
+					        type: 'has',
+					        negative:true,
+					        query: {
+						        type: 'completed',
+						        challengeCode: 'TEST'
+					        },
+					        occurrenceFilter: {
+						        type: 'less',
+						        frequency: 3
+					        },
+					        periodFilter: {
+						        type: 'after',
+						        date: '2016-03-03 04:40'
+					        },
+                            momentFilter: {
+					            type:'after',
+                                times: ['02:00']
                             }
-                        }]
-                });
-                done();
-            });
+				        }]
+		        });
+		        done();
+	        });
 
         });
 

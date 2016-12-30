@@ -520,6 +520,36 @@ describe('<Unit Test>', function () {
 					done();
 				});
 
+				it('member has not completed TEST less than 3 times before 2016-03-03 04:40 during the afternoon', function (done) {
+
+					var rule = parser.parse('member has not completed TEST less than 3 times before 2016-03-03 04:40 during the afternoon');
+					should(rule).eql([
+						{
+							scope: 'member',
+							type: 'has',
+							condition: {
+								type: 'not',
+								sub_type: 'completed',
+								code: 'TEST'
+							},
+							occurrence_filter: {
+								type: 'less',
+								number: 3
+							},
+							period_filter: {
+								type: 'before',
+								dates: [
+									'2016-03-03T04:40:00'
+								]
+							},
+							moment_filter: {
+								type: 'during',
+								moment: 'afternoon'
+							}
+						}]);
+					done();
+				});
+
 			});
 
 			describe('gained/lost', function () {
@@ -544,8 +574,8 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
-
+								period_filter: null,
+								moment_filter: null
 							}]
 						);
 						done();
@@ -570,7 +600,8 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
 
 							}]
 						);
@@ -596,7 +627,8 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
 
 							}]
 						);
@@ -622,7 +654,8 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
 
 							}]
 						);
@@ -652,6 +685,40 @@ describe('<Unit Test>', function () {
 									type: 'last',
 									duration: 3,
 									durationScope: 'day'
+								},
+								moment_filter: null
+							}]
+						);
+						done();
+					});
+
+					it('member has gained tag bob:bob in last 3 days during the morning', function (done) {
+						var rule = parser.parse('member has gained tag bob:bob in last 3 days during the morning');
+						should(rule).eql([
+							{
+								scope: 'member',
+								type: 'has',
+								condition: {
+									number: null,
+									type: null,
+									sub_type: 'gained',
+									object: {
+										type: 'tag',
+										tagCode: {
+											tagClusterCode: 'bob',
+											tagCode: 'bob'
+										}
+									}
+								},
+								occurrence_filter: null,
+								period_filter: {
+									type: 'last',
+									duration: 3,
+									durationScope: 'day'
+								},
+								moment_filter: {
+									type: 'during',
+									moment: 'morning'
 								}
 							}]
 						);
@@ -678,7 +745,8 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
 							}]
 						);
 						done();
@@ -700,7 +768,8 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
 							}]
 						);
 						done();
@@ -722,7 +791,8 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
 							}]
 						);
 						done();
@@ -744,7 +814,9 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
+
 							}]
 						);
 						done();
@@ -770,7 +842,36 @@ describe('<Unit Test>', function () {
 									type: 'last',
 									duration: 3,
 									durationScope: 'day'
+								},
+								moment_filter: null
+
+							}]
+						);
+						done();
+					});
+
+					it('member has gained points bob before 12:00 am', function (done) {
+						var rule = parser.parse('member has gained points bob before 12:00 am');
+						should(rule).eql([
+							{
+								scope: 'member',
+								type: 'has',
+								condition: {
+									number: null,
+									type: null,
+									sub_type: 'gained',
+									object: {
+										type: 'points',
+										levelCode: 'bob'
+									}
+								},
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter: {
+									type: 'before',
+									times: ['00:00']
 								}
+
 							}]
 						);
 						done();
@@ -794,7 +895,9 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
+
 							}]
 						);
 						done();
@@ -816,7 +919,9 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
+
 							}]
 						);
 						done();
@@ -838,7 +943,9 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
+
 							}]
 						);
 						done();
@@ -860,7 +967,9 @@ describe('<Unit Test>', function () {
 									}
 								},
 								occurrence_filter: null,
-								period_filter: null
+								period_filter: null,
+								moment_filter: null
+
 							}]
 						);
 						done();
@@ -886,7 +995,36 @@ describe('<Unit Test>', function () {
 									type: 'last',
 									duration: 3,
 									durationScope: 'day'
+								},
+								moment_filter: null
+
+							}]
+						);
+						done();
+					});
+
+					it('member has gained prize bob between 12:00 pm and 11:59 pm', function (done) {
+						var rule = parser.parse('member has gained prize bob between 12:00 pm and 11:59 pm');
+						should(rule).eql([
+							{
+								scope: 'member',
+								type: 'has',
+								condition: {
+									number: null,
+									type: null,
+									sub_type: 'gained',
+									object: {
+										type: 'prize',
+										prizeCode: 'bob'
+									}
+								},
+								occurrence_filter: null,
+								period_filter: null,
+								moment_filter: {
+									type: 'between',
+									times: ['12:00','23:59']
 								}
+
 							}]
 						);
 						done();

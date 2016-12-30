@@ -208,14 +208,15 @@ member_condition
               moment_filter:filter3
           };
       }
-      /scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* filter2:period_filter?
+      /scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* filter2:period_filter? S* filter3:momentFilter?
     {
          return {
              scope:scope,
              type:type,
              condition:conditions,
              occurrence_filter:null,
-             period_filter:filter2
+             period_filter:filter2,
+             moment_filter:filter3
          };
     }
 

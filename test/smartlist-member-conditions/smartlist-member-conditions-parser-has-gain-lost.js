@@ -342,9 +342,32 @@ describe('<Unit Test>', function () {
                                     }
 
                                 }]
-                        }
-                    );
+                        });
                     done();
+                });
+
+                it('member has gained tag bob:bob before 12:00 pm',function(done){
+	                var rule = parser.parse('member has gained tag bob:bob before 12:00 pm');
+	                should(rule).eql({
+			                conditions:[
+				                {
+					                scope: 'member',
+					                type: 'has',
+					                query: {
+						                type:'gained_tag',
+						                tagCode: {
+							                tagClusterCode: 'bob',
+							                tagCode: 'bob'
+						                }
+					                },
+					                momentFilter: {
+						                type:'before',
+						                times:['12:00']
+					                }
+
+				                }]
+		                });
+	                done();
                 });
 
             });
@@ -683,6 +706,28 @@ describe('<Unit Test>', function () {
                     done();
                 });
 
+	            it('member has gained points bob during the evening',function(done){
+		            var rule = parser.parse('member has gained points bob during the evening');
+		            should(rule).eql({
+				            conditions:[
+					            {
+						            scope: 'member',
+						            type: 'has',
+						            query: {
+							            type:'gained_points',
+							            levelCode:'bob'
+						            },
+						            momentFilter: {
+							            type:'during',
+							            moment:'evening',
+						            }
+
+					            }]
+			            });
+		            done();
+	            });
+
+
             });
 
             describe('prize',function(){
@@ -946,6 +991,28 @@ describe('<Unit Test>', function () {
                     );
                     done();
                 });
+
+	            it('member has gained prize bob between 12:00 and 8:00 pm',function(done){
+		            var rule = parser.parse('member has gained prize bob between 12:00 and 8:00 pm');
+		            should(rule).eql({
+				            conditions:[
+					            {
+						            scope: 'member',
+						            type: 'has',
+						            query: {
+							            type:'gained_prize',
+							            prizeCode:'bob'
+						            },
+						            momentFilter: {
+							            type:'between',
+							            times:['12:00', '20:00']
+						            }
+
+					            }]
+			            });
+		            done();
+	            });
+
             });
         });
 

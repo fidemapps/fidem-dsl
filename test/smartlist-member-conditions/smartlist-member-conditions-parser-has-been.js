@@ -230,7 +230,6 @@ describe('<Unit Test>', function () {
 
             });
 
-
 	        it('member has not been with RSSI between + moment filter',function(){
 
 		        var rule = parser.parse('member has not been with RSSI between 6 and 4 from beacon bob,norbert after 13:00');

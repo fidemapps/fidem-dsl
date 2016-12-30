@@ -276,13 +276,14 @@ module.exports = (function() {
                       moment_filter:filter3
                   };
               },
-        peg$c47 = function(scope, type, conditions, filter2) {
+        peg$c47 = function(scope, type, conditions, filter2, filter3) {
                    return {
                        scope:scope,
                        type:type,
                        condition:conditions,
                        occurrence_filter:null,
-                       period_filter:filter2
+                       period_filter:filter2,
+                       moment_filter:filter3
                    };
                 },
         peg$c48 = "with",
@@ -2392,9 +2393,29 @@ module.exports = (function() {
                         s7 = null;
                       }
                       if (s7 !== peg$FAILED) {
-                        peg$savedPos = s0;
-                        s1 = peg$c47(s1, s3, s5, s7);
-                        s0 = s1;
+                        s8 = [];
+                        s9 = peg$parseS();
+                        while (s9 !== peg$FAILED) {
+                          s8.push(s9);
+                          s9 = peg$parseS();
+                        }
+                        if (s8 !== peg$FAILED) {
+                          s9 = peg$parsemomentFilter();
+                          if (s9 === peg$FAILED) {
+                            s9 = null;
+                          }
+                          if (s9 !== peg$FAILED) {
+                            peg$savedPos = s0;
+                            s1 = peg$c47(s1, s3, s5, s7, s9);
+                            s0 = s1;
+                          } else {
+                            peg$currPos = s0;
+                            s0 = peg$FAILED;
+                          }
+                        } else {
+                          peg$currPos = s0;
+                          s0 = peg$FAILED;
+                        }
                       } else {
                         peg$currPos = s0;
                         s0 = peg$FAILED;
@@ -7497,13 +7518,14 @@ module.exports = (function() {
                       moment_filter:filter3
                   };
               },
-        peg$c36 = function(scope, type, conditions, filter2) {
+        peg$c36 = function(scope, type, conditions, filter2, filter3) {
                  return {
                      scope:scope,
                      type:type,
                      condition:conditions,
                      occurrence_filter:null,
-                     period_filter:filter2
+                     period_filter:filter2,
+                     moment_filter:filter3
                  };
             },
         peg$c37 = "with",
@@ -9753,9 +9775,29 @@ module.exports = (function() {
                         s7 = null;
                       }
                       if (s7 !== peg$FAILED) {
-                        peg$savedPos = s0;
-                        s1 = peg$c36(s1, s3, s5, s7);
-                        s0 = s1;
+                        s8 = [];
+                        s9 = peg$parseS();
+                        while (s9 !== peg$FAILED) {
+                          s8.push(s9);
+                          s9 = peg$parseS();
+                        }
+                        if (s8 !== peg$FAILED) {
+                          s9 = peg$parsemomentFilter();
+                          if (s9 === peg$FAILED) {
+                            s9 = null;
+                          }
+                          if (s9 !== peg$FAILED) {
+                            peg$savedPos = s0;
+                            s1 = peg$c36(s1, s3, s5, s7, s9);
+                            s0 = s1;
+                          } else {
+                            peg$currPos = s0;
+                            s0 = peg$FAILED;
+                          }
+                        } else {
+                          peg$currPos = s0;
+                          s0 = peg$FAILED;
+                        }
                       } else {
                         peg$currPos = s0;
                         s0 = peg$FAILED;
@@ -16088,12 +16130,12 @@ module.exports = (function() {
             }
 
             if(moment){
-                rule.momentFilter = momentFilter;
+                rule.momentFilter = moment;
             }
 
             return rule;
         },
-        peg$c41 = function(scope, type, conditions, period) {
+        peg$c41 = function(scope, type, conditions, period, moment) {
             var rule= {
                 scope:scope,
                 type:type,
@@ -16104,9 +16146,13 @@ module.exports = (function() {
                 rule.periodFilter=period;
             }
 
+            if(moment){
+                rule.momentFilter = moment;
+            }
+
             return rule;
         },
-        peg$c42 = function(scope, type, conditions, period) {
+        peg$c42 = function(scope, type, conditions, period, moment) {
             var rule= {
                 scope:scope,
                 type:type,
@@ -16118,9 +16164,14 @@ module.exports = (function() {
                 rule.periodFilter=period;
             }
 
+
+            if(moment){
+                rule.momentFilter = moment;
+            }
+
             return rule;
         },
-        peg$c43 = function(scope, type, conditions, geo, period) {
+        peg$c43 = function(scope, type, conditions, geo, period, moment) {
             var rule= {
                 scope:scope,
                 type:type,
@@ -16135,9 +16186,14 @@ module.exports = (function() {
                 rule.periodFilter=period;
             }
 
+
+            if(moment){
+                rule.momentFilter = moment;
+            }
+
             return rule;
         },
-        peg$c44 = function(scope, type, conditions, geo, period) {
+        peg$c44 = function(scope, type, conditions, geo, period, moment) {
             var rule= {
                 scope:scope,
                 type:type,
@@ -16151,6 +16207,11 @@ module.exports = (function() {
 
             if(period){
                 rule.periodFilter=period;
+            }
+
+
+            if(moment){
+                rule.momentFilter = moment;
             }
 
             return rule;
@@ -18344,9 +18405,29 @@ module.exports = (function() {
                               s7 = null;
                             }
                             if (s7 !== peg$FAILED) {
-                              peg$savedPos = s0;
-                              s1 = peg$c41(s1, s3, s5, s7);
-                              s0 = s1;
+                              s8 = [];
+                              s9 = peg$parseS();
+                              while (s9 !== peg$FAILED) {
+                                s8.push(s9);
+                                s9 = peg$parseS();
+                              }
+                              if (s8 !== peg$FAILED) {
+                                s9 = peg$parsemomentFilter();
+                                if (s9 === peg$FAILED) {
+                                  s9 = null;
+                                }
+                                if (s9 !== peg$FAILED) {
+                                  peg$savedPos = s0;
+                                  s1 = peg$c41(s1, s3, s5, s7, s9);
+                                  s0 = s1;
+                                } else {
+                                  peg$currPos = s0;
+                                  s0 = peg$FAILED;
+                                }
+                              } else {
+                                peg$currPos = s0;
+                                s0 = peg$FAILED;
+                              }
                             } else {
                               peg$currPos = s0;
                               s0 = peg$FAILED;
@@ -18448,9 +18529,29 @@ module.exports = (function() {
                                     s9 = null;
                                   }
                                   if (s9 !== peg$FAILED) {
-                                    peg$savedPos = s0;
-                                    s1 = peg$c42(s1, s3, s7, s9);
-                                    s0 = s1;
+                                    s10 = [];
+                                    s11 = peg$parseS();
+                                    while (s11 !== peg$FAILED) {
+                                      s10.push(s11);
+                                      s11 = peg$parseS();
+                                    }
+                                    if (s10 !== peg$FAILED) {
+                                      s11 = peg$parsemomentFilter();
+                                      if (s11 === peg$FAILED) {
+                                        s11 = null;
+                                      }
+                                      if (s11 !== peg$FAILED) {
+                                        peg$savedPos = s0;
+                                        s1 = peg$c42(s1, s3, s7, s9, s11);
+                                        s0 = s1;
+                                      } else {
+                                        peg$currPos = s0;
+                                        s0 = peg$FAILED;
+                                      }
+                                    } else {
+                                      peg$currPos = s0;
+                                      s0 = peg$FAILED;
+                                    }
                                   } else {
                                     peg$currPos = s0;
                                     s0 = peg$FAILED;
@@ -18554,9 +18655,29 @@ module.exports = (function() {
                                       s9 = null;
                                     }
                                     if (s9 !== peg$FAILED) {
-                                      peg$savedPos = s0;
-                                      s1 = peg$c43(s1, s3, s5, s7, s9);
-                                      s0 = s1;
+                                      s10 = [];
+                                      s11 = peg$parseS();
+                                      while (s11 !== peg$FAILED) {
+                                        s10.push(s11);
+                                        s11 = peg$parseS();
+                                      }
+                                      if (s10 !== peg$FAILED) {
+                                        s11 = peg$parsemomentFilter();
+                                        if (s11 === peg$FAILED) {
+                                          s11 = null;
+                                        }
+                                        if (s11 !== peg$FAILED) {
+                                          peg$savedPos = s0;
+                                          s1 = peg$c43(s1, s3, s5, s7, s9, s11);
+                                          s0 = s1;
+                                        } else {
+                                          peg$currPos = s0;
+                                          s0 = peg$FAILED;
+                                        }
+                                      } else {
+                                        peg$currPos = s0;
+                                        s0 = peg$FAILED;
+                                      }
                                     } else {
                                       peg$currPos = s0;
                                       s0 = peg$FAILED;
@@ -18679,9 +18800,29 @@ module.exports = (function() {
                                             s11 = null;
                                           }
                                           if (s11 !== peg$FAILED) {
-                                            peg$savedPos = s0;
-                                            s1 = peg$c44(s1, s3, s7, s9, s11);
-                                            s0 = s1;
+                                            s12 = [];
+                                            s13 = peg$parseS();
+                                            while (s13 !== peg$FAILED) {
+                                              s12.push(s13);
+                                              s13 = peg$parseS();
+                                            }
+                                            if (s12 !== peg$FAILED) {
+                                              s13 = peg$parsemomentFilter();
+                                              if (s13 === peg$FAILED) {
+                                                s13 = null;
+                                              }
+                                              if (s13 !== peg$FAILED) {
+                                                peg$savedPos = s0;
+                                                s1 = peg$c44(s1, s3, s7, s9, s11, s13);
+                                                s0 = s1;
+                                              } else {
+                                                peg$currPos = s0;
+                                                s0 = peg$FAILED;
+                                              }
+                                            } else {
+                                              peg$currPos = s0;
+                                              s0 = peg$FAILED;
+                                            }
                                           } else {
                                             peg$currPos = s0;
                                             s0 = peg$FAILED;

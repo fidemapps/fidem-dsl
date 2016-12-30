@@ -243,12 +243,12 @@ member_condition
     }
 
     if(moment){
-        rule.momentFilter = momentFilter;
+        rule.momentFilter = moment;
     }
 
     return rule;
 }
-/scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ conditions:has_rule_gained_lost S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -260,9 +260,13 @@ member_condition
         rule.periodFilter=period;
     }
 
+    if(moment){
+        rule.momentFilter = moment;
+    }
+
     return rule;
 }
-/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_gained_lost S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_gained_lost S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -275,9 +279,14 @@ member_condition
         rule.periodFilter=period;
     }
 
+
+    if(moment){
+        rule.momentFilter = moment;
+    }
+
     return rule;
 }
-/scope:"member" S+ type:"has" S+ conditions:has_rule_been S+ geo:geoFilter S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ conditions:has_rule_been S+ geo:geoFilter S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -293,9 +302,14 @@ member_condition
         rule.periodFilter=period;
     }
 
+
+    if(moment){
+        rule.momentFilter = moment;
+    }
+
     return rule;
 }
-/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_been S+ geo:geoFilter S* period:periodFilter?
+/scope:"member" S+ type:"has" S+ "not" S+ conditions:has_rule_been S+ geo:geoFilter S* period:periodFilter? S* moment:momentFilter?
 {
     var rule= {
         scope:scope,
@@ -310,6 +324,11 @@ member_condition
 
     if(period){
         rule.periodFilter=period;
+    }
+
+
+    if(moment){
+        rule.momentFilter = moment;
     }
 
     return rule;
