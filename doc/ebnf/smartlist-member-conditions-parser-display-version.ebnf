@@ -2,8 +2,8 @@ smartlist_condition_doc
          ::= 'member' (('did' ('not'? ('action' '{action code}'|'check-in' '{check-in code}') (( 'with' '{attribute name}' '>=,<=,=,>,<' '{attribute value}' ) ( '&' '{attribute name}' '>=,<=,=,>,<' '{attribute value}' )*)? | ('nothing' | 'something'))) ) occurrence? geolocation? period? moment?
            | 'member'  ('has' 'not'? (('completed' '{challenge code}')))  occurrence? period? moment?
            | 'member' 'is' geolocation
-           | 'member' 'has' 'not'? 'been' geolocation period?
+           | 'member' 'has' 'not'? 'been' geolocation period? moment?
            | 'member' 'created' period
            | 'member' 'lives' 'not'? 'in' ('city' '{city name}'|'state' '{state name}'|'country' '{country name}'|'zip' '{postal code}')
-           | 'member' 'has' 'not'? ('gained' | 'lost') 'NUMBER'? (('tag' '{tag code}') |('points' '{level code}') | 'prize' '{prize code}') period?
+           | 'member' 'has' 'not'? ('gained' | 'lost') 'NUMBER'? (('tag' '{tag code}') |('points' '{level code}') | 'prize' '{prize code}') period? moment?
            | 'member' ('with' | 'without') (('tag' '{tag code}' (('in top'|'>=,<=,=,>,<')  ('NUMBER'|'PERCENT'))?) |('tag cluster' '{tagCluster code}' ('>=,<=,=,>,<'  'NUMBER')?)  | (('points'|'level') '{level code}' ('>=,<=,=,>,<' 'NUMBER')?) | ('prize' '{prize_code}'))
