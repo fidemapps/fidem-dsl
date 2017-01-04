@@ -2,9 +2,9 @@ content_current_condition
          ::= 'member' (('did' ('not'? ('action' '{action code}'|'check-in' '{check-in code}') (( 'with' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<' ) '{attribute value}' ) ( '&' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<') '{attribute value}' )*)? | ('nothing' | 'something'))) ) OCCURRENCE_FILTER? GEO_FILTER? PERIOD_FILTER? MOMENT_FILTER?
            | 'member'  ('has' 'not'? (('completed' '{challenge code}')))  OCCURRENCE_FILTER? PERIOD_FILTER? MOMENT_FILTER?
            | 'member' 'is' GEO_FILTER_LITE
-           | 'member' 'has' 'not'? 'been' GEO_FILTER PERIOD_FILTER?
+           | 'member' 'has' 'not'? 'been' GEO_FILTER PERIOD_FILTER? MOMENT_FILTER?
            | 'member' 'created' PERIOD_FILTER_LITE
            | 'member' 'lives' 'not'? 'in' ('city' '{city name}'|'state' '{state name}'|'country' '{country name}'|'zip' '{postal code}')
-           | 'member' 'has' 'not'? ('gained' | 'lost') 'NUMBER'? (('tag' '{tag code}') |('points' '{level code}') | 'prize' '{prize code}') PERIOD_FILTER?
+           | 'member' 'has' 'not'? ('gained' | 'lost') 'NUMBER'? (('tag' '{tag code}') |('points' '{level code}') | 'prize' '{prize code}') PERIOD_FILTER? MOMENT_FILTER?
            | 'member' ('with' | 'without') (('tag' '{tag code}' (( '>=' | '<=' | '=' | '>' | '<' ) 'NUMBER')?) | ('tag' '{tag code}' (( '>=' | '<=' | '=' | '>' | '<' ) 'PERCENT')?) | ('tag cluster' '{tagCluster code}' (( '>=' | '<=' | '=' | '>' | '<' )  'NUMBER')?)  | (('points'|'level') '{level code}' (( '>=' | '<=' | '=' | '>' | '<' ) 'NUMBER')?) | ('prize' '{prize_code}'))
            | 'member' ('belongs to smartlist' | 'does not belong to smartlist') '{smartlist code}' ('since' 'NUMBER' ('minutes'|'hours'|'days'|'weeks'|'months'|'years'))?
