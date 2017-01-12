@@ -341,7 +341,7 @@ member_condition
 
     return rule;
 }
-/scope:"member" S+ type:"with" S+ condition:with_condition
+/scope:"member" S+ type:"with" S+ condition:( with_condition / member_attribute_condition)
 {
     return {
         scope:scope,
@@ -349,7 +349,7 @@ member_condition
         query:condition
     };
 }
-/scope:"member" S+ type:"without" S+ condition:with_condition
+/scope:"member" S+ type:"without" S+ condition:(with_condition / member_attribute_condition)
 {
     return {
         scope:scope,
@@ -358,6 +358,7 @@ member_condition
         query:condition
     };
 }
+
 
 
 did_rule
@@ -511,6 +512,142 @@ object_rule_prize
         prizeCode:prizeCode
     }
 }
+
+member_attribute_condition
+= 'attribute' S+ condition:(gender_rules / age_rules / birthday_rules / language_rules /email_rules /phone_rules /integration_id_rules / address_rules)
+{
+    return  Object.assign({type:'attribute'},condition)
+}
+/type:"attribute" S+ attribute:('first name'/ 'last name'/ 'alias' / 'picture' / 'external id')
+{
+    return {
+        type: type,
+        attribute: attribute.replace(" ","_")
+    }
+}
+
+gender_rules
+= attribute:"gender" S+ "equal to" S+ value:GENDER
+{
+    return {
+        attribute: attribute,
+        operator: '=',
+        value: value
+    }
+}
+/attribute:"gender"
+{
+    return {
+        attribute: attribute
+    }
+}
+
+
+age_rules
+=attribute:"age" S+ value:operator_number
+{
+    return Object.assign({attribute: attribute},value)
+}
+/attribute:"age"
+{
+    return {
+        attribute: attribute
+    }
+}
+
+birthday_rules
+= attribute:"birthday" S+ "is" S+ "today"
+{
+    return {
+        attribute:attribute,
+        day: 'today'
+    }
+}
+/attribute:"birthday"
+{
+    return {
+        attribute: attribute
+    }
+}
+
+language_rules
+= attribute: 'language' S+ 'equal to' code:languageCode
+{
+    return {
+        attribute: attribute,
+        languageCode: code
+    }
+}
+/ attribute: 'language'
+{
+    return {
+        attribute: attribute
+    }
+}
+
+address_rules
+= attribute: 'address' S+ name:('city'/'state'/'country') S+ 'equal to' S+ value:name
+{
+    return {
+        attribute: attribute,
+        name: name,
+        operator: '=',
+        value: 'value'
+    }
+}
+/ attribute: 'address' S+ name:('city'/'state'/'country'/'street'/'zip')
+{
+    return {
+        attribute: attribute,
+        name: name,
+    }
+}
+
+
+email_rules
+=  attribute: 'email' S+ 'with type' S+ value:name
+{
+    return {
+        attribute: attribute,
+        typeValue: value
+     }
+}
+/attribute: 'email'
+ {
+     return {
+         attribute: attribute
+      }
+ }
+
+phone_rules
+=  attribute: 'phone' S+ 'with type' S+ value:name
+{
+    return {
+        attribute: attribute,
+        typeValue: value
+     }
+}
+/attribute: 'phone'
+ {
+     return {
+         attribute: attribute
+      }
+ }
+
+integration_id_rules
+=  attribute: 'integration id' S+ 'with type' S+ value:name
+{
+    return {
+        attribute: attribute.replace(' ', '_'),
+        typeValue:value
+     }
+}
+/attribute: 'integration id'
+ {
+     return {
+         attribute: attribute.replace(' ', '_')
+      }
+ }
 
 /*OCCURRENCE FILTER*/
 
@@ -885,6 +1022,9 @@ levelCode "levelCode"
 checkinCode "checkinCode"
 = code
 
+languageCode "languageCode"
+= code
+
 tagCode "tagCode"
 = tagClusterCode:tagClusterCodeForTag code:code
 {
@@ -1065,3 +1205,6 @@ POSITION
 {
     return 'top';
 }
+
+GENDER
+= gender:('male' / 'female' / 'other')
