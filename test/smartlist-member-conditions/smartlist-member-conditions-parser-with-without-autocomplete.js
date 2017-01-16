@@ -29,8 +29,8 @@ describe('<Unit Test>', function () {
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(6);
-                    should(literalChoices).eql(['level', 'points', 'prize', 'tag cluster', 'tag']);
+                    should(err.expected.length).equal(7);
+                    should(literalChoices).eql(['attribute', 'level', 'points', 'prize', 'tag cluster', 'tag']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });
@@ -41,8 +41,8 @@ describe('<Unit Test>', function () {
                 } catch (err) {
                     var literalChoices = helper.extractLiterals(err);
                     var otherChoices = helper.extractOthers(err);
-                    should(err.expected.length).equal(6);
-                    should(literalChoices).eql(['level', 'points', 'prize', 'tag cluster', 'tag']);
+                    should(err.expected.length).equal(7);
+                    should(literalChoices).eql(['attribute', 'level', 'points', 'prize', 'tag cluster', 'tag']);
                     should(otherChoices).eql(['whitespace']);
                 }
             });

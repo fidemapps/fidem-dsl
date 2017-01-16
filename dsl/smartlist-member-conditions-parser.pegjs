@@ -514,7 +514,7 @@ object_rule_prize
 }
 
 member_attribute_condition
-= 'attribute' S+ condition:(gender_rules / age_rules / birthday_rules / language_rules /email_rules /phone_rules /integration_id_rules / address_rules)
+= 'attribute' S+ condition:(gender_rules / age_rules  / language_rules /email_rules /phone_rules /integration_id_rules / address_rules)
 {
     return  Object.assign({type:'attribute'},condition)
 }
@@ -555,27 +555,13 @@ age_rules
     }
 }
 
-birthday_rules
-= attribute:"birthday" S+ "is" S+ "today"
-{
-    return {
-        attribute:attribute,
-        day: 'today'
-    }
-}
-/attribute:"birthday"
-{
-    return {
-        attribute: attribute
-    }
-}
-
 language_rules
-= attribute: 'language' S+ 'equal to' code:languageCode
+= attribute: 'language' S+ 'equal to' S+ code:languageCode
 {
     return {
         attribute: attribute,
-        languageCode: code
+        operator: '=',
+        value: code
     }
 }
 / attribute: 'language'
@@ -592,7 +578,7 @@ address_rules
         attribute: attribute,
         name: name,
         operator: '=',
-        value: 'value'
+        value: value
     }
 }
 / attribute: 'address' S+ name:('city'/'state'/'country'/'street'/'zip')
@@ -600,6 +586,12 @@ address_rules
     return {
         attribute: attribute,
         name: name,
+    }
+}
+/ attribute: 'address'
+{
+    return {
+        attribute: attribute
     }
 }
 
