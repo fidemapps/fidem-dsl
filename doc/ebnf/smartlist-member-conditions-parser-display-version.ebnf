@@ -7,3 +7,14 @@ smartlist_condition_doc
            | 'member' 'lives' 'not'? 'in' ('city' '{city name}'|'state' '{state name}'|'country' '{country name}'|'zip' '{postal code}')
            | 'member' 'has' 'not'? ('gained' | 'lost') 'NUMBER'? (('tag' '{tag code}') |('points' '{level code}') | 'prize' '{prize code}') period? moment?
            | 'member' ('with' | 'without') (('tag' '{tag code}' (('in top'|'>=,<=,=,>,<')  ('NUMBER'|'PERCENT'))?) |('tag cluster' '{tagCluster code}' ('>=,<=,=,>,<'  'NUMBER')?)  | (('points'|'level') '{level code}' ('>=,<=,=,>,<' 'NUMBER')?) | ('prize' '{prize_code}'))
+           |  'member' ('with' | 'without') 'attribute' ('gender' ('equal to' ('male' | 'female' | 'other'))?
+                | 'age' ('>=,<=,=,>,<' 'NUMBER')?
+                | 'language' ('equal to'  '{language code}')?
+                | 'address' (( 'city' | 'state' | 'country' ) ('equal to'  '{value}')?)?
+                | 'address' ('street' | 'zip')
+                | 'first_name'
+                | 'last_name'
+                | 'alias'
+                | 'picture'
+                | 'external_id'
+                | ('email' | 'phone' | 'integration_id') ('with type' '{value}')?)
