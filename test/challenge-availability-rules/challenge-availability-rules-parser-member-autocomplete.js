@@ -29,8 +29,8 @@ describe('<Unit Test>', function () {
 				literalChoices = helper.extractLiterals(error);
 				otherChoices = helper.extractOthers(error);
 
-				should(error.expected.length).equal(3);
-				should(literalChoices).eql(['did', 'has']);
+				should(error.expected.length).equal(5);
+				should(literalChoices).eql(['did', 'has', 'with', 'without']);
 				should(otherChoices).eql(['whitespace']);
 			}
 		});
