@@ -153,7 +153,7 @@ member_condition
                moment_filter:filter3
            };
         }
-    /scope:"member" S+ type:"with" S+ condition:( member_attribute_condition)
+    /scope:"member" S+ type:"with" S+ condition:(member_attribute_condition)
     {
         return {
             scope:scope,

@@ -157,7 +157,30 @@ simple_rule
         };
 
         return theRule;
-    }/ member_condition
+    }
+    /scope:"member" S+ type:"with" S+ condition:(member_attribute_condition)
+    {
+        return {
+            scope:scope,
+            type:"with",
+            condition:{
+                type: null,
+                query: condition
+            }
+        };
+    }
+    /scope:"member" S+ type:"without" S+ condition:(member_attribute_condition)
+    {
+        return {
+            scope:scope,
+            type:"with",
+            condition:{
+                type: 'not',
+                query: condition
+            }
+        };
+    }
+    / member_condition
 /* (SG): NOT SUPPORTED YET
     / scope:"member" S* type:"level up" S* levelCode:levelCode conditions:(S* condition)* S* filter:withTag?
     {
@@ -170,6 +193,135 @@ simple_rule
         };
     }
 */
+
+member_attribute_condition
+= 'attribute' S+ condition:(gender_rules / age_rules  / language_rules /email_rules /phone_rules /integration_id_rules / address_rules)
+{
+    return  Object.assign({type:'attribute'},condition)
+}
+/type:"attribute" S+ attribute:('first name'/ 'last name'/ 'alias' / 'picture' / 'external id')
+{
+    return {
+        type: type,
+        attribute: attribute.replace(" ","_")
+    }
+}
+
+gender_rules
+= attribute:"gender" S+ "equal to" S+ value:GENDER
+{
+    return {
+        attribute: attribute,
+        operator: '=',
+        value: value
+    }
+}
+/attribute:"gender"
+{
+    return {
+        attribute: attribute
+    }
+}
+
+
+age_rules
+=attribute:"age" S+ value:operator_number
+{
+    return Object.assign({attribute: attribute},value)
+}
+/attribute:"age"
+{
+    return {
+        attribute: attribute
+    }
+}
+
+language_rules
+= attribute: 'language' S+ 'equal to' S+ code:languageCode
+{
+    return {
+        attribute: attribute,
+        operator: '=',
+        value: code
+    }
+}
+/ attribute: 'language'
+{
+    return {
+        attribute: attribute
+    }
+}
+
+address_rules
+= attribute: 'address' S+ name:('city'/'state'/'country') S+ 'equal to' S+ value:name
+{
+    return {
+        attribute: attribute,
+        name: name,
+        operator: '=',
+        value: value
+    }
+}
+/ attribute: 'address' S+ name:('city'/'state'/'country'/'street'/'zip')
+{
+    return {
+        attribute: attribute,
+        name: name,
+    }
+}
+/ attribute: 'address'
+{
+    return {
+        attribute: attribute
+    }
+}
+
+
+email_rules
+=  attribute: 'email' S+ 'with type' S+ value:name
+{
+    return {
+        attribute: attribute,
+        typeValue: value
+     }
+}
+/attribute: 'email'
+ {
+     return {
+         attribute: attribute
+      }
+ }
+
+phone_rules
+=  attribute: 'phone' S+ 'with type' S+ value:name
+{
+    return {
+        attribute: attribute,
+        typeValue: value
+     }
+}
+/attribute: 'phone'
+ {
+     return {
+         attribute: attribute
+      }
+ }
+
+integration_id_rules
+=  attribute: 'integration id' S+ 'with type' S+ value:name
+{
+    return {
+        attribute: attribute.replace(' ', '_'),
+        typeValue:value
+     }
+}
+/attribute: 'integration id'
+ {
+     return {
+         attribute: attribute.replace(' ', '_')
+      }
+ }
+
 
 
 simple_reward
@@ -652,6 +804,15 @@ withinTimeframe
         }
     }
 
+operator_number
+    = operator:OPERATOR S* value: NUMBER
+    {
+        return {
+            operator: operator,
+            value: value
+        };
+    }
+
 attribute_operator_value
     = attributeName:attributeName S* operator:OPERATOR S* value:(string / NUMBER)
     {
@@ -691,7 +852,7 @@ path
         return start + chars.join("");
     }
 
-name
+name "name"
     = chars:path_char+
     {
         return chars.join("");
@@ -716,6 +877,9 @@ actionCode "actionCode"
     = code
 
 challengeCode "challengeCode"
+    = code
+
+languageCode "languageCode"
     = code
 
 levelCode "levelCode"
@@ -953,3 +1117,6 @@ timeframe
 
 DAY_MOMENTS
     = moment:("night" / "morning" / "afternoon" / "evening")
+
+GENDER
+    = gender:('male' / 'female' / 'other')

@@ -29,8 +29,8 @@ describe('<Unit Test>', function () {
                 literalChoices = helper.extractLiterals(error);
                 otherChoices = helper.extractOthers(error);
 
-                should(error.expected.length).equal(7);
-                should(literalChoices).eql(['did', 'has', 'in geofence', 'level', 'point', 'tag']);
+                should(error.expected.length).equal(9);
+                should(literalChoices).eql(['did', 'has', 'in geofence', 'level', 'point', 'tag', 'with', 'without']);
                 should(otherChoices).eql([ 'whitespace']);
             }
         });
