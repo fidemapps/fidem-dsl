@@ -8,3 +8,14 @@ availability_rules
     | 'in zone' ('{zone code}' (',' '{zone code}')*)
     | 'challenge' '{challenge code}'
     | 'belongs to smartlist' ('{smartlist code}' (',' '{smartlist code}')*)
+    |  'member' ('with' | 'without') 'attribute' ('gender' ('equal to' ('male' | 'female' | 'other'))?
+        | 'age' ('>=,<=,=,>,<' 'NUMBER')?
+        | 'language' ('equal to'  '{language code}')?
+        | 'address' (( 'city' | 'state' | 'country' ) ('equal to'  '{value}')?)?
+        | 'address' ('street' | 'zip')
+        | 'first_name'
+        | 'last_name'
+        | 'alias'
+        | 'picture'
+        | 'external_id'
+        | ('email' | 'phone' | 'integration_id') ('with type' '{value}')?)
