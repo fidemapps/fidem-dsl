@@ -21,7 +21,7 @@ describe('<Unit Test>', function () {
             });
         });
 
-        it('member', () => {
+        it('member', function () {
 
 	        try {
 		        parser.parse('member ');
