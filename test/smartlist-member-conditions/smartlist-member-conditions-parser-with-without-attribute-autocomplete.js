@@ -1,13 +1,13 @@
 'use strict';
 
-const should = require('should'),
+var should = require('should'),
 	fs = require('fs'),
 	helper = require('../helper'),
 	PEG = require('pegjs');
-let literalChoices,
+var literalChoices,
 	otherChoices;
 
-let parser;
+var parser;
 
 describe('<Unit Test>', () => {
 	describe('Auto-Complete List Member Conditions "with attribute":', () => {
