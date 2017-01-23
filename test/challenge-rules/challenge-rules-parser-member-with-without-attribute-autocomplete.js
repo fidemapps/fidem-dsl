@@ -9,11 +9,11 @@ var literalChoices,
 
 var parser;
 
-describe('<Unit Test>', function() {
-	describe('Auto-Complete Challenge Availability Member Condition Rules "with attribute":', function() {
+describe('<Unit Test>', function () {
+	describe('Auto-Complete Challenge Availability Member Condition Rules "with attribute":', function () {
 
-		before((done) => {
-			fs.readFile(__dirname + '/../../dsl/challenge-rules-parser.pegjs', 'utf8', (err, data) => {
+		before(function (done) {
+			fs.readFile(__dirname + '/../../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
 				if (err) {
 					return done(err);
 				}
@@ -22,9 +22,9 @@ describe('<Unit Test>', function() {
 			});
 		});
 
-		describe('with/without attribute rule', function() {
+		describe('with/without attribute rule', function () {
 
-			it('member with attribute', function() {
+			it('member with attribute', function () {
 				try {
 					parser.parse('member with attribute ');
 				} catch (err) {
@@ -36,7 +36,7 @@ describe('<Unit Test>', function() {
 				}
 			});
 
-			it('member without attribute', function() {
+			it('member without attribute', function () {
 				try {
 					parser.parse('member without attribute ');
 				} catch (err) {
@@ -48,9 +48,9 @@ describe('<Unit Test>', function() {
 				}
 			});
 
-			describe('gender', function() {
+			describe('gender', function () {
 
-				it('member with atttribute gender', function() {
+				it('member with atttribute gender', function () {
 
 					try {
 						parser.parse('member with attribute gender s');
@@ -64,7 +64,7 @@ describe('<Unit Test>', function() {
 
 				});
 
-				it('member with atttribute gender equal to', function() {
+				it('member with atttribute gender equal to', function () {
 
 					try {
 						parser.parse('member with attribute gender equal to ');
@@ -78,7 +78,7 @@ describe('<Unit Test>', function() {
 
 				});
 
-				it('member with atttribute gender equal to male d', function() {
+				it('member with atttribute gender equal to male d', function () {
 
 					try {
 						parser.parse('member with attribute gender equal to male d');
@@ -94,9 +94,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('age', function() {
+			describe('age', function () {
 
-				it('member with attribute age s', function() {
+				it('member with attribute age s', function () {
 					try {
 						parser.parse('member with attribute age d');
 					} catch (err) {
@@ -108,7 +108,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute age =', function() {
+				it('member with attribute age =', function () {
 					try {
 						parser.parse('member with attribute age =');
 					} catch (err) {
@@ -120,7 +120,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute age = 4', function() {
+				it('member with attribute age = 4', function () {
 					try {
 						parser.parse('member with attribute age = 4 s');
 					} catch (err) {
@@ -134,9 +134,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('language', function() {
+			describe('language', function () {
 
-				it('member with attribute language', function() {
+				it('member with attribute language', function () {
 
 					try {
 						parser.parse('member without attribute language s');
@@ -150,7 +150,7 @@ describe('<Unit Test>', function() {
 
 				});
 
-				it('member with attribute language equal to', function() {
+				it('member with attribute language equal to', function () {
 
 					try {
 						parser.parse('member without attribute language equal to ');
@@ -164,7 +164,7 @@ describe('<Unit Test>', function() {
 
 				});
 
-				it('member with attribute language equal to Ca', function() {
+				it('member with attribute language equal to Ca', function () {
 
 					try {
 						parser.parse('member without attribute language equal to Ca d');
@@ -180,9 +180,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('address', function() {
+			describe('address', function () {
 
-				it('member with attribute address', function() {
+				it('member with attribute address', function () {
 					try {
 						parser.parse('member without attribute address s');
 					} catch (err) {
@@ -194,7 +194,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address city', function() {
+				it('member with attribute address city', function () {
 					try {
 						parser.parse('member without attribute address city s');
 					} catch (err) {
@@ -206,7 +206,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address city equal to', function() {
+				it('member with attribute address city equal to', function () {
 					try {
 						parser.parse('member without attribute address city equal to ');
 					} catch (err) {
@@ -218,7 +218,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address city equal to laval', function() {
+				it('member with attribute address city equal to laval', function () {
 					try {
 						parser.parse('member without attribute address city equal to laval s');
 					} catch (err) {
@@ -230,7 +230,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address state', function() {
+				it('member with attribute address state', function () {
 					try {
 						parser.parse('member without attribute address state s');
 					} catch (err) {
@@ -242,7 +242,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address state equal to', function() {
+				it('member with attribute address state equal to', function () {
 					try {
 						parser.parse('member without attribute address state equal to ');
 					} catch (err) {
@@ -254,7 +254,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address state equal to qc', function() {
+				it('member with attribute address state equal to qc', function () {
 					try {
 						parser.parse('member without attribute address state equal to qc s');
 					} catch (err) {
@@ -266,7 +266,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address country', function() {
+				it('member with attribute address country', function () {
 					try {
 						parser.parse('member without attribute address country s');
 					} catch (err) {
@@ -278,7 +278,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address country equal to', function() {
+				it('member with attribute address country equal to', function () {
 					try {
 						parser.parse('member without attribute address country equal to ');
 					} catch (err) {
@@ -290,7 +290,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address country equal to Canada', function() {
+				it('member with attribute address country equal to Canada', function () {
 					try {
 						parser.parse('member without attribute address country equal to Canada s');
 					} catch (err) {
@@ -302,7 +302,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address street', function() {
+				it('member with attribute address street', function () {
 					try {
 						parser.parse('member without attribute address street s');
 					} catch (err) {
@@ -314,7 +314,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute address zip', function() {
+				it('member with attribute address zip', function () {
 					try {
 						parser.parse('member without attribute address zip s');
 					} catch (err) {
@@ -328,9 +328,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('first name', function() {
+			describe('first name', function () {
 
-				it('member with attribute first name ', function() {
+				it('member with attribute first name ', function () {
 					try {
 						parser.parse('member without attribute first name s');
 					} catch (err) {
@@ -344,9 +344,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('last name', function() {
+			describe('last name', function () {
 
-				it('member with attribute last name ', function() {
+				it('member with attribute last name ', function () {
 					try {
 						parser.parse('member without attribute last name s');
 					} catch (err) {
@@ -360,9 +360,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('alias', function() {
+			describe('alias', function () {
 
-				it('member with attribute alias ', function() {
+				it('member with attribute alias ', function () {
 					try {
 						parser.parse('member without attribute alias s');
 					} catch (err) {
@@ -376,9 +376,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('picture', function() {
+			describe('picture', function () {
 
-				it('member with attribute picture ', function() {
+				it('member with attribute picture ', function () {
 					try {
 						parser.parse('member without attribute picture s');
 					} catch (err) {
@@ -392,9 +392,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('external id', function() {
+			describe('external id', function () {
 
-				it('member with attribute external id ', function() {
+				it('member with attribute external id ', function () {
 					try {
 						parser.parse('member without attribute external id s');
 					} catch (err) {
@@ -408,9 +408,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('email', function() {
+			describe('email', function () {
 
-				it('member with attribute email', function() {
+				it('member with attribute email', function () {
 					try {
 						parser.parse('member without attribute email s');
 					} catch (err) {
@@ -422,7 +422,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute email with type', function() {
+				it('member with attribute email with type', function () {
 					try {
 						parser.parse('member without attribute email with type ');
 					} catch (err) {
@@ -430,11 +430,11 @@ describe('<Unit Test>', function() {
 						otherChoices = helper.extractOthers(err);
 						should(err.expected.length).equal(2);
 						should(literalChoices).eql([]);
-						should(otherChoices).eql(['name','whitespace']);
+						should(otherChoices).eql(['name', 'whitespace']);
 					}
 				});
 
-				it('member without attribute email with type main', function() {
+				it('member without attribute email with type main', function () {
 					try {
 						parser.parse('member without attribute email with type main s');
 					} catch (err) {
@@ -448,9 +448,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('phone', function() {
+			describe('phone', function () {
 
-				it('member with attribute phone', function() {
+				it('member with attribute phone', function () {
 					try {
 						parser.parse('member without attribute phone s');
 					} catch (err) {
@@ -462,7 +462,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute phone with type', function() {
+				it('member with attribute phone with type', function () {
 					try {
 						parser.parse('member without attribute phone with type ');
 					} catch (err) {
@@ -470,11 +470,11 @@ describe('<Unit Test>', function() {
 						otherChoices = helper.extractOthers(err);
 						should(err.expected.length).equal(2);
 						should(literalChoices).eql([]);
-						should(otherChoices).eql(['name','whitespace']);
+						should(otherChoices).eql(['name', 'whitespace']);
 					}
 				});
 
-				it('member without attribute phone with type main', function() {
+				it('member without attribute phone with type main', function () {
 					try {
 						parser.parse('member without attribute phone with type main s');
 					} catch (err) {
@@ -488,9 +488,9 @@ describe('<Unit Test>', function() {
 
 			});
 
-			describe('integration id', function() {
+			describe('integration id', function () {
 
-				it('member with attribute integration id', function() {
+				it('member with attribute integration id', function () {
 					try {
 						parser.parse('member without attribute integration id s');
 					} catch (err) {
@@ -502,7 +502,7 @@ describe('<Unit Test>', function() {
 					}
 				});
 
-				it('member with attribute integration id with type', function() {
+				it('member with attribute integration id with type', function () {
 					try {
 						parser.parse('member without attribute integration id with type ');
 					} catch (err) {
@@ -510,11 +510,11 @@ describe('<Unit Test>', function() {
 						otherChoices = helper.extractOthers(err);
 						should(err.expected.length).equal(2);
 						should(literalChoices).eql([]);
-						should(otherChoices).eql(['name','whitespace']);
+						should(otherChoices).eql(['name', 'whitespace']);
 					}
 				});
 
-				it('member without attribute integration id with type main', function() {
+				it('member without attribute integration id with type main', function () {
 					try {
 						parser.parse('member without attribute integration id with type main s');
 					} catch (err) {
