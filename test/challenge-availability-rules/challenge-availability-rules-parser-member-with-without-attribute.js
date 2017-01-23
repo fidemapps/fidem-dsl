@@ -24,7 +24,7 @@ describe('<Unit Test>', function () {
 			describe('address', function () {
 
 				it('member with attribute address', function () {
-					let condition = parser.parse('member with attribute address');
+					var condition = parser.parse('member with attribute address');
 					should(condition).eql([
 							{
 								condition: {
@@ -39,7 +39,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute address', function () {
-					let condition = parser.parse('member without attribute address');
+					var condition = parser.parse('member without attribute address');
 					should(condition).eql([
 							{
 								scope: 'member',
@@ -54,7 +54,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute address street', function () {
-					let condition = parser.parse('member with attribute address street');
+					var condition = parser.parse('member with attribute address street');
 					should(condition).eql([
 							{
 								condition: {
@@ -70,7 +70,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute address zip', function () {
-					let condition = parser.parse('member with attribute address zip');
+					var condition = parser.parse('member with attribute address zip');
 					should(condition).eql([
 							{
 								condition: {
@@ -86,7 +86,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute address city', function () {
-					let condition = parser.parse('member with attribute address city');
+					var condition = parser.parse('member with attribute address city');
 					should(condition).eql([
 							{
 								condition: {
@@ -102,7 +102,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute address state', function () {
-					let condition = parser.parse('member with attribute address state');
+					var condition = parser.parse('member with attribute address state');
 					should(condition).eql([
 							{
 								condition: {
@@ -118,7 +118,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute address country', function () {
-					let condition = parser.parse('member with attribute address country');
+					var condition = parser.parse('member with attribute address country');
 					should(condition).eql([
 							{
 								condition: {
@@ -134,7 +134,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute address city equal to Laval', function () {
-					let condition = parser.parse('member with attribute address city equal to Laval');
+					var condition = parser.parse('member with attribute address city equal to Laval');
 					should(condition).eql([
 							{
 								condition: {
@@ -156,7 +156,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute address state equal to Qc', function () {
-					let condition = parser.parse('member with attribute address state equal to Qc');
+					var condition = parser.parse('member with attribute address state equal to Qc');
 					should(condition).eql([
 							{
 								condition: {
@@ -178,7 +178,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute address country equal to Canada', function () {
-					let condition = parser.parse('member with attribute address country equal to Canada');
+					var condition = parser.parse('member with attribute address country equal to Canada');
 					should(condition).eql([
 							{
 								condition: {
@@ -204,7 +204,7 @@ describe('<Unit Test>', function () {
 			describe('age', function () {
 
 				it('member with attribute age', function () {
-					let condition = parser.parse('member with attribute age');
+					var condition = parser.parse('member with attribute age');
 					should(condition).eql([
 							{
 								condition: {
@@ -219,7 +219,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute age', function () {
-					let condition = parser.parse('member without attribute age');
+					var condition = parser.parse('member without attribute age');
 					should(condition).eql([
 							{
 								condition: {
@@ -234,7 +234,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute age >= 6', function () {
-					let condition = parser.parse('member with attribute age >= 6');
+					var condition = parser.parse('member with attribute age >= 6');
 					should(condition).eql([
 							{
 								condition: {
@@ -258,7 +258,7 @@ describe('<Unit Test>', function () {
 			describe('alias', function () {
 
 				it('member with attribute alias', function () {
-					let condition = parser.parse('member with attribute alias');
+					var condition = parser.parse('member with attribute alias');
 					should(condition).eql([
 							{
 								condition: {
@@ -273,7 +273,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute alias', function () {
-					let condition = parser.parse('member without attribute alias');
+					var condition = parser.parse('member without attribute alias');
 					should(condition).eql([
 							{
 								condition: {
@@ -292,7 +292,7 @@ describe('<Unit Test>', function () {
 			describe('email', function () {
 
 				it('member with attribute email', function () {
-					let condition = parser.parse('member with attribute email');
+					var condition = parser.parse('member with attribute email');
 					should(condition).eql([
 							{
 								condition: {
@@ -307,7 +307,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute email', function () {
-					let condition = parser.parse('member without attribute email');
+					var condition = parser.parse('member without attribute email');
 					should(condition).eql([
 						{
 							condition: {
@@ -321,7 +321,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute email with type main', function () {
-					let condition = parser.parse('member with attribute email with type main');
+					var condition = parser.parse('member with attribute email with type main');
 					should(condition).eql([
 							{
 								condition: {
@@ -340,7 +340,7 @@ describe('<Unit Test>', function () {
 			describe('external id', function () {
 
 				it('member with attribute external id', function () {
-					let condition = parser.parse('member with attribute external id');
+					var condition = parser.parse('member with attribute external id');
 					should(condition).eql([
 							{
 								condition: {
@@ -355,7 +355,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute external id', function () {
-					let condition = parser.parse('member without attribute external id');
+					var condition = parser.parse('member without attribute external id');
 					should(condition).eql([
 							{
 								condition: {
@@ -374,7 +374,7 @@ describe('<Unit Test>', function () {
 			describe('first name', function () {
 
 				it('member with attribute first name', function () {
-					let condition = parser.parse('member with attribute first name');
+					var condition = parser.parse('member with attribute first name');
 					should(condition).eql([
 							{
 								condition: {
@@ -389,7 +389,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute first name', function () {
-					let condition = parser.parse('member without attribute first name');
+					var condition = parser.parse('member without attribute first name');
 					should(condition).eql([
 							{
 								condition: {
@@ -408,7 +408,7 @@ describe('<Unit Test>', function () {
 			describe('gender', function () {
 
 				it('member with attribute gender', function () {
-					let condition = parser.parse('member with attribute gender');
+					var condition = parser.parse('member with attribute gender');
 					should(condition).eql([
 							{
 								condition: {
@@ -423,7 +423,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute gender', function () {
-					let condition = parser.parse('member without attribute gender');
+					var condition = parser.parse('member without attribute gender');
 					should(condition).eql([
 							{
 								condition: {
@@ -438,7 +438,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute gender equal to male', function () {
-					let condition = parser.parse('member with attribute gender equal to male');
+					var condition = parser.parse('member with attribute gender equal to male');
 					should(condition).eql([
 							{
 								condition: {
@@ -458,7 +458,7 @@ describe('<Unit Test>', function () {
 			describe('integration id', function () {
 
 				it('member with attribute integration id', function () {
-					let condition = parser.parse('member with attribute integration id');
+					var condition = parser.parse('member with attribute integration id');
 					should(condition).eql([
 							{
 								condition: {
@@ -473,7 +473,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute integration id', function () {
-					let condition = parser.parse('member without attribute integration id');
+					var condition = parser.parse('member without attribute integration id');
 					should(condition).eql([
 							{
 								condition: {
@@ -489,7 +489,7 @@ describe('<Unit Test>', function () {
 
 				it('member with attribute integration id with type thisType', function () {
 
-					let condition = parser.parse('member with attribute integration id with type thisType');
+					var condition = parser.parse('member with attribute integration id with type thisType');
 					should(condition).eql([
 							{
 								condition: {
@@ -508,7 +508,7 @@ describe('<Unit Test>', function () {
 			describe('language', function () {
 
 				it('member with attribute language', function () {
-					let condition = parser.parse('member with attribute language');
+					var condition = parser.parse('member with attribute language');
 					should(condition).eql([
 							{
 								condition: {
@@ -523,7 +523,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute language', function () {
-					let condition = parser.parse('member without attribute language');
+					var condition = parser.parse('member without attribute language');
 					should(condition).eql([
 							{
 								condition: {
@@ -538,7 +538,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute language equal to ca', function () {
-					let condition = parser.parse('member with attribute language equal to ca');
+					var condition = parser.parse('member with attribute language equal to ca');
 					should(condition).eql([
 							{
 								condition: {
@@ -557,7 +557,7 @@ describe('<Unit Test>', function () {
 			describe('last name', function () {
 
 				it('member with attribute last name', function () {
-					let condition = parser.parse('member with attribute last name');
+					var condition = parser.parse('member with attribute last name');
 					should(condition).eql([
 							{
 								condition: {
@@ -572,7 +572,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute last name', function () {
-					let condition = parser.parse('member without attribute last name');
+					var condition = parser.parse('member without attribute last name');
 					should(condition).eql([
 						{
 							condition: {
@@ -590,7 +590,7 @@ describe('<Unit Test>', function () {
 			describe('phone', function () {
 
 				it('member with attribute phone', function () {
-					let condition = parser.parse('member with attribute phone');
+					var condition = parser.parse('member with attribute phone');
 					should(condition).eql([
 						{
 							condition: {
@@ -604,7 +604,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute phone', function () {
-					let condition = parser.parse('member without attribute phone');
+					var condition = parser.parse('member without attribute phone');
 					should(condition).eql([
 							{
 								condition: {
@@ -619,7 +619,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member with attribute phone with type main', function () {
-					let condition = parser.parse('member with attribute phone with type main');
+					var condition = parser.parse('member with attribute phone with type main');
 					should(condition).eql([
 							{
 								condition: {
@@ -638,7 +638,7 @@ describe('<Unit Test>', function () {
 			describe('picture', function () {
 
 				it('member with attribute picture', function () {
-					let condition = parser.parse('member with attribute picture');
+					var condition = parser.parse('member with attribute picture');
 					should(condition).eql([
 							{
 								condition: {
@@ -653,7 +653,7 @@ describe('<Unit Test>', function () {
 				});
 
 				it('member without attribute picture', function () {
-					let condition = parser.parse('member without attribute picture');
+					var condition = parser.parse('member without attribute picture');
 					should(condition).eql([
 							{
 								condition: {
