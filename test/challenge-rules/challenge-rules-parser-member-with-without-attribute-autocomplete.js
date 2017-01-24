@@ -26,8 +26,8 @@ describe('<Unit Test>', function () {
 				} catch (err) {
 					literalChoices = helper.extractLiterals(err);
 					otherChoices = helper.extractOthers(err);
-					should(err.expected.length).equal(13);
-					should(literalChoices).eql(['address', 'age', 'alias', 'email', 'external id', 'first name', 'gender', 'integration id', 'language', 'last name', 'phone', 'picture']);
+					should(err.expected.length).equal(14);
+					should(literalChoices).eql(['address', 'age', 'alias', 'birthday', 'email', 'external id', 'first name', 'gender', 'integration id', 'language', 'last name', 'phone', 'picture']);
 					should(otherChoices).eql(['whitespace']);
 				}
 			});
@@ -38,8 +38,8 @@ describe('<Unit Test>', function () {
 				} catch (err) {
 					literalChoices = helper.extractLiterals(err);
 					otherChoices = helper.extractOthers(err);
-					should(err.expected.length).equal(13);
-					should(literalChoices).eql(['address', 'age', 'alias', 'email', 'external id', 'first name', 'gender', 'integration id', 'language', 'last name', 'phone', 'picture']);
+					should(err.expected.length).equal(14);
+					should(literalChoices).eql(['address', 'age', 'alias', 'birthday', 'email', 'external id', 'first name', 'gender', 'integration id', 'language', 'last name', 'phone', 'picture']);
 					should(otherChoices).eql(['whitespace']);
 				}
 			});
@@ -130,6 +130,45 @@ describe('<Unit Test>', function () {
 
 			});
 
+			describe('birthday', function () {
+
+				it('member with attribute birthday s', function () {
+					try {
+						parser.parse('member with attribute birthday d');
+					} catch (err) {
+						literalChoices = helper.extractLiterals(err);
+						otherChoices = helper.extractOthers(err);
+						should(err.expected.length).equal(4);
+						should(literalChoices).eql(['and','give', 'is']);
+						should(otherChoices).eql(['whitespace']);
+					}
+				});
+
+				it('member with attribute birthday is ', function () {
+					try {
+						parser.parse('member with attribute birthday is ');
+					} catch (err) {
+						literalChoices = helper.extractLiterals(err);
+						otherChoices = helper.extractOthers(err);
+						should(err.expected.length).equal(2);
+						should(literalChoices).eql(['today']);
+						should(otherChoices).eql(['whitespace']);
+					}
+				});
+
+				it('member with attribute birthday is today', function () {
+					try {
+						parser.parse('member with attribute birthday is today l');
+					} catch (err) {
+						literalChoices = helper.extractLiterals(err);
+						otherChoices = helper.extractOthers(err);
+						should(err.expected.length).equal(3);
+						should(literalChoices).eql(['and', 'give']);
+						should(otherChoices).eql(['whitespace']);
+					}
+				});
+			});
+
 			describe('language', function () {
 
 				it('member with attribute language', function () {
@@ -155,7 +194,7 @@ describe('<Unit Test>', function () {
 						otherChoices = helper.extractOthers(err);
 						should(err.expected.length).equal(2);
 						should(literalChoices).eql([]);
-						should(otherChoices).eql(['languageCode', 'whitespace']);
+						should(otherChoices).eql(['language code', 'whitespace']);
 					}
 
 				});

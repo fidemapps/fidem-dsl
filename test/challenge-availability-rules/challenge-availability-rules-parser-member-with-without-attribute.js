@@ -251,6 +251,63 @@ describe('<Unit Test>', function () {
 
 			});
 
+			describe('birthday', function () {
+
+				it('member with attribute birthday', function () {
+					var condition = parser.parse('member with attribute birthday');
+					should(condition).eql([
+						{
+							condition: {
+								query: {
+									type: 'attribute',
+									attribute: 'birthday'
+								},
+								type: null
+							},
+							scope: 'member',
+							type: 'with'
+						}
+					])
+				});
+
+				it('member without attribute birthday', function () {
+					var condition = parser.parse('member without attribute birthday');
+					should(condition).eql([
+						{
+							condition: {
+								query: {
+									type: 'attribute',
+									attribute: 'birthday'
+								},
+								type: 'not'
+							},
+							scope: 'member',
+							type: 'with'
+						}
+					])
+				});
+
+				it('member with attribute birthday is today', function () {
+					var condition = parser.parse('member with attribute birthday is today');
+					should(condition).eql([
+						{
+							condition: {
+								query: {
+									type: 'attribute',
+									attribute: 'birthday',
+									operator: '=',
+									value: 'today'
+								},
+								type: null
+							},
+							scope: 'member',
+							type: 'with'
+						}
+					])
+				})
+
+			});
+
 			describe('alias', function () {
 
 				it('member with attribute alias', function () {

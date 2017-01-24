@@ -220,7 +220,7 @@ simple_rule
 */
 
 member_attribute_condition
-= 'attribute' S+ condition:(gender_rules / age_rules  / language_rules /email_rules /phone_rules /integration_id_rules / address_rules)
+= 'attribute' S+ condition:(gender_rules / age_rules /birthday_rules / language_rules /email_rules /phone_rules /integration_id_rules / address_rules)
 {
     return  Object.assign({type:'attribute'},condition)
 }
@@ -255,6 +255,22 @@ age_rules
     return Object.assign({attribute: attribute},value)
 }
 /attribute:"age"
+{
+    return {
+        attribute: attribute
+    }
+}
+
+birthday_rules
+= attribute:'birthday' S+ "is" S+ value:"today"
+{
+    return {
+        attribute: attribute,
+        operator: '=',
+        value: value
+    }
+}
+/attribute:"birthday"
 {
     return {
         attribute: attribute
@@ -904,7 +920,7 @@ actionCode "actionCode"
 challengeCode "challengeCode"
     = code
 
-languageCode "languageCode"
+languageCode "language code"
     = firstLetter:[a-z] secondLetter:[a-z]
     {
         return firstLetter + secondLetter
