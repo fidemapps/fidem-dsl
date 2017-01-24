@@ -1,9 +1,8 @@
 'use strict';
 
 var should = require('should'),
-	fs = require('fs'),
-	helper = require('../helper'),
-	PEG = require('pegjs');
+	helper = require('../helper');
+
 var literalChoices,
 	otherChoices;
 
@@ -13,12 +12,9 @@ describe('<Unit Test>', function () {
 	describe('Auto-Complete Challenge Availability Member Condition Rules "with attribute":', function () {
 
 		before(function (done) {
-			fs.readFile(__dirname + '/../../dsl/challenge-availability-rules-parser.pegjs', 'utf8', function (err, data) {
-				if (err) {
-					return done(err);
-				}
-				parser = PEG.buildParser(data);
-				done();
+			return helper.challengeAvailabilityParser().then(function(newParser){
+				parser = newParser;
+				done()
 			});
 		});
 
@@ -164,10 +160,10 @@ describe('<Unit Test>', function () {
 
 				});
 
-				it('member with attribute language equal to Ca', function () {
+				it('member with attribute language equal to ca', function () {
 
 					try {
-						parser.parse('member without attribute language equal to Ca d');
+						parser.parse('member without attribute language equal to ca d');
 					} catch (err) {
 						literalChoices = helper.extractLiterals(err);
 						otherChoices = helper.extractOthers(err);

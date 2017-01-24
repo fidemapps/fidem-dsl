@@ -1,22 +1,19 @@
 'use strict';
 
 var should = require('should'),
-    fs = require('fs'),
-    PEG = require('pegjs');
+	helper = require('../helper');
 
 var parser;
 
 describe('<Unit Test>', function () {
     describe('Rules:', function () {
-        before(function (done) {
-            fs.readFile(__dirname + '/../../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
-                if (err) {
-                    return done(err);
-                }
-                parser = PEG.buildParser(data);
-                done();
-            });
-        });
+
+	    before(function (done) {
+		    return helper.challengeParser().then(function(newParser){
+			    parser = newParser;
+			    done()
+		    });
+	    });
 
         describe('Should parse rules with system condition', function () {
             it('action TEST in geofence CODE1,CODE2 on 2016-04-04 give 1 points', function (done) {

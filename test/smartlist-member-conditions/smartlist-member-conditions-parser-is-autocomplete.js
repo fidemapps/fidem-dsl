@@ -1,9 +1,7 @@
 'use strict';
 
 var should = require('should'),
-  fs = require('fs'),
-  helper = require('../helper'),
-  PEG = require('pegjs');
+	helper = require('../helper');
 
 var parser;
 
@@ -11,15 +9,12 @@ describe('<Unit Test>', function () {
   describe('Auto-Complete List Member Conditions "is":', function () {
     var literalChoices;
     var otherChoices;
-    before(function (done) {
-      fs.readFile(__dirname + '/../../dsl/smartlist-member-conditions-parser.pegjs', 'utf8', function (err, data) {
-        if (err) {
-          return done(err);
-        }
-        parser = PEG.buildParser(data);
-        done();
-      });
-    });
+	  before(function (done) {
+		  return helper.smartlistParser().then(function(newParser){
+			  parser = newParser;
+			  done()
+		  });
+	  });
 
     describe('is rule', function () {
       var literalChoices;

@@ -1,8 +1,7 @@
 'use strict';
 
 var should = require('should'),
-	fs = require('fs'),
-	PEG = require('pegjs');
+	helper = require('../helper');
 
 var parser;
 
@@ -10,12 +9,9 @@ describe('<Unit Test>', function () {
 	describe('Availability Member Condition Rules with/without attribute:', function () {
 
 		before(function (done) {
-			fs.readFile(__dirname + '/../../dsl/challenge-availability-rules-parser.pegjs', 'utf8', function (err, data) {
-				if (err) {
-					return done(err);
-				}
-				parser = PEG.buildParser(data);
-				done();
+			return helper.challengeAvailabilityParser().then(function(newParser){
+				parser = newParser;
+				done()
 			});
 		});
 

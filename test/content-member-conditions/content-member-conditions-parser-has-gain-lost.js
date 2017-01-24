@@ -1,22 +1,20 @@
 'use strict';
 
 var should = require('should'),
-    fs = require('fs'),
-    PEG = require('pegjs');
+	helper = require('../helper');
 
 var parser;
 
 describe('<Unit Test>', function () {
     describe('Content Member Conditions has gain/lost:', function () {
-        before(function (done) {
-            fs.readFile(__dirname + '/../../dsl/content-member-conditions-parser.pegjs', 'utf8', function (err, data) {
-                if (err) {
-                    return done(err);
-                }
-                parser = PEG.buildParser(data);
-                done();
-            });
-        });
+
+	    before(function (done) {
+		    return helper.contentParser().then(function(newParser){
+			    parser = newParser;
+			    done()
+		    });
+	    });
+
         describe('gained/lost',function(){
 
             describe('tag',function(){

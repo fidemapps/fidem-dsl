@@ -1,9 +1,8 @@
 'use strict';
 
 var should = require('should'),
-    fs = require('fs'),
-    helper = require('../helper'),
-    PEG = require('pegjs');
+    helper = require('../helper');
+
 
 var parser;
 
@@ -12,15 +11,12 @@ describe('<Unit Test>', function () {
         var literalChoices;
         var otherChoices;
 
-        before(function (done) {
-            fs.readFile(__dirname + '/../../dsl/challenge-rules-parser.pegjs', 'utf8', function (err, data) {
-                if (err) {
-                    return done(err);
-                }
-                parser = PEG.buildParser(data);
-                done();
-            });
-        });
+	    before(function (done) {
+		    return helper.challengeParser().then(function(newParser){
+			    parser = newParser;
+			    done()
+		    });
+	    });
 
         it('should give the expected choice after action', function () {
             try {

@@ -905,7 +905,10 @@ challengeCode "challengeCode"
     = code
 
 languageCode "languageCode"
-    = code
+    = firstLetter:[a-z] secondLetter:[a-z]
+    {
+        return firstLetter + secondLetter
+    }
 
 levelCode "levelCode"
     = code

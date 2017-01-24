@@ -662,7 +662,10 @@ levelCode "levelCode"
     = code
 
 languageCode "languageCode"
-    = code
+    = firstLetter:[a-z] secondLetter:[a-z]
+    {
+        return firstLetter + secondLetter
+    }
 
 segmentCode "segmentCode"
     = code
