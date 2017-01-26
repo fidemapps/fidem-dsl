@@ -185,6 +185,30 @@ describe('<Unit Test>', function () {
 		        ]);
 	        });
 
+	        it('member did action ouvrir-app between 2016-12-30 and 2016-04-30', function(){
+		        var condition = parser.parse("member did action ouvrir-app between 2016-12-30 and 2016-04-30");
+		        should(condition).eql([
+			        {
+				        "condition": {
+					        "code": "ouvrir-app",
+					        "conditions": null,
+					        "type": null
+				        },
+				        "moment_filter": null,
+				        "occurrence_filter": null,
+				        "period_filter": {
+					        "dates": [
+						        "2016-12-30T00:00:00",
+						        "2016-05-01T00:00:00"
+					        ],
+					        "type": "between"
+				        },
+				        "scope": "member",
+				        "type": "did"
+			        }
+		        ]);
+	        });
+
 	        it('member did action ouvrir-app between 2016-12-30 and 2016-02-28', function(){
 		        var condition = parser.parse("member did action ouvrir-app between 2016-12-30 and 2016-02-28");
 		        should(condition).eql([
