@@ -190,7 +190,53 @@ describe('<Unit Test>', function () {
 					        periodFilter: {
 						        dates: [
 							        "2016-12-30 00:00",
+							        "2016-02-29 00:00"
+						        ],
+						        type: "between"
+					        },
+					        query: {
+						        actionCode: "ouvrir-app",
+						        type: "action"
+					        },
+					        scope: "member",
+					        type: "did"
+				        }
+			        ]
+		        });
+	        });
+
+	        it('member did action ouvrir-app between 2016-12-30 and 2016-02-29', function(){
+		        var condition = parser.parse("member did action ouvrir-app between 2016-12-30 and 2016-02-29");
+		        should(condition).eql({
+			        "conditions": [
+				        {
+					        periodFilter: {
+						        dates: [
+							        "2016-12-30 00:00",
 							        "2016-03-01 00:00"
+						        ],
+						        type: "between"
+					        },
+					        query: {
+						        actionCode: "ouvrir-app",
+						        type: "action"
+					        },
+					        scope: "member",
+					        type: "did"
+				        }
+			        ]
+		        });
+	        });
+
+	        it('member did action ouvrir-app between 2016-12-30 and 2017-02-28', function(){
+		        var condition = parser.parse("member did action ouvrir-app between 2016-12-30 and 2017-02-28");
+		        should(condition).eql({
+			        "conditions": [
+				        {
+					        periodFilter: {
+						        dates: [
+							        "2016-12-30 00:00",
+							        "2017-03-01 00:00"
 						        ],
 						        type: "between"
 					        },

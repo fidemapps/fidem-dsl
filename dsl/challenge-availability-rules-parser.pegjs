@@ -832,6 +832,10 @@ date_year_month_day_short
 {
     return year + '-' + month + '-' + day
 }
+/year: date_full_year&{ return parseInt(year)%4 === 0 } "-" month:'02' "-" day:'29'
+{
+    return year + '-' + month + '-' + day
+}
 
 time_hour_12
     = $([0] DIGIT) / $([1] [0-2]) / $(DIGIT)
@@ -926,11 +930,21 @@ DATE_AFTER "date (YYYY-MM-DD)"
     //February case
     if(m === 2){
 
-        if(d >= 28){
-            d="01";
-            m++;
+        //Leap year case
+        if(y % 4 === 0){
+            if(d >= 29){
+                d="01";
+                m++;
+            }else{
+                d++;
+            }
         }else{
-            d++;
+            if(d >= 28){
+                d="01";
+                m++;
+            }else{
+                d++;
+            }
         }
 
     }else{
