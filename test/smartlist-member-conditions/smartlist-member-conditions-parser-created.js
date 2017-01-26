@@ -37,7 +37,7 @@ describe('<Unit Test>', function () {
                     conditions: [
                         {
 
-                            periodFilter: { date: '2014-01-02 00:00', type: 'after' },
+                            periodFilter: { date: '2014-01-01 00:00', type: 'after' },
                             scope: 'member',
                             type: 'created'
                         }

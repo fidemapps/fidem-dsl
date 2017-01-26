@@ -575,7 +575,7 @@ period_filter
             dates:[date]
         }
     }
-    /type:"after" S+ date:DATE_TIME_AFTER
+    /type:"after" S+ date:DATE_TIME
     {
         return {
             type:type,
@@ -991,6 +991,22 @@ HASH "hash"
 date_full_year
     = $(DIGIT DIGIT DIGIT DIGIT)
 
+date_year_month_day_long
+=year: date_full_year "-" month:('01' / '03' / '05'/ '07'/ '08'/ '10'/ '12') "-" day: ($([0-2] DIGIT) / $([3] [0-1]))
+{
+    return year + '-' + month + '-' + day
+}
+
+date_year_month_day_short
+=year: date_full_year "-" month:('04' / '06' / '09'/ '11') "-" day: ($([0-2] DIGIT) / $([3] [0]))
+{
+    return year + '-' + month + '-' + day
+}
+/year: date_full_year "-" month:'02' "-" day:($([0-1] DIGIT) / $([2] [0-8]))
+{
+    return year + '-' + month + '-' + day
+}
+
 date_month
     = ($([0] DIGIT) / $([1] [0-2]))
 
@@ -1046,17 +1062,16 @@ DATE_TIME_AFTER
 }
 
 DATE "date (YYYY-MM-DD)"
-= year:date_full_year "-" month:date_month "-" day:date_day
-{
-    return year + "-" + month + "-" + day;
-}
+= (date_year_month_day_long / date_year_month_day_short)
+
 
 DATE_AFTER "date (YYYY-MM-DD)"
-= year:date_full_year "-" month:date_month "-" day:date_day
+= date:date_year_month_day_long
 {
-    var d=parseInt(day);
-    var m=parseInt(month);
-    var y=parseInt(year);
+    var splittedDate = date.split('-');
+    var y=parseInt(splittedDate[0]);
+    var m=parseInt(splittedDate[1]);
+    var d=parseInt(splittedDate[2]);
 
     if(d >= 31){
         d="01";
@@ -1064,9 +1079,43 @@ DATE_AFTER "date (YYYY-MM-DD)"
     }else{
         d++;
     }
-    if(m >= 12){
+
+    //This is to account for the december 31 case
+    if(m > 12){
         m="01"
         y++;
+    }
+
+    return y + "-" + (m.toString().length === 1? "0"+m:m) + "-" + (d.toString().length === 1? "0"+d:d);
+
+}
+/ date:date_year_month_day_short
+{
+    var splittedDate = date.split('-');
+    var y=parseInt(splittedDate[0]);
+    var m=parseInt(splittedDate[1]);
+    var d=parseInt(splittedDate[2]);
+
+    //February case
+    if(m === 2){
+
+        if(d >= 28){
+            d="01";
+            m++;
+        }else{
+            d++;
+        }
+
+    }else{
+
+        if(d >= 30){
+            d="01";
+            m++;
+        }else{
+            d++;
+        }
+
+
     }
 
     return y + "-" + (m.toString().length === 1? "0"+m:m) + "-" + (d.toString().length === 1? "0"+d:d);
@@ -1074,9 +1123,9 @@ DATE_AFTER "date (YYYY-MM-DD)"
 
 
 DATE_TIME_STRING "datetime (YYYY-MM-DDThh:mm:ss)"
-    = year:date_full_year "-" month:date_month "-" day:date_day "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
+    = date:(date_year_month_day_long / date_year_month_day_short) "T" hour:time_hour_24 ":" minute:time_minute ":" second:time_second
     {
-        return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
+        return date + "T" + hour + ":" + minute + ":" + second;
     }
 
 WEEK_DAY
