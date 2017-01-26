@@ -1,4 +1,4 @@
-availability_rules
+achallenge_availability_rules
     ::= 'member' ( 'did' ('not'? ( 'action' '{action code}' | 'check-in'  '{check-in code}') (( 'with' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<' ) '{attribute value}' ) ( '&' '{attribute name}' ( '>=' | '<=' | '=' | '>' | '<') '{attribute value}' )*)? |'something'|'nothing') ) OCCURRENCE_FILTER? PERIOD_FILTER? MOMENT_FILTER?
     | 'member' 'has' 'not'? 'completed' '{challenge code}'  OCCURRENCE_FILTER? PERIOD_FILTER? MOMENT_FILTER?
     | 'member' 'has' 'not'? (('gained' | 'lost') 'NUMBER'?  ('points' '{level code}' | 'prize' '{prize code}'|'tag' '{tag code}') ) OCCURRENCE_FILTER? PERIOD_FILTER? MOMENT_FILTER?
@@ -14,9 +14,9 @@ availability_rules
         | 'language' ('equal to'  '{language code}')?
         | 'address' (( 'city' | 'state' | 'country' ) ('equal to'  '{value}')?)?
         | 'address' ('street' | 'zip')
-        | 'first_name'
-        | 'last_name'
+        | 'first name'
+        | 'last name'
         | 'alias'
         | 'picture'
-        | 'external_id'
-        | ('email' | 'phone' | 'integration_id') ('with type' '{value}')?)
+        | 'external id'
+        | ('email' | 'phone' | 'integration id') ('with type' '{value}')?)

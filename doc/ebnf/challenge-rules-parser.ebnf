@@ -13,9 +13,9 @@ challenge_reward_rules
                 | 'language' ('equal to'  '{language code}')?
                 | 'address' (( 'city' | 'state' | 'country' ) ('equal to'  '{value}')?)?
                 | 'address' ('street' | 'zip')
-                | 'first_name'
-                | 'last_name'
+                | 'first name'
+                | 'last name'
                 | 'alias'
                 | 'picture'
-                | 'external_id'
-                | ('email' | 'phone' | 'integration_id') ('with type' '{value}')?))+ ( 'give'  'NUMBER'  '{reward code}')+
+                | 'external id'
+                | ('email' | 'phone' | 'integration id') ('with type' '{value}')?))+ ( 'give'  'NUMBER'  '{reward code}')+
