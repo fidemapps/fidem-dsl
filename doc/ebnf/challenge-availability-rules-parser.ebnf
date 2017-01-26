@@ -10,6 +10,7 @@ availability_rules
     | 'belongs to smartlist' ('{smartlist code}' (',' '{smartlist code}')*)
     |  'member' ('with' | 'without') 'attribute' ('gender' ('equal to' ('male' | 'female' | 'other'))?
         | 'age' ('>=,<=,=,>,<' 'NUMBER')?
+        | 'birthday' ('is' 'today')?
         | 'language' ('equal to'  '{language code}')?
         | 'address' (( 'city' | 'state' | 'country' ) ('equal to'  '{value}')?)?
         | 'address' ('street' | 'zip')
