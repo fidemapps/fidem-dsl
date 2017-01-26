@@ -969,17 +969,17 @@ date_full_year "year"
 = $(DIGIT DIGIT DIGIT DIGIT)
 
 date_year_month_day_long
-=year: date_full_year "-" month:('01' / '03' / '05'/ '07'/ '08'/ '10'/ '12') "-" day: ($([0-2] DIGIT) / $([3] [0-1]))
+=year: date_full_year "-" month:('01' / '03' / '05'/ '07'/ '08'/ '10'/ '12') "-" day: ($([0] [1-9]) / $([1-2] DIGIT) / $([3] [0-1]))
 {
     return year + '-' + month + '-' + day
 }
 
 date_year_month_day_short
-=year: date_full_year "-" month:('04' / '06' / '09'/ '11') "-" day: ($([0-2] DIGIT) / $([3] [0]))
+=year: date_full_year "-" month:('04' / '06' / '09'/ '11') "-" day: ($([0] [1-9]) / $([1-2] DIGIT) / $([3] [0]))
 {
     return year + '-' + month + '-' + day
 }
-/year: date_full_year "-" month:'02' "-" day:($([0-1] DIGIT) / $([2] [0-8]))
+/year: date_full_year "-" month:'02' "-" day:($([0] [1-9]) / $([1] DIGIT) /  $([2] [0-8]))
 {
     return year + '-' + month + '-' + day
 }
