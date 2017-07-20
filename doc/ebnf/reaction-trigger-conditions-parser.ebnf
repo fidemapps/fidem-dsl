@@ -1,2 +1,0 @@
-reaction_trigger_conditions
-         ::= ('NUMBER'  ('minutes' | 'hours' | 'days' | 'weeks' | 'months' | 'years')  ( 'after' | 'before' )  ( 'start' | 'end' ))+ 'of'  '{event code}'

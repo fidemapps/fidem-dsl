@@ -1,4 +1,0 @@
-reaction_actions
-         ::= 'give reward'  'NUMBER'  '{reward code}'  'from program'  '{program code}'  'to list'  '{smartlist code}'
-           | 'send message template'  '{template code}'  (('to list'  '{smartlist code}') | ('to emails'  '{email}' (  ','  '{email}' )*))
-           | 'send message text'  'STRING'  'with subject'  'STRING'  (('to list'  '{smartlist code}') | ('to emails'  '{email}' (  ','  '{email}' )*))
