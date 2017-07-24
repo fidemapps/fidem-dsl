@@ -23,6 +23,10 @@ grunt
 ```
 
 ```
+git commit
+```
+
+```
 mversion patch -m
 ```
 
@@ -37,6 +41,10 @@ git push --tags
 ```
 npm publish .
 ```
+
+~~~
+Note: pegjs global version must be 0.9.0
+~~~
 
 ## License
 
