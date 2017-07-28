@@ -1,6 +1,6 @@
 {
   "name": "fidem-dsl",
-  "version": "1.6.1",
+  "version": "1.6.0",
   "description": "Fidem DSL and language parsers.",
   "author": "Lune Rouge 360 Inc.",
   "license": "UNLICENSED",
