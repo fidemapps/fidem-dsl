@@ -21,6 +21,9 @@ module.exports = function (grunt) {
       'pegjs-challenge-availability-rules': {
         command: 'pegjs ./dsl/challenge-availability-rules-parser.pegjs ./lib/challenge-availability-rules-parser.js'
       },
+      'pegjs-content-member-conditions': {
+        command: 'pegjs ./dsl/content-member-conditions-parser.pegjs ./lib/content-member-conditions-parser.js'
+      },
       'pegjs-smartlist-member-conditions': {
         command: 'pegjs ./dsl/smartlist-member-conditions-parser.pegjs ./lib/smartlist-member-conditions-parser.js'
       },
@@ -57,6 +60,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['pegjs', 'browserify', 'uglify']);
   grunt.registerTask('single-test', ['mochaTest:single']);
-  grunt.registerTask('pegjs', ['shell:pegjs-challenge-rules', 'shell:pegjs-challenge-availability-rules', 'shell:pegjs-smartlist-member-conditions', 'shell:pegjs-smartlist-limit']);
+  grunt.registerTask('pegjs', ['shell:pegjs-challenge-rules', 'shell:pegjs-challenge-availability-rules', 'shell:pegjs-content-member-conditions', 'shell:pegjs-smartlist-member-conditions', 'shell:pegjs-smartlist-limit']);
 
 };
